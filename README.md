@@ -1,0 +1,2 @@
+# cookiedoc
+cGENIE.cookie manual
