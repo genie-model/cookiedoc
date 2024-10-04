@@ -20,9 +20,9 @@
 \vspace{2mm}
 
 \begin{itemize}
-\item \textbf{(cGENIE.)muffin} is a \uline{model}. Models ARE NOT the ‘real World’. (Don’t get confused!)
-\item The  low resolution (for a 3-D ocean circulation model) of the \textbf{muffin} model limits its applicability for very short time-scale problems.\ In configurations not incorporating the PLASIM atmospheric model,  there is no atmospheric dynamics or inter-annual variability in the ocean-atmosphere coupled system.
-\item \textbf{muffin} is best thought of as a ‘discovery and exploring’ tool for learning how the Earth system (might) work rather than necessarily as a detailed ‘simulation’ tool.
+\item \textbf{(cGENIE.)cookie} is a \uline{model}. Models ARE NOT the ‘real World’. (Don’t get confused!)
+\item The  low resolution (for a 3-D ocean circulation model) of the \textbf{cookie} model limits its applicability for very short time-scale problems.\ In configurations not incorporating the \textbf{PLASIM} atmospheric GCM component, there is no atmospheric dynamics or inter-annual variability in the ocean-atmosphere coupled system.
+\item \textbf{cookie} is best thought of as a ‘discovery and exploring’ tool for learning how the Earth system (might) work rather than necessarily as a detailed ‘simulation’ tool.
 \item It is possible to have fun. (Once the installation pain is over ...)
 \end{itemize}
 
@@ -45,13 +45,13 @@ This is because you will forget immediately each time! ;)
 
 \subsection*{Software version naming conventions}
 
-You will be using the current version of the cGENIE Earth system model, code-named ‘\textbf{muffin}’ (if \textbf{Apple} can have ‘Leopard’, ‘Lion’ etc., I can haz a baked goods version naming convention). The documentation may not be fully consistent in this respect … and you may need to translate occurrences of e.g. a directory named ‘\texttt{cgenie}’ to ‘\texttt{cgenie.muffin}’. For brevity, the \textbf{cGENIE.muffin} model will be referenced by just ‘\textbf{muffin}’.
+You will be using the current version of the cGENIE Earth system model, code-named ‘\textbf{cookie}’ (if \textbf{Apple} can have ‘Leopard’, ‘Lion’ etc., I can haz a baked goods version naming convention). The documentation may not be fully consistent in this respect … and you may need to translate occurrences of e.g. a directory named ‘\texttt{cgenie}’ to ‘\texttt{cgenie.cookie}’. For brevity, the \textbf{cGENIE.cookie} model will be referenced by just ‘\textbf{cookie}’.
 
 %------------------------------------------------
 
 \subsection*{linux ...}
 
-The \textbf{(cGENIE.)muffin} model currently natively compiles and runs only under \textbf{linux}\footnote{For some of you, the mechanics of running the model will be about as much fun as sticking your tongue in an electrical outlet (a popular hobby in England). (However, if you are an experienced linux/unix/tongue-in-electrical-socket user, you can skip onto the next Section and save yourself an entire 15 seconds of reading words.)} (e.g. distributions such as \textbf{Ubuntu}) and unix-like operating systems (such as \textbf{macOS}). Furthermore, \textbf{muffin} has traditionally been configured and accessed (aka ‘run') at the ‘command line’ of the linux (or \textbf{macOS} equivalent, which is unix-like) operating system. The command line is a place where you type text and when you press \small\textsf{Return}\normalsize, something (hopefully, good!) happens. Typically the stuff you type started with a ‘command’ word, and often followed by one or more options and parameters. The command word and any options / parameters MUST be separated by SPACEs.
+The \textbf{(cGENIE.)cookie} model currently natively compiles and runs only under \textbf{linux}\footnote{For some of you, the mechanics of running the model will be about as much fun as sticking your tongue in an electrical outlet (a popular hobby in England). (However, if you are an experienced linux/unix/tongue-in-electrical-socket user, you can skip onto the next Section and save yourself an entire 15 seconds of reading words.)} (e.g. distributions such as \textbf{Ubuntu}) and unix-like operating systems (such as \textbf{macOS}). Furthermore, \textbf{cookie} has traditionally been configured and accessed (aka ‘run') at the ‘command line’ of the linux (or \textbf{macOS} equivalent, which is unix-like) operating system. The command line is a place where you type text and when you press \small\textsf{Return}\normalsize, something (hopefully, good!) happens. Typically the stuff you type started with a ‘command’ word, and often followed by one or more options and parameters. The command word and any options / parameters MUST be separated by SPACEs.
 
 The start of each line of the command line is indicated with something like: \texttt{\$}. The \texttt{\$} is called the ‘prompt’ and is ... prompting you to type some input (commands, Tweets, swear words, etc.). See – the computer is just sat there waiting for you to command it to go do something (stupid?). Typically, you will also be informed (reminded) of the user-name, computer name, and current directory, e.g.:
 
@@ -71,25 +71,34 @@ The start of each line of the command line is indicated with something like: \te
 
 If you are not or not very familiar with the linux/unix command line, such as how to navigate up and down the directory tree and to display the contents of the current directory you are in – for a brief summary of some basic/useful \textbf{linux} commands and usage -- see HOW-TO Section \ref{how-to-linux} (page \pageref{how-to-linux}).
 
-NOTE: BE VERY CAREFUL that spaces are not missed out when typing out example lines. Also be careful not to confuse the number one (\texttt{1}) for the letter el (\texttt{l}). Mis-spelling/typing will probably be the primary reason for any wailing and gnashing of teeth ...
+NOTE: BE VERY CAREFUL that spaces are not missed out when typing out example lines. Also be careful not to confuse the number one (\texttt{1}) for the letter 'el' (\texttt{l}). Mis-spelling/typing will probably be the primary reason for any wailing and gnashing of teeth ...
 
-NOTE-the-second: If you find yourself terminally bored typing in long long instructions lines, you may be tempted to simply copy-paste from the muffin manual PDF to the command line, This can work, but firstly be aware that trying to copy-paste multiple lines at once is doomed to failure -- copy-paste the first line and then following that add the second (or subsequent) line.
+NOTE-the-second: If you find yourself terminally bored typing in long long instructions lines, you may be tempted to simply copy-paste from the cookie manual PDF to the command line, This can work, but firstly be aware that trying to copy-paste multiple lines at once is doomed to failure -- copy-paste the first line and then following that add the second (or subsequent) line.
 Also note that the inverted comma symbol in the PDF is not the same inverted comma symbol that linux is expecting ... You should also make liberal use of the up arrow key that bring back the previously entered command (keep pressing the key for progressively older commands). For instance, a mistake in a command line can be corrected by bringing back the offending line and using the left/right arrows to navigate through the characters and correct any mistake.
 
 NOTE-the-third: In places, instructions may be given for specific programs and computer platforms and hence may differ slightly from the software reality in front of you. Use your judgement in translating such instructions. Many other alternative software choices exist for editing files or viewing results, as are other ways of configuring software and file editing/transferring methodologies. Do what suits you best – you can view such instructions where they occur, as  more representing an example methodology rather than a literal interpretation of the Constitution.
 
 %------------------------------------------------
 
-\subsection*{Required computer hardware}
+\subsection*{Required computer hardware/software}
 
-It is  possible to install and run the ‘\textbf{(cGENIE.)muffin}’ Earth system model either on a linux box (e.g. \textbf{Ubuntu}) or on a \textbf{Mac} \footnote{Sets of detailed installation instructions are available in the HOW-TO section of this manual.}\footnote{Note that it is not possible at this time to run \textbf{muffin} under \textbf{Windows} ... at least, not without near infinite pain.} Otherwise, you will need an account on a linux-based server or cluster. In this case, you can use any platform (\textbf{linux}, \textbf{macOS}, \textbf{Windoz}, as well as \textbf{iOS} and \textbf{Android} (which is based on \textbf{linux} in any case)) to connect to the cluster (but see software requirements, below).
+For running \textbf{cupcake}, your options are:
 
-%------------------------------------------------
+\begin{enumerate}[noitemsep]
 
-\subsection*{Required computer software}
+\vspace{1mm}
+\item \textbf{Remotely}
+\\To do this, you will need an account on a linux-based server or cluster. You can use any platform (\textbf{linux}, \textbf{macOS}, \textbf{Windoz}, as well as \textbf{iOS} and \textbf{Android} (which is based on \textbf{linux} in any case)) to connect to the cluster. You will need the following software on your local machine:
+\vspace{1mm}
+\begin{enumerate}[noitemsep]
+\setlength{\itemindent}{.2in}
+\item A terminal (‘shell’) window. This is no problem for \textbf{linux} and \textbf{Mac} users (you already have one built in). For \textbf{Windows}, either download a simple (and old) \textbf{SSH} client (ssh-client) from my website\footnote{http://www.seao2.info//cgenie/software/ssh-client.exe} or you can get hold of e.g. \textbf{PuTTY} (http://www.putty.org/).
+\item A sftp (secure file transfer) client for convenience (i.e. dragging and dropping files between local and remote computers, and opening files directly on the remote computer cluster). If you have installed ssh-client (\textbf{Windows}, above) then a sftp client is already included as part of this software. If using \textbf{PuTTY} (\textbf{Windows}) you might try downloading \textbf{WinSCP} (http://winscp.net/eng/index.php). For \textbf{macOS}, you can connect to the server through the \textbf{Terminal}, but some sftp software for viewing/navigating server file structure include: \textbf{FileZilla} (recommended), \textbf{Cyberduck}, \textbf{TextWrangler}. For linux, maybe \textbf{FileZilla}.
+\end{enumerate}
 
-To install and run \textbf{muffin}, at a minimum are needed\footnote{Only if \textbf{muffin} is being run locally and a cluster account is not provided (but assuming that your cluster account is correctly configured ...).}:
-
+\vspace{1mm}
+\item \textbf{Locally}
+\\It is  possible to install and run the ‘\textbf{(cGENIE.)cookie}’ Earth system model either on a linux box (e.g. \textbf{Ubuntu}) or on a \textbf{Mac} \footnote{Sets of detailed installation instructions are available in the HOW-TO section of this manual.}\footnote{It is also possible to run \textbf{cookie} under \textbf{Windows}.}. At a minimum, you will need:
 \vspace{1mm}
 \begin{enumerate}[noitemsep]
 \setlength{\itemindent}{.2in}
@@ -100,15 +109,12 @@ To install and run \textbf{muffin}, at a minimum are needed\footnote{Only if \te
 \item Compiled \textbf{netCDF} libraries (not so much fun ...).
 \end{enumerate}
 \vspace{1mm}
-
 To edit files and visualize results, you will need some specific software. The exact software will depend on your operating system, but essential are:
-
 \vspace{1mm}
 \begin{enumerate}[noitemsep]
 \setlength{\itemindent}{.2in}
 \item A viewer for netCDF format spatial data. A \textbf{Java} viewer called \textbf{Panoply} is provided by NCAR for all platforms – http://www.giss.nasa.gov/tools/panoply/
-(Note that you will need \textbf{Java} installed!)
-\\(Or alternatively: \textbf{MATLAB}.)
+(Note that you will need \textbf{Java} installed!) (Or alternatively: \textbf{MATLAB}, \textbf{python}, etc..)
 \item  A simple text editor, except not the rubbish default \textbf{Windows} one – you need one that can display \textbf{unix} ASCII text without screwing it up. Options for \textbf{Windows} users are:
 \textbf{notepad++} (https://notepad-plus-plus.org/)
 \textbf{SciTE} (https://www.scintilla.org/SciTE.html)
@@ -116,25 +122,19 @@ To edit files and visualize results, you will need some specific software. The e
 \end{enumerate}
 \vspace{1mm}
 
-\noindent If instead operating \textbf{muffin} remotely (e.g. on a computing cluster), the you  will need:
-
-\vspace{1mm}
-\begin{enumerate}[noitemsep]
-\setlength{\itemindent}{.2in}
-\item A terminal (‘shell’) window. This is no problem for \textbf{linux} and \textbf{Mac} users (you already have one built in). For \textbf{Windows}, either download a simple (and old) \textbf{SSH} client (ssh-client) from my website\footnote{http://www.seao2.info//cgenie/software/ssh-client.exe} or you can get hold of e.g. \textbf{PuTTY} (http://www.putty.org/).
-\item A sftp (secure file transfer) client for convenience (i.e. dragging and dropping files between local and remote computers, and opening files directly on the remote computer cluster). If you have installed ssh-client (\textbf{Windows}, above) then a sftp client is already included as part of this software. If using \textbf{PuTTY} (\textbf{Windows}) you might try downloading \textbf{WinSCP} (http://winscp.net/eng/index.php). For \textbf{macOS}, you can connect to the server through the \textbf{Terminal}, but some sftp software for viewing/navigating server file structure include: \textbf{FileZilla} (recommended), \textbf{Cyberduck}, \textbf{TextWrangler}. For linux, maybe \textbf{FileZilla}.
 \end{enumerate}
+\vspace{1mm}
 
 %------------------------------------------------
 
 \subsection*{File editors ...}
 
-You will need to edit text-based configuration files, possibly in installing and configuring \textbf{muffin}, but definitely in configuring model experiments. So now might be a good time to check that you can use the/an editor! (You will also be using the same editor to view some of the model output.)
+You will need to edit text-based configuration files, possibly in installing and configuring \textbf{cookie}, but definitely in configuring model experiments. So now might be a good time to check that you can use the/an editor! (You will also be using the same editor to view some of the model output.)
 
 You have two alternative options for editing and viewing text files, depending on whether you are a \textbf{unix} nerd with no life, or prefer anything to do with computers to be wrapped in cotton wool and covered with dollops of treacle.
 EITHER: Use the linux \textbf{vi} (/\textbf{vim}) application (or similar e.g. \textbf{emacs}) if you are familiar with it. I think that this pretty much sucks as a text editor and life is far too short and brutal if you don't like this sort of thing … OR ... use a suitable linux-friendly text editor (NOT \textbf{Micro\$oft} \textbf{Notepad}) in conjunction with the \textbf{Secure File Transfer Client}. For example: \textbf{SciTE} (http://www.scintilla.org/SciTE.html) is suitable, or \textbf{Notepad++}.
 
-If you fiddle about with the settings under Options/Preferences in the \textbf{WinSCP} program and apply a little common sense, it should be possible to configure things so that you can simply double-click on a file in the remote (right-hand) window panel and it will open like magic (almost)! Saving the file after editing) should then result in the file being saved back to the cluster. Or you can select Edit With (and then \textbf{SciTE}) from right-mouse-button-clicking on the filename. Or ... a crude but workable approach is to use an sftp client to drag the file to your local machine (assuming \textbf{muffin} is installed remotely), edit it there, and then drag it back again.\footnote{Note that care still has to be taken to avoid certain \textbf{Microsoft} text editing programs under \textbf{Windoz}.)}
+If you fiddle about with the settings under Options/Preferences in the \textbf{WinSCP} program and apply a little common sense, it should be possible to configure things so that you can simply double-click on a file in the remote (right-hand) window panel and it will open like magic (almost)! Saving the file after editing) should then result in the file being saved back to the cluster. Or you can select Edit With (and then \textbf{SciTE}) from right-mouse-button-clicking on the filename. Or ... a crude but workable approach is to use an sftp client to drag the file to your local machine (assuming \textbf{cookie} is installed remotely), edit it there, and then drag it back again.\footnote{Note that care still has to be taken to avoid certain \textbf{Microsoft} text editing programs under \textbf{Windoz}.)}
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
@@ -146,15 +146,16 @@ If you fiddle about with the settings under Options/Preferences in the \textbf{W
 
 \subsection*{Model documentation in general}
 
-This (the \textbf{muffin} manual), and additional documentation (of varying degrees of up-to-date-ness) can be found:
+This (the \textbf{cookie} manual), and additional documentation (of varying degrees of up-to-date-ness) can be found:
 
 \vspace{1mm}
 \begin{enumerate}[noitemsep]
 \setlength{\itemindent}{.2in}
-\item On \href{https://github.com/derpycode/muffindoc}{GitHub}.
-\\Here, the \textbf{latex} source for the documentation lives, allowing you to compile the most up-to-date PDF document. And ... make changes yourself and have them incorporated into the official documentation\footnote{First clone the \textbf{git} repository. Make changes. Commit them locally. Make a 'pull request' ...}.
+\item On \href{https://github.com/genie-model/cookiedoc}{GitHub}.
+\\The \textbf{latex} source for the documentation lives here, allowing you to compile the most up-to-date PDF document. And ... make changes yourself and have them incorporated into the official documentation\footnote{First clone the \textbf{git} repository. Make changes. Commit them locally. Make a 'pull request' ...}.
+\\However, note that you will have to compile the latex source yourself to create a PDF ...
 \item On my \href{http://www.seao2.info/mymuffin.html}{website}.
-\\Here, are only compiled, PDF versions of the documentation are provided, and \uline{may be somewhat out-of-date} (the current versions of everything live on \textbf{GitHub}).
+\\Here you can find compiled PDF versions of the documentation ... but it could be a little out of date (the up-to-date latex sources lives on \textbf{GitHub}).
 \end{enumerate}
 
 %------------------------------------------------
@@ -181,9 +182,9 @@ You are going to be installing the model from scratch – why? Why not? It will 
 
 \subsection{Logging in!}
 
-In running \textbf{muffin} locally -- log into your \textbf{linux}/\textbf{macOS} box (and skip on to the next section)! \footnote{If you fail at this step, you'll have to take up box-modelling instead.}
+In running \textbf{cookie} locally -- log into your \textbf{linux}/\textbf{macOS} box (and skip on to the next section)! \footnote{If you fail at this step, you'll have to take up box-modelling instead.}
 
-\noindent Or ... and much more likely to be the case -- if you are running \textbf{muffin} \uline{remotely} (e.g. on a user account on a computing cluster or server), then log into the remote server or cluster account using a 'suitable terminal program'\footnote{It very much depends on what software you are using. Provided are instructions for some \uline{examples}, but only examples, and your reality may be rather different.}:
+\noindent Or ... and much more likely to be the case -- if you are running \textbf{cookie} \uline{remotely} (e.g. on a user account on a computing cluster or server), then log into the remote server or cluster account using a 'suitable terminal program'\footnote{It very much depends on what software you are using. Provided are instructions for some \uline{examples}, but only examples, and your reality may be rather different.}:
 
 \begin{itemize}
 \vspace{1mm}
@@ -222,38 +223,30 @@ where \textsf{\footnotesize xxxxx} is the port number.
 
 \subsection{Downloading/installing the model code}
 
-The next step is to download a copy of the source code for \textbf{muffin}.
-
-As of 2018, the branch of the (c)GENIE source code that is \textbf{cGENIE.muffin}, was migrated from a server hosted by the University of Bristol, to \textbf{GitHub} (and hence the versioning system changed form \textbf{svn} to \textbf{git} -- a “distributed” version control systems (DVCS)\footnote{\textbf{ALSO IMPORTANT}: if you had previously installed a version of \textbf{muffin} under \textbf{svn}, note that the default name of the installation (\texttt{cgenie.muffin}) is the same. If you already have a previous (\textbf{svn} version) installation of \textbf{muffin}, i.e. in a directory \texttt{cgenie.muffin}, you should rename, or simply delete (\texttt{rm -f -r cgenie.muffin}) the original installation so as not to lose files or risk ending up with a mixed-up corrupted installation. For example:
-
-\texttt{\$ mv cgenie.muffin cgenie.muffin.svn}
-
-\noindent will rename the installation directory, adding the extension \texttt{.svn} on the end. You will not longer be able to run the original installation now, but you can fix this by editing some of the directory \textit{paths} -- see FAQ.}
+The next step is to download/install a copy of the source code for \textbf{cookie}. The current release of the \textbf{cGENIE} model (\textbf{cookie}) lives here:
 
 \vspace{1mm}
-The address of the new (centralized) home for \textbf{muffin} is:
-
-\vspace{1mm}
-\href{https://github.com/derpycode/cgenie.muffin}{\texttt{https://github.com/derpycode/cgenie.muffin}}
+\href{https://github.com/genie-model/cgenie.cookie}{\texttt{https://github.com/genie-model/cgenie.cookie}}
 \vspace{2mm}
 
-From here, there are 2 ways to get your mitts on the model code:
+There are 2 options:
 
 \begin{enumerate}
 
 \vspace{1mm}
-\item The \uline{preferred/advised} way is to \textit{clone} the repository to where you intend to run \textbf{muffin}\footnote{But see later for other/better ways of working.}. While you can also use a GUI based git client, easiest is at the command line (e.g. from your HOME directory), using the command \texttt{git clone}\footnote{This: "... clones a repository into a newly created directory, creates remote-tracking branches for each branch in the cloned repository, and creates and checks out an initial branch that is forked from the cloned repository’s currently active branch."}:
+\item '\textbf{cloning}'
+\\The \uline{preferred/advised} way is to \textit{clone} the repository to where you intend to run \textbf{cookie}\footnote{But see later for other/better ways of working.}. While you can also use a GUI based git client, easiest is at the command line (e.g. from your HOME directory), using the command \texttt{git clone}\footnote{This: "... clones a repository into a newly created directory, creates remote-tracking branches for each branch in the cloned repository, and creates and checks out an initial branch that is forked from the cloned repository’s currently active branch."}:
 \vspace{-1mm}
 \begin{verbatim}
-$ git clone https://github.com/derpycode/cgenie.muffin.git
+$ git clone https://github.com/genie-model/cgenie.cookie.git
 \end{verbatim}
 \vspace{-1mm}
 
 By doing this, you have created your own code repository (and an identical copy of the one hosted on GitHub). As part of the \texttt{git clone} command, you also automatically \textit{check out} (from your very own personal repository) a copy of the code. \footnote{Note that the major difference then with the \textbf{svn} system, is that previously, the GENIE code repository existed only on the University of Bristol server, and you \textit{checked out} the code remotely from there.}
 
 \vspace{1mm}
-\item (\uline{Less good}, but OK if you simply want a copy of the code to run an experiment just once, or simply only want to see the code.) By downloading an archive file, containing all the code etc. For this -- click on the \textcolor[rgb]{0,0.501961,0}{green} \textsf{\footnotesize Clone or Download} button on GitHub, and select \textsf{\footnotesize Download ZIP}. You then unpack/unzip the files and directory structure where you want it.
-\\This [archive download] is a perfectly workable way to proceed ... as long as you neither want to update the code with whatever new developments or bug fixes occur in the future, nor want to have any code changes you might make, become part of the official \textbf{muffin} code  (i.e. it becomes a one-off installation that has no connection to the GitHub repository).
+\item Simple downloading.
+\\\uline{Less good}, but OK if you simply want a copy of the code to run an experiment just once, or simply only want to see the code.) By downloading an archive file, containing all the code etc. For this -- click on the \textcolor[rgb]{0,0.501961,0}{green} \textsf{\footnotesize Clone or Download} button on \textbf{GitHub}, and select \textsf{\footnotesize Download ZIP}. You then unpack/unzip the files and directory structure where you want it. This [archive download] is a perfectly workable way to proceed ... as long as you neither want to update the code with whatever new developments or bug fixes occur in the future, nor want to have any code changes you might make, become part of the official \textbf{cookie} code  (i.e. it becomes a one-off installation that has no connection to the \textbf{GitHub} repository.
 
 \end{enumerate}
 
@@ -261,119 +254,76 @@ By doing this, you have created your own code repository (and an identical copy 
 
 \subsection{Configuring the code}
 
-\noindent You now need to configure some local environment settings so that \textbf{muffin} can find all the libraries etc. that it needs when the model compiles. The changes you need to make will depend on the platform where you will be running \textbf{muffin} (i.e. the computer where you have just cloned the code repository to). This will be your first real test of editing (and saving) a file on the remote server(!) You'll need to do this a bunch later and so it is worth developing a working strategy now if you are not already linux-friendly. For instance:
-
-\begin{enumerate}[noitemsep]
-\vspace{1mm}
-\item Transfer the file locally (to your laptop/desktop). Edit and save it. Then transfer it back again (hence replacing the original with the edited version). (You can also configure many sftp clients to allow you to edit and re-save the file more directly.)
-\vspace{1mm}
-\item Edit the file \textit{in situ} on the remote account using e.g. \textbf{vi} (see linux HOW-TO for brief notes).
-\vspace{1mm}
-\item Pray that the file edits itself. \footnote{9 out of 10 cats have demonstrated this does not work.}
-\end{enumerate}
+\noindent You may ... or may not, need to configure some local environment settings so that all the libraries etc. that are needed to compile \textbf{cookie} can be found. To a very limited extent, cookie will try and identify your computer and make the required setting automatically. The changes, if any, that you need to make will depend on the platform where you will be running \textbf{cookie} (i.e. the computer where you have just cloned (or downloaded) the code repository to). The currently recognized platforms and required actions are as follows:
 
 \vspace{1mm}
-\noindent The required configuration settings for \textbf{muffin} depend on the specific computing platform that you are running on. What follows is a list of the changes associated with some possible platforms that you might be using -- \uline{find the list name (\textbf{bold}) that corresponds to the platform that you are using} and ignore all the other options.\footnote{If you are using a platform not listed here, you may be able to simply adapt the instructions for one of the ones listed.}
-
-\begin{itemize}
-
-\vspace{1mm}
-\item \textbf{Ubuntu}. 
-\vspace{1mm}
-\\ This is the default assumed platform. No changes are necessary assuming that the netCDF libraries are installed in their default locations and a relatively recent version of netCDF is used.\footnote{By 'relatively recent' -- the default settings assume that the FORTRAN and C netCDF libraries are separate.} And you have also jumped the shark with a successful install of other libraries and softwares ... see Section \ref{how-to-ubuntu}.
-
-\vspace{1mm}
-\item \textbf{sterling} (UCR cluster).
-\vspace{1mm} 
-\\ For running \textbf{muffin} on this cluster, there is a single file to edit (which lives in the \texttt{genie-main} directory):
-\vspace{1mm}
-\begin{enumerate}[noitemsep]
-\item In the file \texttt{user.mak} -- at the end of the file, the netCDF path needs to be changed. First comment out\footnote{To 'comment out' a line -- simply add a \texttt{\#} symbol to the very start of the line. When \textbf{muffin} runs, this line will be ignored.} the default setting (with a \texttt{\#} symbol) and then un-comment\footnote{To 'un-comment' a line -- simply remove (delete) the \texttt{\#} symbol from the beginning of the line.} the line under the heading \texttt{\#\#\# sterling \#\#\#} . 
-
-\vspace{1mm}
-The resulting section of code at the end of \texttt{user.mak}  should then look something like:
-\vspace{-1mm}
-\footnotesize\begin{verbatim}
-### DEFAULT ###
-#NETCDF_DIR=/usr/local
-### sterling ###
-NETCDF_DIR=/share/apps
-### eevee ###
-#NETCDF_DIR=/share/apps/netcdf
-### iwan ###
-#NETCDF_DIR=/share/apps/netcdf/4.0/gnu_fc_4.4.4
-### sprout ###
-#NETCDF_DIR=/share/apps/netcdf/4.0/gnu_fc_4.4.6
-### almond ###
-#NETCDF_DIR=/share/apps/netcdf-4.0/gcc-4.4.7
-### VM ###
-#NETCDF_DIR=/home/mushroom/netcdf/ifort
-\end{verbatim}\normalsize
-\vspace{-1mm}
-where the line:
-\\\texttt{\small NETCDF\_DIR=/share/apps}
-\\now has no comment symbol before it, and the line:
-\\\texttt{\small \#NETCDF\_DIR=/usr/local}
-\\is now 'commented out'.
-\end{enumerate}
+\noindent The required configuration settings for \textbf{cookie} depend on the specific computing platform that you are running on. What follows is a list of the changes associated with some possible platforms that you might be using -- \uline{find the list name (\textbf{bold}) that corresponds to the platform that you are using} and ignore all the other options.\footnote{If you are using a platform not listed here, you may be able to simply adapt the instructions for one of the ones listed.}
 
 %------------------------------------------------
 \newpage
 %------------------------------------------------
 
-\vspace{1mm}
-\item \textbf{eevee} (UCR cluster).
-\vspace{1mm}
-\\ For using this particular cluster, there are 2 files to edit (both of which of which live in the \texttt{genie-main} directory):
-\vspace{1mm}
-\begin{enumerate}[noitemsep]
-\item In \texttt{user.mak} -- as per for \texttt{sterling} (except the \texttt{user.mak} line you need to un-comment is headed \texttt{\#\#\# eevee \#\#\#}), i.e. to achieve something like:
-\vspace{-1mm}
-\footnotesize\begin{verbatim}
-### DEFAULT ###
-#NETCDF_DIR=/usr/local
-### sterling ###
-#NETCDF_DIR=/share/apps
-### eevee ###
-NETCDF_DIR=/share/apps/netcdf
-\end{verbatim}\normalsize
-\vspace{-1mm}
-
-\item In \texttt{makefile} -- as a consequence of a currently incomplete netCDF install, missing are the C libraries for netCDF. This affects only a C program that is compiled to complete the tests (by comparing model output with an archived copy of the expected results). For now, this test must be disabled by:
-\\On line  21 -- comment out (with a \texttt{\#}); the word \texttt{nccompare} (not the whole line).
-\end{enumerate}
+\begin{itemize}
 
 \vspace{1mm}
-\item \textbf{sprout} (UoB cluster). 
-\vspace{1mm}
-\\ For this cluster, there are 2 files to edit:
-\begin{enumerate}[noitemsep]
-\item In \texttt{user.mak} -- at the end of the file, the netCDF path needs to be changed. First comment out the default setting (with a \texttt{\#} symbol) and then un-comment the line under the heading \texttt{\#\#\# sprout \#\#\#}.
-\item In \texttt{makefile.arc} -- towards the end of the file, under the heading:
-\\\texttt{\# === NetCDF paths ===}
-\\uncomment the line under:
-\\\texttt{\#\#\# FOR COMBINED C+FORTRAN NETCDF LIBRARIES \#\#\#\#\#\#\#}
-\\and comment the 2 lines under:
-\\\texttt{\#\#\# FOR SEPERATE C AND FORTRAN NETCDF LIBRARIES \#\#\#}
-\\(so as to select, combined, rather than sperate, netCDF libraries).
-\end{enumerate}
+\item \textbf{Ubuntu} -- no changes are necessary (with caveats).
+\\ This is the default assumed platform. No changes are necessary IF the \textbf{netCDF} libraries are installed in their default locations and a relatively recent version of \textbf{netCDF} is used.\footnote{By 'relatively recent' -- the default settings assume that the \textbf{FORTRAN} and \textbf{C} \textbf{netCDF} libraries are separate.}
 
 \vspace{1mm}
-\item \textbf{almond} (UoB cluster). 
-\vspace{1mm}
-\\ As per for \texttt{sprout} (except the \texttt{user.mak} line needed is headed \texttt{\#\#\# almond \#\#\#}).
+\item \textbf{sterling} (UCR cluster) -- no changes are necessary.
 
 \vspace{1mm}
-\item \textbf{macOS}. 
+\item \textbf{eevee} (UCR cluster) -- no changes are necessary.
+
 \vspace{1mm}
+\item \textbf{macOS}
 \\ Please refer to the separate macOS instructions in Section \ref{how-to-macos}.
 
 \vspace{1mm}
-\item \textbf{Windows}. 
-\vspace{1mm}
+\item \textbf{windows} 
 \\ Please refer to the separate Windows instructions in Section \ref{how-to-windows}.
 
+\vspace{1mm} 
+\item \textbf{Otherwise} ...
+\\... one or more edits will be required to the file \textsf{\footnotesize user.mak}, which lives in the \textsf{\small genie-main} directory.
+
+\begin{enumerate}[noitemsep]
+\vspace{2mm}
+\item At the end of the \textsf{\small user.mak}, the \textbf{netCDF} path needs to be changed. 
+\\First comment out\footnote{To 'comment out' a line -- simply add a \texttt{\#} symbol to the very start of the line. When \textbf{cookie} runs, this line will be ignored.}. i.e.,
+\small\begin{verbatim}
+  ### DEFAULT ###
+  NETCDF_DIR=/usr/local
+\end{verbatim}\normalsize
+to
+\small\begin{verbatim}
+  ### DEFAULT ###
+  #NETCDF_DIR=/usr/local
+\end{verbatim}\normalsize
+Then un-comment\footnote{To 'un-comment' a line -- simply remove (delete) the \texttt{\#} symbol from the beginning of the line.} the line: \texttt{\#NETCDF\_DIR=my\_path}
+\\\uline{AND} change \texttt{my\_path} to be the path to your \textbf{netCDF} libraries ... the trick step :o)
+
+\vspace{2mm}
+\item For MacOS users, there are alternative machine type options depending on your CPU. You need to comment out \texttt{MACHINE=LINUX} in  \textsf{\footnotesize user.mak} and then chose and un-comment one of the following:
+\small\begin{verbatim}
+#MACHINE=OSX	# Intel processor
+#MACHINE=OSX_M	# Apple silicon (M1, M2 etc.)
+\end{verbatim}\normalsize
+
+\end{enumerate}
+
 \end{itemize}
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent Finally, if your computer is configured to use python v.2 by default and/or does not have python v.3, such as \texttt{sterling} and \texttt{eevee} which were configured originally for \textbf{cgenie.muffin}, then you need to switch to a different branch of the code-base. From \textsf{\footnotesize cgenie.cookie}, type:
+
+\vspace{-2mm}
+\small\begin{verbatim}
+git checkout main.py2
+\end{verbatim}\normalsize
 
 %------------------------------------------------
 \newpage
@@ -382,60 +332,62 @@ NETCDF_DIR=/share/apps/netcdf
 \subsection{Testing the model code}
 
 \noindent Finally, you need to test the code to ensure that all the files have been cloned/installed correctly.
- First, change directory (see: Figure \ref{fig:directories}, and refer to the linux HOW-TO) to\footnote{Note: the model is *always* run from \texttt{cgenie.muffin/genie-main}}:
+
+\vspace{1mm} 
+\noindent First, change directory (see: Figure \ref{fig:directories}, and refer to the linux HOW-TO) to\footnote{Note: the model is *always* run from \texttt{cgenie.cookie/genie-main}}:
 \vspace{-2mm}
-\begin{verbatim}
-cgenie.muffin/genie-main
-\end{verbatim}
+\small\begin{verbatim}
+cgenie.cookie/genie-main
+\end{verbatim}\normalsize
 \vspace{-2mm}
 
-\noindent If you are not ‘linux-friendly’ (see: Section \ref{how-to-linux} for \textbf{linux} basics) – maybe at first do this in steps – list the contents of the directory (\texttt{ls}) to check where you are (i.e. what directories are available to chance to), then change to \texttt{cgenie.muffin} (\texttt{cd cgenie.muffin}), then list again (\texttt{ls}) (and see what further directories are there), then change to \texttt{genie-main} (\texttt{cd genie-main}), and only then … type\footnote{Remembering that the \texttt{\$} is to indicate the command line, and you do not actually type it in.}:
+\noindent If you are not ‘linux-friendly’ (see: Section \ref{how-to-linux} for \textbf{linux} basics) – maybe at first do this in steps – list the contents of the directory (\texttt{ls}) to check where you are (i.e. what directories are available to chance to), then change to \texttt{cgenie.cookie} (\texttt{cd cgenie.cookie}), then list again (\texttt{ls}) (and see what further directories are there), then change to \texttt{genie-main} (\texttt{cd genie-main}), and only then … type\footnote{Remembering that the \texttt{\$} is to indicate the command line, and you do not actually type it in.}:
 \vspace{-2mm}
-\begin{verbatim}
+\small\begin{verbatim}
 $ make testbiogem
-\end{verbatim}
+\end{verbatim}\normalsize
 \vspace{-2mm}
 
-\noindent This compiles a basic carbon cycle enabled configuration of \textbf{muffin} and runs a short test, comparing the results against those of a pre-run experiment (also downloaded alongside the model source code). It serves to check that you have the software environment correctly configured. There may be some ’Warnings’ reported (== somepony’s sloppy programming) but these are not detrimental to the ultimate science results (we hope!).
-
+\noindent This compiles a basic carbon cycle enabled configuration of \textbf{cookie} and runs a short test, comparing the results against those of a pre-run experiment (also downloaded alongside the model source code). It serves to check that you have the software environment correctly configured. There may be some ’Warnings’ reported (== somepony’s sloppy programming) but these are not detrimental to the ultimate science results (we hope!).
+\vspace{1mm}
 If you see the error message:
 \vspace{-2mm}
-\begin{verbatim}
+\small\begin{verbatim}
 make: *** No rule to make target 
-\end{verbatim}
+\end{verbatim}\normalsize
 \vspace{-2mm}
-when you try this, you are probably in the wrong directory (it should be \textsf{\footnotesize cgenie.muffin/genie-main}).
+when you try this, you are probably in the wrong directory (it should be \textsf{\footnotesize cgenie.cookie/genie-main}).
 
-\vspace{1mm}
-\noindent\rule{4cm}{0.5pt}
-\vspace{2mm}
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
 
 \noindent ‘Success’ of this test is indicated by the message:
 \vspace{-1mm}
-\begin{verbatim}
+\small\begin{verbatim}
 **TEST OK**
-\end{verbatim}
+\end{verbatim}\normalsize
 \vspace{-1mm}
 
-\noindent If you see this -- you can then be certain that the model you have installed is producing identical (within tolerance) results to everyone else in the World who has ever installed \textbf{muffin}. Note that the model will pause for a l o o o o n g time at the line:
+\noindent If you see this -- you can then be certain that the model you have installed is producing identical (within tolerance) results to everyone else in the World who has ever installed \textbf{cookie}. Note that the model will pause for a l o o o o n g time at the line:
 \vspace{-2mm}
-\small
-\begin{verbatim}
+\small\begin{verbatim}
 ./genie.job -t -k -f configs/eb_go_gs_ac_bg_test.xml -o /home/genie00/cgenie_output
    -c /home/genie00/cgenie -g ../../cgenie -m "" > testbiogem.out;
-\end{verbatim}
-\normalsize
+\end{verbatim}\normalsize
 \vspace{-2mm}
 
-\noindent This is quite ‘normal’ – the model is thinking! Also -- ignore the compiler warnings … (reflecting my lack of adequate software engineering skills).
+\noindent This is quite ‘normal’ – the model is thinking! Also -- ignore the compiler warnings … 
 
-That completes the basic code installation.
+\vspace{1mm}
+\noindent \uline{This completes the basic code installation.}
 
-If the test  doesn't 'work'\footnote{Note that if you have disabled the compilation of the C program that compares netCDf files, the test will run but never complete and you'll not get a \texttt{**TEST OK**} reported, even if the test experiment ran correctly.} -- try issuing the command:
+\vspace{1mm}
+\noindent If the test doesn't 'work'\footnote{Note that if you have disabled the compilation of the C program that compares netCDf files, the test will run but never complete and you'll not get a \texttt{**TEST OK**} reported, even if the test experiment ran correctly.} -- try issuing the command:
 \vspace{-2mm}
-\begin{verbatim}
+\small\begin{verbatim}
 $ make cleanall
-\end{verbatim}
+\end{verbatim}\normalsize
 \vspace{-2mm}
 
 \noindent and then re-try the test. 
@@ -449,11 +401,11 @@ Refer to the FAQ section at the end of this book for further clues as why the mo
 \newpage
 %------------------------------------------------
 
-\noindent Note that \textbf{GitHub} does not host files larger than 100 MB, and the 'lookup table' for calculating opal dissolution in sediments (see e.g. \textit{Ridgwell et al.} [2003]) is larger than this. It has hence been committed to the git repo as an archived file. \uline{Only if} a silica cycle is to be employed in your \textbf{muffin} experiments, does this file need to be unpacked. A script is provided for this -- from \texttt{genie-main}, type:
+\noindent Note that \textbf{GitHub} does not host files larger than 100 MB, and the 'lookup table' for calculating opal dissolution in sediments (see e.g., \textit{Ridgwell et al.} [2003]) is larger than this. It has hence been committed to \textbf{git} as an archived file. \uline{Only if} a silica cycle is to be employed in your \textbf{cookie} experiments, does this file need to be unpacked. A script is provided for this -- from \texttt{genie-main}, type:
 
 \vspace{-2mm}
 \begin{verbatim}
-$ ./installmuffin.sh
+$ ./installcookie.sh
 \end{verbatim}
 \vspace{-2mm}
 
@@ -465,7 +417,7 @@ $ ./installmuffin.sh
 
 \subsubsection*{Brief notes on git}
 
-The simplest workable installation of \textbf{muffin}, as described above, is to use \texttt{git clone}. You end up with a carbon copy of the muffin code repo (I am too lazy to type out 'repository' again) which you have also automatically now 'checked out'. Changes and developments will occur to the code on the GitHub repo from time-to-time, and if may be that either you might benefit by using a more up-to-date code base, or specific changes may have been made that you absolutely need. To determine the status of your repo, type\footnote{Here, the -uno ensures that files (e.g. experiment configuration files) you have created, but not added and committed, are not listed.} (from \texttt{cgenie.muffin}):
+The simplest workable installation of \textbf{cookie}, as described above, is to use \texttt{git clone}. You end up with a carbon copy of the cookie code repo (I am too lazy to type out 'repository' again) which you have also automatically now 'checked out'. Changes and developments will occur to the code on the GitHub repo from time-to-time, and if may be that either you might benefit by using a more up-to-date code base, or specific changes may have been made that you absolutely need. To determine the status of your repo, type\footnote{Here, the -uno ensures that files (e.g. experiment configuration files) you have created, but not added and committed, are not listed.} (from \texttt{cgenie.cookie}):
 
 \vspace{-2mm}
 \begin{verbatim}
@@ -511,7 +463,7 @@ If unlucky, there will be conflict as your stashed changed are merged back onto 
 
 \begin{figure}
 \includegraphics[width=\linewidth]{directories.png}
-\caption{Directory structure of the \textbf{muffin} model. Highlighted in \textcolor{red}{red} are directories and sub-directories that you will need to access at some point. Vertical \textcolor[rgb]{0,0.501961,0}{green} lines designate directory levels, with example commands shown for moving between them.}
+\caption{Directory structure of the \textbf{cookie} model. Highlighted in \textcolor{red}{red} are directories and sub-directories that you will need to access at some point. Vertical \textcolor[rgb]{0,0.501961,0}{green} lines designate directory levels, with example commands shown for moving between them.}
 \label{fig:directories}
 \end{figure}
 
@@ -521,17 +473,17 @@ If unlucky, there will be conflict as your stashed changed are merged back onto 
 
 \section{Running the model}
 
-The overall sequence of configuring and running \textbf{muffin} (job submission to a cluster queue), is shown in Figure \ref{fig:chx-jobcreation}. Refer to this if in any doubt at any point.
+The overall sequence of configuring and running \textbf{cookie} (job submission to a cluster queue), is shown in Figure \ref{fig:chx-jobcreation}. Refer to this if in any doubt at any point.
 
-At the command-line (\texttt{\$}) and \uline{in the \textsf{\footnotesize genie-main} directory} (not your home directory), you will be entering in a command (\texttt{./runmuffin.sh}) together with a list of parameters that will be passed to the model, and as if by magic the model will run (or sometimes not). The form of the command you are going to be issuing is:
+At the command-line (\texttt{\$}) and \uline{in the \textsf{\footnotesize genie-main} directory} (not your home directory), you will be entering in a command (\texttt{./runcookie.sh}) together with a list of parameters that will be passed to the model, and as if by magic the model will run (or sometimes not). The form of the command you are going to be issuing is:
 
 \vspace{-1mm}
 \begin{verbatim}
-$ ./runmuffin.sh #1 #2 #3 #4 (#5)
+$ ./runcookie.sh #1 #2 #3 #4 (#5)
 \end{verbatim}
 \vspace{-1mm}
 
-\noindent(\uline{don't type it yet}!) It requires that you must list at least 4 parameters after \texttt{./runmuffin.sh}, separated by S P A C E S and on a single continuous line (even if it ‘wraps’ around across 2 lines of the screen).
+\noindent(\uline{don't type it yet}!) It requires that you must list at least 4 parameters after \texttt{./runcookie.sh}, separated by S P A C E S and on a single continuous line (even if it ‘wraps’ around across 2 lines of the screen).
 These parameters are:
 
 \vspace{2mm}
@@ -548,23 +500,23 @@ These parameters are:
 \noindent\rule{4cm}{0.1mm}
 \vspace{2mm}
 
-\noindent As an example of running the \textbf{muffin} Earth system model:
+\noindent As an example of running the \textbf{cookie} Earth system model:
 
 \vspace{2mm}
 \begin{enumerate}[noitemsep]
 \setlength{\itemindent}{.2in}
-\item[\textbf{\#1}]: The base config is: \texttt{cgenie.eb\_go\_gs\_ac\_bg.worbe2.BASE}
-\item[\textbf{\#2}]: The user config directory is: LABS
-\item[\textbf{\#3}]: The user config file (the experiment name) is: \texttt{LAB\_0.EXAMPLE}.
+\item[\textbf{\#1}]: The \textit{base-config} is: \texttt{cookie.CB.p\_worbe2.BASES}
+\item[\textbf{\#2}]: The \textit{user-config} directory is: \textsf{\small LABS}
+\item[\textbf{\#3}]: The \textit{user-config} file (the experiment name) is: \texttt{LAB.0.3.EXAMPLE}.
 \item[\textbf{\#4}]: Run the experiment for ten years: 10
 \item[\textbf{\#5}]: (There is no restart file, and so no 5th parameter needs to be passed …)
 \end{enumerate}
 
-The full command for your first example experiment, which you are going to issue from the \texttt{\~}\texttt{/cgenie.muffin/genie-main} directory, then looks like:
+The full command for your first example experiment, which you are going to issue from the \texttt{\~}\texttt{/cgenie.cookie/genie-main} directory, then looks like:
 
 \vspace{-1mm}
 \begin{verbatim}
-$ ./runmuffin.sh cgenie.eb_go_gs_ac_bg.worbe2.BASE LABS LAB_0.EXAMPLE 10
+$ ./runcookie.sh cookie.CB.p_worbe2.BASES LABS LAB.0.3.EXAMPLE 10
 \end{verbatim}
 \vspace{-1mm}
 
@@ -579,7 +531,7 @@ $ ./runmuffin.sh cgenie.eb_go_gs_ac_bg.worbe2.BASE LABS LAB_0.EXAMPLE 10
 
 \newpage
 
-\noindent What should happen is: First, you will end up twiddling your thumbs a while, as all the components of \textbf{muffin} are compiled from the raw source code (\textbf{FORTRAN}). When it has finished doing this, the model will initialize and carry out some brief self-checking. Only then will it start actually ‘running’ and doing something, starting with a header describing the columns of numbers that follow:
+\noindent What should happen is: First, you will end up twiddling your thumbs a while, as all the components of \textbf{cookie} are compiled from the raw source code (\textbf{FORTRAN}). When it has finished doing this, the model will initialize and carry out some brief self-checking. Only then will it start actually ‘running’ and doing something, starting with a header describing the columns of numbers that follow:
 
 \vspace{1mm}
 \begin{itemize}
@@ -684,6 +636,7 @@ Just from examining the screen output: how close to steady state does the system
 
 The key to creating new experiments is to \textbf{remember that the name of the \textit{user-config} file, that contains the parameter settings that define that specific experiment, becomes the name of the experiment and hence name of the model results sub-directory in \textsf{\footnotesize cgenie\_output}}. Changing the name of the \textit{user-config} file, hence leads to a new experiment name and a new model results sub-directory. (Conversely, not changing the name of the  \textit{user-config} file and re-running it results in the results of any previous experiment run using that \textit{user-config} file, being over-written.)
 
+\vspace{1mm}
 There are two obvious ways to create a new \textit{user-config} file and hence new experiment (although the simplest and recommended way, is the 2nd one):
 
 \begin{enumerate}[noitemsep]
@@ -695,11 +648,15 @@ There are two obvious ways to create a new \textit{user-config} file and hence n
 \vspace{1mm}
 \item Copy and edit an existing file!
 \\This is the most practical approach -- pick an existing \textit{user-config} file that is closest to the specific experiment that you want to run -- copy and rename it, then edit the contents and save. For the purpose of trying this out, you can literally pick on any existing file in the \textsf{\footnotesize LABS } subdirectory (of \textsf{\footnotesize genie-userconfigs}).
+\vspace{1mm}
 \\ You can do this by:
 \begin{itemize}[noitemsep]
+\vspace{1mm}
 \item Using your sftp client (program):
 \\First -- drag the existing \textit{user-config} file to your local computer. On your local computer, rename the file as per how you would 'normally' rename any file. 
 \\Now you can edit the parameter values, re-save it, drag it back to the cluster (from your local computer) using the sftp client ... and finally run the experiment.
+\\There are also ways of configuring \textbf{sftp} clients so that you can double-click on a file in the remove window, edit it, and save it back to the remote computer.\footnote{Actually what happens is that the file is transferred locally, opened, and you edit a local copy. When you save it (locally), it is automatically transferred back.} 
+\vspace{1mm}
 \item Or, if you are comfortable working at the linux command line; working from the same directory (e.g. \textsf{\footnotesize LABS}) that the file you want to copy lives in, you can copy a file (to a new filename) by:
 \\\texttt{\$ cp oldfile newfile }
 \\(after which you can edit the new \textit{user-config} file \textsf{\footnotesize newfile}, re-save, and then run the experiment.)
@@ -708,7 +665,7 @@ There are two obvious ways to create a new \textit{user-config} file and hence n
 
 \end{enumerate}
 
-\noindent Remember that the new \textit{user-config} file needs to be saved in (or copied to) the \textsf{\footnotesize genie-userconfigs/LABS} sub-directory (in the case of experiments carried out as part of the tutorials described in this manual), or anywhere else ... as long as you specify the correct path to the directory where you save the new file to\footnote{See previous Section and the use of the 2nd parameter passed to \texttt{runmuffin.sh}}.
+\noindent Remember that the new \textit{user-config} file needs to be saved in (or copied to) the \textsf{\footnotesize genie-userconfigs/LABS} sub-directory (in the case of experiments carried out as part of the tutorials described in this manual), or \textsf{\footnotesize LABS} itself or any sub-directory (or sub-sub- etc directory) ... as long as you specify the correct path to the directory where you save the new file to\footnote{See previous Section and the use of the 2nd parameter passed to \texttt{runcookie.sh}}.
 
 %------------------------------------------------
 \newpage
@@ -716,19 +673,19 @@ There are two obvious ways to create a new \textit{user-config} file and hence n
 
 \section{Model output}
 
-The first thing to note about output (i.e., saved results files) from \textbf{muffin} is that every science module saves its own results in its own sub-directory (and sometimes in very different and difficult-to-fathom ways …) – see Figure 1.1. All the sub-directories of results, plus copies of input parameters and the model executable, are gathered together in a directory that is assigned the same name as the experiment (== \textit{user-config} file name). The experiment results directories all live in:
-\begin{verbatim}
+The first thing to note about output (i.e., saved results files) from \textbf{cookie} is that every science module saves its own results in its own sub-directory (and sometimes in very different and difficult-to-fathom ways …) – see Figure 1.1. All the sub-directories of results, plus copies of input parameters and the model executable, are gathered together in a directory that is assigned the same name as the experiment (== \textit{user-config} file name). The experiment results directories all live in:
+\small\begin{verbatim}
 ~/cgenie_output
 \end{verbatim}
 and will be assigned a directory name something like:
-\begin{verbatim}
-LAB_0.EXAMPLE
-\end{verbatim}
-(this being the results directory name for an experiment called \texttt{LAB\_0.EXAMPLE}). Within this directory are each module’s results sub-directories.
+\small\begin{verbatim}\normalsize
+LAB.0.3.EXAMPLE
+\end{verbatim}\normalsize
+(this being the results directory name for an experiment called \texttt{LAB.0.3.EXAMPLE}). Within this directory are each module’s results sub-directories.
 We will primarily consider only results saved by the ocean biogeochemical module \textbf{‘BIOGEM’} (subdirectory: \small\textsf{biogem}\normalsize). The results files in this example will thus be found in:
-\begin{verbatim}
-~/cgenie_output/LAB_0.EXAMPLE/biogem
-\end{verbatim}
+\small\begin{verbatim}
+~/cgenie_output/LAB.0.3.EXAMPLE/biogem
+\end{verbatim}\normalsize
 \textbf{BIOGEM} has a flexible and powerful facility of saving results by means of spatially explicit ‘time-slices’, and as a semi-continuous ‘time-series’ of a single global (or otherwise representative mean) variable. In contrast, the atmospheric chemistry module '\textbf{ATCHEM}' does not save its own results (\textbf{BIOGEM} can save information about atmospheric composition and air-sea gas exchange) while the marine sediment module \textbf{SEDGEM} does save its own results, but only at the very end of a model experiment (\textbf{BIOGEM} can also save the spatial distribution of sediment composition as time-slices as well as mean composition as a time-series). Furthermore, to attain a common format for both ocean physical properties and biogeochemistry, \textbf{BIOGEM} can save a range of ocean results in addition to temperature and salinity, such as: velocities, sea-ice extent, mixed layer depth, convective frequency, etc.
 
 \noindent NOTE: If in an sftp client window you find that you cannot 'see' the \textsf{\footnotesize cgenie\_output} directory ... or cannot find any of the results sub-directories you are expecting, \uline{you will need to refresh the directory listing} (e.g. for \textbf{WinSCP}, there is a double green-arrow \textsf{\footnotesize Refresh} icon button near the top right of the window that you can click on). sftp client programs generally do not automatically refresh directory listing on the remote computer.
@@ -768,7 +725,7 @@ The \textsf{\footnotesize biogem} results directory will contain files with name
 \vspace{1mm}
 \begin{itemize}[noitemsep]
 \setlength{\itemindent}{.2in}
-\item  \textsf{\footnotesize \_restart.nc} (is the re-start file created form the run you have just complete, and can be ignored).
+\item \textsf{\footnotesize \_restart.nc} (is the re-start file created form the run you have just complete, and can be ignored).
 \item \textsf{\footnotesize biogem\_series\_*.res} – these are the time-series files (in ASCII / plain text format).
 \item \textsf{\footnotesize biogem\_year\_*\_diag\_GLOBAL.res} – these contain (global diagnostics) summary information and are saved at the same frequency as the time-slices (also as ASCII / plain text).
 \item \textsf{\footnotesize fields\_biogem\_2d.nc} – 2-D fields of ocean and atmosphere properties, as \textbf{NetCDF}.
@@ -777,16 +734,19 @@ The \textsf{\footnotesize biogem} results directory will contain files with name
 \vspace{1mm}
 
 %------------------------------------------------
+\vspace{1mm}
+\noindent\rule{4cm}{0.1mm}
+%------------------------------------------------
 
-\subsection{Alternative file naming convention ...}
+\subsection*{Alternative file naming convention ...}
 
 Having the e.g., 2D and 3D \textbf{netCDF} files always called the same name (\textsf{\footnotesize fields\_biogem\_2d.nc}, \textsf{\footnotesize fields\_biogem\_3d.nc}) in each and every experiment, has the potentil to get confusing if you have multiple experiments open simultaneously in a viewer such as \textbf{Panoply}.
 
-You can open to assigned names to the \textbf{netCDF} files that follow the name of your experiment, by adding the following line to your \textit{user-config}:
+You can specify that \textbf{netCDF} files are named following the name of your experiment, by adding the following line to your \textit{user-config}:
 
-\vspace{-2pt}\small\begin{verbatim}
+\vspace{-2pt}\begin{verbatim}
 bg_ctrl_ncout_expid_name=.true.
-\end{verbatim}\normalsize
+\end{verbatim}
 
 %-----------------------------------------------
 \newpage
@@ -798,22 +758,24 @@ bg_ctrl_ncout_expid_name=.true.
 
 \subsection{Time-series output}
 
-A descriptive summary of all the time-series (\texttt{biogem\_series\_*.res}) data files is given in the \textbf{muffin} User Manual if you are really that bored. The files of most immediate use/relevance are:
+A descriptive summary of all the time-series (\textsf{\footnotesize biogem\_series\_*.res}) data files is given in the \textbf{cookie} User Manual if you are really that bored. The files of most immediate use/relevance are:
 
 \vspace{1mm}
 \begin{itemize}[noitemsep]
 \setlength{\itemindent}{.2in}
-\item \texttt{biogem\_series\_atm\_humidity.res}  - mean atmospheric (surface) humidity
-\item \texttt{biogem\_series\_atm\_temp.res}      - mean atmospheric (surface) air temperature
-\item \texttt{biogem\_series\_misc\_opsi.res}     - min/max overturning stream-function values (e.g. AMOC)
-\item \texttt{biogem\_series\_misc\_seaice.res}   - mean ocean sea-ice cover and thickness
-\item \texttt{biogem\_series\_ocn\_sal.res}       - mean ocean surface and whole ocean salinity
-\item \texttt{biogem\_series\_ocn\_temp.res}      - mean ocean surface and whole ocean temperature
+\item \textsf{\footnotesize biogem\_series\_atm\_humidity.res}  - mean atmospheric (surface) humidity
+\item \textsf{\footnotesize biogem\_series\_atm\_temp.res}      - mean atmospheric (surface) air temperature
+\item \textsf{\footnotesize biogem\_series\_misc\_opsi.res}     - overturning stream-function (e.g. AMOC) strength
+\item \textsf{\footnotesize biogem\_series\_misc\_seaice.res}   - mean ocean sea-ice cover and thickness
+\item \textsf{\footnotesize biogem\_series\_ocn\_sal.res}       - mean ocean surface and whole ocean salinity
+\item \textsf{\footnotesize biogem\_series\_ocn\_temp.res}      - mean ocean surface and whole ocean temperature
 \end{itemize}
 
+%------------------------------------------------
 \vspace{1mm}
 \noindent\rule{4cm}{0.1mm}
 \vspace{2mm}
+%------------------------------------------------
 
 \noindent One way of viewing the contents of files (in a shell window/terminal) is to change directory to the experiment results directory and opening the file in a file editor at the command line. But that is not so much fun.
 
@@ -859,7 +821,7 @@ NOTE: The default settings in \textbf{Panoply} can mislead. Be aware of:
 \\‘\textsf{\footnotesize Interpolate}’ in the ‘\textsf{\footnotesize Arrays}’ tab.
 \item By displaying a global zonal mean by default when selecting \textsf{\footnotesize Latitude-Vertical} plots. Then, to further confuse you, by plotting the output up-side-down (to invert: in the ‘\textsf{\footnotesize Grid}’ tab, hit ‘\textsf{\footnotesize Swap B/T}’ (for swap bottom/top).
 \item By listing all ‘\textsf{\footnotesize Plottable variables}’ (option at the bottom of the window), when what you \textit{ideally} want are  the shorter and less confusing list of ‘\textsf{\footnotesize Georeferenced variables}’.
-\item In \textsf{\footnotesize Longitude-Latitude} plots, by overlaying the modern continental output. (\textbf{muffin} land is marked in grey.)
+\item In \textsf{\footnotesize Longitude-Latitude} plots, by overlaying the modern continental output. (\textbf{cookie} land is marked in grey.)
 \item By fitting a scale to the plot when the display window is opened, but not changing the scale when e.g., time or depth is changed. (The point of confusion is that you can quickly move outside the scale and end up with all model points dark blue or red.) Re-fit the scale, or manually set limited, in the ‘\textsf{\footnotesize Scale}’ tab.
 So be careful when opening a new plot that you are looking at what you *think* you are looking at …
 All the defaults can be changed via the ‘\textsf{\footnotesize Edit}’ drop-down menu and ‘\textsf{\footnotesize Preferences}’.
@@ -908,21 +870,21 @@ This bit is no particular fun at all, but it is a very handy ‘trick’ for run
 \noindent\rule{4cm}{0.1mm}
 \vspace{2mm}
 
-\noindent The alternative is to submit your experiment as a ‘job’ to a queuing system which then manages what compute resources are used to run the model. Once you have submitted the experiment, that is it – you can go straight to the pub :)
+\noindent The alternative is to submit your experiment as a ‘job’ to a queuing system which then manages what compute resources are used to run the model. Once you have submitted the experiment, that is it – you can go straight to the bar :)
 
 For example -- to run the same experiment as before (\textsf{\footnotesize LAB\_0.EXAMPLE}) for maybe 100 years (or even longer if you wish – I am just pulling factors of 10 out of thin air here) but now submit the experiment as a job to the cluster queue, type (again: SINGLE, CONTINUOUS LINE):
 \vspace{-1mm}
 \small\begin{verbatim}
-$ qsub -q queue.q -j y -o cgenie_log -V -S /bin/bash runmuffin.sh
-  cgenie.eb_go_gs_ac_bg.worbe2.BASE LABS LAB_0.EXAMPLE 100
+$ qsub -q QUEUE.q -j y -o cgenie_log -V -S /bin/bash runcookie.sh
+  ./runcookie.sh cookie.CB.p_worbe2.BASES LABS LAB.0.3.EXAMPLE 100
 \end{verbatim}\normalsize
 \vspace{-1mm}
 
-Here, the  queue name for this\ particular cluster is \textsf{\footnotesize queue.q}. \uline{The cluster you are actually using will have a different queue name} (e.g. refer to any cluster-specific information that you might have).
+Here, the queue name for this\ particular cluster is \textsf{\footnotesize QUEUE.q}. \uline{The cluster you are actually using will have a different queue name} (e.g. refer to any cluster-specific information that you might have).
 
 \vspace{1mm}
-Note that now you should omit the ‘\texttt{./}’ bit before \texttt{runmuffin.sh}.
-(If you are interested (I know that you are not): the options following \texttt{qsub} and before \texttt{runmuffin.sh} do things like re-directing screen output and error messaging to a file and specify which linux ‘shell’ to assume. It is even possible to receive an email when the job is done :) )
+Note that now you should omit the ‘\texttt{./}’ bit before \texttt{runcookie.sh}.
+(If you are interested (I know that you are not): the options following \texttt{qsub} and before \texttt{runcookie.sh} do things like re-directing screen output and error messaging to a file and specify which linux ‘shell’ to assume. It is even possible to receive an email when the job is done :) )
 The status of the cluster queue and how you experiment job is getting on (e.g., “Is it finished yet?”) can be checked by typing:
 \vspace{-1mm}
 \small\begin{verbatim}
@@ -932,11 +894,12 @@ $ qstat -f
 (\texttt{qstat -f -u "*"} will show all jobs on the cluster.)
 
 \vspace{1mm}
-After submitting an experiment, you receive a job number. This number appears in the first column in the queue status information when you issue a qstat –f command. You should see your job appear on one of a number of compute nodes, perhaps numbered 0-0 through 0-5), although it might briefly reside as a ‘\textsf{\footnotesize PENDING JOB}’. For each node, there are multiple processing cores (depending on the specific cluster and queue), meaning that multiple instances of \textbf{muffin} can run simultaneously on each node. For an 8-level ocean based configuration of \textbf{muffin}, being run for 100 years, the job should remain there in the queue for a few minutes before ‘disappearing’ (your clue that it has finished, or died\footnote{If your experiment appears on the queue but vanishes after a few seconds, it has most likely died :(} …). If you periodically re-issue a \texttt{qstat –f} command you can follow your job’s progress.
+After submitting an experiment, you receive a job number. This number appears in the first column in the queue status information when you issue a qstat –f command. You should see your job appear on one of a number of compute nodes, perhaps numbered 0-0 through 0-5), although it might briefly reside as a ‘\textsf{\footnotesize PENDING JOB}’. For each node, there are multiple processing cores (depending on the specific cluster and queue), meaning that multiple instances of \textbf{cookie} can run simultaneously on each node. For an 8-level ocean based configuration of \textbf{cookie}, being run for 100 years, the job should remain there in the queue for a few minutes before ‘disappearing’ (your clue that it has finished, or died\footnote{If your experiment appears on the queue but vanishes after a few seconds, it has most likely died :(} …). If you periodically re-issue a \texttt{qstat –f} command you can follow your job’s progress.
 
-A rough rule of thumb is that 8-level ocean \textbf{muffin} @ a horizontal grid resolution of 36x36 will simulate about 1000 years per CPU hour. The 16-level version (which you will use later), runs at about 300-400 years per CPU hour.
+A rough rule of thumb is that 8-level ocean \textbf{cookie} @ a horizontal grid resolution of 36x36 will simulate about 1000 years per CPU hour. The 16-level version (which you will use later), runs at about 300-400 years per CPU hour.
 
-\noindent \textbf{NOTE}: It may be that the \textbf{FORTRAN} compiler is not accessible by the computer nodes. The implication of this is that \textit{the \textbf{muffin} executable must be already compiled BEFORE a job is submitted to the queue}. In other words; if you have just changed the model resolution or continental configuration, or number of tracers (i.e. changed the \textit{base-config}) or issued a \texttt{make cleanall} command you MUST briefly run your desired experiment (or equivalent) interactively (i.e., in the shell window) to ensure that everything is correctly compiled. For instance, either run the experiment for a couple of years or start the experiment for the desired full duration, but 'kill it' (\textsf{\small Ctrl-C}) once the experiment is running successfully.
+\vspace{1mm}
+\noindent \textbf{NOTE}: It may be that the \textbf{FORTRAN} compiler is not accessible by the computer nodes. The implication of this is that \textit{the \textbf{cookie} executable must be already compiled BEFORE a job is submitted to the queue}. In other words; if you have just changed the model resolution or continental configuration, or number of tracers (i.e. changed the \textit{base-config}) or issued a \texttt{make cleanall} command you MUST briefly run your desired experiment (or equivalent) interactively (i.e., in the shell window) to ensure that everything is correctly compiled. For instance, either run the experiment for a couple of years or start the experiment for the desired full duration, but 'kill it' (\textsf{\small Ctrl-C}) once the experiment is running successfully.
 
 %------------------------------------------------
 \newpage
@@ -958,48 +921,53 @@ It is important to note that there is nothing special about a \textit{re-start} 
 
 \vspace{-2mm}\small
 \begin{verbatim}
-$ wget --no-check-certificate http://www.seao2.info/cgenie_output/LAB_0.SPIN.tar.gz
+$ wget --no-check-certificate http://www.seao2.info/cgenie_output/
+   cookie.CB.p_worbe2.BASES.ridgwelletal.SPIN.tar.gz
 \end{verbatim}\normalsize
 \vspace{-2mm}
+(all one line!)
 
 This downloads an archived/compressed copy of the restart from a location on the interweb. Extract the contents of this archive by typing:
 
 \vspace{-2mm}\small
 \begin{verbatim}
-$ tar xfzv LAB_0.SPIN.tar.gz
+$ tar xfzv cookie.CB.p_worbe2.BASES.ridgwelletal.SPIN.tar.gz
 \end{verbatim}\normalsize
 \vspace{-2mm}
 
-Finally, change directory back to \textsf{\footnotesize cgenie.muffin} and then \textsf{\footnotesize genie-main} so that you are ready to run the model (the model is *always* run from the \textsf{\footnotesize cgenie.muffin/genie-main} directory).
+Finally, change directory back to \textsf{\footnotesize cgenie.cookie} and then \textsf{\footnotesize genie-main} so that you are ready to run the model (the model is *always* run from the \textsf{\footnotesize cgenie.cookie/genie-main} directory).
 
 \vspace{1mm}
 \noindent\rule{4cm}{0.1mm}
 \vspace{2mm}
 
-\noindent A \textit{re-start} can be requested for  running on a new experiment from the end of a previous one, by providing a 5th   (optional) parameter when entering in the \texttt{runmuffin.sh} command. A spin-up of the modern World climate state is provided for you as a \textit{restart} -- \textsf{\footnotesize LAB\_0.SPIN} -- which you have just unpacked to the \texttt{cgenie\_output} results output directory.
+\noindent A \textit{re-start} can be requested for  running on a new experiment from the end of a previous one, by providing a 5th (optional) parameter when entering in the \texttt{runcookie.sh} command. A spin-up of the modern World climate state is provided for you as a \textit{restart} -- 
+\textsf{\footnotesize cookie.CB.p\_worbe2.BASES.ridgwelletal.SPIN} -- which you have just unpacked to the \textsf{\footnotesize cgenie\_output} results output directory.
 
 To test out the use this \textit{restart} -- create a new (\textit{user-config}) experiment configuration file in the directory: 
 
 \vspace{1mm}
-\textsf{\footnotesize \(\sim\)/cgenie.muffin/genie-userconfigs/LABS}
+\textsf{\footnotesize \(\sim\)/cgenie.cookie/genie-userconfigs/LABS}
 \vspace{1mm}
 
-\noindent taking the file \texttt{LAB\_0.EXAMPLE} (which is provided) as a template (no parameter changes need to be made yet). As described earlier -- copy this file and give it a new name -- here, name it: \textsf{\footnotesize LAB\_0.NEW}
+\noindent taking the file \textsf{\footnotesize LAB\_0.3.EXAMPLE} (which is provided) as a template (no parameter changes need to be made yet). As described earlier -- copy this file and give it a new name -- here, name it: \textsf{\footnotesize LAB.0.3.NEW}
 
 %------------------------------------------------
 \newpage
 %------------------------------------------------
 
-\vspace{1mm}
-You can then specify the use of the \textit{restart} in your new \textsf{\footnotesize LAB\_0.NEW} experiment:
+\noindent You can then specify the use of the \textit{restart} in your new \textsf{\footnotesize LAB\_0.3.NEW} experiment:
 
 \vspace{-2mm}
 \small\begin{verbatim}
-$ ./runmuffin.sh cgenie.eb_go_gs_ac_bg.worbe2.BASE LABS LAB_0.NEW 100 LAB_0.SPIN
+$ ./runcookie.sh cookie.CB.p_worbe2.BASES LABS LAB.0.3.NEW 100 
+   cookie.CB.p_worbe2.BASES.ridgwelletal.SPIN
 \end{verbatim}\normalsize
 \vspace{-2mm}
 
-The run-time output should now look noticeably different. There should be no (or perhaps just very little) drift in any of the various variable values outputted to the screen – this is because you have (re-)started from the end of a run that had already ready an equilibrium, steady-state.
+The run-time output should now look noticeably different. There should be no (or perhaps just very little) drift in any of the various variable values outputted to the screen – this is because you have (re-)started from the end of a run that had already ready an equilibrium (or close).
+
+Because \textsf{\footnotesize LAB.0.3.EXAMPLE} (and hence your copy, \textsf{\footnotesize LAB\_0.3.NEW}) does not prescribe a value of $pCO_2$ but instead allows it to 'float', your experiment is a good test of whether the carbon cycle in experiment \\\textsf{\footnotesize cookie.CB.p\_worbe2.BASES.ridgwelletal.SPIN} was at steady state.
 
 %----------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------

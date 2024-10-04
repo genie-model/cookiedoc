@@ -12,11 +12,10 @@
 
 \noindent Stuff to keep in mind:
 
+\vspace{2mm}
 \begin{itemize}
-\vspace{1mm}
 \item Models ARE NOT the ‘real World’ (it is going to be pretty obvious this is the case here).
-\vspace{1mm}
-\item Don’t believe what you read in Nature or Science.
+\item Don’t believe what you read in \textit{Nature} or \textit{Science} ...
 \end{itemize}
 
 %------------------------------------------------
@@ -29,24 +28,28 @@ You will need to download a new \textit{restart} file prior to embarking on the 
 To fetch this: change directory to the \textsf{\footnotesize cgenie\_output} directory, and type (or copy and paste carefully from this PDF ...):
 \vspace{-2mm}
 \small\begin{verbatim}
-$ wget --no-check-certificate http://www.seao2.info/cgenie_output/LAB_1.SPIN.tar.gz
-\end{verbatim}\small
-\normalsize
+$ wget --no-check-certificate http://www.seao2.info/cgenie_output/
+   cookie.C.p_woreq1.NONE.SPIN.tar.gz
+\end{verbatim}\normalsize
+\vspace{-2mm}
+(All one line, but note that there is no space after '\texttt{cgenie\_output/}' and before
+\\'\texttt{cookie.C.p\_woreq1.NONE.SPIN.tar.gz}'.)
+
+\vspace{1mm}
+This downloads an archived/compressed copy of the experiment \textsf{\footnotesize cookie.C.p\_woreq1.NONE.SPIN} – effectively, just an experiment (spin-up) that has already been run for 5,000 years for you. Extract the contents of this archive by typing (also from the \textsf{\footnotesize cgenie\_output} directory):
+\vspace{-2mm}
+\small\begin{verbatim}
+$ tar xfzv cookie.C.p_woreq1.NONE.SPIN.tar.gz
+\end{verbatim}\normalsize
 \vspace{-2mm}
 
-This downloads an archived/compressed copy of the experiment \textsf{\footnotesize LAB\_1.SPIN} – effectively, just an experiment (spin-up) that has already been run for 5,000 years for you. Extract the contents of this archive by typing (also from the \textsf{\footnotesize cgenie\_output} directory):
-\vspace{-2mm}
-\begin{verbatim}
-$ tar xfzv LAB_1.SPIN.tar.gz
-\end{verbatim}
-\vspace{-2mm}
+A new experiment results directly will then appear as if you had just run the entire 10,000 year experiment yourself (and you could in fact have done so). Remember to refresh the \textbf{WinSCP} directory view window if you are using this particular software, or it might appear that nothing has been extracted.
 
-A new experiment results directly will then appear as if you had just run the entire 5,000 year experiment yourself (and you could in fact have done so). Remember to refresh the \textbf{WinSCP} directory view window if you are using this particular software, or it might appear that nothing has been extracted.
-
+\vspace{1mm}
 You’ll then need to change directory back to \textsf{\footnotesize genie-main} to run the model.
 
 \vspace{1mm}
-If ... when you subsequently try and use this \textit{restart} in an experiment, \textbf{muffin} stops and complains that it cannot find it, check:
+If ... when you subsequently try and use this \textit{restart} in an experiment, \textbf{cookie} stops and complains that it cannot find it, check:
 \begin{enumerate}[noitemsep]
 \item That you in fact downloaded it to the correct directory, which should be: \textsf{\footnotesize cgenie\_output}, and not randomly to e.g. your home directory ...
 \item That you unpacked it.
@@ -58,32 +61,41 @@ If ... when you subsequently try and use this \textit{restart} in an experiment,
 
 \section{Brrrrrrrrrrrr – it’s chilly on ... snowball Earth!}
 
-To illustrate how ‘easy’ it can be to configure an Earth system / climate model such as \textbf{muffin} and explore the behavior of the Earth system and its response to perturbation – you are going to induce an extreme cooling of the climate system and see what happens. 
+To illustrate how ‘easy’ it can be to configure an Earth system / climate model such as \textbf{cookie} and explore the behavior of the Earth system and its response to perturbation – you are going to induce an extreme cooling of the climate system and see what happens. 
 
 Solar output was weaker during the late Neoproterozoic, a time when the Earth experienced a series (2 ish) of extreme glaciations. Thus, having a mild climate state to start with must have been dependent on sufficient \(CO_{2}\) and/or \(CH_{4}\) in the atmosphere which presumably must have been highly elevated compared to the modern World ... sort of opposite to the problem we have today …
 
+%------------------------------------------------
 \vspace{1mm}
 \noindent\rule{4cm}{0.5pt}
 \vspace{2mm}
+%------------------------------------------------
 
-\noindent You are going to be running experiments in a similar manner to before, and using the \textit{re-start} experiment that you downloaded. You could then, for example, take the experiment configuration file \textsf{\footnotesize LAB\_1.EXAMPLE} (which is provided for you), and run the experiment, which has a new \textit{base-config}: \textsf{\footnotesize cgenie.eb\_go\_gs\_ac\_bg.woreq1.NONE}, by typing:
+\noindent You are going to be running experiments in a similar manner to before, and using the \textit{re-start} experiment that you downloaded. You could then, for example, take the experiment configuration file \textsf{\footnotesize LAB.1.1.EXAMPLE} (which is provided for you), and run the experiment, which has a new \textit{base-config}: \textsf{\footnotesize cookie.C.p\_woreq1.NONE}, by typing:
 \vspace{-1mm}
 \small\begin{verbatim}
-$ ./runmuffin.sh cgenie.eb_go_gs_ac_bg.woreq1.NONE LABS LAB_1.EXAMPLE 100 LAB_1.SPIN
+$ ./runcookie.sh cookie.C.p_woreq1.NONE LABS LAB.1.1.EXAMPLE 100 
+   cookie.C.p_woreq1.NONE.SPIN
 \end{verbatim}\normalsize
+(All one line ... but remember there will need to be a space separating the experiment duration and the name of the \textit{restart}).
+
 \noindent \uline{However} ... why not get into the habit of creating new and uniquely named experiments and their associated \textit{user-config} files (no harder than copying it and renaming it -- see earlier). If you keep using the same experiment name, the results will be over-written each time you re-run that experiment, whilst having  2 (or more) experiments running simultaneously with exactly the same name causes havoc as they try and over-write each others results files in a somewhat entertaining but ultimately useless way. 
 
-So -- copy and rename the file \textsf{\footnotesize LAB\_1.EXAMPLE} to ... \textsf{\footnotesize LAB\_1.EXP1} or whatever (in the subdirectory \textsf{\footnotesize LABS}), and then run your newly created experiment:
+\vspace{1mm}
+So -- copy and rename the file \textsf{\footnotesize LAB.1.1.EXAMPLE} to ... \textsf{\footnotesize LAB.1.1.EXPT} or whatever (in the subdirectory \textsf{\footnotesize LABS}), and then run your newly created experiment:
 \vspace{-1mm}
 \small\begin{verbatim}
-$ ./runmuffin.sh cgenie.eb_go_gs_ac_bg.woreq1.NONE LABS LAB_1.EXP1 100 LAB_1.SPIN
+$ ./runcookie.sh cookie.C.p_woreq1.NONE LABS LAB.1.1.EXPT 100 
+   cookie.C.p_woreq1.NONE.SPIN
 \end{verbatim}\normalsize
 
-Remember that because you have changed \textit{base-config} since the exercises in the previous chapter, running the model first interactively (at the command line) is essential in order for the model code to be re-compiled consistent with the new configuration. i.e. you cannot directly start submitting experiments using the \textit{base-config} \textsf{\footnotesize cgenie.eb\_go\_gs\_ac\_bg.woreq1.NONE}, straight-away after having previous run the model using the \textsf{\footnotesize cgenie.eb\_go\_gs\_ac\_bg.worbe2.BASE} \textit{base-config}. Once you have re-compiled the model with the new \textit{base-config} and starting running (any experiment), you need not re-compile again and can submit as many jobs to the cluster queue as you like, up until you change \textit{base-config} once again.
+Remember that because you have changed \textit{base-config} since the exercises in the previous chapter, running the model first interactively (at the command line) is essential in order for the model code to be re-compiled consistent with the new configuration. i.e. you cannot directly start submitting experiments using the \textit{base-config} \textsf{\footnotesize cookie.C.p\_woreq1.NONE}, straight-away after having previous run the model using the \textsf{\footnotesize cookie.CB.p\_worbe2.BASES} \textit{base-config}. Once you have re-compiled the model with the new \textit{base-config} and starting running (any experiment), you need not re-compile again and can submit as many jobs to the cluster queue as you like, up until you change \textit{base-config} once again.
 
+%------------------------------------------------
 \vspace{-1mm}
 \noindent\rule{4cm}{0.5pt}
 \vspace{2mm}
+%------------------------------------------------
 
 \noindent Overall: your task in this exercise will be to determine the radiative forcing (or rather, p\(CO_{2}\) equivalent) threshold required to drive the climate system into a full ice-covered ocean (snowball Earth) state. (Make sure you have read the \textit{Hyde et al.} [2000] paper.)
 
@@ -91,31 +103,32 @@ Useful 2-D (netCDF —- \textbf{Panoply}) variables to view include: surface air
 
 Time-series (ASCII \textsf{\footnotesize .res} files) are useful for providing simple mean indicators of global climate such as global ocean fractional sea-ice covered.
 
-Note that the model configuration of an idealized super-continent you are using and as defined by the \textsf{\footnotesize cgenie.eb\_go\_gs\_ac\_bg.woreq1.NONE} \textit{base-config} file, positioned symmetrically about the Equator, is pretty unrealistic. But the further you go back in time, the more uncertain it becomes as to exactly where and in what orientation the continents were. Sometimes modelers have to resort to somewhat idealized experiments if the uncertainties are too great. In addition, one can conduct sensitivity experiments to test whether the continental configuration is important to the results. For instance, \textit{Hoffman and Schrag} [2002] discuss the potential importance of continental configuration, while the entire hypothesis of \textit{Donnadieu et al.} [2004] rests on specific details of the continental configuration being realistic.
+Note that the model configuration of an idealized super-continent you are using and as defined by the \textsf{\footnotesize cookie.C.p\_woreq1.NONE} \textit{base-config} file, positioned symmetrically about the Equator, is pretty unrealistic. But the further you go back in time, the more uncertain it becomes as to exactly where and in what orientation the continents were. Sometimes modelers have to resort to somewhat idealized experiments if the uncertainties are too great. In addition, one can conduct sensitivity experiments to test whether the continental configuration is important to the results. For instance, \textit{Hoffman and Schrag} [2002] discuss the potential importance of continental configuration, while the hypothesis of \textit{Donnadieu et al.} [2004] rests on specific details of the continental configuration.
 
 For this configuration, the solar constant is set weaker than modern to reflect the fact that the Sun’s output has increased with time and during the Neoproterozoic the solar constant would have been ca. 5\% weaker. This is set in the \textit{user-config} file by the model \textit{parameter}:
 
 \vspace{-1mm}
-\begin{verbatim}
+\small\begin{verbatim}
 ma_genie_solar_constant= 1285.92
-\end{verbatim}
+\end{verbatim}\normalsize
 \vspace{-1mm}
 
-\noindent which is set at the top of the provided \textit{user-config} file  \textsf{\footnotesize LAB\_1.EXAMPLE}. (For reference, the modern value is \( 1368 Wm^{-2}\).)
+\noindent which is set at the top of the provided \textit{user-config} file \textsf{\footnotesize LAB.1.1.EXAMPLE}. (For reference, the modern value is \( 1368 Wm^{-2}\).)
 
+%------------------------------------------------
 \vspace{1mm}
 \noindent\rule{4cm}{0.5pt}
 \vspace{2mm}
+%------------------------------------------------
 
 \noindent To search for the atmospheric \(CO_{2}\) concentration (or rather, radiative forcing equivalent) that would lead to a ‘snowball Earth’ state in the Neoproterozoic and answer the question:
 ‘How low does \(CO_{2}\) have to be to trigger a ‘snowball’?’
 you are going to edit the experiment file that controls the specific details of the experiment -- the \textit{user-config} file. From the \textsf{\footnotesize genie-userconfigs/LABS} directory, open one of the snowball experiments in your preferred  text editor. 
 
-At the top of the file you should see something like:
+Near the top of the file you should see something like:
 
 \vspace{-2mm}
 \small\begin{verbatim}
-#
 #
 # --- CLIMATE ---------------------------------------------------------
 #
@@ -124,37 +137,39 @@ At the top of the file you should see something like:
 ea_radfor_scl_co2=20.0
 …
 \end{verbatim}\normalsize
-\vspace{-2mm}
+\vspace{-1mm}
 
 Each line that is not commented out (i.e., no \#) contains a \textit{parameter} name and assigned value pair, with the format:
-\vspace{-2mm}
-\begin{verbatim}
+\vspace{-1mm}
+\small\begin{verbatim}
 PARAMETER=VALUE
-\end{verbatim}
-\vspace{-2mm}
+\end{verbatim}\normalsize
+\vspace{-1mm}
 The value of each parameter can be edited to change the experiment. (Additional parameter value specifications can also be added, or existing ones deleted.) In this example, the line:
-\vspace{-2mm}
-\begin{verbatim}
+\vspace{-1mm}
+\small\begin{verbatim}
 ea_radfor_scl_co2=20.0
-\end{verbatim}
-\vspace{-2mm}
+\end{verbatim}\normalsize
+\vspace{-1mm}
 specifies a radiative forcing of climate by \(CO_{2}\) equivalent to x20 modern (20x278 = 2560 ppm). If you instead wrote:
-\vspace{-2mm}
-\begin{verbatim}
+\vspace{-1mm}
+\small\begin{verbatim}
 ea_radfor_scl_co2=1.0
-\end{verbatim}
-\vspace{-2mm}
+\end{verbatim}\normalsize
+\vspace{-1mm}
 this would give you a modern\footnote{Technically: the pre-industrial \(CO_{2}\) value rather than ‘modern’ \textit{per se.}} (x1, or 1x278 = 278 ppm) radiative forcing.
 Note: \(CO_{2}\) is not being explicitly modeled in this experiment\footnote{And hence the parameter:
 \\\texttt{\# set no CO2 climate feedback}
 \\\texttt{ea\_36=n}
-\\which tell muffin to ignore the concentration of CO2 in the atmosphere, in case, as here, there isn't one defined ...}, but the long-wave radiative forcing associated with a specified concentration of \(CO_{2}\) (in ratio to modern) is being set instead.
+\\which tell cookie to ignore the concentration of CO2 in the atmosphere, in case, as here, there isn't one defined ...}, but the long-wave radiative forcing associated with a specified concentration of \(CO_{2}\) (in ratio to modern) is being set instead.
 
 Edit the value of \texttt{ea\_radfor\_scl\_co2} (lower or higher -- your choice) and save the file (\uline{with a different filename!}). Re-run the experiment until sea-ice extent starts to approach a new steady state. You may want to try  longer simulations than suggested (\textgreater 100 years) if it becomes clear that the model is still far from steady-state by the end of the experiment. You can judge how close to equilibrium things have got by following (and/or plotting) the evolution of e.g., global surface air temperature or sea-ice extent (both time-series files).
 
+%------------------------------------------------
 \vspace{1mm}
 \noindent\rule{4cm}{0.5pt}
 \vspace{2mm}
+%------------------------------------------------
 
 \noindent 
 In terms of methodology -- or; 'how am I going to answer the question' -- you will need to run mutilple different model experiments, each with a different value for the radiative forcing parameter, and find out for what value of the parameter, the Earth becomes completely ice-covered. It is your choice whether you change the radiative forcing parameter value, run the experiment, but wait for it to finish before deciding the radiative forcing parameter value to try for the next experiment -- i.e. a sequential approach, or try running multiple different 'guesses' simultaneously by submitting multiple different experiments to the queue. Ideally, each experiment will have a different name.
@@ -168,7 +183,7 @@ HINT: Be careful with the ‘\textsf{\footnotesize Fit to data}’ scaling featu
 In answering the question (‘How low does \(CO_{2}\) have to be to trigger a ‘snowball’?’), think about what an appropriate degree of precision (rather than accuracy) might be for your experiments. Just because computer models generally calculate to around 16 significant places of precision, does not mean you have 16 significant figures of realism. For instance – how many significant figures is the solar constant quoted to and what do you think is the uncertainty in this? Harder to judge is how the assumed (incorrect) continental configuration creates additional uncertainty, or the simple physics assumed in the ocean or sea-ice, or lack of snow on land …
 
 \vspace{1mm}
-Other questions to think about with regards to numerical modeling (as well as this particular experiment) are:
+Other questions to think about with regards to numerical modeling are:
 
 \begin{itemize}[noitemsep]
 \setlength{\itemindent}{.2in}
@@ -185,15 +200,17 @@ Other questions to think about with regards to numerical modeling (as well as th
 \end{itemize}
 
 \vspace{1mm}
-\noindent Obviously, associated with the question of 'precision' is: '\textit{How long do I have to run the experiment for?}'
+\noindent Associated with the question of 'precision' is: '\textit{How long do I have to run the experiment for?}'
 
 This also has a vague-to-no answer. It depends on the science question and what you might judge to be appropriate precision in the context of the various uncertainties ... In other words -- if you can define a sufficient or minimum precision of some property of the system, you only need to run the model as long as needed to achieve this. However, to determine  the precision of the model at any point in time, you need to know the final or equilibrium value. So ideally you would run the model once, for much longer than you think you need to, and then determine how as a function of time, precision increases and error between current state and final steady state decreases.
 
 Here I am crudely equating the concept precision with how far the model is from steady-state. You could think about is in terms of accuracy if you assumed that the steady-state of the model was 'perfect' and deviations from that steady-state (i.e. incomplete spin-up) equates to model 'error'.
 
+%------------------------------------------------
 \vspace{1mm}
 \noindent\rule{4cm}{0.5pt}
 \vspace{2mm}
+%------------------------------------------------
 
 \noindent Once you are happy  with determining snowball threshold, try and answer the associated question:
 
@@ -221,7 +238,7 @@ Always be prepared to justify all your choices for experimental design and model
 
 \subsection{Feedback loop analysis}
 
-To quantify the snowball Earth hysteresis loop in \textbf{muffin} as per Figure 2 in \textit{Hyde et al.} [2000] you will need to extract from the model ‘meaningful’ measures of climate (e.g., global surface air temperature, fractional sea-ice coverage) as a function of \(CO_{2}\) multiples, \(CO_{2}\) concentration, or (better) radiative forcing. For the latter, in \textbf{muffin}, the radiative forcing for a doubling of \(CO_{2}\) is set at: \(5.77 Wm^{-2}\). See: \textit{Myhre et al.} [1998] (Geophys. Res. Lett. 25, 2715–2718) and/or \textit{IPCC} [2007] for more on what radiative forcing is and how it is related to a relative change in \(CO_{2}\) concentration. Also, for making a comparison with \textit{Hyde et al.} [2000] -- for going into the snowball, note that they plot the change in radiative with a ‘cooling’ as positive (a bit daft). Their baseline radiative forcing state (an anomaly of \(0 Wm^{-2}\)) you might assume is equivalent to 278 ppm and hence \(\backsim\)130 ppm is an approximately halving of \(CO_{2}\) and hence creates \(\backsim5 Wm^{-2}\) of cooling. (You might prefer to plot the radiative forcing change as warming being positive, which makes rather more sense ...)
+To quantify the snowball Earth hysteresis loop in \textbf{cookie} as per Figure 2 in \textit{Hyde et al.} [2000] you will need to extract from the model ‘meaningful’ measures of climate (e.g., global surface air temperature, fractional sea-ice coverage) as a function of \(CO_{2}\) multiples, \(CO_{2}\) concentration, or (better) radiative forcing. For the latter, in \textbf{cookie}, the radiative forcing for a doubling of \(CO_{2}\) is set at: \(5.77 Wm^{-2}\). See: \textit{Myhre et al.} [1998] (Geophys. Res. Lett. 25, 2715–2718) and/or \textit{IPCC} [2007] for more on what radiative forcing is and how it is related to a relative change in \(CO_{2}\) concentration. Also, for making a comparison with \textit{Hyde et al.} [2000] -- for going into the snowball, note that they plot the change in radiative with a ‘cooling’ as positive (a bit daft). Their baseline radiative forcing state (an anomaly of \(0 Wm^{-2}\)) you might assume is equivalent to 278 ppm and hence \(\backsim\)130 ppm is an approximately halving of \(CO_{2}\) and hence creates \(\backsim5 Wm^{-2}\) of cooling. (You might prefer to plot the radiative forcing change as warming being positive, which makes rather more sense ...)
 
 For coming out of a snowball, because the \(CO_{2}\) and hence radiative forcing threshold is so high as compared to going in, you may want to be creative in the plotting (assuming attempting to combine both thresholds into a single plot) and, for instance, one might break the scale between the low radiative forcing interval spanning going in and the high one spanning coming out.
 
@@ -231,44 +248,44 @@ Another example is as per Figures 3 and 4 in \textit{Stone and Yao} [2004] (Clim
 
 \subsection{Continental configuration (1)}
 
-It was mentioned earlier that the position of the continents is an area of modelling uncertainty and might be important. You can test for this. Four alternative \textit{base-configs} are provided, each defining a different continental configuration:
+It was mentioned earlier that the position of the continents is an area of modeling uncertainty and might be important. You can test for this. Four alternative \textit{base-configs} are provided, each defining a different continental configuration:
 
 \vspace{1mm}
 \begin{enumerate}[noitemsep]
 \setlength{\itemindent}{.2in}
 \item
 \begin{verbatim}
-cgenie.eb_go_gs_ac_bg.wopol1.NONE
+cookie.C.p_worpl1.NONE
 \end{verbatim}
- – a single polar super-continent, with an ocean resolution of 36x36 with 8 vertical levels. (Note potential ‘l’ and 1’1 confusion in ‘\textsf{\footnotesize wopol1}’.)
+ – a single polar super-continent, with an ocean resolution of 36x36 with 8 vertical levels. (Note potential ‘l’ and 1’1 confusion in ‘\textsf{\footnotesize p\_worpl1}’.)
 \item
 \begin{verbatim}
-cgenie.eb_go_gs_ac_bg.wopol2.NONE
+cookie.C.p_worpl2.NONE
 \end{verbatim}
   – one continent at each pole, with an ocean resolution of 36x36 with 8 vertical levels.
 \item
 \begin{verbatim}
-cgenie.eb_go_gs_ac_bg.woreq1.NONE
+cookie.C.p_woreq1.NONE
 \end{verbatim}
   – a single Equatorially-centred super-continent, with an ocean resolution of 36x36 with 8 vertical levels. [this is the current configuration (that you  used previously)]
 \item
 \begin{verbatim}
-cgenie.eb_go_gs_ac_bg.woreq2.NONE
+cookie.C.p_woreq2.NONE
 \end{verbatim}
  – two continents straddling the Equator, with an ocean resolution of 36x36 with 8 vertical levels.
 \end{enumerate}
 \vspace{1mm}
 
-You can use the given \textit{user-config} file (\textsf{\footnotesize LAB\_1.EXAMPLE}) again as an experiment template file, and any of the alternative configurations can be run very similarly to as per before, i.e.:
+You can use the given \textit{user-config} file (\textsf{\footnotesize LAB.1.1.EXAMPLE}) again as an experiment template file, and any of the alternative configurations can be run very similarly to as per before, i.e.:
 
 \vspace{-2mm}
 \begin{verbatim}
-$ ./runmuffin.sh cgenie.eb_go_gs_ac_bg.xxxxx.NONE LABS LAB_1.EXAMPLE 100
+$ ./runcookie.sh cookie.C.p_xxxxxx.NONE LABS LAB.1.1.EXAMPLE 100
 \end{verbatim}
 \vspace{-2mm}
 
-Note that you are using a different \textit{base-config} file name: \textsf{\footnotesize cgenie.eb\_go\_gs\_ac\_bg.xxxxx.NONE}
-\\where \textsf{\footnotesize xxxxx} is one of: \textsf{\footnotesize wopol1}, \textsf{\footnotesize wopol2}, \textsf{\footnotesize woreq1}, or \textsf{\footnotesize woreq2}.
+Note that you are using a different \textit{base-config} file name: \textsf{\footnotesize cookie.C.p\_xxxxxx.NONE}
+\\where \textsf{\footnotesize xxxxx} is one of: \textsf{\footnotesize worpl1}, \textsf{\footnotesize worpl2}, \textsf{\footnotesize woreq1}, or \textsf{\footnotesize woreq2}.
 
 \uline{Also note} that \uline{no} \textit{re-starts} are provided for any of these configurations. You may (or may not) want to create some (you will need to judge for yourselves how long to run the \textit{re-start} experiments to achieve as close to steady-state as you think is ‘sufficient’). Recall again, that \textit{re-starts} are just ‘normal’ experiments that have already been run.
 Be careful that when changing from one \textit{base-config} to another, the model re-compiles. Simply running the new configuration briefly (for even just a single year) is sufficient to ensure this. Experiments can then be safely submitted to a cluster queue, i.e. do not try and submit an experiment using a different \textit{base-config} straight to the cluster queue without having run it (or a short version of the experiment you want) interactively first (to ensure the model is re-compiled). This is also good practice – checking that a new sort of experiment and/or model configuration works as you intend and without hiccups.
@@ -280,45 +297,45 @@ Be careful that when changing from one \textit{base-config} to another, the mode
 Although much useful can be learned from conceptual configurations and Worlds regarding climate dynamics, it is invariably aesthetically more 'pleasing' to also test ideas in a more paleogeographically realistic configuration. Provided is a set of \textit{base-config} and \textit{user-config} files (plus associated boundary conditions) for the position of the continents and climate 635 millions years ago (635 Ma). For this:
 
 \vspace{1mm}
-The \textit{base-config} is named: \textsf{\footnotesize muffin.C.fm0635cb.NONE}
+The \textit{base-config} is named: \textsf{\footnotesize cookie.C.fm0635cb.NONE}
 
 \vspace{1mm}
-The \textit{user-config} is: \textsf{\footnotesize muffin.C.fm0635cb.NONE.SPIN}
+The \textit{user-config} is: \textsf{\footnotesize cookie.C.fm0635cb.NONE.SPIN}
 
 \vspace{1mm}
-NOTE that the \textit{user-config} lives in the directory: \textsf{\footnotesize \(\sim\) \textbackslash cgenie.muffin\textbackslash user-configs\textbackslash PALEO}
+NOTE that the \textit{user-config} lives in the directory: \textsf{\footnotesize \(\sim\) \textbackslash cgenie.cookie\textbackslash user-configs\textbackslash EXAMPLES}
 
-\noindent so that you either need to specify this different (\textsf{\footnotesize PALEO}) directory when running \textbf{muffin}, or copy the \textit{user-config} file into \textsf{\footnotesize LABS}.
+\noindent so that you either need to specify this different (\textsf{\footnotesize EXAMPLES}) directory when running \textbf{cookie}, or copy the \textit{user-config} file into \textsf{\footnotesize LABS}.
 
 \vspace{1mm}
-A \textit{re-start }experiment is provided called \textsf{\footnotesize muffin.CB.fm0635cb.NONE.SPIN} and which can be downloaded as per before:
+A \textit{re-start }experiment is provided called \textsf{\footnotesize cookie.CB.fm0635cb.NONE.SPIN} and which can be downloaded as per before:
 
 \vspace{-2mm}
-\begin{verbatim}
-$ wget http://www.seao2.info/cgenie_output/muffin.CB.fm0635cb.NONE.SPIN.tar.gz
-\end{verbatim}
+\small\begin{verbatim}
+$ wget http://www.seao2.info/cgenie_output/cookie.C.fm0635cb.NONE.SPIN.tar.gz
+\end{verbatim}\normalsize
 \vspace{-2mm}
 
 \noindent and unpacked by:
 
 \vspace{-2mm}
-\begin{verbatim}
-$ tar xfzv muffin.CB.fm0635cb.NONE.SPIN.tar.gz
-\end{verbatim}
+\small\begin{verbatim}
+$ tar xfzv cookie.C.fm0635cb.NONE.SPIN.tar.gz
+\end{verbatim}\normalsize
 \vspace{-2mm}
 
 \noindent (Remember: you should be in the \textsf{\footnotesize cgenie\_output} directory when you do this downloading and unpacking.)
 
-To run (e.g. for 100 years), following on from its \textit{re-start} (and leaving the \textit{user-config} in its \textsf{\footnotesize PALEO} directory):
+To run (e.g. for 100 years), following on from its \textit{re-start} (and copying (/renaming) the \textit{user-config} to the \textsf{\footnotesize LABS} directory):
 
 \vspace{-2mm}
-\begin{verbatim}
-$ ./runmuffin.sh muffin.C.fm0635cb.NONE PALEO muffin.C.fm0635cb.NONE.SPIN
-    100 muffin.CB.fm0635cb.NONE.SPIN
-\end{verbatim}
+\small\begin{verbatim}
+$ ./runcookie.sh cookie.C.fm0635cb.NONE LABS cookie.C.fm0635cb.NONE.SPIN 100
+   cookie.C.fm0635cb.NONE.SPIN
+\end{verbatim}\normalsize
 \vspace{-2mm}
 
-\noindent (\uline{all on one line})\footnote{NOTE that the \textit{base-config} and \textit{user-config} filenames start \textsf{\footnotesize muffin.C.} whereas the\textit{ re-start} filename starts \textsf{\footnotesize muffin.CB.} ... just to try and trip you up ...}
+\noindent (\uline{all on one line})\footnote{NOTE that the \textit{base-config} and \textit{user-config} filenames start \textsf{\footnotesize cookie.C.} whereas the\textit{ re-start} filename starts \textsf{\footnotesize cookie.CB.} ... just to try and trip you up ...}
 
 \vspace{1mm}
 
@@ -326,15 +343,19 @@ $ ./runmuffin.sh muffin.C.fm0635cb.NONE PALEO muffin.C.fm0635cb.NONE.SPIN
 
 \subsection{Geothermal heat input}
 
-Finally, \textbf{muffin} will fairly happily build up sea-ice, apparently without limit (with the remaining wet ocean becoming progressively colder and more saline). In the real world, one might expect some sort of limit to the maximum thickness achieved as the heat diffusion across a progressively greater thickness of sea-ice approaches the heat input at the bottom of the ocean from geothermal energy. Different modes of ocean circulation are also possible if one considers heating from the bottom as well as cooling (and brine rejection) from the top and which might affect the entry into or exit from a snowball state.
+Finally, \textbf{cookie} will fairly happily build up sea-ice, apparently without limit (with the remaining wet ocean becoming progressively colder and more saline). In the real world, one might expect some sort of limit to the maximum thickness achieved as the heat diffusion across a progressively greater thickness of sea-ice approaches the heat input at the bottom of the ocean from geothermal energy. Different modes of ocean circulation are also possible if one considers heating from the bottom as well as cooling (and brine rejection) from the top and which might affect the entry into or exit from a snowball state.
 
-In the experimental setup you have been given, a geothermal heat input is specified in the ocean circulation module via the following :
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+In the experimental setup you have been given, a geothermal heat input is specified in the ocean circulation module via the following:
 
 \vspace{-2mm}
-\begin{verbatim}
+\small\begin{verbatim}
 bg_ctrl_force_GOLDSTEInTS=.TRUE.
 bg_par_Fgeothermal=100.0E-3
-\end{verbatim}
+\end{verbatim}\normalsize
 \vspace{-2mm}
 
 The parameter \textsf{\footnotesize bg\_par\_Fgeothermal} sets the geothermal flux in units of W m$^{-2}$. (Note that in the Neoproterozoic, the geothermal heat flux could have been somewhat higher than modern. How much higher? A question for \textbf{Google} … ?)
@@ -348,16 +369,16 @@ An appropriate research question might be to determine in radiative forcing \tex
 By default, the idealized model configurations are non-seasonally forced (by solar insolation). You can switch to a seasonally-forced to model by adding the following lines to the \textit{user-config} file:
 
 \vspace{-3mm}
-\begin{verbatim}
+\small\begin{verbatim}
 ea_dosc=.true.
 go_dosc=.true.
 gs_dosc=.true.
-\end{verbatim}
+\end{verbatim}\normalsize
 \vspace{-2mm}
 
 The scientific question here in trying this would be whether or not taking into account a seasonally-varying climate substantially affects the entry (and/or exit) thresholds for a snowball climate state. (At least, whether it is important in the context of the resolution and physics of the model you are using.)
 
-You can also save the data seasonally if you like – see Section 12.2.3 in the \textbf{muffin} User Manual (this document!).\footnote{For reference, your configuration has 24 time-steps per year set for the \textbf{BIOGEM} module.}
+You can also save the data seasonally if you like – see Section 12.2.3 in the \textbf{cookie} User Manual (this document!).\footnote{For reference, your configuration has 24 time-steps per year set for the \textbf{BIOGEM} module.}
 
 %----------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------
