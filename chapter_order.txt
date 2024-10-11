@@ -26,10 +26,10 @@ MODEL OUTPUT AND ANALYSIS
 
 13	muffin Model Output
 14	Introduction to Results Analysis
-15	Results Analysis with muffinplot
 
 SUPPORTING SOFTWARE
 
+15	muffinplot
 16	muffindata
 17	muffingen
 

@@ -1,0 +1,1038 @@
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+%       CHAPTER 19
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------
+
+\cleardoublepage
+
+\chapterimage{ch-howto.png} % Chapter heading image
+
+\chapter{HOW-TO (technical)}\label{ch:how-to-technical}
+
+\hfill \break
+\vspace{24mm}
+
+\Large
+What follows are potted HOW-TO instructions for doing things, split into more technical installing and running the model (this Chapter) vs. configuring experiments (next Chapter).
+\vspace{2mm}
+
+There is some overlap with the FAQ Chapter, so please read all three!
+\normalsize
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\section{HOW-TO ... get started with cGENIE.muffin}\label{how-to-0}
+\vspace{2mm}
+
+%------------------------------------------------
+%
+\subsubsection{Find and Install \textbf{\textit{muffin}}}\label{install-muffin}
+
+\vspace{1mm}
+See: Chapter 1.
+
+%------------------------------------------------
+%
+\subsubsection{Set up and analyse model experiments}
+
+\vspace{1mm}
+See: Chapter 1.
+\noindent Also: subsequent tutorial chapters.
+
+%------------------------------------------------
+%
+\subsubsection{Do some thing dumb}\label{Do some thing dumb}
+
+\vspace{1mm}
+Easy! Just close your eyes and change some parameter values at random. Better still, start using the model without reading the manual first ...
+
+%------------------------------------------------
+
+\newpage
+
+%------------------------------------------------
+
+\section{HOW-TO ... linux}\label{how-to-linux}
+\vspace{2mm}
+
+%------------------------------------------------
+%
+\subsubsection{Viewing directories; moving around the file system}
+
+When logging in, you always start from your 'home' directory. This is represented by a '\texttt{\~}'
+before the command prompt (\texttt{\$}).
+At the command line prompt in linux, you can view the current directory contents:
+\begin{verbatim}
+$ ls
+\end{verbatim}
+or for a more complete output:
+\begin{verbatim}
+$ ls -la
+\end{verbatim}
+To go down a directory (e.g. \texttt{cgenie\_output}) relative to where you already are:
+\begin{verbatim}
+$ cd cgenie_output
+\end{verbatim}
+and to go back up one is:
+\begin{verbatim}
+$ cd ..
+\end{verbatim}
+
+It is often safer/easier at first, if you need to change more than one directory level to do this in stages. e.g. to change to \texttt{cgenie\_output/exp0\_modern\_SPINUP}, change to \texttt{cgenie\_output} (\texttt{cd cgenie\_output}) but then check that you are in the place you think you are and/or remind yourself of the spelling of the next directory you need to change to by typing \texttt{ls}.
+
+You can always return to your home directory (\texttt{\~}) by typing:
+\begin{verbatim}
+$ cd
+$ cd $HOME
+\end{verbatim}
+(or \texttt{cd \~})
+
+%------------------------------------------------
+%
+\subsubsection{Copying and moving files}
+
+To copy a file \texttt{myconfig} to \texttt{myconfig\_new}, assuming you are in the same directory where both the old file is and the new file will be:
+\begin{verbatim}
+$ cp myconfig myconfig_new
+\end{verbatim}
+
+To move \texttt{myconfig} to the cGENIE user-config directory, assuming you are in the directory where the old file is but with the new file in a different directory, give the full path of the new directory:
+\begin{verbatim}
+$ mv myconfig ~/cgenie.muffin/genie-userconfigs/LABS/myconfig
+\end{verbatim}
+
+To rename \texttt{myconfig} to \texttt{useless\_config}:
+\begin{verbatim}
+$ mv myconfig useless_config
+\end{verbatim}
+
+%------------------------------------------------
+%
+\subsubsection{Creating directories}
+
+To create a directory \texttt{mydirectory}:
+\begin{verbatim}
+$ mkdir mydirectory
+\end{verbatim}
+
+%------------------------------------------------
+%
+\subsubsection{Repeating command lines}
+
+You do not have to re-enter lines of commands and options in their entirety each time – by pressing the UP cursor key you get the last command you issued. If you keep pressing the UP cursor key you can recover progressively older commands you have previously entered. When you have recovered a helpful line you can simply just edit it, navigating along with the LEFT and RIGHT cursor keys (press RETURN when you are done).
+
+%------------------------------------------------
+%
+\subsubsection{Changing passwords!}
+
+The command \texttt{passwd} Linux is used to change the user account passwords.
+
+The usage can be as simple as: 
+\begin{verbatim}
+$ passwd
+\end{verbatim}
+You will then be asked your current password. And then the new one. (And then asked to confirm the new one.)
+\\Use impossible to guess passwords ... never shorter than \(8\) characters. Ideally, use a mix of both UPPERCASE and lower case letters, numbers, and one or more 'special' characters, such as: \textsf{\footnotesize \#, \%, \&, *}. But equally, make sure that you can remember the new password ...\footnote{The password can always be reset by the system administrator.}
+
+%------------------------------------------------
+%
+\subsubsection{vi}
+
+The \textbf{vi} editor is a text-based editor that you use at the command line (i.e. it does not open in its own window, nor have fancy menu items or icons to click). You use \textbf{vi =} to create/edit files, by typing:
+\begin{verbatim}
+$ vi FILENAME
+\end{verbatim}
+
+\noindent where \texttt{FILENAME} is the ... name of the file you want to edit\footnote{Then make sure the file is present in the directory you are currently in, or provide a full path to the file (+filename).} or create.
+
+You start in the 'command' mode, in which you do not edit the contents directly, but instead can access file and copy-paste operations such as:
+
+\vspace{2mm}
+\begin{itemize}[noitemsep]
+\setlength{\itemindent}{.2in}
+\item :q == quit
+\item :q! == no, really quit
+\item :x == save and quit
+\item dd == cut line
+\item p == paste
+\end{itemize}
+\vspace{2mm}
+
+To start editing and e.g. inserting text, press the \textsf{i} key.
+
+To exit the editing mode and back to the command mode, press the \textsf{Esc} (escape) key.
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\section{HOW-TO ... git}\label{how-to-git}
+\vspace{2mm}
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\section{HOW-TO ... install Ubuntu muffins}\label{how-to-ubuntu}
+\vspace{2mm}
+
+This is a brief guide to installing \textbf{muffin} on \textbf{Ubuntu}. 
+
+These instructions are valid for a fresh install of \textbf{Ubuntu} distribution version 22.04 LTS as well as 22.04.3 LTS ('Jammy Jellyfish'). For a different distribution or more established installation, different or fewer respectively components may be needed to be installed and may require a little trial-and-error.
+Similar installation procedures work for \textbf{Ubuntu} 16.04 LTS and 18.04 LTS (as well as RedHat (CentOS 7.4)).
+
+Instructions are given step-by-step, although not all the components need be installed in this order. Note that the various \textbf{netCDF} component version numbers may not be the current releases. The most recent versions can almost certainly be substituted (but not tested here) with the caveat that you may not be able to mix-and-match very old with very new libraries.
+
+%------------------------------------------------
+\vspace{1mm}
+\noindent\rule{4cm}{0.1mm}
+%------------------------------------------------
+
+\subsection*{Preparation}
+\vspace{1mm}
+
+Get hold of a computer with \textbf{Ubuntu} installed on it. Make sure you have plugged in the network cable. Log in. Obtain a strong cup of coffee.
+
+%------------------------------------------------
+\vspace{1mm}
+\noindent\rule{4cm}{0.1mm}
+%------------------------------------------------
+
+\subsection*{Installation}
+\vspace{1mm}
+
+\begin{enumerate}[noitemsep]
+\setlength{\itemindent}{-.4in}
+
+\vspace{4pt}
+\item \textbf{Get the code!}
+\vspace{2pt}
+\\You may as well start off by cloning the muffin code (although you could equally do this last).
+\\If your system does not know what \textbf{git} is (it should be present by default on Ubuntu 22.04):
+\vspace{-2pt}
+\begin{verbatim}
+sudo apt install git
+\end{verbatim}
+
+and then (from home):
+\vspace{-2pt}
+\begin{verbatim}
+git clone https://github.com/derpycode/cgenie.muffin.git
+\end{verbatim}
+
+\end{enumerate}
+
+\vspace{4pt}
+
+\noindent Then ... the following installation steps are in approximately the order you would encounter if you tried running the model test after only having cloned the code-base and nothing else. They need not be installed in this order (and some may already exist on your system).
+
+\vspace{2pt}
+
+\noindent First, stuff required for basic compiling (and \textbf{xml} support):
+
+\begin{enumerate}[noitemsep]
+\setlength{\itemindent}{-.4in}
+\setcounter{enumi}{1}
+
+\vspace{4pt}
+\item \textbf{make}
+\vspace{-2pt}
+\begin{verbatim}
+sudo apt install make
+\end{verbatim}
+
+\vspace{4pt}
+\item \textbf{gfortran} [FORTRAN compiler]
+\vspace{-2pt}
+\begin{verbatim}
+sudo apt install gfortran
+\end{verbatim}
+
+\item \textbf{g++} [The \textbf{GNU} \textbf{C++} compiler\footnote{We could get rid of this is we could get rid of the \textbf{C++} \textbf{netCDF} comparison program used in \texttt{make testbiogem}.}:]
+\vspace{-2pt}
+\begin{verbatim}
+sudo apt install g++
+\end{verbatim}
+
+\item \textbf{xsltproc} ['\textit{a command line tool for applying XSLT style-sheets to XML documents}']\footnote{In the \textbf{cupcake} release we do not need this :)} 
+\vspace{-2pt}
+\begin{verbatim}
+sudo apt install xsltproc
+\end{verbatim}
+
+\vspace{2pt}
+\item \textbf{libxml2-dev}
+\vspace{-2pt}
+\begin{verbatim}
+sudo apt install libxml2-dev
+\end{verbatim}
+
+\end{enumerate}
+
+\vspace{4pt}
+
+\noindent And then the cascade of libraries needed by \textbf{netCDF}:
+
+\vspace{4pt}
+
+\begin{enumerate}[noitemsep]
+\setlength{\itemindent}{-.4in}
+\setcounter{enumi}{6}
+
+\vspace{2pt}
+\item \textbf{m4}
+\vspace{-2pt}
+\begin{verbatim}
+sudo apt install m4
+\end{verbatim}
+
+\vspace{2pt}
+\item \textbf{libcurl4-openssl-dev}
+\vspace{-2pt}
+\begin{verbatim}
+sudo apt install libcurl4-openssl-dev
+\end{verbatim}
+
+\vspace{2pt}
+\item \textbf{libz-dev}
+\vspace{-2pt}
+\begin{verbatim}
+sudo apt install libz-dev
+\end{verbatim}
+
+\vspace{2pt}
+\item \textbf{libhdf5-dev}
+\vspace{-2pt}
+\begin{verbatim}
+sudo apt install libhdf5-dev
+\end{verbatim}
+
+(If your system cannot find the \texttt{libhdf5-dev} package, try: \texttt{sudo apt update -y} first)
+
+\end{enumerate}
+
+\vspace{8pt}
+
+\noindent And finally, the \textbf{netCDF} libraries themselves.
+\\These come rather inconveniently in multiple parts ... first we need to install the main \textbf{netCDF} \textbf{C} libraries and then the \textbf{FORTRAN} and \textbf{C++}\footnote{Which we will try and get rid of ...} libraries that depend on the \textbf{C} libraries.\footnote{The examples given are for the most recent versions of the libraries. For details/most recent version, see: \textit{https://www.unidata.ucar.edu/software/netcdf/}} 
+
+\vspace{2pt}
+
+\begin{enumerate}[noitemsep]
+\setlength{\itemindent}{-.4in}
+\setcounter{enumi}{10}
+
+\vspace{4pt}
+\item \textbf{netcdf-c} [netCDF C libraries]
+
+\vspace{-2pt}
+\begin{verbatim}
+wget https://downloads.unidata.ucar.edu/netcdf-c/4.9.2/netcdf-c-4.9.2.tar.gz
+tar xzf netcdf-c-4.9.2.tar.gz
+cd netcdf-c-4.9.2
+./configure
+\end{verbatim}
+At this point, you may well see: '\textit{configure: error: Can't find or link to the hdf5 library. Use --disable-hdf5, or see config.log for errors}' because the \textbf{ndf5} libraries you have just only just installed, mysteriously cannot be located ... You need to add their paths, e.g., for Ubuntu 22.04:
+\vspace{-2pt}
+\begin{verbatim}
+export LDFLAGS="-L/usr/lib/x86_64-linux-gnu/hdf5/serial/lib"
+export CFLAGS="-I/usr/lib/x86_64-linux-gnu/hdf5/serial/include"
+\end{verbatim}
+(If you need to find where \textbf{hdf5} is hiding: \texttt{dpkg -L libhdf5-dev}).
+\vspace{2pt}
+\\Repeat \texttt{./configure} if necessary and continue:
+\vspace{-2pt}
+\begin{verbatim}
+make check
+sudo make install
+\end{verbatim}
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+For the next step, it can be that the libraries you have just installed cannot be 'found'. You can force an update of the library link cache (the not found libraries may be links to the 'real' library and somehow this link is not working/found) by:
+\vspace{-2pt}
+\begin{verbatim}
+sudo ldconfig
+\end{verbatim}
+
+\item \textbf{netcdf-fortran} [netCDF FORTRAN libraries]
+
+\vspace{-2pt}
+\begin{verbatim}
+wget https://downloads.unidata.ucar.edu/ ...
+   ... netcdf-fortran/4.6.1/netcdf-fortran-4.6.1.tar.gz
+tar xzf netcdf-fortran-4.6.1.tar.gz
+cd netcdf-fortran-4.6.1
+./configure
+make check
+sudo make install
+\end{verbatim}
+
+\end{enumerate}
+
+\vspace{4pt}
+
+\noindent And then lastly ... \textbf{muffin} currently requires \textbf{netcdf-cxx} (legacy) \textbf{C++} libraries for \textbf{netCDF} that have since been retired\footnote{See: \href{https://www.unidata.ucar.edu/support/help/MailArchives/netcdf/msg12236.html}{link}} and hence requiring a seperate/additional installation step\footnote{'This version of the netCDF C++ library includes no changes since the 4.1.3 release, but is provided for backwards compatibility as a separate package. It was developed before key C++ concepts like templates, namespaces, and exceptions were widely supported. It's not recommended for new projects, but it still works.'}
+
+\begin{enumerate}[noitemsep]
+\setlength{\itemindent}{-.4in}
+\setcounter{enumi}{12}
+
+\vspace{4pt}
+\item \textbf{netcdf-cxx} [netCDF C++ libraries]
+
+\vspace{-2pt}
+\begin{verbatim}
+wget https://downloads.unidata.ucar.edu/netcdf-cxx/4.2/netcdf-cxx-4.2.tar.gz
+tar netcdf-cxx-4.2.tar.gz
+cd netcdf-cxx-4.2
+./configure
+make check
+sudo make install
+\end{verbatim}
+
+\end{enumerate}
+
+%------------------------------------------------
+\vspace{1mm}
+\noindent\rule{4cm}{0.1mm}
+%------------------------------------------------
+
+\vspace{4pt}
+
+\noindent \textbf{muffin} is currently coded for \textbf{python v.2.7}. To use the code on \textbf{master} (the default branch), you will need to add a symbolic link as well as, mostly likely, installing python2.7:
+\begin{verbatim}
+sudo apt install python2.7
+\end{verbatim}
+and then to create a symbolic link from python --> python2.7:
+\begin{verbatim}
+sudo ln -s /usr/bin/python2.7 /usr/bin/python
+\end{verbatim}
+
+\noindent \uline{However}, there is also a \textbf{python3} branch that is updated to track the code on \textbf{master}, which you can switch to (from the \texttt{cgenie.muffin} directory):
+\begin{verbatim}
+git checkout master.python3
+\end{verbatim}
+If you go this route, then the default installed python v.3 is used.
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\subsection*{Configuring muffin}
+
+The version of \textbf{muffin} available from \textbf{GitHub} is configured with default environmental settings that match the above instructions and require \uline{no} configuration changes. If not -- there are several  environment variables that may need changing -- the compiler name, \textbf{netCDF} library name, and \textbf{netCDF} path. These are specified in the file \texttt{user.mak} (\texttt{genie-main} directory). If the \textbf{muffin} code tree (\texttt{cgenie.muffin}) and output directory (\texttt{cgenie\_output}) are installed anywhere other than in your account HOME directory, paths specifying this will have to be edited in: \texttt{user.mak} and \texttt{user.sh} (\texttt{genie-main} directory). If using the \texttt{runmuffin.sh} experiment configuration/launching scripts, you'll also have to set the home directory  and change every occurrence of \texttt{cgenie.muffin} to the model directory name you are using (if different). (Installing the model code under the default directory name (\texttt{cgenie.muffin}) in your \texttt{\$HOME} directory is hence by far the simplest and avoids incurring additional/unnecessary pain (configuration complexity) ...)
+
+%------------------------------------------------
+%
+\subsection*{Testing muffin}
+
+To test the code installation -- change directory to \texttt{cgenie.muffin/genie-main} and type:
+\vspace{-5pt}\begin{verbatim}
+make testbiogem
+\end{verbatim}\vspace{-5pt}
+This compiles a carbon cycle enabled configuration of \textbf{muffin} and runs a short test, comparing the results against those of a pre-run experiment (also downloaded alongside the model source code). It serves to check that you have the software environment correctly configured. If you are unsuccessful here ... double-check the software and directory environment settings in \texttt{user.mak} (or \texttt{user.sh}) and for a \textbf{netCDF} error, check the value of the \texttt{NETCDF\_DIR} environment variable. (Refer to the FAQ section for addition fault-finding tips.) If environment variables are changed: before re-trying the test, you will need to type:
+\vspace{-5pt}\begin{verbatim}
+make cleanall
+\end{verbatim}\vspace{-5pt}
+
+\noindent If when running \texttt{make testbiogem} you run into issues, specifically: libraries that cannot be 'found', try forcing an update of the library link cache (the not found libraries may be links to the 'real' library and somehow this link is not working/found):
+\vspace{-2pt}
+\begin{verbatim}
+sudo ldconfig
+\end{verbatim}
+\noindent [\textbf{ldconfig} ... '\textit{creates the necessary links and cache to the most recent shared libraries found in ... the file \texttt{/etc/ld.so.conf}, and in the trusted directories, \texttt{/lib} and \texttt{/usr/lib}}']
+
+%------------------------------------------------
+\vspace{1mm}
+\noindent\rule{4cm}{0.1mm}
+%------------------------------------------------
+
+\noindent That is is for the basic installation!
+
+%------------------------------------------------
+
+\newpage
+
+%------------------------------------------------
+
+\section{HOW-TO ... install RedHat muffins}\label{how-to-redhat}
+\vspace{2mm}
+
+%------------------------------------------------
+
+No specific example is given at this time for \textbf{RedHat} ... refer to the installation instructions for \textbf{Ubuntu} in Section \ref{how-to-ubuntu}. Probably, not more installation will be needed. The \textbf{netCDF} requirements are the same.
+
+%------------------------------------------------
+
+\newpage
+
+%------------------------------------------------
+
+\section{HOW-TO ... install macOS muffins}\label{how-to-macos}
+\vspace{2mm}
+
+This is a brief guide to installing \textbf{muffin} on a \textbf{Mac}.
+\\(Also see the Section \ref{faq:installation} FAQ (page \pageref{faq:installation}).)
+
+\vspace{1mm}
+\noindent\rule{4cm}{0.1mm}
+\vspace{2mm}
+
+\noindent To install the \textbf{muffin} release of cGENIE on a Mac you will need a number of software packages, including Fortran, C++ and NetCDF. The best way to get hold of these is via a package management system, such as Homebrew (\href{}{https://brew.sh}) or MacPorts (\href{}{https://www.macports.org}). This guide is based on Homebrew, because it is slightly more user friendly than MacPorts, and is kept more up-to-date with changes in the Apple operating system. (If you are already a MacPorts user, please see Section \ref{how-to-macports}).
+
+\begin{enumerate}
+
+\item First of all, you will need XCode, which can be downloaded from the app store, or here...
+\\\href{https://developer.apple.com/xcode/downloads}{https://developer.apple.com/xcode/downloads} \\After installing XCode, it is necessary to enable command line tools, by entering at the command line...\\
+\texttt{xcode-select --install}
+
+% I think XCode automatically comes with Homebrew and command line tools enabled
+\item Get Homebrew by pasting the following at the terminal command line...
+\\ \texttt{/usr/bin/ruby -e
+\small
+\\"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+\normalsize}
+(\uline{all one line})
+\\Next, type `\texttt{brew doctor}'. This should tell you ``\texttt{your system is ready to brew}''. If it doesn't, see Section \ref{how-to-macports-errors}.
+\item Install Fortran, C++, NetCDF and some other useful libraries at the command line (using Homebrew) as follows:
+
+% brew tap homebrew/science % deprecated in homebrew
+\vspace{-5pt}\begin{verbatim}
+brew install cmake
+brew install gcc
+brew install hdf5
+brew install netcdf
+brew install wget
+\end{verbatim}
+
+\item Get hold of a current copy of the \textbf{muffin} code:
+
+\begin{verbatim}
+git clone https://github.com/derpycode/cgenie.muffin
+\end{verbatim}
+
+\item Check your netcdf version number by entering \texttt{brew info netcdf}\\
+This will return several lines, but the key one gives the netcdf path, and should look something like:
+\vspace{-5pt}\begin{verbatim}
+/usr/local/Cellar/netcdf/4.6.1_2 (84 files, 6.2MB) *
+\end{verbatim}\vspace{-5pt}
+(This was from my most recent install, with version \texttt{4.6.1\_2})
+
+\item Finaly, adjust the cGENIE environment variables for your machine and netcdf installation by editing
+\\\texttt{cgenie.muffin/genie-main/user.mak}, setting:
+\vspace{-5pt}\begin{verbatim}
+MACHINE=OSX
+\end{verbatim}\vspace{-5pt}
+and
+\vspace{-5pt}\begin{verbatim}
+NETCDF_DIR=/usr/local/Cellar/netcdf/4.6.1_2
+\end{verbatim} \vspace{-5pt}
+to reflect your netcdf path (Step 5).
+
+\item To test the code installation -- change directory to \texttt{cgenie.muffin/genie-main} and type:
+\vspace{-5pt}\begin{verbatim}
+make testbiogem
+\end{verbatim}\vspace{-5pt}
+This compiles a carbon cycle enabled configuration of \textit{c}GENIE and runs a short test, comparing the results against those of a pre-run experiment (also downloaded alongside the model source code). It serves to check that you have the software environment correctly configured. If you are unsuccessful here ... double-check the software and directory environment settings in \texttt{user.mak} (or \texttt{user.sh}) and for a netCDF error, check the value of the \texttt{NETCDF\_DIR} environment variable. (Refer to the User Manual for addition fault-finding tips.) If environment variables are changed: before re-trying the test, you will need to type:
+\vspace{-5pt}\begin{verbatim}
+make cleanall
+\end{verbatim}\vspace{-5pt}
+
+\end{enumerate}
+
+\noindent That is is for the basic installation.
+
+%------------------------------------------------
+%
+\subsection*{MacPorts}\label{how-to-macports}
+
+You are here because you have already installed MacPorts, presumably by following the instructions here:
+\\\href{https://www.macports.org/install.php}{https://www.macports.org/install.php}.
+You now have two options, either remove MacPorts entirely, replacing it with Homebrew, or install the required packages through MacPorts and a number of precompiled binaries.
+
+\subsubsection*{Option 1: Remove MacPorts from your system... (to be replaced by Homebrew)}
+
+\begin{enumerate}
+
+\item Back up your system (i.e. using Time Machine).
+
+\item To uninstall MacPorts, enter at the terminal:\\
+\texttt{sudo port -f uninstall installed}
+
+Then remove everything that is left from MacPorts: \\
+\texttt{sudo rm -rf /opt/local} \\
+\texttt{sudo rm -rf /Applications/DarwinPorts} \\
+\texttt{sudo rm -rf /Applications/MacPorts} \\
+\texttt{sudo rm -rf /Library/LaunchDaemons/org.macports.*} \\
+\texttt{sudo rm -rf /Library/Receipts/DarwinPorts*.pkg}\\
+\texttt{sudo rm -rf /Library/Receipts/MacPorts*.pkg} \\
+\texttt{sudo rm -rf /Library/StartupItems/DarwinPortsStartup} \\
+\texttt{sudo rm -rf /Library/Tcl/darwinports1.0} \\
+\texttt{sudo rm -rf /Library/Tcl/macports1.0} \\
+\texttt{sudo rm -rf \textasciitilde/.macports}
+
+Note that the \texttt{sudo} command is inserted before the \texttt{rm} (i.e. remove) command in order to enable the correct permissions.
+
+\item You may now continue with your installation as described in the main text. You may have to delete some files (using \texttt{sudo rm}), as recommended by \texttt{brew doctor}.
+
+\end{enumerate}
+
+%------------------------------------------------
+%
+\subsubsection*{Option 2: Install required packages through MacPorts and precompiled binaries...}
+
+\begin{enumerate}
+
+\item First of all, synchronize your installation of MacPorts:
+\\\texttt{sudo port -v selfupdate}
+
+\item Then install Netcdf and related C\(^{++}\) and Fortran libraries at the command line using MacPorts, as follows:
+
+\vspace{-5pt}\begin{verbatim}
+sudo port install netcdf
+sudo port install netcdf-cxx
+sudo port install netcdf-fortran
+\end{verbatim}
+
+\item Download precompiled fortran and C\(^{++}\)  binaries appropriate to your operating system (El Capitan \& Sierra, etc.) from \href{http://hpc.sourceforge.net}{http://hpc.sourceforge.net}. Install as follows, amending the file number to match your version of OSX (e.g. El Capitan \& Sierra are associated with the 7.1 binaries).
+
+\vspace{-5pt}\begin{verbatim}
+cd ~/Downloads/
+gunzip gcc-7.1-bin.tar.gz
+sudo tar -xvf gcc-7.1-bin.tar -C /.
+gunzip gfortran-7.1-bin.tar.gz
+sudo tar -xvf gfortran-7.1-bin.tar -C /.
+\end{verbatim}
+
+If your operating system is not listed here, you will either have to wait until it is, or install Homebew.
+
+\end{enumerate}
+
+%------------------------------------------------
+%
+\subsection*{Errors}\label{how-to-macports-errors}
+
+Errors identified by `\texttt{brew doctor}' are most likely associated with some incompatible files in your software libraries, perhaps from a previous installation of MacPorts. Try to follow the suggestions given to you by `\texttt{brew doctor}', deleting any problematic files (using \texttt{sudo rm} to overcome any permission issues). Note that you may wish to do a system backup first.
+
+%------------------------------------------------
+
+\newpage
+
+%------------------------------------------------
+
+
+\section{HOW-TO ... install Windows(!) muffins}\label{how-to-windows}
+\vspace{2mm}
+
+%------------------------------------------------
+
+Natively ... \textbf{muffin} does not compile under Windows. However
+... \footnote{By Dr. David A. McKay <david.armstrongmckay@su.se>,
+  tested May 2019, Jan 2020 }
+
+%------------------------------------------------
+%
+\subsection*{Cygwin}\label{cygwin}
+
+So you want to run \textbf{muffin}, but previous sage advice has
+failed to deter you from wanting to do it on Windows... Well don’t say
+we didn’t warn you, but it *is* possible to do – but only by cheating.
+
+\textbf{muffin} is not able to run directly on Windows, but there are
+ways to *pretend* that Windows is actually Unix and get it going
+anyway. But why oh why run \textbf{muffin} in Windows? Big runs are
+best sent to clusters (which are invariably a Linux machine of some
+sort) where they can happily run in native Linux and keep at it for
+ages. But maybe you want to tinker around with the model on your own
+laptop a bit and do some short runs without bothering with clusters
+and queuing and the like. Or maybe you don’t have access to a fancy
+cluster and want to play with a real earth system model on your laptop
+anyway. Or maybe the normal way of doing it was just too easy for you...
+
+The main method described here uses
+\href{https://www.cygwin.com/faq.html#faq.what.what}{\textbf{Cygwin}},
+which claims to ``provide functionality similar to a Linux
+distribution on Windows''. Alternatively, if you have Windows 10 you
+could try using its new-ish Windows Subsystem for Linux (WSL) feature,
+which in theory means you can have supposedly actual Linux on your
+Windows machine without having to do anything awkward like
+dual-installation. However, it’s still a bit Beta, and when I last
+tried it put the requisite libraries all over the place which was a
+faff. It may work better at some point, but for the moment proceed
+there at your own risk (or do a better job than me).
+
+\textbf{Cygwin} goes to pains to note that it only provides
+functionality similar to Linux, and isn’t actually Linux or ``... a
+way to run native Linux apps on Windows''. What this means in practice
+is that you can’t just take stuff compiled on a Linux machine, dump it
+on your Windows machine and expect it to work via \textbf{Cygwin} (or
+vice versa). But if you’re coding and compiling stuff to run within
+\textbf{Cygwin} then it basically acts the same. Just remember the
+golden rule: What Compiles In \textbf{Cygwin}, Stays in
+\textbf{Cygwin}.
+
+We’ll assume you don’t already have \textbf{Cygwin} installed (and if
+you do, you may need to check you’ve got all the packages you need
+anyway – skip to running the installation executable from wherever you
+saved it). It’s best to use this guide in parallel to the main muffin
+manual too (which provides extra troubleshooting). Here goes:
+
+\begin{enumerate}[noitemsep]
+
+\vspace{2mm}
+\item \textbf{Download Cygwin:} Head to
+  \href{https://www.cygwin.com/}{www.cygwin.com} and click the link
+  named \textsf{\small setup-x86\_64.exe} under \textsf{\small
+    Install} to download the executable (pick 64/32 bit depending on
+  your system). Save it -- maybe adding \textsf{\small Cygwin} to the
+  name so you know what it is later -- and then run it from your
+  downloads tab when it’s ready (it will also no doubt have a security
+  popup; say yes, or this will be a very short tutorial.)
+
+\vspace{2mm}
+\item \textbf{Start Cygwin Setup:} In \textbf{Cygwin} setup, say
+  \textsf{\small Next} to all the things [assuming you want to install
+    from the internet (rather than somewhere else?), use the default
+    root directory (best not change this), install for all users on
+    your machine, and default local package directory, \& use system
+    proxy settings for downloading]. It will ask you what mirror you
+  want to download from too – it doesn’t really matter where, I tend
+  to go for somewhere local but they should all be the same anyway.
+
+\vspace{2mm}
+\item \textbf{Select Packages:} Next in Setup, it will present you
+  with Select Packages to install. \textbf{Cygwin} doesn’t
+  automatically come with every useful Unix package and library ever
+  (as it’d be enormous), so you have to go through the tedium of
+  picking what you actually think you need (and inevitably miss
+  something). Here is what you’ll need for \textbf{muffin} install to
+  work beyond the default Basics (find them using the search bar, then
+  change the dropdown bit where it says 'Skip' to the latest non-test
+  version number. Libraries for each package should be automatically
+  selected by this as well):
+
+\vspace{1mm}
+\begin{enumerate}[noitemsep]
+\item gcc-core; gcc-fortran; gcc-g++ – compilers for c, c++, \& fortran
+  for compiling the model
+\item nano – a standard text editor (or your favourite Unix one,
+  e.g. emacs or vim) so you can edit
+\item git –for downloading/cloning \textbf{muffin} (and updating it in
+  future)
+\item make – for testing and installing the model
+\item Python2
+\item gambas3-gb-xml-xslt – needed for xsltproc
+\item Bc
+\item Anything else you fancy?
+\item Then click next for installation to happen
+\end{enumerate}
+\vspace{1mm}
+
+If you forget something, you can simply rerun the install executable
+and you can select new packages and update old ones (NB this is the
+only way it updates, so you have to do this occasionally anyway if you
+want any updates!)
+
+NB-1: This how-to was most recently tested with Cygwin 3.1.2,
+downloaded/installed 22 Jan 2020. % update as necessary as Cygwin is
+                                  % updated...
+
+NB-2: eagle-eyed readers may have noticed we didn’t mention
+\textbf{netCDF} here. There’s a good (and annoying) reason for this,
+to be revealed shortly
+
+NB-3: you may later find \textbf{Cygwin} claiming some really core
+commands (like rm) is missing, so cgenie won’t compile. If this
+happens, uninstall and then reinstall \textbf{Cygwin} from scratch...
+
+\vspace{2mm}
+\item \textbf{Click Finish when Setup is done}, adding system icons if
+  you want them
+
+\vspace{2mm}
+\item \textbf{Launch Cygwin:} Go find Cygwin Terminal (either from an
+  icon or the Start bar) and launch it – you should get a bash-like
+  terminal popping up ready to go.
+
+\vspace{2mm}
+\item \textbf{Download Netcdf:} This is the other annoying step, in
+  that netcdf should already be available as a library via Cygwin but
+  for irritating reasons (to do with naming, library locations, and
+  compilers) isn’t properly recognised by \textbf{muffin} without some
+  tiresome edits. So it’s a lot easier just to download it yourself,
+  install it exactly where you want it, and tell \textbf{muffin} where
+  it is. Inelegant, but effective. If you’d prefer to make Cygwin
+  netcdf work instead, then feel free to have a go!
+
+\begin{enumerate}[noitemsep]
+\vspace{1mm}
+\item Download the netcdf4 library from the \textbf{muffin}
+  \href{http://www.seao2.info//cgenie/software/netcdf-4.0.tar.gz}{website}
+  and save it somewhere handy like in your brand new \textbf{Cygwin}
+  directory user area (something like C:\textbackslash cygwin64\textbackslash home\textbackslash User) where you
+  can find it using the \textbf{Cygwin} terminal
+\vspace{1mm}
+\item In \textbf{Cygwin} Terminal, navigate to where you downloaded
+  the library to (using cd and ls commands) and then unzip and untar
+  (you may need to use a utility like pzip in Windows 10), configure,
+  and install the libraries with the following code:
+\begin{verbatim}
+tar -xzf netcdf-4.0.tar.gz
+cd netcdf-4.0
+./configure --disable-shared --prefix=${HOME} FC=gfortran CC=gcc CXX=g++
+\end{verbatim}
+\# N.B. no new line here. This will also take a while...
+\begin{verbatim}
+make check
+\end{verbatim}
+\#this checks \textbf{netCDF}. All the tests should pass. If not, then
+try again...
+\begin{verbatim}
+make install
+\end{verbatim}
+\#this installs \textbf{netCDF}. It should finish with a
+congratulations. If not, then try again...  \\The key thing here is
+making sure we use *exactly* the same compilers that installing cGENIE
+will use to make sure it all matches up. Also note that this is an
+older version of netcdf with both c and fortran libraries combined –
+this is to make life simpler here, and still works fine
+\end{enumerate}
+
+\vspace{2mm}
+\item Download \textbf{muffin}: In \textbf{Cygwin} Terminal navigate
+  back to your Home directory (where you started) and run the
+  following code:
+\begin{verbatim}
+cd ..
+git clone https://github.com/derpycode/cgenie.muffin.git
+\end{verbatim}
+This clones the entire current cGENIE.muffin repository from github to
+your computer via Cygwin. Magical!
+
+\vspace{2mm}
+\item Configure cGENIE settings: Before installing, we need to edit a
+  bit of code to tell cGENIE where we put netcdf. There are 2 files to
+  edit:
+\begin{enumerate}[noitemsep]
+\vspace{1mm}
+\item Type: \texttt{cd cgenie.muffin/genie-main} to go to the main \textbf{muffin} directory
+\vspace{1mm}
+\item Type: \texttt{nano user.mak} in your \textbf{Cygwin} terminal to
+  edit \textsf{\small user.mak} – at the end of the file, the
+  \textbf{netCDF} path will need to be changed because we’ve put
+  netcdf somewhere different (your home user area) to what it’s
+  expecting. Change:
+\begin{verbatim}
+NETCDF_DIR=/usr/local
+\end{verbatim}
+to:
+\begin{verbatim}
+NETCDF_DIR=$(HOME)
+\end{verbatim}
+and make sure this line is the same:
+\begin{verbatim}
+NETCDF_NAME=netcdf
+\end{verbatim}
+To do so, move to the line with your keyboard arrow keys, type it in,
+and save on exit (in nano, press ‘Ctrl-X’ to exit and then ‘y’ to save
+changes or ‘n’ to not, then hit enter)
+\vspace{1mm}
+\item Now type: \texttt{nano makefile.arc} in your \textbf{Cygwin}
+  terminal to edit \textsf{\small makefile.arc}– towards the end of
+  the file, under the heading:
+\begin{verbatim}
+# === NetCDF paths ===
+\end{verbatim}
+uncomment the line under (i.e. remove the \# in front):
+\begin{verbatim}
+### FOR COMBINED C+FORTRAN NETCDF LIBRARIES #######
+\end{verbatim}
+and comment the 2 lines under (i.e. add a \# in front):
+\begin{verbatim}
+### FOR SEPERATE C AND FORTRAN NETCDF ###
+\end{verbatim}
+so as to select, combined, rather than separate, netCDF
+libraries. Save and exit.
+\end{enumerate}
+
+\vspace{2mm}
+\item \textbf{Test muffin:} now we need to check \textbf{muffin} is
+  working.
+\begin{enumerate}[noitemsep]
+\vspace{1mm}
+\item First, make sure you’re still in the directory
+  cgenie.muffin/genie-main (type ls to find out). Then enter:
+\begin{verbatim}
+make testbiogem
+\end{verbatim}
+After a whole bunch of text happens and time passes, you should get:
+\begin{verbatim}
+**TEST OK**
+\end{verbatim}
+If not, try:
+\begin{verbatim}
+make cleanall
+\end{verbatim}
+and then try again. If that doesn’t work, see the full \textbf{muffin}
+manual FAQs for pointers, or check the earlier steps with
+\textbf{Cygwin} packages, \textbf{netCDF}, and \textbf{muffin}
+configuration worked properly
+\vspace{1mm}
+\item To see if it works for a proper model run, in the directory
+  cgenie.muffin/genie-main, \texttt{nano makefile.txt}, find the
+  section entitled ``CLEANING RULES'' and delete the leading
+  backslashes in front of the four rm commands in this section, so
+  those lines look like the following, and save the results.
+\begin{verbatim}
+rm -f ...
+\end{verbatim}
+\item Try out the following code to run a real experiment\footnote{no
+  new line}:
+\begin{verbatim}
+./runmuffin.sh cgenie.eb_go_gs_ac_bg.worbe2.BASE LABS LAB_0.EXAMPLE 10
+\end{verbatim}
+with the command structure following:
+\footnotesize\begin{verbatim}
+./runmuffin.sh #1 #2 #3 #4 (#5)
+#1 : The base config. Here it is: cgenie.eb_go_gs_ac_bg.worbe2.BASE
+#2 : The user config directory. Here it is: LABS
+#3 : The user config file (i.e. the experiment name). Here it is: LAB_0.EXAMPLE.
+#4 : Run the experiment for X years. Here it is: 10
+#5 : The (optional) restart file. Here there is no restart, so no 5th parameter passed
+\end{verbatim}\normalsize
+You should see code compiling, and then after a while some results
+start appearing. After 10 model years (a few minutes), the model
+should save and finish, and you can find the outputs in \textsf{\small
+  cgenie\_outputs} in your Home directory.
+\end{enumerate}
+
+\vspace{2mm}
+\item \textbf{Success!} If you’ve made it this far, congratulations,
+  you now having \textbf{muffin} running on your Windows machine!
+  Remember that big runs will take a long time though, so beyond
+  tinkering and short runs be prepared to leave your computer running
+  for a lonnnng time. But on the upside, no queuing required!
+
+\end{enumerate}
+
+%------------------------------------------------
+
+\newpage
+
+%------------------------------------------------
+
+\section{HOW-TO ... run and submit muffins}
+\vspace{2mm}
+
+%------------------------------------------------
+
+\subsection*{\texttt{runmuffin.sh} options}
+\vspace{2mm}
+
+
+
+\vspace{20mm}
+
+
+%------------------------------------------------
+
+\subsection*{Submitting jobs with Grid Engine}\label{how-to-sge}
+\vspace{2mm}
+
+%------------------------------------------------
+
+For submitting jobs using \textbf{Sun Grid Engine} (\textbf{SGE}) on a cluster, a basic command\footnote{With a different queue management environment it may be necessary to place the call to \texttt{runmuffin.sh} together with its list of parameters into an executable shell, and submit that instead. } would look like this:
+\vspace{-2pt}\begin{verbatim}
+$ qsub -S /bin/bash runmuffin.sh <options>
+\end{verbatim}\vspace{-2pt}
+Here: the \texttt{-S /bin/bash} part is to ensure that \textbf{SGE} uses the \texttt{BASH} shell to submit the job because this is the language that \texttt{runmuffin.sh} has been written in.
+
+Take care that the installed \textbf{FORTRAN} compiler can be seen by the cluster nodes. If not, the \textbf{muffin} executable must have already been built prior to submitting a job. The easiest way to do this is to run \textbf{muffin} interactively briefly (e.g., with a run length of just a couple of years or kill it) and then submit the full run to the cluster.
+
+Other useful submission options for \textbf{SGE}:
+
+\begin{itemize}[noitemsep]
+\setlength{\itemindent}{.2in}
+
+        \item To redirect the standard output stream:
+        \vspace{-2pt}\begin{verbatim}$ qsub -o genie_log ...\end{verbatim}
+
+        \item To redirect the standard error stream:
+        \vspace{-2pt}\begin{verbatim}$ qsub -e genie_log ...\end{verbatim}
+
+        \item To merge standard output and error streams into standard output:
+        \vspace{-2pt}\begin{verbatim}$ qsub -j y ...\end{verbatim}
+
+        \item To specify particular resources, such as the nodes with 8 GB of RAM:
+        \vspace{-2pt}\begin{verbatim}$ qsub -l mem_total = 8.0G ...\end{verbatim}
+
+        \item To decrease the priority of a job\footnote{The default priority is 0. A lower priority has a higher value ... !}:
+        \vspace{-2pt}\begin{verbatim}$ qsub -p 1 ...\end{verbatim}
+
+        \item To submit a job from the current working directory:
+        \vspace{-2pt}\begin{verbatim}$ qsub –cwd\end{verbatim}
+
+        \item Request an email is sent when the job starts and/or when it finishes -- see the main pages for \texttt{qsub} for the required syntax).
+
+        \item A complete example for the \texttt{domino} UCR clusters would be:
+\small
+        \vspace{-2pt}\begin{verbatim}$ qsub -q dog.q -j y -o cgenie_log -V -S /bin/bash runmuffin.sh
+        cgenie.eb_go_gs_ac_bg.worjh2.ANTH / EXAMPLE.worjh2.Caoetal2009.SPIN 10000\end{verbatim}
+\normalsize
+        which merges standard output and error streams and redirects the resulting file to the directory \texttt{\~{}/cgenie\_log}.
+        Note that to redirect output as per in this particular example, the directory \texttt{\~{}cgenie\_log} \textbf{MUST} be present. I have no idea what happens if it is not ... but it can't be good ;)
+
+\end{itemize}
+
+\noindent You can check the status of the \textbf{SGE} job queue\footnote{Depending on the cluster setup, it may be possible to graphically check what is going on via the www.} with the command:
+\vspace{-2pt}\begin{verbatim}$ qstat -f\end{verbatim}\vspace{-2pt}
+and you can kill a job with the \texttt{qdel} command, the job numbers being given by the \texttt{qstat} command.
+
+%------------------------------------------------
+
+\newpage
+
+%------------------------------------------------
+
+\section{HOW-TO ... re-start muffins}
+
+%------------------------------------------------
+%
+\subsubsection{Modify the ocean inventory of a tracer of a \textit{re-started} experiment}
+\vspace{1mm}
+
+There are three different ways in which for a closed system, the inventory of a tracer can be modified:
+
+\begin{enumerate}[noitemsep]
+
+\vspace{1mm}
+\item Add a flux forcing, to the ocean surface or the ocean as a whole. The tracer change is then the total global flux times the duration of the forcing. Note that the forcing can be positive or negative (to effect a decrease in the tracer inventory)
+
+\vspace{1mm}
+\item There is a parameter that add to or subtract from, the tracer inventory at the very beginning of an experiment (and assuming it is running on from a \textit{re-start}). The parameter name is \texttt{bg\_ocn\_dinit\_nn}, where \texttt{nn} is the tracer \textit{number} (which can be found in the parameter list table PDF, or by inspection of the file \texttt{tracer\_define.ocn} (for ocean, dissolved tracers) in the directory \texttt{cgenie.muffin/genie-main/data/input}. For example:
+\\\texttt{bg\_ocn\_dinit\_8=1.0E-6}
+\\will add 1 \(\mu\)M kg\(^{-1}\) of PO\(_{4}\) (\#8 is the tracer number of dissolved phosphate), uniformly to the ocean.
+Note that a negative value will result in the subtraction of a uniform concentration form every grip cell in the ocean (meaning that care has to be taken to ensure that negative numbers to not appear following subtraction).
+
+\vspace{1mm}
+\item There is a variant to the concentration adjusting parameter that is enabled by setting the parameter
+\\ \texttt{bg\_ctrl\_ocn\_dinit} to \texttt{false} (it is \texttt{true} by default). \texttt{bg\_ocn\_dinit\_nn} now acts as a scaling factor that is applied to the tracer concentration field. The new concentration field is equal to the old concentration field (from the \textit{re-start}), times \texttt{(1.0 + bg\_ocn\_dinit\_nn)}, e.g.:
+\\\texttt{bg\_ctrl\_ocn\_dinit=.false.}
+\\\texttt{bg\_ocn\_dinit\_8=0.5}
+\\will result in a 50\% increase in the concentration of dissolved phosphate   everywhere in the ocean (and a value of \texttt{1.0} doubles  concentrations). Conversely, a value less than one will result in a proportional reduction everywhere, e.g.:
+\\\texttt{bg\_ctrl\_ocn\_dinit=.false.}
+\\\texttt{bg\_ocn\_dinit\_8=-0.2}
+\\generates a 20\% decrease everywhere.
+
+\end{enumerate}
+
+Obviously, if the experiment is not being run from a re-start, or is being run from a re-start which does not include the particular tracer, then the initial value of the trace can be set. The parameter name is \texttt{bg\_ocn\_init\_nn}, where \texttt{nn} is the tracer \textit{number}.
+
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------

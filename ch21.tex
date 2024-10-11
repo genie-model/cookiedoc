@@ -1,0 +1,335 @@
+%----------------------------------------------------------------------------------------
+%       CHAPTER 21
+%----------------------------------------------------------------------------------------
+
+\cleardoublepage
+
+\chapterimage{muffin_planet.jpg} % Chapter heading image
+
+\chapter{cookie Development}\label{ch:model-code}
+
+\hfill \break
+
+Best not to touch it, but ...
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\section{Testing}
+
+%------------------------------------------------
+%
+%
+%------------------------------------------------
+
+\newpage
+
+%------------------------------------------------
+%
+\section{Common Modifications}
+
+%------------------------------------------------
+%
+\subsubsection{Add 'name-list' (run time) parameters}
+
+In order to create a new '\textit{namelist}' parameter, i.e. a parameter whose value can be set in a \textit{user-config} file, you need to edit a total of 4 files:
+\begin{enumerate}
+
+        \item \texttt{*\_lib.f90}
+        \\Add an entry in the relevant module library file, which for BIOGEM would be:
+        \\\texttt{biogem\_lib.f90}\footnote{\texttt{cgenie.muffin/genie-biogem/src/fortran}}.
+
+        The parameter must be defined (with an appropriate type) and added to the NAMELIST section at the top of the tile. Simply follow the format of the existing entries and add to the most appropriate section of parameter categories.
+        Note that the parameter name appears *twice* -- one in defining its type, and once in adding the the parameter NAMELIST.
+
+        \item \texttt{*\_data.f90}
+        For completeness, there is an entry in the subroutine that reports the selected parameter options upon model start-up (if this reporting is selected in the first place ...), which for BIOGEM, is subroutine:
+        \\\texttt{sub\_load\_goin\_biogem}
+        \\that lives in:
+        \\\texttt{biogem\_data.f90}.\\Again -- simply follow the format of existing entries for creating a new one.        Again: add in an appropriate section of parameter categories to prevent future coders going mad loking for something.
+
+        \item Add a new definition (including brief description and default value) in the xml definition file:
+        \\\texttt{definition.xml}
+        \\that can be found in the directory:
+        \\\texttt{cgenie.muffin/genie-main/src/xml-config/xml}
+        You will have to scroll down to find the section for the appropriate module, and then within that, the section for that catagory of parameter.
+        Simply follow the format of the existing entries.
+
+        \item \textbf{$<$FILE$>$.f90 (or $<$FILE$>$.f77)}
+        \\Finally, edit into the appropriate FORTRAN source file the code that incorporates the parameter that you wish to use.
+        D'uh!
+
+\end{enumerate}
+
+\noindent Having ensured the model compiles and seems to do what you wish it do to -- run a standard test to confirm that nothing obvious has been unintentionally affected by the change. To do this, simply type \texttt{make testbiogem} and confirm that the test passes ...
+
+%------------------------------------------------
+%
+\subsection*{Add additional results output}\label{Add new output}
+
+If a new data field can be derived from an existing field, then creating additional results saving is relatively straightforward because no new time-averaging has to be carried out (i.e. you create the new field based on annual (or sub-annual) averages that are already calculated and available. (If not -- refer to the 'full' data saving sub-sections.) Note that new tracers are automatically saved.
+
+%------------------------------------------------
+%
+\subsubsection{Data saving 101}
+
+For new \textit{time-slice} saving, code needs to be added to either\footnote{\texttt{biogem\_data.netCF.f90}}:
+\vspace{-1mm}\small\begin{verbatim}
+sub_save_netCDF_2d_USER
+\end{verbatim}\vspace{-1mm}\normalsize
+or:
+\vspace{-1mm}\small\begin{verbatim}
+sub_save_netCDF_3d_USER
+\end{verbatim}\vspace{-1mm}\normalsize
+depending on whether the field is 2D or 3D, respectively. Add the code to the end of the subroutine (as marked). Follow the format of previous data saving as far as possible. For general format is:
+\begin{itemize}[noitemsep]
+\item Add a conditional to define under what circumstances, particularly selected save options, the data is saved. DO NOT save it by default ... unless it is of vital importance to the future of the planet. Refer to the user-manual for the categories of save options, investigate what options are used for similar data fields, and use your common sense ...
+\item Specific a units name for \texttt{loc\_unitsname}, or set to \texttt{'n/a}' if not applicable (or non-dimensional).
+\item Initialize (zero) the local 2D (\texttt{loc\_ij}) or 3D (\texttt{loc\_ijk}) (depending on the data field) data array.
+\item Calculate the data, employing a nested loop if necessary (i.e. simply matrix math cannot be employed) and assign to the local data array.
+\item Add a call to \texttt{sub\_adddef\_netcdf} (don't ask questions -- follow the general format).
+\item Add a call to \texttt{sub\_putvar2d} (ditto).
+\end{itemize}
+
+For new \textit{time-series} saving ... it is sort of both more and less complicated :o) The new code goes in \texttt{biogem\_data\_ascii.f90} but in two different places: \texttt{sub\_init\_data\_save\_runtime} and \texttt{sub\_data\_save\_runtime}. For former creates the (ASCII) file and adds a header (to define the columns), and then closes the file. The latter opens the now existing file, writes the output, including the (\textit{time-series} save point) time, and the closes the file. The code needed (again -- follow the generla format and best to add the new code to the end of the subroutines) is hence ...
+
+\noindent In \texttt{sub\_init\_data\_save\_runtime}:
+\begin{itemize}[noitemsep]
+\item Add a conditional to define under what circumstances, particularly selected save options, the data is saved. DO NOT save it by default ... unless it is of vital importance to the future of the planet. Refer to the user-manual for the categories of save options, investigate what options are used for similar data fields, and use your common sense ...
+\item (If multiple different variables stored in or based on the same array, set up a loop.)
+\item Create the filename to be sued (\texttt{loc\_filename}) via a call to \texttt{fun\_data\_timeseries\_filename}. All files are \texttt{*\_series} with the specific variable type and variable after, or if not a specific variable type, then \texttt{\_misc}.
+\item Create the header text. If you start with a '\texttt{\%}' then it is all the more MUTLAB friendly.
+\item Follow the sequence format of: \texttt{CHECK / OPEN / CHECK / WRITE / CHECK / CLOSE / CHECK (yawn)} ...
+\end{itemize}
+\noindent In  \texttt{sub\_data\_save\_runtime}:
+\begin{itemize}[noitemsep]
+\item Add the same conditional as used in \texttt{sub\_init\_data\_save\_runtime}. \item (If multiple different variables stored in or based on the same array, set up a loop.)
+\item Construct the local filename *exactly* as before (\texttt{sub\_data\_save\_runtime}) or it will not find the fiel you have created ...
+\item Calculate the data value(s) (\texttt{loc\_sig}).
+\item  \texttt{CHECK / OPEN / CHECK / WRITE / CHECK / CLOSE / CHECK (yawn)} ...
+\end{itemize}
+
+%------------------------------------------------
+
+\newpage
+
+%------------------------------------------------
+%
+\section{Uncommon (Ill-advised) Modifications}
+
+%------------------------------------------------
+%
+\subsection*{Define a new tracer}\label{Define a new trace}
+
+You probably should not be doing this ... but ... just in case ...
+
+%------------------------------------------------
+%
+\subsubsection{Basic definition procedure}
+
+\begin{enumerate}
+\item
+The starting point to adding a new tracer in \textit{c}GENIE is to add the its definition to the relevant tracer definition file.
+\\There are three tracer definition files that live in \texttt{cgenie.muffin/genie-main/data/input}:
+\begin{itemize}
+\item \texttt{tracer\_define.atm}
+\item \texttt{tracer\_define.ocn}
+\item \texttt{tracer\_define.sed}
+\end{itemize}
+that house a list of atmospheric (gaseous), oceanic (dissolved), and sediment (solid) tracer definitions.
+Each file has a similar format, with a series of columns\footnote{The meaning of the columns is also summarized at the end of the file.} holding information on:
+\begin{description}
+\item[\#01] The short (mnemonic) name for the tracer. This is used in creating the output filenames and netCDF variable names. In theory, this could be anything you like, but to a limit of 16 characters.
+\item[\#02] The identifier (index) of the tracer. This must be a unique number -- one number for each tracer.
+\item[\#03] The 'dependency' of the tracer. For instance, an isotope depends on the bulk (and lower mass) tracer. A scavenged element depends on bulk organic matter. For a bulk tracer\footnote{The elemental components of organic matter (P, N, etc) count as bulk tracers for the purpose of dependency.}, its dependency is itself. \\The dependency is used in the code to automatically determine any tracer that it depends on and in the case of isotopes, to calculate the \(\delta\) value.
+\item[\#04] Is the tracer variable 'type', used internally to determine what to 'do' with a specific tracer:
+    \\'\texttt{1}' \(\rightarrow\) assigned to primary biogenic phases; POM (represented by POC), CaCO3, opal (all contributing to bulk composition)
+    \\'\texttt{2}' \(\rightarrow\) assigned to abiotic material (contributing to bulk composition); det, ash
+    \\'\texttt{3}' \(\rightarrow\) assigned to elemental components associated with POC; P, N, Cd, Fe
+    \\'\texttt{4}' \(\rightarrow\) assigned to elemental components associated with CaCO3; Cd
+    \\'\texttt{5}' \(\rightarrow\) assigned to elemental components associated with opal; Ge
+    \\'\texttt{5}' \(\rightarrow\) assigned to elemental components associated with det; Li
+    \\'\texttt{7}' \(\rightarrow\) assigned to particle-reactive scavenged elements; 231Pa, 230Th, Fe
+    \\'\texttt{8}' \(\rightarrow\) assigned to carbonate 'age'
+    \\'\texttt{9}' \(\rightarrow\) assigned to the fractional partitioning of biogenic material (for remineralization purposes)
+   \\'\texttt{10}' \(\rightarrow\) assigned to misc / 'inert'
+\\'\texttt{\(>\)10}' \(\rightarrow\) assigned to isotopic properties: \texttt{11==13C, 12==14C, 13==18O, 14==15N, 15==34S, 16==30Si, 17==114Cd, 18==7Li, 19==144Nd, 20==44Ca, 21==98Mo, 22==56Fe}.
+\item[\#05] Tracer long name. Cannot be more than 128 characters in length.
+\item[\#06] Units.
+\item[\#07] Minimum valid value for the tracer. Values lower than this are classed as \texttt{NaN} in the netCDF output.
+\item[\#08] Maximum valid value. Values higher than this are classed as \texttt{NaN} in the netCDF output.
+\end{description}
+Hence, the first thing to do is to add an entry for the required tracer(s) to the relevant file(s), using the above information and keeping a consistent format and convention with the existing tracers.
+
+If you have an elemental or isotopic tracer that is taken up by a growing phytoplankton cell and incorporated structurally into POM, you will also need to define equivalent dissolved (and recalcitrant) dissolved organic matter tracers (DOM and RDOM). If the tracer is associated with organic matter (or other particles), then you require a scavenged particulate tracer but no corresponding dissolved tracer. For something like iron, which is both incorporated into the cell, and scavenged, you need both types of particulate tracer plus a set of dissolved organic matter tracers ...
+\item
+A set of tracer-related definitions also exists in:
+\vspace{-10pt}\begin{verbatim}
+cgenie.muffin/genie-main/src/fortran/cmngem/gem_cmn.f90
+\end{verbatim}\vspace{-10pt}
+Requiring some editing-attention here is\footnote{Watch out that the line numbers may have changed somewhat ...}:
+\begin{description}
+\item[ca. L24-26] Three parameters define the main tracer array sizes. (Unfortunately this information has to be duplicated elsewhere due to the peculiarities of the GENIE code structure -- see below.) Their values must be equal to the total number of tracers defined in the tracer definition files.
+\item[ca. L72-261] So as to simplify referencing the tracers in the code, each tracer is assigned a simple mnemonic. This mnemonic may or may not be the same as the short name defined in the tracer definition files. With a little bit of code, the tracer definition short name could have been turned into an index value, but to date this has not been implemented. However, while slightly tedious to set up, created fixed and compile-time rather than run-time mnemonic assignments is going to be somewhat faster as well as making the code slightly more compact.
+\item[ca. L630-642] Definition of the isotope standards. Only if creating a new isotope system does this need to be edited.
+\end{description}
+So effectively, just the total number of tracers, and the addition of the tracer mnemonic name, has to be edited in this file.
+\item
+An extremely unfortunate fact of GENIE code structure life is that the total tracer numbers are defined a second time in:
+\vspace{-10pt}\begin{verbatim}
+cgenie.muffin/genie-main/genie_control.f90
+\end{verbatim}\vspace{-10pt}
+at ca. L144-146, and need to be edited consistent with the values in \texttt{gem\_cmn.f90} (see above). Why ... ? Please don't ask.
+\item
+Equally, or arguably even more annoying and opaquely justified, is the need to edit a number of entries in:
+\vspace{-10pt}\begin{verbatim}
+cgenie.muffin/genie-main/src/xml-config/xml/definition.xml
+\end{verbatim}\vspace{-10pt}
+A number of sets of runtime parameters exist with one entry per tracer. Given that all runtime parameters must be defined in the xml definition file, means that every time a new tracer is created, a number of xml entries must be created\footnote{Note that there are no sediment (solid) tracer arrays for either initial composition or forcings.} :( The approximate line occurrence of this outrage against all good programming practice, are as follows:
+\begin{description}
+\item[ca. L397-1159] The tracer arrays holding information about which tracers are selected.
+\item[ca. L2538-3271] Tracer arrays for the initial value of ocean (dissolved) tracers, as well as a tracer value modification array.
+\item[ca. L4343-5234] Tracer arrays for atmospheric (gaseous) and ocean (dissolved) tracers governing tracer forcings (value and tie-scale).
+\item[ca. L5292-5370] Tracer array for the initial value of atmospheric (gaseous) tracers.
+\end{description}
+To edit in new entries -- simply follow the format of the last entry.
+\\In addition -- at the start of each array definition (xml tag starting \texttt{<ParamArray}), the array size is defined (\texttt{extent=}). This also needs to be edited to reflect the inclusion of additional tracers.
+\item Even more annoying, if possible, is the need to then edit the array entries in the Python xml parameter translation script:
+\vspace{-10pt}\begin{verbatim}
+cgenie.muffin/genie-main/config2xml.py
+\end{verbatim}\vspace{-10pt}
+It should be obvious where there additional entries corresponding to the new tracers need to be added. Just be careful of the formatting (the last entry in the list of tracers for each array not having a '\texttt{,}' terminating the line. Otherwise, simply follow the existing format.
+\end{enumerate}
+That is it for the basic tracer definition. The model should now compile without error (and still pass its \texttt{make testbiogem}) although you'll need to do a \texttt{make cleanall} first. However, whilst 'knowing' about the possibility of the new tracers, at this point you have not actually selected any for an experiment and no initial conditions will be read in, nor relevant output created.
+
+%------------------------------------------------
+%
+\subsubsection{Testing}
+
+Having checked the model compiles and passes the basic BIOGEM test, the next step is to check that the new tracer(s) is initialized correctly (\texttt{atm} and \texttt{ocn} tracers) and that appropriate output is generated.
+
+\begin{enumerate}
+\item
+Create a new \textit{base-config} by taking an appropriate/comparable existing \textit{base-config}\footnote{\texttt{/cgenie.muffin/genie-main/configs}} and modifying it.
+\\The first modification is to increase the number of ocean tracers, defined on the line headed by:
+\vspace{-10pt}\begin{verbatim}
+# Set number of tracers
+\end{verbatim}\vspace{-10pt}
+incrementing the total by the number of additional tracers to be included in the new \textit{base-config} as compared to the original one.
+\\The second modification is to select the additional tracers -- simply add appropriate entries to the list of selected tracers (the tracers are selected by setting the parameter value to \texttt{.true.} as by default the are \texttt{.false.}).
+\\The final modification, in the case of atmospheric (gaseous) and  ocean (dissolved) tracers is to set an initial value. If you do not do this, by default, concentrations are initialized to zero.
+\item
+Now go create a \textit{user-config} file. Copy an \texttt{EXAMPLE} config file -- one corresponding to the unmodified \textit{base-config}, if possible. You should rename it, and although no modifications are required to the parameter settings in order for the model to run, to ensure all possible output is produced, set:
+\vspace{-10pt}\begin{verbatim}
+bg_par_data_save_level=99
+\end{verbatim}\vspace{-10pt}
+\item
+Run a brief experiment and check that the tracer appears in the output -- both time-series and netCDF. For ocean tracers, the concentration field should progressively look like salinity as concentration changes at the surface will be influenced by P-E. (Remember that at this point, no other transformations or changes of tracer have been defined -- just that there is a tracer and it is initialized to a certain value.)
+\end{enumerate}
+
+%------------------------------------------------
+%
+\subsubsection{Adding (and testing) a basic tracer biogeochemical cycle}
+
+Now for the trickier part, assuming you do not just want a simple passive tracer (there are plenty of 'color' tracers defined already!) and assuming you have got the tracer already successfully configured and running as a simple passive tracer (i.e. previous steps).
+
+\indent The example will be for an ocean tracer that is incorporated into particulate organic matter (POM) (and hence creating an associated sedimentary tracer) during biological productivity.
+Other and much more fun and entertaining complexities will apply if e.g. the ocean tracer exchanges with the atmosphere and hence is associated with an atmospheric tracer.
+\begin{enumerate}
+\item
+The relationships between different sorts of tracers, e.g. dissolved and gaseous, and dissolved and solid, are defined in subroutine \texttt{sub\_def\_tracerrelationships}\footnote{\texttt{cgenie.muffin/genie-main/src/fortran/cmngem/gem\_util.f90}}
+
+If there is an equivalent dissolved organic matter tracer corresponding to the particulate organic matter one, the relationship between POM and DOM (and also RDOM) also needs to be defined.
+
+Typically, the relationship between a particulate and dissolved inorganic, or particulate and dissolved organic will be 1.0, but depending on the species concerned, it may be 2.0 (or its reciprocal) and/or negative. These values can be modified later if necessary, and this occurs depending on the redox state of the ocean in\footnote{\texttt{cgenie.muffin/genie-biogem/src/fortran/biogem\_data.f90}}:
+\vspace{-1mm}\small\begin{verbatim}
+sub_data_update_tracerrelationships
+\end{verbatim}\vspace{-1mm}\normalsize
+
+\item
+For a dissolved inorganic species being taken up biologically, a 'Redfield' like ratio is defined and used to relate the cellular quotient of the tracer versus carbon\footnote{A carbon currency is used in the model rather than phosphate, despite the classic Redfield ratio being defined relative to a phosphate quotient of 1.0}. An array (\texttt{bio\_part\_red}) stores the relationship of every particulate tracer to every other particulate tracer. It is hence mostly zeros, except for the ratios of the particulate tracers to carbon in both organic matter and CaCO\(_{3}\) (and for that matter, opal)) and of the isotope ratios of specifies to their bulk equivalent. The array is (re)populated each time-step in \texttt{sub\_calc\_bio\_uptake}\footnote{\texttt{cgenie.muffin/genie-biogem/src/fortran/biogem\_box.f90}},  typically by directly applying a  globally applicable ratio that is read in at run-time (and hence requiring a new \textit{namelist} parameter to be defined), by some function of ambient environmental conditions that  is often a modification of the run-time parameter.
+
+\end{enumerate}
+
+If steps \#1 and \#2 have been completed correctly, there should now be a biological cycle of the new tracer, with it being taken up at the ocean surface and incorporated into POM with a specific ratio compared to carbon (set by the new \textit{namelist} parameter) and resulting in depletion of the inorganic dissolved tracer at the ocean surface. Conversely, there should be elevated concentrations of the inorganic tracer at depth, mirroring the pattern of e.g. [PO\(_{4}\)].
+Creation and subsequent remineralization of a corresponding tracer incorporated into DOM (and RDOM if selected) should occur automatically. However, the recommended first step in testing the newly defined biogeochemical cycle
+is to disable all DOM formation, by setting:
+\vspace{-5pt}\begin{verbatim}
+bg_par_bio_red_DOMfrac=0.0
+\end{verbatim}\vspace{-5pt}
+Also recommended is to enable 'auditing' of all the tracer inventories to ensure that tracers are not being spuriously created or destroyed by:
+\vspace{-5pt}\begin{verbatim}
+bg_ctrl_audit=.true.
+\end{verbatim}\vspace{-5pt}
+
+Scavenged tracers are  automatically  remineralized along with the corresponding parent particulate tracer by default\footnote{They can instead be set to remain in the scavenging medium by setting a non zero value of \texttt{par\_scav\_fremin}, which sets the fraction of the scavenged tracer that is remineralized along with the degraded parent particulate tracer.}.
+However, there is no scavenging or creation of scavenged tracers by default. A call would need to be added to\footnote{cgenie.muffin/genie-biogem/src/fortran/biogem\_box.f90}:
+\vspace{-1mm}\small\begin{verbatim}
+sub_box_remin_part
+\end{verbatim}\vspace{-1mm}\normalsize
+(ca. L2961), e.g. following the examples of Fe scavenging and H2S reaction with organic matter (treated as a form of 'scavenging' for simplicity of code structure), plus a corresponding subroutine added in which is the scavenged particulate tracer concentration is calculated and the removal of the corresponding dissolved tracers set.
+
+%------------------------------------------------
+
+\newpage
+
+%------------------------------------------------
+%
+\section{Other Modifications!}
+
+%------------------------------------------------
+%
+\subsection*{Add a new functional type to ECOGEM}\label{functionaltype}
+
+
+\begin{enumerate}[noitemsep]
+
+\vspace{1mm}
+\item First, define the new PFT in:
+\\\textsf{\footnotesize \(\sim\)/cgenie.muffin/genie-ecogem/src/fortran/ecogem\_data.f90}
+
+In the subroutine \textsf{\footnotesize sub\_init\_plankton}, add a set of definitions for a new PFT consistent with the formatting -- the PFT has a name and various true/false statements as to what it does, e.g.
+\small\begin{verbatim}
+if (pft(jp).eq.'new_PFT') then
+          NO3up(jp)       = 0.0
+          Nfix(jp)        = 0.0
+          calcify(jp)     = 0.0
+          silicify(jp)    = 0.0
+          autotrophy(jp)  = 1.0
+          heterotrophy(jp)= 0.0
+          palatability(jp)= 1.0
+\end{verbatim}\normalsize
+
+\vspace{1mm}
+\item Define parameters relevant to the PFT such as size-scaling parameters
+(\texttt{a},\texttt{b},\texttt{c}) for \texttt{vmax}. (See existing manual section for adding parameters.)
+
+\vspace{1mm}
+\item Use the new parameters to update the PFT parameter definitions in
+\textsf{\footnotesize \(\sim\)/cgenie.muffin/genie-ecogem/src/fortran/ecogem\_data.f90}, using the PFT name defined in step 1:
+
+\small\begin{verbatim}
+ ! generic maximum photosynthetic rate
+vmax(iDIC,:)    = (vmaxDIC\_a  + log10(volume(:))) / (vmaxDIC\_b + vmaxDIC\_c
+* log10(volume(:)) + log10(volume(:))**2) * autotrophy(:)
+
+! modify rates for new functional types
+vmax(iDIC,:)    = merge(vmaxDIC\_a\_pft\_newPFT * volume(:) **
+vmaxDIC\_b\_pft\_newPFT,vmax(iDIC,:),pft.eq.'new\_PFT')
+\end{verbatim}\normalsize
+
+\vspace{1mm}
+\item Set up a plankton definition file in
+\textsf{\footnotesize \(\sim\)cgenie.muffin/genie-ecogem/data/input/new\_PFT\_setup.eco} that includes the name of the new PFT defined in step 1 and the cell size.
+
+\end{enumerate}
+
+\vspace{2mm}
+\noindent Note that to date, only the growth rate parameters (\texttt{Vmax} for DIC) have been changed, and this approach has worked. No changes in other parameters,
+specifically for PFTs such as quotas or other nutrient uptake, have been tested but I guess
+it would be similar. Overall, this is a little bit clumsy in that it requires new at
+least 2-3 new parameter definitions for each PFT.
+
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------

@@ -1,0 +1,524 @@
+%----------------------------------------------------------------------------------------
+%       CHAPTER 13
+%----------------------------------------------------------------------------------------
+
+\cleardoublepage
+
+\chapterimage{nSTnj.jpg} % Chapter heading image
+
+\chapter{cookie model output}\label{ch:model-output}
+
+\hfill \break
+
+\vspace{24mm}
+
+\noindent This section covers \textbf{muffin} saves data and how to ensure that the variables you want are saved and when you want.
+
+\begin{itemize}
+        \item Overview.
+        \item \textit{Time-series} output.
+        \begin{itemize}
+                \item \textit{Time-series} file naming conventions.
+                \item Specifying frequency and timing of \textit{time-series} data saving.
+                \item Seasonal/monthly data saving.
+        \end{itemize}
+        \item \textit{Time-slice} output.
+        \begin{itemize}
+                \item \textit{Time-slice} file naming conventions.
+                \item Specifying frequency and timing of \textit{time-slice} data saving.
+        \end{itemize}
+        \item Specifying which data fields to be saved in the \textit{time-series} and \textit{time-slice} format.
+        \item \textit{Re-start} files.
+\end{itemize}
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\section{Overview (and types of model output)}
+
+The results of experiments are written to the directory: \textsf{\footnotesize \(\sim\)/cgenie\_output}
+
+For any particular experiment, all saved model results, plus copies of input parameters and the model executable, are gathered together in a sub-directory of \textsf{\footnotesize \(\sim\)/cgenie\_output} that is assigned the same name as the experiment (== \textit{user-config} file name), e.g.: \textsf{\footnotesize EXAMPLE.worbe2.Ridgwelletal2007.SPIN}.
+
+Every science module saves its results in its own individual sub-directory within the experiment directory. So for the module that calculates ocean biogeochemical cycles -- \textbf{BIOGEM}, the results files will thus be found in: \textsf{\footnotesize \(\sim\)/cgenie\_output/EXAMPLE.worbe2.Ridgwelletal2007.SPIN/biogem}
+
+Note that the science module \textbf{ATCHEM} does not save its own results (\textbf{BIOGEM} instead saves relevant information about atmospheric composition and air-sea gas exchange) while \textbf{SEDGEM} essentially saves results \uline{only at the very end of a model experiment}\footnote{With the exception of sediment core location environmental properties, which are saved more frequently.}. (\textbf{BIOGEM} can also save the spatial distribution of sediment composition as \textit{time-slices} as well as mean composition as a time-series). Furthermore, in order to attain a common format for both ocean physical properties and biogeochemistry, \textbf{BIOGEM} saves a range of ocean physics properties in addition to temperature and salinity, such as: velocities, sea-ice extent, mixed layer depth, convective frequency, etc.
+
+Saving full spatial distributions for any or all of the tracers at each and every time-step is not practical, not only in terms of data storage but also because of the detrimental effect that repeated disk access has on model performance. Instead, \textbf{BIOGEM} saves the full spatial distribution of whatever tracer, flux, and/or physical properties of the system are required (how what fields are required is specified is discussed later), only at one or more predefined time points (in years). These are called '\textit{time-slices}'. However, rather than taking an instantaneous snapshot, the time-slice is constructed as an average over a specified integration interval.
+
+The second main data format for model output is that of a '\textit{time-series}' of change in a single (integrated) property of the Earth system. Model characteristics must be reducible to a single meaningful variable for this to be practical (i.e., saving the time-varying nature of 3-D ocean tracer distributions is not). Suitable metrics include: the total inventories in the ocean and/or atmosphere of various tracers (or equivalently, the mean global concentrations / partial pressures, respectively), global sea-ice coverage. Like \textit{time-slices}, the data values saved in the \textit{time-series} files represent averages over a specified integration interval (one year by default).
+
+For both \textit{time-slices} and \textit{time-series} output, the files themselves are created during model initialization and are periodically updated (appended to) during the experiment. Hence, \uline{even before the experiment has finished they may contain data that is useful to view and can be used to check on the progress of an experiment}.
+
+\subsubsection{ATCHEM}
+
+\noindent In the \textbf{ATCHEM} results directory, only the following file will be present:
+
+\begin{enumerate}
+
+\vspace{1mm}\item \textsf{\footnotesize *\_restart.nc} -- \textit{Re-start} file -- a snap-shot of the 2D distribution of atmospheric composition at the very end of the experiment. Not intended for user-access, although it can be plotted just like any normal \textit{netCDF} format file.
+
+\end{enumerate}\vspace{2mm}
+
+\subsubsection{BIOGEM}
+
+\noindent For \textbf{BIOGEM}, some or all of the following files will be present:
+
+\begin{enumerate}
+
+\vspace{1mm}\item \textsf{\footnotesize *\_restart.nc} -- \textit{Re-start} file -- a snap-shot of the 3D distribution of biogeochemical properties of the ocean at the very end of the experiment. Not intended for user-access, although it can be plotted just like any normal \textit{netCDF} format file.
+
+\vspace{1mm}\item \textsf{\footnotesize fields\_biogem\_2d.nc} -- 2-D fields of (mostly) ocean bottom, ocean surface, and sediment surface properties.\footnote{The mid-points at which time-slices are saved are specified as described above.} Also: water-column integrals of certain geochemistry diagnostics, air-sea gas exchange fluxes, atmospheric composition (plus some physical atmospheric properties).
+
+\vspace{1mm}\item \textsf{\footnotesize fields\_biogem\_3d.nc} -- 3-D fields of ocean dissolved and particulate tracer properties (plus some physical ocean properties).\footnote{The mid-points at which time-slices are saved are specified as described above.}
+
+\vspace{1mm}\item \textsf{\footnotesize biogem\_series\_*.res}\footnote{\texttt{.res} is a useful format for processing in \textbf{MATLAB}; for other programs, other extensions are needed. If using the Mathematica data processing scripts - see \texttt{genie-docs/cGENIE.AutomationScripts} - \texttt{.dat} is needed; this can be set with  \texttt{gm\_string\_results\_ext=".dat"}} -- \textit{Time-series} results files -- globally and surface-averaged (and sometimes also benthic (bottom) surface averaged) property values as a function of time in plain text (ASCII) format.
+
+\vspace{1mm}\item \textsf{\footnotesize biogem\_year\_*\_diag\_GLOBAL.res} -- Miscellaneous global diagnostic information. These files are saved at each requested \textit{time-slice} with the file-name string containing the mid-point of the time-slice (as years). The diagnostics include:
+        \begin{itemize}
+                \item time mid-point and integration interval
+                \item global ocean surface area and volume
+                \item mean global sir-sea gas exchange coefficient (for CO\begin{math}_2\end{math})
+                \item mean atmospheric tracer concentrations plus total inventory
+                \item mean ocean tracer concentrations plus total inventory
+                \item mean plus total global productivity
+                \item mean plus total global sedimentation
+        \end{itemize}
+
+\end{enumerate}\vspace{2mm}
+
+\subsubsection{SEDGEM}
+
+\noindent In the \textbf{SEDGEM} results directory, some or all of the following files will be written:
+
+\begin{enumerate}
+
+\vspace{1mm}\item \textsf{\footnotesize *\_restart.nc} -- \textit{Re-start} file -- a snap-shot of the 2D distribution of sedimentary properties at the very end of the experiment. Not intended for user-access, although it can be plotted just like any normal \textit{netCDF} format file.
+
+\vspace{1mm}\item \textsf{\footnotesize fields\_sedgem\_2d.nc} -- Contains 2-D fields of sediment surface and ocean bottom properties.\footnote{This data is saved only at the termination of an experiment (i.e., the \textit{netCDF} file contains only a single time-slice).}
+
+\vspace{1mm}\item \textsf{\footnotesize sedcore.nc} -- \textit{netCDF} format file containing the stacked records of accumulated deep-sea sediment composition.
+\\The locations (if any) of sediment cores to be saved is specified in a plain text (ASCII) file pointed to by the string value of the \textit{namelist} parameter \texttt{sg\_par\_sedcore\_save\_mask\_name}\footnote{The location of this file is specified by the \textbf{SEDGEM} data input directory namelist parameter: \texttt{sg\_par\_indir\_name} which by default is \texttt{\~{}/genie-sedgem/data/input}.}. In the mask file, a '\texttt{1}' indicates a location to save a sediment core at, and a '\texttt{0}' indicates that no sediment core should be saved at this location.       This file must be present, so to save no sediment cores, simply populate the file with all zeros in an \texttt{xx} by \texttt{yy} grid.
+
+\vspace{1mm}\item \textsf{\footnotesize sedcoreenv\_*} -- These files contain pseudo time-series of surface sediment environmental properties at each of the requested sediment core locations (if any are chosen).
+
+\vspace{1mm}\item \textsf{\footnotesize seddiag\_misc\_DATA\_GLOBAL.res} -- A summary of mean global sedimentation, dissolution, and preservation fluxes, and surface sediment composition.
+
+\vspace{1mm}\item \textsf{\footnotesize seddiag\_misc\_DATA\_FULL.res} -- Surface sediment and bottom water properties at each and every sediment grid point.
+
+\end{enumerate}\vspace{2mm}
+
+\subsubsection{ROKGEM}
+
+\noindent In the \textbf{ROKGEM} results directory, some or all of the following files will be written:
+
+\begin{enumerate}
+
+\vspace{1mm}\item \textsf{\footnotesize fields\_rokgem\_2d.nc} -- 2-D fields of (mostly) land surface, ocean surface, and atmospheric properties related to weathering.
+
+\vspace{1mm}\item \textsf{\footnotesize biogem\_series\_*} -- Time-series results files.
+
+\end{enumerate}\vspace{2mm}
+
+%------------------------------------------------
+
+\newpage
+
+%------------------------------------------------
+
+\section{\textit{Time-slice} output}
+
+%------------------------------------------------
+
+\subsection{Frequency and timing of \textit{time-slice} data saving}
+
+Rather than taking an instantaneous snapshot, the time-slice is averaged over a specified integration interval \begin{math}\Delta t\end{math} (in years), defined by the parameter: \texttt{bg\_par\_data\_save\_slice\_dt}\footnote{An empty list is valid - time-slices will then be populated for you at an interval set by the time-slice integration interval. But if you really don't want any time-slices, just set the first (or only) time point to occur beyond the end year of the run.}. The model state is thus integrated from time \begin{math}t_{n} - \Delta t/2\end{math} to \begin{math}t_{n} + \Delta t/2\end{math}. For instance, setting a value of \begin{math}\Delta t = 1.0\end{math} year results in all seasonal variability being removed from the saved time-slices, and successive time-slices then only reflect long-term (\textgreater 1 year) trends in system state.
+
+\vspace{1mm}The mid-point years (\begin{math}t_{n}\end{math}) for which time-slices should be saved are specified in a single column pain text (ASCII) file in the \textsf{\footnotesize cgenie.muffin/genie-biogem/data/input} directory, whose name is specified by the parameter \textsf{\footnotesize bg\_par\_infile\_slice\_name}\footnote{The location of this file is specified by the \textbf{BIOGEM} data input directory parameter: \textsf{\footnotesize bg\_par\_indir\_name} which by default is \texttt{\~{}/genie-biogem/data/input}.}.
+For example, the default \textit{time-slice} specification file \textsf{\footnotesize save\_timeslice.dat} contains the specification\footnote{The order in which the time sequence is ordered (i.e., ascending or descending time values) does not actually matter in practice as long as the list of times is ordered sequentially. The list will be internally re-ordered if necessary according to the selection of ‘BP’ (the model running backwards-in-time) or not according to the logical value of the parameter \texttt{bg\_ctrl\_misc\_t\_BP}, which is \texttt{.false.} by default.}:
+
+\footnotesize\begin{verbatim}
+-START-OF-DATA-
+0.5
+1.5
+4.5
+9.5
+19.5
+49.5
+99.5
+199.5
+499.5
+999.5
+1999.5
+4999.5
+9999.5
+19999.5
+49999.5
+99999.5
+199999.5
+499999.5
+999999.5
+-END-OF-DATA-
+\end{verbatim}\normalsize
+where \texttt{-START-OF-DATA-} and \texttt{-END-OF-DATA-} are simply tags delineating the start and end of the time point data.
+Use of this particular specification lends itself to simple experiment run durations to be adopted (e.g., 10, 100, 10000 years). It provides a good generic starting point in that save frequency is faster to begin with (when environmental variables are more likely to be rapidly changing) and less frequently later (when environmental variables are unlikely to be changing rapidly and maybe converging to steady-state).
+
+To change the time points used for \textit{time-slice} data saving, either direct edit this file (less good), or create a new file (e.g. simply copy and rename \textsf{\footnotesize save\_timeslice.dat}) with the required save frequency and timing and saved to the \textsf{\footnotesize cgenie.muffin/genie-biogem/data/input} directory, with the parameter \textsf{\footnotesize bg\_par\_infile\_slice\_name} pointing to the new filename).
+
+%------------------------------------------------
+
+\subsection{Saving at the experiment end}
+
+Just in case an experiment run duration is chosen such that there is no corresponding save point anywhere near the end of the run, \uline{a \textit{time-slice} is automatically saved at the very end of an experiment} regardless of whether one has been specified or not and with the same averaging as used for the specified \textit{time-slices}.
+
+This lend itself to a means of substantially reducing the amount of data saved, because if you specify no \textit{time-slices}, you will still end up with (just) the final year saved. You can make this happen (i.e. forcing only an end-of-run \textit{time-slice} to be saved), by adding to the \textit{user-config}:
+\small\begin{verbatim}
+# force time-slice save at run end only
+bg_par_infile_slice_name='save_timeslice_NONE.dat'
+\end{verbatim}\normalsize
+
+%------------------------------------------------
+%
+\subsection{Seasonal/monthly data saving}
+
+\textit{Time-slice} (but not currently \textit{time-series}) data can be saved seasonal or even monthly by selected by setting a single parameter rather than e.g. specifying a monthly or seasonal data save interval and editing the time-slice definition file with a series of min-points for months (or seasons).
+The way it works is that the overall averaging interval (parameter: \texttt{bg\_par\_data\_save\_slice\_dt})\footnote{Default value = 999} is broken down into sub-intervals of averaging. i.e., breaking down a year interval (the default) into 4 will give seasonal averaging. The parameter: \texttt{bg\_par\_data\_save\_slice\_n} where \textit{n} sets the number of time steps in each sub-interval of data saving and hence determines whether the averaging is e.g. seasonal or monthly. The slightly tricky part is to be sure of how many time steps in each year ;)
+
+By default, \textbf{\textit{c}GENIE.muffin} employs 96 time-steps per year for a 16-level ocean circulation model (\textbf{GOLDSTEIN}) and 48 for \textbf{BIOGEM}\footnote{Note that when running using \texttt{runmuffin.t100.sh}, 100 time-steps are taken in the ocean and 50 in BIOGEM for a 16 level ocean model.}. Hence for a 16-level ocean configuration, \uline{seasonal} data saving would be obtained with:
+\begin{verbatim}bg_par_data_save_slice_n=12\end{verbatim}
+(12 \textbf{BIOGEM} steps per averaging interval out of a total of 48), and \uline{monthly averages} with:
+\begin{verbatim}bg_par_data_save_slice_n=4\end{verbatim}
+(i.e. 4 \textbf{BIOGEM} steps for each of the 12 monthly averaging intervals, giving of a total of 48).
+
+For lower resolution configurations of \textbf{\textit{c}GENIE.muffin}, \textbf{GOLDSTEIN} may be operating on 48 time-steps per year, and \textbf{BIOGEM} on 24 or even 12. As \textbf{\textit{c}GENIE.muffin} starts up it will report the ocean and biogeochemical time-stepping, such as:
+\small\begin{verbatim}
+>> Configuring ...
+   Setting time-stepping [GOLDSTEIN, BIOGEM:GOLDSTEIN]:  100 2
+\end{verbatim}\normalsize
+which specifies 100 time-steps per year for \textbf{GOLDSTEIN}, and 50 per year (100/2) for \textbf{BIOGEM} for the case of a 16 level ocean using the \texttt{runmuffin.t100.sh} run script.
+Note that for every year mid-point specified in the\textit{ time-slice} specification file, 4 or 12 (for seasonal and monthly, respectively) times as many time-slices will actually be saved.
+
+%------------------------------------------------
+%
+\subsection{More frequent data saving}
+
+Explicit frequent saving of fields or properties at specific locations can be done by setting a more higher save frequency of the time-slice data. However, because the 2D and 3D fields may contain a variety of unwanted variables in addition to the target one, save frequency is likely to be limited by the maximum \textbf{netCDF} file size that can sanely be manipulated, i.e. there is a limit to how large a file size you want to generate.
+
+Several alternative options for cutting down the size of the saved data exist:
+
+\vspace{1mm}
+\begin{itemize}
+\item (trivial) Make do with global or surface (or benthic) means in the \textit{time-series} output (rather than saving 2 or 3D data).
+\item Cut down the types of data saved to the absolute minimum (see 'Data field selection' below).
+\item Save only 2D data (rather than 2 \uline{and} 3D, which is the default). This can be accomplished by setting the parameters:
+\vspace{-1mm}\begin{verbatim}
+bg_ctrl_data_save_2d=.true.
+bg_ctrl_data_save_3d=.false.
+\end{verbatim}\vspace{-1mm}
+(both are \texttt{.true.} by default). This disables the 3D data saving, although an empty 3D \textbf{netCDF} file will still be created.
+\end{itemize}
+
+\noindent One option to increase the frequency of 3D \textit{time-slice} data saving is to align it automatically with the frequency of \textit{time-series} data saving\footnote{This is in addition to normal 3D saving at the time-slice data saving frequency}. This can be done by setting:
+\vspace{-1mm}\begin{verbatim}
+bg_ctrl_data_save_3d_sig=.true.
+\end{verbatim}\vspace{-1mm}
+(by default, \texttt{.false.}).
+
+\vspace{1mm}
+\uline{The recommended/practical maximum for saved 3D \textit{time-slices} is around 100 (different \textit{time-slices})}, depending on the number of types of data field selected to be saved.
+
+%------------------------------------------------
+%
+\subsection{Less(!) frequent data saving}
+
+You could e.g. edit the default \textit{time-slice} specification file \textsf{\footnotesize save\_timeslice.dat}\footnote{(not recommended} or create your own with just a couple or even one single time-point. Or you can specify that no time-slice is saved(!) Actually, you will always get one -- at the very end of the model run.\footnote{A safety feature to ensure that however long the experiment runs, you always get data from the very end.} 
+
+To do this (rather than creating a \textit{time-slice} specification file with a single entry equal to the last year of the intended model experiment), set:
+\small\begin{verbatim}
+# force time-slice save at run end only
+bg_par_infile_slice_name='save_timeslice_NONE.dat'
+\end{verbatim}\normalsize
+(which points to an empty file).
+
+%------------------------------------------------
+
+\newpage
+
+%------------------------------------------------
+
+\section{\textit{Time-series} output}
+
+%------------------------------------------------
+
+\subsection{Frequency and timing of \textit{time-series} data saving}
+
+For results \textit{time-series}, a file containing a series of model times (\begin{math}t_{n}\end{math}) at which data points need be saved is defined in the same way as for \textit{time-slices}, with the filename specified by the parameter \texttt{bg\_par\_infile\_sig\_name}. Again, the data values saved in the time-series file do not represent discrete values in time but an average, calculated from time \begin{math}t_{n} - \Delta t/2\end{math} to \begin{math}t_{n} + \Delta t/2\end{math} as per the construction of time-slices. The averaging interval, \begin{math}\Delta t\end{math}, is set by the value of the parameter \texttt{bg\_par\_data\_save\_sig\_dt}. The format is also identical to before (with tags delineating the start and end of the list of mid-points). If there are less than two elements present in the list, a default frequency of data saving will be invoked, set equal the averaging interval, except in the situation that this results in an unreasonably large amount of data, when an order of magnitude (or more than one order of magnitude where necessary) fewer save points are assumed.\footnote{For historical reasons ... the maximum number of time-series (and time-slice) data points was set to 4096. This is set by the parameter \texttt{n\_data\_max} in \texttt{biogem\_lib.f90} and can be altered if required.} 
+
+\vspace{1mm}
+The default setting:
+\vspace{-1mm}
+\small\begin{verbatim}bg_par_infile_sig_name='save_timeseries.dat'\end{verbatim}\normalsize
+\vspace{-1mm}
+provides for reasonably generic data saving, with the save frequency faster to begin with and becoming progressively less frequently later.
+
+There is a related facility to \texttt{bg\_par\_infile\_sig\_name} for \textbf{SEDGEM} and \textbf{ROKGEM} in the parameter: \texttt{xx\_par\_output\_years\_file\_0d}, where \texttt{xx} is \texttt{sg} for \textbf{SEDGEM} and \texttt{rg} for \textbf{ROKGEM}. These specify files in the \textsf{\footnotesize genie-*gem/data/input} directory and again contain a list of years for 0D (time-series) output to be generated at. However, unlike \textbf{BIOGEM}, the data saved \textit{do} represent discrete values in time and \textit{not} e.g. annual averages.
+
+%------------------------------------------------
+
+\subsection{Saving orbital insolation}
+
+[see orbits HOW-TO]
+
+%------------------------------------------------
+
+\newpage
+
+%------------------------------------------------
+
+\section{Data field selection}
+
+Model output -- both \textit{time-slice} and \textit{time-series} data are saved in blocks or  by categories of model variables. For instance, all dissolved tracers in the ocean (3D netCDF \textit{time-slice} and/or \textit{time-series}), or all particle flux fields, all carbonate chemistry and associated variables, all surface sediment composition, etc etc. This still requires a multitude of parameters, one for each category and generally also one for each of \textit{time-slice} and \textit{time-series} data. In an attempt to simplify this, a single parameter, \texttt{bg\_par\_data\_save\_level}, specifying the sort and amount of data to save can be set instead.
+
+The value of the \texttt{bg\_par\_data\_save\_level} save level parameter is given as an integer between \texttt{0} and \texttt{99}. The specific classes (groups) of data that are saved (as a mnemonic code) in response to each different selected save level are given in Table \ref{tab:timeslicelevels} (for \textit{time-slice} saving) and Table \ref{tab:timeserieslevels} (for \textit{time-series} saving), and what the mnemonics  strand for in terms of actual data saved (in real words), are defined in Tables \ref{tab:timeslicekey} and \ref{tab:timeserieskey}.
+
+An alternative wordy summary to these tables would be: 
+
+\vspace{1mm}
+\begin{itemize}
+
+\item[0] -- Save \textbf{nothing}.
+\item[1] -- \textbf{Minimum} -- basic geochemistry only, i.e. ocean and atmosphere tracer fields (omitting e.g. the miscellaneous fields and time-series -- see below).
+\item[2] -- \textbf{Basic} output == basic geochemistry and some physics.
+\item[3] -- \textbf{Basic + biology} diagnostics, i.e. ocean and atmosphere tracer fields plus particulate  flux fields and biological diagnostics such as limitations on export.
+\item[4] -- \textbf{Basic + geochemistry} diagnostics, including output on air-sea gas exchange, ocean carbonate chemistry, and geochemical diagnostics such as remineralization rates and transformation, ocean pH field (3D), Fe cycle and speciation diagnostics (2D). In conjunction with the \textbf{ROKGEM} module, also: weathering fluxes.\footnote{The most common option.} \item[5] -- \textbf{Basic + biology + geochemistry} diagnostics. A combination of \texttt{3} and \texttt{4}.
+\item[6] -- \textbf{Basic + tracer + proxy} diagnostics. Tracer diagnostics includes: N*, P* etc., water column inventories (2D). Proxy diagnostics includes: ocean surface and benthic (and surface-benthic) tracers (2D). Also trace metals (e.g. C\(f\)d).\item[7] -- \textbf{Basic + biology + tracer + proxy} diagnostics.
+\item[8] -- \textbf{Basic output + biology + tracer + proxy + geochemistry} diagnostics (a somewhat large selection of variables).
+\item[9] -- \textbf{Basic output + full physics} (e.g. all grid specifications and properties).
+\item[10] -- \textbf{Ocean acidification option} == biology and geochemical output fields plus all carbonate chemistry.
+\item[11] -- \textbf{Preformed diagnostics option} == BASIC + biology + tracer + proxy + redox diagnostics.
+\item[12] -- \textbf{Circulation option} == BASIC + tracer + physics diagnostics.
+\item[14] -- \textbf{ BASIC + FULL (inc. redox) geochem} diagnostics.
+\item[15] -- \textbf{ BASIC + biology + FULL (inc. redox) geochem} diagnostics.
+\item[16] -- \textbf{ BASIC + biology + tracer + proxy + FULL (inc. redox) geochem} diagnostics.
+\item[99] -- Save everything.
+\item[>99] -- Use explicit user-specified settings for individual save categories. This is the default and is broadly consistent with previous version of the model.
+
+\end{itemize}
+
+\newpage
+
+\noindent All of options \texttt{2-99} save as \textit{time-slices}:
+\begin{itemize}[noitemsep]
+\setlength{\itemindent}{.2in}
+\item atmosphere tracer fields (2D)
+\item ocean tracer fields (3D)
+\item various miscellaneous diagnostics, including: ocean velocity (3D), overturning stream-function (2D), sea-ice extent and thickness (2D), incident radiation (2D), convection diagnostics (2D), air-sea gas exchange diagnostics (2D).
+\item core-top sediment composition fields (2D) (if \textbf{SEDGEM} is selected)
+\end{itemize}
+and as \textit{time-series}:
+\begin{itemize}[noitemsep]
+\setlength{\itemindent}{.2in}
+\item atmosphere tracer properties (as: atmospheric inventory (in \(mol\)) and concentration (\(mol\:kg^{-1})\) or isotopic composition)
+\item ocean tracer properties (as: ocean inventory, plus mean (whole) ocean, or isotopic composition)
+\item mean surface and benthic tracer properties
+\item various miscellaneous diagnostics, including: insolation, sea-ice extent, volume, and thickness; global overturning stream-function, ocean surface pH, land surface temperature, and Fe parameters.
+\item sediment (core-top) composition data (if \textbf{SEDGEM} is selected)
+\end{itemize}
+
+In addition, further output will be automatically added to the suite of saved data depending on the module selected and also for certain sorts of \textit{forcing}.
+
+%------------------------------------------------
+
+\newpage
+
+%------------------------------------------------
+
+\section{Re-start files}
+
+\textit{Re-start} files are saved in the results directories of each module.
+For \textbf{ATCHEM}, \textbf{BIOGEM}, and \textbf{SEDGEM}, these are in \textit{netCDF} format.
+
+For the climate modules of \textbf{\textit{c}GENIE.muffin} (\textbf{GOLDSTEIN}, \textbf{GOLDSTEIN-SEAICE}, \textbf{EMBM}), \textit{re-start} files can be selected to farmermingo72be saved in either plain text (ASCII) or \textit{netCDF} format. ASCII format is the current default.
+
+%------------------------------------------------
+
+\newpage
+
+%------------------------------------------------
+
+\section{Useful output}
+
+What follows is a short summary of some of the output and how it can be used.
+
+Note -- depending on the specific model configuration (which model modules are selected) and selected tracers, as well as specific output choice, not all these variables and files will be present in the model output.
+
+%------------------------------------------------
+
+\subsection{Physics}
+
+\begin{table}[ht]
+\begin{tabular}{p{0.2\linewidth} p{0.317\linewidth} p{0.4\linewidth}}
+\toprule
+\textbf{Filename} & \textbf{Data} & \textbf{Application}\\
+\textsf{\footnotesize biogem\_series\_*.res} & &\\
+\midrule
+\textsf{\footnotesize atm\_humidity} & \small{Mean surface humidity. (?)} & \small{(rarely used)}\\
+\textsf{\footnotesize atm\_temp} & \small{Mean surface temperature. (degrees C)} & \small{Climate and climate change, when a simple global diagnostic is needed.}\\
+
+\midrule
+
+\textsf{\footnotesize misc\_opsi} & \small{Global minimum (-ve) and maximum (+ve) overturning stream-function, also reported for Atlantic and Pacific basins. Units of  Sv. (For certain modern configurations.)} & \small{Simple diagnostic of large-scale ocean circulation. There is some relationship of the maximum (negative and positive) overturning to ocean ventilation.}\\
+\textsf{\footnotesize misc\_seaice} & \small{Sea-ice fractional cover (\textbackslash\%), thickness (m), and volume (m3).} & \small{As a simple climate (change) diagnostic.}\\
+\textsf{\footnotesize misc\_SLT} & \small{Mean global surface land temperature. (C)} & \small{For calibrating and analysing global weathering rates.}\\
+\textsf{\footnotesize ocn\_sal} & \small{Mean global, and typically also surface and benthic, ocean salinity. (PSU)} & \small{For characterizing freshwater changes and salinity \textit{forcing} impacts.}\\
+\textsf{\footnotesize ocn\_temp} & \small{Mean global, and typically also surface and benthic, ocean temperature. (degrees C)} & \small{Climate and climate change. }\\
+
+\bottomrule
+\end{tabular}
+\caption{Summary of the main (useful) \textit{time-series} output for climate-only ('physics') investigations.}
+\end{table}
+
+\begin{table}[ht]
+\begin{tabular}{p{0.15\linewidth} p{0.20\linewidth} p{0.225\linewidth} p{0.325\linewidth}}
+\toprule
+\textbf{variable} & \textbf{variable} & \textbf{Description} & \textbf{Application}\\
+ & (long name) & &\\
+\midrule
+
+\textsf{\footnotesize atm\_humidity} & \textsf{\footnotesize specific humidity} & \small{surface humidity (?)} & \small{(rarely used)}\\
+\textsf{\footnotesize atm\_temp} & \textsf{\footnotesize surface air temperature"} & \small{surface air temperature (degrees C)} & \small{climate patterns and anomalies, comparison with terrestrial temperature proxies}\\
+\midrule
+\textsf{\footnotesize grid\_mask} & \textsf{\footnotesize land-sea mask} & \small{land-sea mask (n/a)} & \small{copy-paste-edit to create masks for data analysis}\\
+\textsf{\footnotesize grid\_topo} & \textsf{\footnotesize ocean depth} & \small{ocean depth (m)} & \\
+
+\midrule
+
+\textsf{\footnotesize ocn\_sur\_sal} & \textsf{\footnotesize surface-water sal} & \small{surface ocean salinity (PSU)} & \small{diagnosing freshwater forcing impacts, regions of likely deep-water formation}\\
+\textsf{\footnotesize ocn\_sur\_temp} & \textsf{\footnotesize surface-water temp} & \small{surface ocean temperature (degrees C)} & \small{diagnosing ocean circulation patterns, pole-to-equator temperature gradients, surface ocean temperature proxy comparisons}\\
+\textsf{\footnotesize ocn\_ben\_temp} & \textsf{\footnotesize bottom-water temp} & \small{benthic temperature ( C)} & \small{diagnosing ocean circulation patterns, benthic temperature proxy comparisons}\\
+
+\midrule
+
+\textsf{\footnotesize phys\_cost} & \textsf{\footnotesize convective cost} & \small{rate of convective adjustments anywhere in the water column (n/a)} & \small{diagnosing deep mixed layers (and light limitation of biology) and deep-water formation regions}\\
+\textsf{\footnotesize phys\_opsi} & \textsf{\footnotesize Global streamfunction} & \small{global overturning stream-function (Sv)} & \small{diagnosing large-scale ocean circulation patterns, sources of deep-water formation, deep ocean ventilation}\\
+\textsf{\footnotesize phys\_psi} & \textsf{\footnotesize Barotropic streamfunction} & \small{barotropic stream-function (Sv)} & \small{diagnosing wind-driven ocean circulation patterns, effect of gateways}\\
+\textsf{\footnotesize phys\_seaice} & \textsf{\footnotesize sea-ice cover (\%)} & \small{sea-ice cover (\%)} & \small{(climate / sea-ice)}\\
+\textsf{\footnotesize phys\_seaice\_th} & \textsf{\footnotesize sea-ice thickness} & \small{sea-ice thickness (m)} & \small{(climate / sea-ice)}\\
+
+\bottomrule
+\end{tabular}
+\caption{Summary of the main (useful, physics-focussed) 2D time-slice output.}
+\end{table}
+
+\begin{table}[ht]
+\begin{tabular}{p{0.15\linewidth} p{0.20\linewidth} p{0.25\linewidth} p{0.3\linewidth}}
+\toprule
+\textbf{variable} & \textbf{variable} & \textbf{Description} & \textbf{Application}\\
+ & (long name) & &\\
+\midrule
+\textsf{\footnotesize ocn\_sal} & \textsf{\footnotesize salinity} & \small{ocean salinity (PSU)} & \small{diagnosing ocean circulation patterns}\\
+\textsf{\footnotesize ocn\_temp} & \textsf{\footnotesize temperature} & \small{ocean temperature (C)} & \small{diagnosing ocean circulation patterns}\\
+\midrule
+\textsf{\footnotesize phys\_u} & \textsf{\footnotesize ocean velocity - u} & \small{Eastwards component of ocean velocity (m/s)} & \small{diagnosing ocean circulation patterns and currents}\\
+\textsf{\footnotesize phys\_v} & \textsf{\footnotesize ocean velocity - v} & \small{Northwards component of ocean velocity} (m/s) & \small{diagnosing ocean circulation patterns and currents}\\
+\textsf{\footnotesize phys\_w} & \textsf{\footnotesize ocean velocity - w} & \small{upwards component of ocean velocity (m/s)} & \small{diagnosing ocean circulation patterns (note that velocity is measured at the top of an ocean depth layer, hence n/a for the surface layer)}\\
+\bottomrule
+\end{tabular}
+\caption{Summary of the main (useful) 3D time-slice output.}
+\end{table}
+
+%------------------------------------------------
+%
+\clearpage
+\subsection{(Bio)Geochemistry}
+
+\begin{table}[ht]
+\begin{tabular}{p{0.2\linewidth} p{0.317\linewidth} p{0.4\linewidth}}
+\toprule
+\textbf{Filename} & \textbf{Data} & \textbf{Application}\\
+\textsf{\footnotesize biogem\_series\_*.res} & &\\
+\midrule
+
+\textsf{\footnotesize atm\_p\(CO_{2}\)} & \small{Global inventory (\(mol\)), mean concentration (\(atm\)) of atmospheric \(CO_{2}\). } & \small{Drivers of and feedbacks with climate. Diagnostic of response to carbon emissions (and removal).}\\
+\textsf{\footnotesize atm\_p\(CO_{2}\)\_13C} & \small{\(^{13}C\) inventory (\(mol\)) and \(\delta^{13}C\) of atmospheric \(CO_{2}\).} & \small{Diagnostic of carbon emissions (and removal). Comparison with (terrestrial) proxy \(\delta^{13}C\) data.}\\
+\textsf{\footnotesize atm\_pO2} & \small{Global inventory (\(mol\)), mean concentration (\(atm\)) of atmospheric \(O_{2}\). } & \small{ Limited use. Checking on \textit{restoring forcing} of atmospheric \(O_{2}\). Impacts of \(C_{org}\) burial if included in model.}\\
+
+\midrule
+
+\textsf{\footnotesize carb\_sur\_conc\_*} & \small{Carbonate chemistry components (mean surface) (\(molkg^{-1}\)).} & \small{Not generally useful. }\\
+\textsf{\footnotesize carb\_sur\_H} & \small{Surface ocean mean \([H^{+}]\) (\(molkg^{-1}\)).} & \small{More useful is pH -- reported under \textsf{\footnotesize misc} (see below). }\\
+\textsf{\footnotesize carb\_sur\_ohm\_arg} & \small{Mean surface aragonite saturation.} & \small{Ocean acidification impacts of \(CO_{2}\) release. Weathering impacts. Relates to carbonate production by (modern) corals, pteropods.}\\
+\textsf{\footnotesize carb\_sur\_ohm\_arg} & \small{Mean surface calcite saturation.} & \small{Ocean acidification impacts of \(CO_{2}\) release. Weathering impacts. Carbonate production by foraminifera and coccolithophorids.}\\
+
+\midrule
+
+\textsf{\footnotesize diag\_misc\_} \hspace{1cm} \textsf{\footnotesize specified\_forcing\_*}  & \small{Applied flux \textit{forcings} (\(molyr^{-1}\)).} & \small{Whenever a \textit{restoring}, or \textit{flux} \textit{forcing} is specified, the actual flux employed, is saved here. Useful for diagnosing the flux associated with a restoring forcing (e.g. allowing  emissions flux associated with RCP (\textit{restoring forcing}) scenario to be diagnosed.)}\\
+
+\midrule
+
+\textsf{\footnotesize fexport\_CaCO3} & \small{Total flux (\(molyr^{-1}\)) and flux density (\(molm^{-2}yr^{-1}\)), of \(CaCO_{3}\) export from the ocean surface. } & \small{Carbonate production. Impacts of ocean acidification.}\\
+\textsf{\footnotesize fexport\_POC} & \small{Total flux (\(molyr^{-1}\)) and flux density (\(molm^{-2}yr^{-1}\)), of \(POC\) export from the ocean surface. } & \small{Particulate organic matter export. Impacts of changes in nutrient supply and limitation.}\\
+
+\midrule
+
+\textsf{\footnotesize misc\_surpH} & \small{Mean surface \(pH\).} & \small{Ocean acidification.}\\
+
+\midrule
+
+\textsf{\footnotesize ocn\_DIC\_13C} & \small{Global inventory (\(mol\)), mean global,  surface, and  benthic \(\delta^{13}C\).} & \small{Carbon release and removal. Surface-benthic -- indicator or strength of carbon export and the biological pump, as well ocean ventilation.}\\
+\textsf{\footnotesize ocn\_O2} & \small{Global inventory (\(mol\)), mean global,  surface, benthic concentrations (\(molkg^{-1}\)) of \(O_{2}\).} & \small{Indication of changes in ocean anoxia. (long-term) Imbalances between burial and weathering.}\\
+\textsf{\footnotesize ocn\_PO4} & \small{Global inventory (\(mol\)), mean global,  surface,  benthic concentrations (\(molkg^{-1}\)) of \(PO_{4}\).} & \small{Nutrient limitation. (long-term) Imbalances between burial and weathering.}\\
+\textsf{\footnotesize ocn\_TDFe} & \small{Global inventory (\(mol\)), mean global,  surface,  benthic concentrations (\(molkg^{-1}\)) of dissolved \(Fe\).} & \small{Nutrient limitation. (long-term) Imbalances between burial and weathering.}\\
+
+\bottomrule
+\end{tabular}
+\caption{Summary of the main (useful, plus notes on a few less used) \textit{time-series} output for (bio)geochemistry (non ecological) investigations.}
+\end{table}
+
+\begin{table}[ht]
+\begin{tabular}{p{0.15\linewidth} p{0.20\linewidth} p{0.225\linewidth} p{0.325\linewidth}}
+\toprule
+\textbf{variable} & \textbf{variable} & \textbf{Description} & \textbf{Application}\\
+ & (long name) & &\\
+\midrule
+
+\textsf{\footnotesize atm\_*} & \textsf{\footnotesize } & \small{Distributions of gases and isotopes.} & \small{Not useful as the atmosphere is well-mixed. The \textit{time-series} outputs are simpler and more useful.}\\
+
+\midrule
+
+\textsf{\footnotesize carb\_ben\_ohm\_arg} \textsf{\footnotesize carb\_sur\_ohm\_cal} & \textsf{\footnotesize } & \small{Benthic aragonite and calcite saturation.} & Impacts of ocean acidification of distribution of benthic organisms. Indicator of sediment preservation.\\
+\textsf{\footnotesize carb\_sur\_ohm\_arg} \textsf{\footnotesize carb\_sur\_ohm\_cal} & \textsf{\footnotesize } & \small{Ocean surface aragonite and calcite saturation.} & Impacts of ocean acidification of distribution of planktic organisms.\\
+
+\midrule
+
+\textsf{\footnotesize fseaair\_p\(CO_{2}\)} & \textsf{\footnotesize p\(CO_{2}\): net sea->air gas exchange flux density} & \small{Air-sea \(CO_{2}\) gas exchange.} & \small{Indicator of air-sea gas disequilibrium, regions of out-gassing/in-gassing.}\\
+
+\midrule
+
+\textsf{\footnotesize misc\_pH} & \textsf{\footnotesize ocean pH} & \small{Ocean surface pH.} & \small{Ocean acidification.}\\
+\textsf{\footnotesize misc\_sur\_} \textsf{\footnotesize rCaCO3toPOC} & \textsf{\footnotesize CaCO3 to POC export rain ratio} & \small{Particulate \(CaCO_{3}:POC\) export ratio from ocean surface.} & \small{Ocean acidification impacts.}\\
+
+\midrule
+
+\textsf{\footnotesize ocn\_sur\_TDFe} & \textsf{\footnotesize surface-water TDFe} & \small{Ocean surface total dissolved \(Fe\) (\(molkg^{-1}\)).} & \small{Patterns of nutrient uptake and limitation.}\\
+\textsf{\footnotesize ocn\_sur\_TDL} & \textsf{\footnotesize surface-water TDL} & \small{Surface   ligand concentrations (\(molkg^{-1}\)).} & \small{(Stabilizes dissolved Fe, but so not useful itself.)}\\
+\textsf{\footnotesize ocn\_sur\_PO4} & \textsf{\footnotesize surface-water PO4} & \small{Ocean surface \([PO_{4}]\) (\(molkg^{-1}\)).} & \small{Patterns of nutrient uptake and limitation.}\\
+\textsf{\footnotesize ocn\_ben\_PO4} & \textsf{\footnotesize bottom-water PO4} & \small{Benthic \([PO_{4}]\) (\(molkg^{-1}\)).} & \small{Indicator of large-scale ocean circulation and ventilation.}\\
+\textsf{\footnotesize ocn\_ben\_DIC\_13C} & \textsf{\footnotesize } & \small{Benthic \(\delta^{13}C\).} & \small{Indicator of large-scale ocean circulation and ventilation. Model-data \(\delta^{13}C\) proxy comparison.}\\
+\textsf{\footnotesize ocn\_int\_DIC} & \textsf{\footnotesize DIC water-column integrated tracer inventory} & \small{Pattern of water column integrated ocean \(DIC\) (i.e. dissolved carbon storage) (\(molm^{-2}\)).} & \small{Indicator of \(CO_{2}\) emissions storage and transport when used in difference/anomaly maps and calculations.}\\
+
+\bottomrule
+\end{tabular}
+\caption{Summary of the main (mostly useful) 2D time-slice output for (bio)geochemistry.}
+\end{table}
+
+%------------------------------------------------
+
+\clearpage
+\subsection{Biology/Ecology}
+
+
+
+%----------------------------------------------------------------------------------------
+%----------------------------------------------------------------------------------------

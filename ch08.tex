@@ -4,1302 +4,719 @@
 
 \cleardoublepage
 
-\chapterimage{spore-920.png} % Chapter heading image
+\chapterimage{origin.jpg} % Chapter heading image
 
-\chapter{Marine ecosystems and dynamics}\label{ch:marine-ecosystems}
+\chapter{The geological cycle of carbon}\label{ch:geological-carbon}
 
 \hfill \break
 
-\noindent In the chapter we address the role and nature of marine (plankton) ecosystems.\footnote{Loosely based on original workshop material  devised by Ben Ward <b.a.ward@soton.ac.uk>}
+\vspace{24mm}
 
-\vspace{1mm}
-\textbf{muffin} includes an explicit ecosystem component, including primary and export production as well as plankton biomass -- \textbf{ECOGEM}\footnote{\href{https://doi.org/10.5194/gmd-2017-258}{\textit{Ward et al.} [2017]} -- Ward, B. A., Wilson, J. D., Death, R. M., Monteiro, F. M., Yool, A., and Ridgwell, A.: EcoGEnIE 0.1: Plankton Ecology in the cGENIE Earth system model, \textit{Geosci. Model Dev. Discuss.}, https://doi.org/10.5194/gmd-2017-258, 2017.} -- that is designed as an alternative option to the 'bioloigically induced export flux' representation of export production (\textbf{BIOGEM}). The ecological model takes what is known as a size-structured approach to representing diversity of function in marine ecosystems, and is flexible in being able to be configured to represent any range of size classes of phytoplankton and zooplankton (and/or mixotrophs).
-
-\section*{Stuff to keep in mind\dots}
-\begin{itemize}
-\item We will be working with highly idealised ecosystems in a relatively idealised (modern) ocean.
-\item The aim is to explore why the model behaves as it does.
-\item The assumption is that this will give us some insight into why the real world behaves as it does. Perhaps. (It is up to you to question the validity of this assumption.)
-\end{itemize}
+\noindent
 
 %------------------------------------------------
 \newpage
 %------------------------------------------------
 
-\section*{Read.me}
+\section*{README}
 
-\vspace{2mm}
-You will need a \textit{re-start} file to carry out the experiments in the Chapter:
-\small\begin{verbatim}
+You will need to download a new \textit{re-start} file. To fetch this -- change to the \textsf{\footnotesize cgenie\_output directory}, and type:
+\vspace{-1mm}\small\begin{verbatim}
 $ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
-muffin.CBE.p_worjh2.BASESFeTDTL.FeMIP.SPIN.tar.gz
-\end{verbatim}\normalsize
-
-\noindent Extract the results in the usual way and in the usual place ... and return to \textsf{\footnotesize genie-main} in the usual way ... all ... as ... usual.
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-\section{Getting going with ECOGEM}
-
-Previously, you were running the standard 'biogeochemical' version of \textbf{muffin}\footnote{e.g. see \textit{Ridgwell et al.} [2007]}.  In \textbf{BIOGEM}, the biological pump is driven by an implicit (i.e. unresolved) biological community. As in the real ecosystem, the biological uptake of carbon and nutrients (such as phosphorus and iron) is limited by light, temperature and nutrient availability. However, unlike the real ecosystem, any uptake is \textit{directly} and \textit{instantly} converted to particulate and dissolved organic matter (POM, DOM) and exported to the ocean interior via (gravitational) settling and the ocean surface, respectively. i.e.
-\vspace{4mm}
-\begin{itemize}
-\item \underline{surface inorganic nutrients} $\xrightarrow[\rm and~export]{\rm production}$ \underline{POM and DOM}
-\end{itemize}
-\vspace{4mm}
-
-In contrast, in this chapter you we are going get started with the '\textbf{ECOGEM}' ecological modeling package\footnote{see: \href{https://doi.org/10.5194/gmd-2017-258}{\textit{Ward et al.} [2017]} -- Ward, B. A., Wilson, J. D., Death, R. M., Monteiro, F. M., Yool, A., and Ridgwell, A.: EcoGEnIE 0.1: Plankton Ecology in the cGENIE Earth system model, \textit{Geosci. Model Dev. Discuss.}, https://doi.org/10.5194/gmd-2017-258, 2017.}. This will allow us to extend the capabilities of \textbf{muffin} to examine a range of questions relating to the role of physiology and community structure in regulating the biological pump and hence atmospheric \(CO_{2}\) etc. In \textbf{ECOGEM}, biological uptake is again limited by light, temperature and nutrient availability ... but now it must pass through an explicit and dynamic intermediary plankton biomass pool before the net products of biological production can expressed as the production of POM and DOM:
-\vspace{4mm}
-\begin{itemize}
-\item \underline{surface inorganic nutrients} $\xrightarrow[]{\rm production}$ \underline{plankton biomass} $\xrightarrow[]{\rm export}$ \underline{POM and DOM}
-\end{itemize}
-\vspace{2mm}
-
-\vspace{1mm}
-The existence of a plankton biomass reservoir creates a delay term in the system such that the occurrence of warm temperatures in a sunlit surface with abundant nutrients, does not in itself guarantee immediate and massive carbon export. This is because the ecosystem biomass must build up first. This could be important for e.g. the timing of spring blooms.
-
-\vspace{1mm}
-Note that while the experimental configurations are based on those of \textit{Ward et al.} [2018], here we use a slightly different modern continental configuration and physics tuning (and hence ocean circulation state) and a slightly different iron cycle tuning. \textbf{ECOGEM} itself has also been adjusted to reduce the carbon export relative to phosphorous and has photosynthesis suppressed under sea-ice.
-
-%------------------------------------------------
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-%------------------------------------------------
-
-\subsubsection{Running the model}
-\vspace{1mm}
-
-We will start with the simplest possible configuration of \textbf{ECOGEM}, with just a single (small) phytoplankton class\footnote{i.e. as if the ocean was populated with a small species of phytoplankton (photo-autotroph) and nothing else.}. Run this model at the command line (e.g. for 10 years), as follows:
-\vspace{-1mm}\small\begin{verbatim}
-$ ./runmuffin.sh muffin.CBE.p_worjh2.BASESFeTDTL LABS EXP.8.1 10 
-   muffin.CBE.p_worjh2.BASESFeTDTL.FeMIP.SPIN
+231228.muffin.CBSR.fkl_pp51.BASESw.SPIN2.tar.gz
 \end{verbatim}\normalsize\vspace{-1mm}
-(Here, you are using a new \textit{base-config} -- \textsf{\footnotesize muffin.CBE.p\_worjh2.BASESFeTDTL} -- identical to the iron-enabled configuration used in the previous Chapter, but now with the ecosystem model enabled.)
-
-The model will run as before ... except much slower ... :( ... as \textbf{muffin} has to calculate plankton growth and ecological interactions in addition to everything else it did previously.
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-%
-\subsubsection{Viewing 2D time-slice output}
-\vspace{1mm}
-
-What is 'new'?
-
-\vspace{1mm}
-\noindent Following the same convention as for \textbf{BIOGEM}, \textbf{ECOGEM} \textit{time-slice} output is saved in the subdirectory of your experiment results directory, named \footnotesize\textsf{ecogem }\normalsize.\footnote{for this particular example experiment, the full path to the \textbf{ECOGEM} results would be: \\ \scriptsize\textsf{/cgenie\_output/EXP.8.1/ecogem/}\normalsize.}
-
-\begin{enumerate}[noitemsep]
-\vspace{1mm}
-\item Open the \textsf{\footnotesize fields\_ecogem\_2D.nc} file by locating it in the correct directory, and double clicking on it in the file transfer window (if you have that software function configured), or transfer locally and then open (e.g. in \textbf{Panoply}).
-\vspace{1mm}
-\item You should now see a list of 2D arrays that were output by \textbf{ECOGEM}. Looking at the \textsf{\footnotesize Long Name} description, simply click on a variable of interest. If a menu window pops up, just click on \textsf{\footnotesize Create} or hit the \textsf{\footnotesize Return} key.
-\vspace{1mm}
-\item Check the \textbf{Panoply} settings to make sure you really know what you are looking at.
-\vspace{1mm}
-\begin{itemize}[noitemsep]
-\item Which \textit{time-slice} (i.e. simulation year) are you looking at?
-\item What is the data range (i.e. colour scale)
-\end{itemize}
-\end{enumerate}
-\vspace{2mm}
-
-\noindent A guide to some key \textbf{ECOGEM} output variables  can be found at the end of Chapter \ref{ch:model-output}.
-
-%------------------------------------------------
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-%------------------------------------------------
-
-\subsubsection{Comparing to observations}
-\vspace{1mm}
-
-Models are intended as an (as close as possible) approximation of the real world (whatever that is). It might, therefore, be useful to check if our approximation is in anyway realistic. We can do this by comparing the model output\footnote{NOTE: \textbf{ECOGEM} only saves a limited number of surface (2D) data arrays. You can look at other variables (in 2D and 3D) by opening the corresponding \textbf{BIOGEM} netCDF files.} to observations.
-
-\vspace{1mm}
-\begin{enumerate}[noitemsep]
-\vspace{1mm}
-\item You can download a compilation of key biogeochemical variables (as \textbf{netCDF} files) from the \textsf{\footnotesize mymuffin} \href{http://www.seao2.info/cgenie/data/GEnIE_observations.nc}{webpage} ('\textit{Observations for ECOGEM}').
-\vspace{1mm}
-\item You can open the \textsf{\footnotesize GEnIE\_observations.nc} file in \textbf{Panoply} in the same way as you opened the \textsf{\footnotesize fields\_ecogem\_2D.nc} file.
-\vspace{1mm}
-\item You can now compare the model output to a variety of key biogeochemical variables that have been derived from ocean measurements. The variables in the \textsf{\footnotesize GEnIE\_observations.nc} \textbf{netCDf} file include:
-\vspace{1mm}
-\begin{itemize}[noitemsep]
-\item T and S (not so interesting, except to e.g. evaluate how well \textbf{muffin} simulates different temperature regimes (and habitats)). 
-\item DIC and ALK (ignore for the purpose of this chapter).
-\item Phosphate is of more interest -- how well does \textbf{muffin} simulate surface nutrient availability, and to what degree does ecosystem complexity help explain observations. 
-\item Observed Chlorophyll is remote-sensed, and can be contrasted with the chlorophyll biomass simulated by \textbf{ECOGEM}.
-\end{itemize}
-\vspace{1mm}
-You might visually compare model with observations, and/or e.g. create difference maps.
-\vspace{1mm}
-\item When doing this, be asking yourself the question: does the model perform well or poorly with respect to reproducing these variables? If not, \uline{why not}?
-\end{enumerate}
-\vspace{2mm}
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-\section{Ecosystem configuration}
-
-In the last section you ran a very simple configuration of the \textbf{ECOGEM} ecosystem model, and compared it to observations. In this section we are going to add a bit more ecological realism, with the aim of improving model performance (i.e. as contrasted against observations). We will start by adding a zooplankton population that  should bring a degree of `top-down' control to the phytoplankton population.
-\vspace{2mm}
-
-Details of the ecosystem are specified in the \textit{user-config} file: \textsf{\footnotesize EXP.8.1}
-
-\begin{enumerate}[noitemsep]
-
-\vspace{1mm}
-\item The \textit{user-config} file can be used to configure the ecological model to your liking. 
-
-\vspace{1mm}
-One of the most important amendments to note straight away can be seen near the very start:
-\\\texttt{bg\_par\_bio\_prodopt="NONE"}. This effectively disables the simple biological export scheme in \textbf{BIOGEM}, replacing it with the explicit biology of \textbf{ECOGEM}. This is a necessary step whenever running \textbf{ECOGEM}, because we do not want the implicit and explicit biological schemes to be implemented simultaneously ...
-\vspace{1mm}
-\item We can also see a load of other model parameters. Any that begin with `\texttt{bg\_}' correspond to \textbf{BIOGEM}, while `\texttt{eg\_}' corresponds to \textbf{ECOGEM}. The \textbf{ECOGEM} parameters begin further down the file.
-\vspace{1mm}
-\item One of the most important parameters specifies the \textit{ecosystem configuration} file:
-\vspace{0mm}
-\small\begin{verbatim}
-eg_par_ecogem_plankton_file ='NPD.eco'
-\end{verbatim}\normalsize
-\vspace{-0mm}
-This points to a file (located in \textsf{\footnotesize \textasciitilde{}/cgenie.muffin/genie-ecogem/data/input/}) that specifies every plankton population ('species', if you like) that is accounted for in the model experiment. 
-
-\vspace{1mm}
-If you open that file in a text editor, you will see something akin to the following:
-\scriptsize\begin{verbatim}
- 01                 02    03
- \/                 \/    \/
-
--START-OF-DATA-
- Phytoplankton    10.00   1
--END-OF-DATA-
-
- /\                 /\    /\
- 01                 02    03
-
-DATA FORMAT AND ORDER
----------------------
-
-COLUMN #01: plankton functional type name
-COLUMN #02: plankton diameter (micrometers)
-COLUMN #03: number of randomised replicates
-
-INFO: TRACER ASSIGNMENT RULES
------------------------------
-Plankton functional type one of: Prochlorococcus
-                                 Synechococcus
-                                 Picoeukaryote
-                                 Diatom
-                                 Coccolithophore
-                                 Diazotroph
-                                 Phytoplankton
-                                 Zooplankton
-                                 Mixotroph
-\end{verbatim}\normalsize
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-\vspace{1mm}
-\item The first thing to note is that only the lines in between the \texttt{\small -START-OF-DATA-} and \texttt{\small -END-OF-DATA-} tags are read by the computer. The rest is there solely for your guidance.
-
-\vspace{1mm}
-Each line that is entered in the computer-readable area tells the model to create a distinct plankton population in the model. The 'plankton functional type' of this population is specified in the first column, while the plankton diameter is specified in the second column. A '\texttt{1}' must always be placed in the third column\footnote{It doesn't 'do' anything, but the model still needs it ...  why ... WTF?}.
-
-\vspace{1mm}
-In this 'NPD' (single nutrient-plankton-detritus) configuration, we only have a 10 micron generic phytoplankton. The ecological and physiological traits of this population are assigned automatically according to the size and the functional type (here: photo-autotroph).
-
-\vspace{1mm}
-\item[NOTE:] The only PFTs available at the moment are \texttt{Phytoplankton}, \texttt{Zooplankton} and \texttt{Mixotroph}. The other groups currently have no real functionality associated with them.
-
-\vspace{1mm}
-\item[NOTE:] This file format is fussy, and you\uline{ cannot have any empty lines} in between the  \texttt{\small -START-OF-DATA-} and \texttt{\small -END-OF-DATA-} tags -- every line between these tags must have data (3 parameter values).
-
-\vspace{2mm}
-\item We can increase the ecological complexity of the model by adding another plankton population. Save the \textit{ecosystem configuration} file under a new and highly intuitive name (such as \textsf{\footnotesize NP\underline{Z}D.eco}), and add another line specifying a 100 micron zooplankton. e.g.:
-\small\begin{verbatim}
- Zooplankton     100.00   1
-\end{verbatim}\normalsize
-It is important that the zooplankton is 10 times larger than the phytoplankton in terms of diameter. This is the optimal predator-prey length ratio in the default configuration. (You could maybe think about changing this value later on.)
-
-\vspace{2mm}
-\item  To run the model with this new configuration, change the name of the \textit{ecosystem configuration file} in the \textit{user-config} file\dots
-\small\begin{verbatim}
-eg_par_ecogem_plankton_file ='NPZD.eco'
-\end{verbatim}\normalsize
-
-\vspace{1mm}
-\item Save the new \textit{user-config} file under a different name (e.g. \textsf{\footnotesize EXP.8.1.NPZD}). You can now execute the model at the command line\footnote{Don't forget to change the name of the \textit{user-config} file here as well ...} ...
+\noindent Extract the contents of this archive by typing:
 \vspace{-1mm}\small\begin{verbatim}
-$ ./runmuffin.sh muffin.CBE.p_worjh2.BASESFeTDTL LABS EXP.8.1.NPDZ 10 
-   muffin.CBE.p_worjh2.BASESFeTDTL.FeMIP.SPIN
+$ tar xfzv 231228.muffin.CBSR.fkl_pp51.BASESw.SPIN2.tar.gz
 \end{verbatim}\normalsize\vspace{-1mm}
-... or submit it to the cluster queue ...
-
-\vspace{1mm}
-\item Once you have completed the new simulation, compare the new results to the old simulation, and also in terms of its ability to reproduce observations. Has the addition of zooplankton to the model improved its behaviour or not? Look also at the global distributions of carbon biomass in the phytoplankton and zooplankton populations (again, a log scale might help).
-
-\vspace{1mm}
-\textit{How have the zooplankton interacted with the phytoplankton to change the ecological dynamics in the model?}
-
-\vspace{1mm}
-Note that 10 years is clearly far far too short to accommodate any change in the global cycle of nutrients (can carbon and oxygen), but may be sufficient to see much of the impact of changing the assumed ecosystem structure. (You can always run for longer to judge for yourself on what time-scales what components of the Earth system adjust and hence what the 'ideal' (practical) run-time for changing the ecosystem structure might be.)
-
-\end{enumerate}
-
-%------------------------------------------------
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-%------------------------------------------------
+You’ll then need to change directory back to \textsf{\footnotesize genie-main } directory in order to run \textbf{muffin}.
 
 %------------------------------------------------
 \newpage
 %------------------------------------------------
 
-\subsubsection{Visualising composite data}
-\vspace{1mm}
+\section{The long tail of CO$_{2}$ (and other tales from the sediments)}
 
-We can perhaps get a better handle on this question by looking at the ratio of phytoplankton-to-zooplankton biomass. Such ratios can, however, be difficult to assess simply by eye-balling two maps. Instead we can use \textbf{Panoply} to combine data arrays.
+This chapter introduces the marine sediment model component in muffin -- \textbf{SEDGEM} (SEDiment GEochemistry Model) plus \textbf{ROKGEM}, the terrestrial weathering module. In terms of the fate of fossil fuel \(CO_{2}\), the model configuration and experiments in this chapter include: a representation of deep-sea sediments and the interaction between the preservation and burial of \(CaCO_{3}\) and ocean chemistry plus, plus the balance (or imbalance) between weathering on land and sedimentary burial (of \(CaCO_{3}\)) (all in addition to the interaction between atmosphere and ocean and redistribution of carbon within the ocean as previously). For an over-view of the sediment model and what time-scales and nature of carbon cycle interaction between ocean and sediment you can expect, read: \textit{Ridgwell and Zeebe} [2005] and \textit{Ridgwell and Hargreaves} [2007]. \textbf{ROKGEM} is described in \textit{Colbourn et al.} [2013].
 
-\vspace{1mm}
-\begin{enumerate}[noitemsep]
-\vspace{1mm}
-\item First close all your \textbf{Panoply} plot windows. Then open a new one for \textsf{\footnotesize C~Biomass - Popn.~001 (10.00~micron phytoplankton)}. Next, select \textsf{\footnotesize C~Biomass - Popn.~002 (100.00~micron zooplankton)}, and click the \textsf{\footnotesize Combine Plot} icon at the top of the \textbf{Panoply} window.
-\vspace{1mm}
-\item A box will open up asking you \textsf{\footnotesize In which existing plot should I combine the variable}. As you now only have one plot available, this should be a straightforward choice. Click \textsf{\footnotesize Combine}.
-\vspace{1mm}
-\item A new map should appear showing the total zooplankton carbon biomass minus the total phytoplankton carbon biomass (see the label on the colour scale). This is not what we want. Below the map, under the \textsf{\footnotesize Array(s)} tab, there is a drop down menu showing the range of different ways the two arrays can be combined. We want to look at the Z:P biomass ratio, so select \textsf{\footnotesize Array 2 / Array 1}.
-\vspace{1mm}
-\item You now need to make sure that you are looking at the right year (you can time-lock the two arrays by clicking on the chain icon). You may also find it helpful to look at the data on a log scale, with a scale range of \textsf{\footnotesize 0.1} to \textsf{\footnotesize 10}. You might also like to change the \textsf{\footnotesize Color Table:} option to \textsf{\footnotesize GMT\_polar.cpt}.
-\end{enumerate}
-
-\vspace{2mm}
-\noindent \textbf{Questions:}
-\vspace{1mm}
-\begin{itemize}
-\item What does this plot say about the relationship of zooplankton and phytoplankton in different regions of the ocean?
-\item In what regions do zooplankton or phytoplankton dominate?
-\item What affect does a high Z:P ratio have on the biomass of the phytoplankton population?\footnote{For example, in terms of the chlorophyll concentration.}
-\end{itemize}
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-\section{Increasing ecological complexity}
-
-In the last section, we looked at the results of some simulations based on `NPD' (one nutrient-(phyto)plankton-detritus) and `NPZD' (one nutrient-(phyto)plankton-zooplankton-detritus) type ecosystem models. Here we will begin to incorporate a bit more ecological complexity.
-
-%------------------------------------------------
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-%------------------------------------------------
-
-\subsubsection{Plankton size classes}
-\vspace{1mm}
-
-We are going to add a few more plankton size classes, so that we end up with small, medium and large phytoplankton and (small, medium and large) zooplankton.
-
-\begin{enumerate}[noitemsep]
-\vspace{1mm}
-\item Save the \textit{ecosystem configuration} file under a new name (e.g. \textsf{\footnotesize 3P3Z.eco}), replacing the existing plankton populations with the ones described in Table~\ref{planktonconfig1}.
-\vspace{1mm}
-\item  To run the model with this new configuration, change the name of the \textit{ecosystem configuration file} in the \textit{user-config} file:
-\vspace{-2mm}\begin{verbatim}
-eg_par_ecogem_plankton_file='3P3Z.eco'
-\end{verbatim}\vspace{-2mm}
-\vspace{1mm}
-\item Save the new \textit{user-config} file under a different name (e.g. \texttt{BSS.3P3Z.SPIN}) and then run the new model at the command line (e.g. for 10 years).
-\end{enumerate}
-\vspace{2mm}
-
-\vspace{-2mm}
-\begin{table}[htp!]
-\begin{center}
-\caption{Plankton functional groups and sizes.}
-\begin{tabular}{rlc}
-\hline
-$j$     & PFT                   & \multicolumn{1}{r}{Diameter ($\mu$m)}  \\
-\hline
-1       & Phytoplankton         & 0.6  \\
-2       & Phytoplankton         & 6.0  \\
-3       & Phytoplankton         & 60.0  \\
-\hline
-\end{tabular}
-\begin{tabular}{rlc}
-\hline
-$j$     & Functional Type       & \multicolumn{1}{r}{Diameter ($\mu$m)}  \\
-\hline
-4       & Zooplankton           & 6.0  \\
-5       & Zooplankton           & 60.0  \\
-6       & Zooplankton           & 600.0  \\
-\hline
-\end{tabular}
-\label{planktonconfig1}
-\end{center}
-\end{table}
-\vspace{-6mm}
-
-%------------------------------------------------
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-%------------------------------------------------
-
-\subsubsection{Viewing 2D time-slice output}
-\vspace{1mm}
-
-Open up the 2D \textit{time-slice} data for the new experiment, following the same procedure as in the previous section. You will now see a lot more \textit{time-slice} variables now appear listed in \textbf{Panoply}. We have all the same diagnostics as before, plus some new ones relating to the new plankton populations you have just added. There are also variables describing the size distribution and diversity of the photosynthetic community (non-phototrophic populations are ignored in these metrics). These were not included before, because there was only one phytoplankton population.
-
-\vspace{2mm}
-\begin{itemize}[noitemsep]
-
-\item[\textbf{Size fractions}] \
-\\Variables  ``\textsf{\footnotesize eco2D\_Size\_Frac\_...}'' give the chlorophyll biomass in the three size fractions:
-\vspace{1mm}
-\begin{enumerate}[noitemsep]
-\item picophytoplankton (diameter $\le$ 2 $\mu$m)
-\item nanophytoplankton (2 $<$ diameter $\le$ 20 $\mu$m)
-\item microphytoplankton (diameter $>$ 20 $\mu$m)
-\end{enumerate}
-\vspace{1mm}
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-\item[\textbf{Size metrics}] \
-\\Variables  '\textsf{\footnotesize eco2D\_Size\_...}' give metrics describing the {phytoplankton} size distribution.
-\vspace{1mm}
-\begin{itemize}[noitemsep]
-\item \textsf{\footnotesize eco2D\_Size\_Mean}: Geometric mean\footnote{ We use the geometric mean and standard deviation, because phytoplankton biomass is approximately log-normally distributed across the phytoplankton size range.} phytoplankton diameter, weighted by carbon biomass
-\item \textsf{\footnotesize eco2D\_Size\_Stdev}: Geometric standard deviation\footnote{ The geometric standard deviation describes the \textit{relative} size range of the phytoplankton. For a geometric standard deviation of $\sigma$, $\sim$68.2\% of the phytoplankton carbon biomass will be in cells no more than $\sigma$ orders of magnitude smaller or larger than the geometric mean size.} of phytoplankton diameter, weighted by carbon biomass.
-\item \textsf{\footnotesize eco2D\_Size\_Minimum}: Diameter of smallest phytoplankton contributing $>$0.1\% of the total phytoplankton carbon biomass.
-\item \textsf{\footnotesize eco2D\_Size\_Maximum}: Diameter of largest phytoplankton contributing $>$0.1\% of the total phytoplankton carbon biomass.
-\end{itemize}
-\vspace{1mm}
-
-\item[\textbf{Diversity metrics}] \
-\\Variables  '\textsf{\footnotesize eco2D\_Diversity\_...}' give metrics describing the {phytoplankton} diversity.\footnote{NOTE: The threshold index is a fairly crude measure of the total number of species in the community, relative to a small and arbitrary threshold of relative biomass. This index is not very sensitive to the relative biomass of individual species (although one very successful species can raise the absolute value of the threshold, thus lowering the diversity).
-\\The other three indices do more to quantify the evenness of the community. The more unequal the proportional abundances, the smaller the value of the index. If almost all the abundance is concentrated into one type and all the other types are very rare, the latter three indices can become very small. A community with fewer species, but with more evenly distributed biomass, may well have higher values for these three diversity indices.}
-\vspace{1mm}
-\begin{itemize}[noitemsep]
-\item \textsf{\footnotesize eco2D\_Diversity\_Threshold}: the threshold diversity index. The number of species contributing $>$0.1\% of the total phytoplankton carbon biomass [\textit{Barton et al.}, 2010]\footnote{A D Barton, S Dutkiewicz, G Flierl, J Bragg, and M Follows. Patterns of diversity in marine phytoplankton. \textit{Science}, 327(5972):1509–1511, 2010.}.
-\item \textsf{\footnotesize eco2D\_Diversity\_Berger}: the inverse Berger(-Parker) index  [\textit{Berger and Parker}, 1970]\footnote{W H Berger and F L Parker. Diversity of planktonic foraminifera in deep-sea sediments. \textit{Science}, 168 (3937):1345–1347, 1970.}. The proportion of carbon biomass made up by all but the single most dominant population. For example, if the dominant population accounts for 40\% of the total carbon biomass, inverse Berger (-Parker) index is 0.6.
-\item \textsf{\footnotesize eco2D\_Diversity\_Simpson}: the inverse (Gini-)Simpson index [\textit{Simpson}, 1949]\footnote{E H Simpson. Measurement of diversity. \textit{Nature}, 163:688, 1949.}. This is effectively the probability that two samples taken at random from the community will be from a different species (note that the probability of selecting a population is dependent on carbon biomass, not cell abundance). If we define the proportional biomass of each species as its relative contribution to the total carbon biomass in the community, the inverse Gini(-Simpson) index is calculated as one minus the sum of the squares of the proportional biomasses of each species.
-\item \textsf{\footnotesize eco2D\_Diversity\_Shannon}: the Shannon(-Wiener or -Weaver) index  [\textit{Shannon}, 1948]\footnote{C E Shannon. A mathematical theory of communication. \textit{The Bell System Technical Journal}, 27(379-423 and 623-656), 1948.}. With the proportional biomass defined as above, the Shannon index is defined as the sum of [the proportional biomass multiplied by the logarithm of the proportional biomass] for each species.
-\end{itemize}
-\vspace{1mm}
-
-\end{itemize}
-\vspace{1mm}
-
-Have a look at some of these metrics, but bear in mind that they summarise the diversity of a phytoplankton community that includes just three species. They are probably not that revealing, so we will come back to them later. Instead, have a look some of the other metrics describing the model ecosystem.
-
-\vspace{2mm}
-\noindent \textbf{Questions:}
-\vspace{1mm}
-\begin{itemize}
-\item What are the global distributions of the different size classes?
-\item How do the global biomass distributions compare to variables such as temperature\footnote{Ocean temperature is saved in \textsf{\scriptsize fields\_biogem\_3D.nc}}, or primary production (\textsf{\footnotesize Uptake Fluxes C})?
-\item How does nutrient, light and temperature limitation vary between the size classes?
-\item Can you account for the distribution biomass between the size classes according to the different limiting factors?
-\end{itemize}
-\vspace{2mm}
-
-%------------------------------------------------
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-%------------------------------------------------
-
-\subsubsection{Create your own ecosystem}
-\vspace{1mm}
-
-Save the \textit{ecosystem configuration} file under a new name and add some more plankton populations (whatever and as many as you like\footnote{Just bear in mind that the more populations you put in, the slower the model will run!}). Update the \textbf{muffin} parameter \texttt{eg\_par\_ecogem\_plankton\_file} in the \textit{user-config} and save this file under a new name.  Run the new model.
-
-\vspace{2mm}
-\noindent \textbf{Questions:}
-\vspace{1mm}
-\begin{itemize}
-\item How many populations can you get to coexist (i.e. each having a non trivial ($>$0.1\%) biomass)?
-\item What effect do the new populations have on the community as a whole?
-\item What effect, if any, do your additions have on the strength of biological export?\\(e.g. look at \textsf{\footnotesize bio\_fpart\_POC} in \textsf{\footnotesize fields\_biogem\_3D.nc}.)
-\end{itemize}
-\vspace{2mm}
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-\section{Build it up, tear it down}
-\vspace{1mm}
-
-\subsubsection{A fully size-structured  ecosystem}
-\vspace{1mm}
-
-We are now going to switch to a more diverse version of the size-structured ecosystem model. This configuration has 8 size classes of phytoplankton, and 8 size classes of zooplankton, as shown in Table~\ref{planktonconfig2}.
-
-\begin{enumerate}[noitemsep]
-\vspace{1mm}
-\item Save the \textit{ecosystem configuration} file under a new name, replacing the existing plankton populations with the ones described in Table~\ref{planktonconfig2}.
-\vspace{1mm}
-\item Create a new \textit{user-config} and point to the new \textit{ecosystem configuration} file.
-\vspace{1mm}
-\item Run the new model for at least 20 years (this will probably take about 10 minutes).
-\end{enumerate}
-
-\vspace{-0mm}
-\begin{table}[htp!]
-\begin{center}
-\caption{Plankton functional groups and sizes.}
-\begin{tabular}{rlc}
-\hline
-$j$     & PFT                   & \multicolumn{1}{r}{Diameter ($\mu$m)}  \\
-\hline
-1       & Phytoplankton         & 0.2  \\
-2       & Phytoplankton         & 0.6  \\
-3       & Phytoplankton         & 1.9  \\
-4       & Phytoplankton         & 6.0  \\
-5       & Phytoplankton         & 19. 0 \\
-6       & Phytoplankton         & 60.0  \\
-7       & Phytoplankton         & 190.0  \\
-8       & Phytoplankton         & 600.0  \\
-\hline
-\end{tabular}
-\begin{tabular}{rlc}
-\hline
-$j$     & Functional Type       & \multicolumn{1}{r}{Diameter ($\mu$m)}  \\
-\hline
-9       & Zooplankton           & 0.6  \\
-10      & Zooplankton           & 1.9  \\
-11      & Zooplankton           & 6.0  \\
-12      & Zooplankton           & 19.0 \\
-13      & Zooplankton           & 60.0  \\
-14      & Zooplankton           & 190.0  \\
-15      & Zooplankton           & 600.0  \\
-16      & Zooplankton           & 1900.0  \\
-\hline
-\end{tabular}
-\label{planktonconfig2}
-\end{center}
-\end{table}
-\vspace{-6mm}
-
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-%------------------------------------------------
-
-\subsubsection{Ecosystem characteristics}
-\vspace{1mm}
-
-We can now begin to look at the size and diversity metrics  in a more meaningful way.
-
-\begin{enumerate}[noitemsep]
-\vspace{1mm}
-\item Look first at:
-\vspace{1mm}
-\begin{enumerate}[noitemsep]
-\item the total carbon biomass
-\item the carbon uptake flux (i.e. primary production)
-\item the geometric mean size
-\end{enumerate}
-\vspace{1mm}
-Make sure that in each case that you are looking at the \uline{last} year of model output. You may also find it useful to adjust the colour scale, or to change to a logarithmic colour scale (e.g. try a logarithmic scale from 2 to 20 microns for the geometric mean size).
-
-\vspace{1mm}
-Looking at the maps, we can perhaps pick out three different ``biomes'' in terms of their community properties:
-\vspace{1mm}
-\begin{enumerate}
-\item The low-latitude oligotrophic gyres are relatively unproductive, and support some of the lowest annual mean biomass in the surface ocean. In these regions the mean phytoplankton size is very small.
-\item Subpolar latitudes between 40$^\circ$ and 50$^\circ$ (either N or S) are much more productive, and support very high annual mean biomass. These communities also have the highest mean sizes of any region.
-\item The polar oceans are also highly productive (except perhaps the high Arctic), and support relatively high annual mean biomass. These communities are made up (in the model, at least) of slightly smaller phytoplankton than we see in the subpolar regions.
-\end{enumerate}
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-%
-\vspace{1mm}
-\item What can we find out about the community structure in these regions? Open up some of the other metrics describing the community (standard deviation of size distribution, size fractionation, diversity, limiting factors). What can you find out about the community structure within each region, in terms of coexistence and exclusion?
-\vspace{1mm}
-\begin{itemize}
-\item Does the community span a broad or narrow size range?
-\item How many size classes are coexisting in each biome?
-\item What is the smallest and largest size class in each biome?
-\item How much biomass is concentrated in each size fraction (picoplankton, nanoplankton and microplankton)?
-\end{itemize}
-\end{enumerate}
-\vspace{1mm}
-
-Overall -- what factors do you think are most important in terms of dictating the global distribution of each size class?
-
-To find out the answers to these questions, you are going to pull the model apart, and then put it back together. At each stage the aim is to bring in a different limiting factor, so that you can see its effect on the model behaviour.
-
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-%------------------------------------------------
-
-\subsubsection*{The fundamental niche}
-\vspace{1mm}
-
-The first step is to find out the impact of abiotic factors on the distribution of different phytoplankton sizes. In other words, we need to find out what the distribution of the phytoplankton would be in the absence of any ecological interactions, such as resource competition and predation. This is effectively their `fundamental niche'.
-
-\vspace{1mm}
-The fundamental niche is fairly abstract, and not something that can be measured in the real world. In model world, however, we can get a useful estimate of the fundamental niche by making a few simple changes to the model.
-
-\begin{enumerate}[noitemsep]
-\vspace{1mm}
-\item First of all, you can remove all predation, simply by removing the zooplankton from the \textit{ecosystem configuration} file.
-\vspace{1mm}
-\item Next, you also need to remove all competition for nutrients and light. This involves tweaking the model equations so that the phytoplankton are not nutrient limited, and do not attenuate light. To do this, all you need is to add the following line to the \textit{user-config} file:
-\vspace{-1mm}
-\small\begin{verbatim}
-eg_fundamental = .TRUE.
-\end{verbatim}\normalsize
-\vspace{-1mm}
-\item If you now run the model you should have a community of eight phytoplankton size classes that are growing solely as a function of the incoming light and the temperature. This growth will be balanced balanced the basal (i.e. non-grazing) mortality. As there is no feedback between the ecosystem and the environment, populations that can survive will grow exponentially and without limit, potentially reaching astronomical abundance in very little time. Populations that cannot survive will rapidly decline to almost nothing.
-\vspace{1mm}
-\\The regions in which each plankton shows positive growth defines its fundamental niche. This is a function of abiotic conditions only, and is the absolute limit of its geographical range. Look at the carbon biomass distribution in each size class (set the data range in each case from \(0\) to \(1mmolCm^{-3}\)).
-\vspace{1mm}
-\begin{itemize}
-\item How and why does the fundamental niche vary with size?
-\item Could the limits of the fundamental niche explain some of the patterns seen in the full model?
-\end{itemize}
-
-\end{enumerate}
-\vspace{2mm}
-
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-%------------------------------------------------
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-%
-\subsubsection*{Resource competition.}
-\vspace{1mm}
-
-The next step is asses the impact of resource competition. We are first going to do this in the absence of any zooplankton grazing.
-
-\begin{enumerate}[noitemsep]
-\vspace{1mm}
-\item All you need to do at this stage is to re-enable nutrient and light competition. To do this, simply delete `\texttt{eg\_fundamental~=~.TRUE.}' from the \textit{user-config} file (or comment out the line to disable it), and save under a new name. Leave the \textit{ecosystem configuration} file as it is.
-
-\vspace{1mm}
-\item You should have a community of eight phytoplankton size classes that are competing for nutrients and light, again as a function of temperature. This is a much more realistic simulation, as feedbacks between the ecosystem and the environment serve to limit the size of the phytoplankton populations. Examine the model to find out:
-\vspace{1mm}
-\begin{itemize}
-\item What size classes are able to persist when resource competition is enabled?
-\item Why are different size classes more or less abundant in different areas?
-\item How does the distribution of each size class compare to the fundamental niche?
-\item What are the reasons for any differences?
-\end{itemize}
-\end{enumerate}
-\vspace{1mm}
-
-Phytoplankton biogeography at this stage begins to approximate the realised niche, which defines the range of conditions that support a population in the presence of ecological interactions. Note that at this stage, however, we have ignored the effects of any predator-prey interactions, as the zooplankton grazers are still missing.
-
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-%------------------------------------------------
-
-\subsubsection*{Resource competition + one generalist zooplankton}
-\vspace{1mm}
-
-The previous simulation is clearly unrealistic (although, hopefully, informative). You are now going to add back in just a single zooplankton class, that grazes equally on all plankton (including itself).
-
-\begin{enumerate}[noitemsep]
-\vspace{1mm}
-\item Add a 100 micron zooplankton into the \textit{ecosystem configuration} file, and save under a new name. Also update the \textit{user-config} file to reflect the change, and save under a similar name.
-\vspace{1mm}
-\item You need to modify the model so that the zooplankton eats all prey with equal preference. This can be done by adding the following lines to the \textit{ecosystem configuration} file.
-\vspace{-1mm}\small\begin{verbatim}
-eg_ns=1
-eg_pp_sig_a=1.0e99
-\end{verbatim}\normalsize\vspace{-1mm}
-\item[NOTE:] For aficionados, the first parameter disables prey-switching (i.e. predators no longer preferentially attack the most abundant prey). The second parameter increases the width of the grazing kernel (i.e. predators can attack a range of prey across a huge size range with equal preference).
-\vspace{1mm}
-\item The addition of zooplankton to the model community should give a more accurate approximation of the realised niche.
-\vspace{1mm}
-\begin{itemize}
-\item Does the addition of a single zooplankton grazer enable more or less coexistence?
-\item What factors might be responsible for any shifts in biogeography?
-\end{itemize}
-\end{enumerate}
-
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-%------------------------------------------------
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-%
-\subsubsection*{Resource competition + one ``switching'' zooplankton}
-\vspace{1mm}
-
-You began with a full food-web containing 8 phytoplankton and 8 zooplankton size classes. The diversity of zooplankton clearly has an effect on the phytoplankton community that is not seen in the previous experiment. This effect can be imitated with just one generalist zooplankton if we instruct it to graze preferentially on the most successful prey.
-
-Re-enable this 'prey switching' effect by changing the following control parameter to a \texttt{2}:
-\vspace{-1mm}\small\begin{verbatim}
-eg_ns=2
-eg_pp_sig_a=1.0e99
-\end{verbatim}\normalsize\vspace{-1mm}
-Compare this simulation to the first experiment (8 phytoplankton and 8 zooplankton) to see how the inclusion of prey switching increases coexistence through the `kill-the-winner' mechanism.
-
-\vspace{1mm}
-\begin{itemize}
-\item How does nutrient limitation change with phytoplankton size, and how might zooplankton be affecting this?
-\item Look at the C:P biomass ratio in the community as a whole, and compare to your estimates from the NPZD model (Lesson~1).
-\item How does the C:P ratio vary with size? How does having a diverse community affect the coupling of carbon and limiting nutrients?
-\end{itemize}
-
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-%------------------------------------------------
-
-\subsection*{Further questions to answer}
-\vspace{1mm}
-
-\begin{itemize}
-\item What sets the fundamental niche, and how does it change with size?
-\item How is the fundamental niche modified by resource competition?
-\item What species are favoured in terms of nutrient competition?
-\item How is the outcome of competition affected by...
-\begin{itemize}
-\item Abiotic conditions?
-\item Increased mortality (through generalist grazing)?
-\item Density-dependent mortality (through specialist grazing)?
-\end{itemize}
-\item Do these experiments tell you all you need to know?\\What other modifications can you think of making?
-\end{itemize}
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-\section{Mixotrophy}
-
-Try adding some mixotrophs to the phytoplankton and zooplankton already present in the community. These will have exactly half the nutrient uptake traits of phytoplankton of a similar size, and half the prey capture traits of zooplankton if a similar size. To do this:
-
-\begin{enumerate}[noitemsep]
-\vspace{1mm}
-\item Save the previous \textit{ecosystem configuration} file under a new name.
-\vspace{1mm}
-\item Edit the new \textit{ecosystem configuration} file and add an additional line to add a mixotroph:
-\vspace{-1mm}\small\begin{verbatim}
- Mixotroph    xxx   1
-\end{verbatim}\normalsize\vspace{-1mm}
-where \texttt{xxx} is the class size of the mixotroph. (And remember to save it.)
-\vspace{1mm}
-\item Update the \textit{user-config} to point to the new \textit{ecosystem configuration} file, and save again under a new name. (It is generally a good idea to make a note of the name and goal of each experiment as you set it up.)
-\vspace{1mm}
-\item Run the new model for at least 10-20 years.
-\end{enumerate}
-\vspace{1mm}
-
-\noindent Further questions to explore/answer:
-
-\vspace{1mm}
-\begin{itemize}
-\item How does this effect the mean and standard deviation of cell size?\\(Size and diversity metrics will be calculated for phytoplankton and mixotrophs together)
-\item How does mixotrophy effect the C:P ratio of organic matter?
-\item How does the realised niches of mixotrophs compare to the fundamental niches of phytoplankton?
-\end{itemize}
-
-\vspace{1mm}
-\noindent Also: try replacing all the phytoplankton and zooplankton with a range of sizes of mixotrophs. How does the simulation differ from one with the same size range of sperate phytoplankton and zooplankton classes?
-
-For instance -- you might also try having an ecosystem comprising just a single small (e.g. \(10 \mu m\) mixotroph (no phytoplankton and no zooplankton), and perhaps an ecosystem with one small mixotroph \(10 \mu m\) and one additional mixotroph, 10 times lager \(100 \mu m\). Compare the productivity of such an ocean compared to some of your previous simplified ecosystem configurations (such as a single small \(10 \mu m\) phytoplankton, and a configuration with a single small phytoplankton and a single larger \(100 \mu m\) grazer).
-%
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-\section{Ecology in ... future oceans}
-
-What might happen to primary production and the biological pump as (future) climate continues to change? What might happen to the distribution of species (here: size classes) in the ocean? Does it 'matter' e.g. for marine bio geochemical cycling and feedbacks on atmospheric \(pCO_{2}\)? (And how different is the Earth system response when using a complex ecosystem model rather than the highly simplified representation of biological export you used previously?)
-
-\vspace{1mm}
-There are all good questions for a model!
-
-\vspace{1mm}
-The best place to start is with the full complexity ecosystem structure with 8 size classes for both phytoplankton and zooplankton (as described in \textit{Ward et al.} [2018]), and continuing on from a \textit{re-start} of the pre-industrial ocean (and ecology): \textsf{\footnotesize muffin.CBE.p\_worjh2.BASESFeTDTL.FeMIP.SPIN}. For the \textit{user-config} -- you can either utilize one of the ones you created in earlier ecosystem experimenting, or adapt the  configuration used to create the \textit{re-start} \footnote{Remember to rename it so you do not overwrite the \textit{re-start} ...} -- \textsf{\footnotesize muffin.CBE.p\_worjh2.BASESFeTDTL.FeMIP.SPIN} which you can find in: \textsf{\footnotesize user-configs/EXAMPLES}. (The \textit{base-config} is as per you have been using in this Chapter -- \textsf{\footnotesize muffin.CBE.p\_worjh2.BASESFeTDTL}.) 
-\vspace{2mm}
-
-Then:
-\vspace{1mm}
-
-\begin{enumerate}[noitemsep]
-
-\vspace{1mm}
-\item First, create a \textit{control} based on your chosen \textit{user-config} so that you can more easily spot any mis-matched parameter values or other problems -- do to this, turn off the atmospheric \(pCO_{2}\) \textit{forcing} (so that \(pCO_{2}\) can respond to and indicate any significant changes in the marine carbon cycle), but leave on the dust flux \textit{forcing} (because we still need a supply of dissolved iron to the ocean surface):
-\vspace{-1mm}\small\begin{verbatim}
-# specify forcings
-bg_par_forcing_name="worjh2.FeMahowald2006"
-\end{verbatim}\normalsize\vspace{-1mm}
-
-\vspace{1mm}
-\item Second, you will need either:
-
-\vspace{1mm}
-\begin{itemize}[noitemsep]
-\item A \textit{user-config} with an conceptual emissions scenario (e.g. anything that you have played with previously). This can be run directly on from the pre-industrial spin-up.
-
-\vspace{1mm}
-This will allow you to explore questions concerning the impact on marine ecosystems and carbon cycling of the rate of warming (driven by your assumed rate of carbon emissions), and/or the importance of and sensitivity of marine ecosystems and carbon cycling, to the total (maximum) warming.
-
-\vspace{1mm}
-A template emissions \textit{forcing} (plus dust) is provided as:
-\vspace{1mm}
-\\\textsf{\footnotesize worjh2.FeMahowald2006.FpCO2\_Fp13CO2}
-
-\vspace{1mm}
-As per before, you need to re-scale the values in the forcing because the \(CO_{2}\) flux is assumed to be in units of \(PgC\:yr^{-1}\) \footnote{As per notes in the \textit{forcing} \textit{time-series} \textsf{\footnotesize .sig} file itself.} (and \(\delta^{13}C\) is given a default value of \(1.0\)). i.e. add the lines:
-\vspace{-1mm}\small\begin{verbatim}
-bg_par_atm_force_scale_val_3=8.3333e+013
-bg_par_atm_force_scale_val_4=-27.0
-\end{verbatim}\normalsize\vspace{-1mm}
-and remember that the forcing is provided as a pulse of \(1\:molyr^{-1}\) (\(1PgC \:yr^{-1}\) when scaled) carbon emissions over just a single year, and hence the \textit{time-series} file for the \textit{forcing}: \textsf{\footnotesize biogem\_force\_flux\_atm\_pCO2\_sig.dat} needs to be edited -- see Chapter \ref{ch:fossil-fuel-co2}.
-
-\end{itemize}
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-Or:
-%\vspace{1mm}
+Beyond the basic 'inorganic' geological carbon cycle\footnote{As per described in the references above.}, also included are:
 
 \begin{itemize}[noitemsep]
-\item A historical transient (plus dust) \textit{forcing} and then run from e.g. 1750 through 2010 (as per before), for which the forcing is:
-\vspace{1mm}
-\\\textsf{\footnotesize worjh2.FeMahowald2006.historical2010}
-
-\vspace{1mm}
-
-\vspace{1mm}
-Remember that here that you do not re-scale the atmospheric \(pCO_{2}\) (or \(\delta^{13}C\)) value as was done with the forcing used to generate the re-start (this historical transient forcing includes the actual values of  \(pCO_{2}\) and in the correct units). 
-
-\vspace{1mm}
-Note that with the full complexity ecosystem model included, the 245 years of this experiment will take much longer than before when you ran a historical transient experiment. You could 'cheat' a little and start from year 1850 rather than 1765, on the basis that nothing much happens in between (in terms of rising \(pCO_{2}\) and warming). To do this -- simply run the transient experiment only for 160 years (1850 to 2010) and adjust the starting date in the \textit{user-config}:
-\vspace{-1mm}\small\begin{verbatim}
-# change start year
-bg_par_misc_t_start=1850.0
-\end{verbatim}\normalsize\vspace{-1mm}
-
-\vspace{1mm}
-You will also need \textit{time-series} and \textit{time-slice} saving that aligns with the historical (and future) period:
-\vspace{-1mm}\small\begin{verbatim}
-# save frequency
-bg_par_infile_slice_name='save_timeslice_historicalfuture.dat'
-bg_par_infile_sig_name='save_timeseries_historicalfuture.dat'
-\end{verbatim}\normalsize\vspace{-1mm}
-(i.e. just as before when you ran a historical transient).
-
-\vspace{1mm}
-Once you have run this experiment, you can use it as a \textit{re-start} for a future emissions scenario, which could e.g. involve one of:
-\vspace{1mm}
-\begin{itemize}[noitemsep]
-\item \textsf{\footnotesize worjh2.FeMahowald2006.FpCO2\_Fp13CO2\_A1\_AIM}
-\item \textsf{\footnotesize worjh2.FeMahowald2006.FpCO2\_Fp13CO2\_A2\_ASF}
-\item \textsf{\footnotesize worjh2.FeMahowald2006.FpCO2\_Fp13CO2\_B1\_IMAGE}
-\item \textsf{\footnotesize worjh2.FeMahowald2006.FpCO2\_Fp13CO2\_B2\_MESSAGE}
-\end{itemize}
-\vspace{1mm}
-(or adapt or create your own) and remember to add the emissions units scaling:
-\vspace{-1mm}\small\begin{verbatim}
-bg_par_atm_force_scale_val_3=8.3333e+013
-bg_par_atm_force_scale_val_4=-27.0
-\end{verbatim}\normalsize\vspace{-1mm}
-
+\setlength{\itemindent}{.2in}
+\item Weathering of rock-hosted organic carbon (kerogens).
+\item Weathering of phosphorous (e.g. from apatite).
+\item Burial of organic carbon (as a function of flu to the sediment surface).
+\item Differential regeneration and return of dissolved phosphorous back to the ocean (as a function of dissolved oxygen concentrations in bottom waters).
 \end{itemize}
 
-\vspace{1mm}
-\noindent Whichever route you chose, will also require (another) control experiment run for the same number of years (and with dust but not \(pCO_{2}\) \textit{forcing}).
+All these processes and feedbacks can be 'fixed' (made invariant) or disabled to test their importance (or not) in the long-term regulation of atmospheric \(pCO_{2}\) and climate dynamics and in comparison with published analyses based only on the 'inorganic' carbon cycle (and silicate weathering as the only long-term feedback on atmospheric \(pCO_{2}\)).
 
-\end{enumerate}
+\begin{figure}
+\includegraphics[width=0.5\textwidth]{sediments.jpg}
+\caption{Schematic of \textbf{SEDGEM} sediment component.}
+\label{fig:sediments}
+\end{figure}
 
+%------------------------------------------------
 \vspace{1mm}
-\noindent What to look for? The questions (at the start) should help guide you in this, and might include:
-
-\vspace{1mm}
-\begin{itemize}[noitemsep]
-\item Patterns of primary productivity and export (where do they increase, decrease), plus time-series of global totals (what is the global impact of warming?).
-\item Patterns of ocean oxygenation (and patterns of dysoxia and anoxia).
-\item Surface ocean nutrient distributions, and nutrient limitation.
-\item Spatial patterns of plankton size -- either simply for mean size, or look at the patterns of biomass of specific size classes. (You might follow a the preferred habitat/location of a particular size class with latitude to see whether it experiences a 'range shift'.)
-\item Diversity etc.
-\end{itemize}
-
-\vspace{1mm}
-\noindent You might also contrast with emissions scenarios that you might have run previously employing the simplified biological export scheme in \textbf{BIOGEM}, rather than the complex ecosystem model of \textbf{ECOGEM}. (Make sure you are comparing between the same emissions scenarios). The question to be answered would be: does including a complex representation of  marine ecology 'matter'?
+\noindent\rule{4cm}{0.1mm}
+\vspace{2mm}
+%------------------------------------------------
 
 %------------------------------------------------
 \newpage
 %------------------------------------------------
 
-\section{Ecology in ... past oceans}
+\noindent Take the new model configuration for a test drive by running on from the \textit{re-start} experiment that you downloaded.
 
-Here we consider a series of examples\footnote{Either published or in the works or existing in some publication fantasy ...} of the \textbf{ECOGEM} model of marine ecology, applied to published paleo configuration of \textbf{muffin} and used to ask questions of how different could marine carbon cycling (and atmospheric \(pCO_{2}\)) and oxygenation have been in the (relatively recent) past and how do model projections compare with proxy observations.
+This is a steady-state climate+carbon cycle experiment that includes the deposition of \(CaCO_{3}\) in deep-sea sediments as well as the deposition of organic matter on continental shelves (plus a more minor contribution in deep-sea sediments), balanced by weathering (solute input to the ocean) plus volcanic \(CO_{2}\) out-gassing ... or at least as closely in balance as possible after 50,000 years. Try running ('briefly', but 100 years would not be too tedious for this faster configuration!) the following:
 
-Three examples come  from the Last Glacial Maximum, with direct comparison being made to post glacial time (here, the late Holocene), with the intention to explore the role of climate cooling, altered ocean circulation, and increased iron supply to the ocean in modifying plankton distributions and size structures. Secondly, from around the time of the Paleocene-Eocene Thermal Maximum (PETM) some 55 Myr ago, now both considering a different paleogeography, a warmer ocean, and then transient warming on top of that. And thirdly, marine ecology and carbon cycling in the aftermath of the impact and extinction event at the end of the Cretaceous, some 66 Myr ago, and return to our earlier exploration of what happens if you lose the larger plankton in the ocean.
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-%
-\subsection*{The Last Glacial}
-
-The Last Glacial Maximum (LGM) (ca. 19 to 23 ka) was characterized by lower sealevel and higher ocean salinity, colder ocean temperatures, and a reorganized meridional overturning circulation in the Atlantic. The latter 2 changes in particular should have impacted marine ecosystems and indeed, observations suggest range migration (temperature-tracking) and shifts in the zone of highest productivity in the Southern Ocean, amongst other impacts. The aim of this particular investigation, is to assess what these ecological changes are (at least in model world).
-
-Provided is a configuration of LGM ocean circulation that has been tuned to fit observations of benthic carbon isotopes, which provide an observational constrain on large-scale ocean circulation. To this, you'll an ecosystem (in place of the default \textbf{BIOGEM} 'induced export' scheme). Also provided is a \textbf{muffin} configuration for late Holocene ('HOL') (0-6 ka), created in exactly the same way and also tuned to respective (0-6 ka) benthic carbon isotope data. Configuration HOL provides a point of comparison (or control) for you to compare the ecology in a colder, LGM ocean against.\footnote{i.e. you run pairs of HOL and LGM experiments and contrast between them, rather than necessarily comparing to previous modern configurations.}
-
-\vspace{1mm}
-
-The \textit{user-configs} you need to use, or copy-rename, can be found in the directory:
-\vspace{1mm}
-\\\textsf{\footnotesize genie-userconfigs/MS/odalenetal.CP.2019}
-\vspace{1mm}
-\\\noindent(and you can run your experiments from here\footnote{If you use them in this directory, make sure at the command line, you replace LABS with \texttt{MS/odalenetal.CP.2019}.}, or better, copy-edit-rename the \textit{user-configs} you run experiments with, from the \textsf{\footnotesize LABS} sub-directory).
-
-Read the \textsf{\footnotesize readme.txt} file for instructions for the basic set of command line parameters needed, but remember that you may be running your \textit{user-config} with a different name and likely from a different sub-directory.
-Spin up the following experiments  (and then experiment with them later)\footnote{Noting that the long file-names differ only in a single '\textsf{v}' vs. an '\textsf{a}' ...}:
-
-\vspace{1mm}
-\begin{itemize}[noitemsep]
-\item[(1)] \textsf{\footnotesize muffin.CB.GIteiiaa.BASESFeTDTL\_rb } \textit{base-config} \\+ \textsf{\footnotesize muffin.CB.GIteiiaa.BASESFeTDTL\_rb.SPIN } \textit{user-config}
-\item[(2)] \textsf{\footnotesize muffin.CB.GIteiiva.BASESFeTDTL\_rb } \textit{base-config} \\+ \textsf{\footnotesize muffin.CB.GIteiiva.BASESFeTDTL\_rb.SPIN } \textit{user-config}
-\end{itemize}
-\vspace{1mm}
-
-\noindent Submit these to the cluster ...  remembering that you will need to recompile \textbf{muffin} between (1) and (2) (and potentially also re-compile before running (1) if you have not  used that particular \textit{base-config} immediately prior). Run the spin-ups for 10,000 years.
-
-Neither of these configurations currently have an ecosystem enabled, but they will provide a baseline against which you can  contrast a pair of experiment that include explicit ecology. What you need to do know is to add in/enable \textbf{ECOGEM}. To do this, you need to modify both \textit{base-} and \textit{user-config} files of both the HOL and LGM model configurations.\footnote{Strongly recommended that that you copy-rename both sets of files and edit the copies.}
-
-\begin{enumerate}[noitemsep]
-
-\vspace{1mm}
-\item \textit{base-config}
-
-\vspace{1mm}
-First, you need to enable the \textbf{ECOGEM} module.
-\vspace{1mm}
-\\At the top of the HOL \textit{base-config} file \textsf{\footnotesize muffin.CB.GIteiiaa.BASESFeTDTL\_Crb}\footnote{And similarly for the LGM one.} you will see the line:
 \vspace{-2mm}\small\begin{verbatim}
-ma_flag_ecogem=.FALSE.
+$ ./runmuffin.sh muffin.CBSR.fkl_pp51.BASESw
+ LABS ch09.1.CTRL 100 231228.muffin.CBSR.fkl_pp51.BASESw.SPIN2
 \end{verbatim}\normalsize\vspace{-2mm}
-Simply change this to \texttt{.TRUE.}
-\vspace{6mm}
-\pagebreak
 
-\vspace{1mm}
-\item \textit{user-config}
+The \textit{user-config} \textsf{\footnotesize ch09.1.CTRL} is set up with the global carbon cycle configured as 'open' -- that is to say, that there is an input of carbon, alkalinity, and phosphorous to the ocean from weathering (plus carbon from volcanic out-gassing), and a loss due to preservation and burial of \(CaCO_{3}\) and organic matter in marine sediments. Depending on the state of ocean chemistry (and biology) and weathering, these two fluxes (input vs. output) do not have to balance, and hence ocean carbonate chemistry (and in turn, atmospheric \(pCO_{2}\)) can evolve with time. The \textit{spin-up} may not necessarily have the input and output fluxes absolutely perfectly balanced and hence before you run any experiments you might want to confirm whether the spin-up provided really is adequately 'spun-up'\footnote{i.e., you might plot some of the variables from the results of the \textit{spin-up}  experiment as a function of time and judge whether they are sufficiently converged or not.}. \textsf{\footnotesize ch09.1.CTRL} is hence configured to act as a control and quantify any residual flux imbalance and hence geochemical)(and climatic) 'drift'.
 
+Note that a residual drift can be dealt with if it is relatively small and near linear via the use of a \uline{control experiment}, because any experiment you carry out will likely also incorporate (or be biased) by the same residual drift. Running a control gives you something to directly contrast  your experiment with and calculating the difference (e.g., a difference map or simple subtraction of global numbers) will give you the effect of whatever parameters you changed in the experiment but corrected for any drift. In previous exercises, you may have been a little lazy and created difference maps with respect to year 1 of an experiment -- strictly, they should have been created relative to the same year of a parallel control experiment, e.g., the results of a perturbation after 100 years should be contrasted with the year 100 results of the equivalent control.
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\noindent Before you look at any output from this experiment, you should note the following about this particular configuration and experiment:
+
+\begin{enumerate}[noitemsep]
 \vspace{1mm}
-Next, some deletions and additions are needed in the \textit{user-config} provided (which only has implicit biological export enabled).
+\item In the \textit{base-config} file naming convention -- the the '\textsf{\footnotesize S}' in \textsf{\footnotesize muffin.CBSR.fkl\_pp51.BASESw} specifies the use of a sediment model and the '\textsf{\footnotesize R}' a weathering module (see references should should have only just read!)\footnote{In addition to ocean and atmosphere biogeochemistry -- '\textsf{\footnotesize B}' and climate components (ocean, sea-ice, EMBM atmosphere) -- '\textsf{\footnotesize C}'.}
 \vspace{1mm}
-\\In the section of the file under the heading:
-\footnotesize\begin{verbatim}
-#
-# --- BIOLOGICAL NEW PRODUCTION -------------------------------------
-#
-\end{verbatim}\normalsize
-you are going to delete everything there (in that section) and replace it with:
+\item The '\textsf{\footnotesize w}' in \textsf{\footnotesize BASESw} specifies that a 'weathering' tracer has been included, which for simplicity, is dissolved silica. (See discussion later.)
+\vspace{1mm}
+\item We are running at a degraded (lower) \(18\times18\) resolution (but still \(16\) vertical levels in the ocean), and requiring fewer (twice as few in fact!) time-steps per year, for an overall approximately order-of-magnitude decrease in run-time as compared to a more standard \(36\times36\) resolution configuration of \textbf{muffin}. This is extremely helpful in being able to run \textbf{muffin} on geological time-scales but within a reasonable about of real time.
+\vspace{1mm}
+\item The configuration utilizes a conceptual/idealized continental configuration somewhat similar to as in the snowball Earth experiments.
+\vspace{1mm}
+\item Although this configuration could be regarded as a maximum complexity system, we are only going to initially look at this from the perspective of new output, and will reduce the complexity right down before we start to think about system behavior.
+\vspace{1mm}
+\item Data saving is set up for 2D only in \textbf{BIOGEM} (and not 3D), \textit{time-slices} only every 10000 years, and \textit{time-series} save points only every 100 years (all to minimize the size of the results files for loooooong experiment durations):
 \vspace{-1mm}\small\begin{verbatim}
-# biological scheme ID string
-bg_par_bio_prodopt="NONE"
+# force time-series saving @ 100 yr intervals
+bg_par_infile_sig_name='save_timeseries_EVERY000100.dat'
+# force 2D time-slice save only, and @ 10000 yr intervals
+bg_ctrl_data_save_2d=.true.
+bg_ctrl_data_save_3d=.false.
+bg_par_infile_slice_name='save_timeslice_EVERY010000.dat'
 \end{verbatim}\normalsize\vspace{-1mm}
-The only other thing you need then is a section of code that defines all the \textbf{ECOGEM} ecological parameters.
+You can return to the default saving you are used to by commenting out all these lines. Or you could change the name of the \textit{time-slice} and \textit{time-series} saving interval files, but making sure first the new file name exists (in directory: \textsf{\footnotesize genie-biogem/data/input} OR creating your own file there (and using that name).
+\\Note that although a 100 year experiment will not yet have reached the first save point (with a mid-point time of 9999.5 years), \textbf{muffin} is configured to ALWAYS save you a final year \textit{time-slice}, regardless of whether your experiment duration ends up reaching a specific save point at run-end or not.
 \vspace{1mm}
-\\ Go open file \textsf{\footnotesize muffin.CBE.p\_worjh2.BASESFeTDTL.FeMIP.SPIN}, which you can find in the \textit{user-config} sub-directory \textsf{\footnotesize MS/wardetal.2018}, and you'll see under the heading:
-\footnotesize\begin{verbatim}
-#
-# --- ECOGEM ----------------------------------------------------------
-#
-\end{verbatim}\normalsize
-a long list of parameter settings (down to the next section headed \texttt{DATA SAVING}). Simply copy-paste this entire section (including \texttt{ECOGEM} header lines if you like), anywhere in your \textit{user-config} file. At the very end of the file would do just fine.\footnote{Try and ensure that there is blank line at the very end of the file just in case \textbf{muffin} has any problems reading it in.}
-
-\vspace{1mm}
-And lastly ... under:
-\footnotesize\begin{verbatim}
-#
-# --- MISC ----------------------------------------------------------
-#
-\end{verbatim}\normalsize
-
-(and the end of the section) add the following lines
+\item To date, the marine biochemical cycle of carbon and nutrients in muffin has included an 'implicit' alkalinity contribution (see Section 2.1 in: \textit{Ridgwell et al.} [2007]). In a fully open system with weathering and burial or organic carbon and nutrients, this becomes invalid. hence the inclusion in the \textit{user-config} of:
 \vspace{-1mm}\small\begin{verbatim}
-# kraus-turner mixed layer scheme on (1) or off (0)
-go_imld = 1
-# set mixed layer to be only diagnosed (for ECOGEM)
-go_ctrl_diagmld=.true.
-# add seaice attenuation of PAR
-eg_ctrl_PARseaicelimit=.true.
-# relative partitioning of C into DOM
-eg_par_beta_POCtoDOC=0.75
+# *** BIOGEM ********************************************************
+# remove organic matter associated (implicit nitrogen) alkalinity transformations
+# => so we do not end up with spurious weathering ALK fluxes from kerogens 
+#    (or spurious Corg burial related fluxes)
+bg_par_bio_red_PON_ALK=0.0
 \end{verbatim}\normalsize\vspace{-1mm}
-This enables a 'mixed layer depth' scheme in the ocean circulation model that \textbf{ECOGEM} needs to calculate light limitation during esp. intervals of high latitude / wintertime deep mixing, but then only allows \textbf{ECOGEM} to 'see' the depth and does not allow physical mixing in the ocean. Then limitation of photosynthesis added to sea-ice covered areas. Finally, an adjustment is made ot carbon vs. phosphorous in exported \(POM\).
-
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+and in diagnosing \textbf{ROKGEM} parameter values:
+\vspace{-1mm}\small\begin{verbatim}
+# *** SEDGEM configuration ******************************************
+# weathering diagnostic settings    
+sg_par_sed_diag_P2ALK=0.0
+\end{verbatim}\normalsize\vspace{-1mm}
 \vspace{1mm}
-This ... should do-it, i.e. you have added the same tuned ecosystem model as described in \textit{Ward et al.} [2018] to your LGM / HOL \textit{user-configs}.
+\item Before we move on, a final instructive change from previously published configurations is:
+\vspace{-1mm}\small\begin{verbatim}
+# *** ROKGEM ********************************************************
+# turn off atmospheric short circuit 
+# (so CO2 is now removed from the atmosphere during weathering, 
+#  and volcanic CO2 added to it)
+# => to better diagnose weathering in BIOGEM output
+rg_opt_short_circuit_atm=.false.
+\end{verbatim}\normalsize\vspace{-1mm}
+During weathering (of carbonate and silicate rocks), \(CO_{2}\) is assumed to dissolve in rainwater and reach with the calcium-bearing minerals. Later, in the ocean, when \(CaCO_{3}\) is precipitated and \(CO_{2}\) 'released'\footnote{Technically: made available for exchange with the atmosphere by a shift to lower pH.}, the \(CO_{2}\) originally removed from the atmosphere is regenerated/replaced. The 'short-circuit' is simple to assume this and not bother removing the one mol of \(CO_{2}\) in reaction with a mol of \(CaCO_{3}\) or \(CaSiO_{3}\). The \(CO_{2}\) consumption and removal from the atmosphere associated with silicate weathering is also not removed, on the basis that the alkalinity transported by rivers and added to the ocean will drive the draw-down if atmospheric \(pCO_{2}\) at that stage (rather than being removed up-front). Hence, in short-circuiting, the DIC transported to the ocean in rivers is equal to the weathering flux of carbon in \(CaCO_{3}\) plus the rate of \(CO_{2}\) out-gassing.
 
+However, this only really 'works' if the system is in some sort of balance of weathering and precipitation and that alkalinity added to the surface ocean can fully equilibriate with the atmosphere ... which will not be the case during transient events (see Figure 3 in: \textit{Lord et al.} [2015]). Setting: \textsf{\footnotesize rg\_opt\_short\_circuit\_atm=.false.} instead tracks the \(CO_{2}\) fluxes explicitly and in full.
+\\The potential implications of this will be a subject of a subsequent investigation ...
+\\NOTE: A 'short-circuit' is fine if you are only looking at long-term weathering vs. sedimentation steady-states and not rapid carbon release driven transients.
 \end{enumerate}
 
 \vspace{1mm}
-
-Now you are ready to run new LGM and HOL experiments, with a full ecosystem in each\footnote{Remembering that presumably both your \textit{base-config} and \textit{user-config} file names are  different as compared to running the non \textbf{ECOGEM} version described in the \textsf{\footnotesize readme}.}.
-\vspace{1mm}
+\noindent Other parameter settings will be introduced and explained as and when needed during this chapter.
 
 %------------------------------------------------
-\newpage
-%------------------------------------------------
-%
-Obvious questions to investigate include not only how ecosystems and patterns of biological export may have differed between LGM and HOL, but also how patterns of nutrients (\(PO_{4}\) and \(Fe\)) may have differed ... and also distributions of dissolved \(O_{2}\) in the ocean (and in the interior, rather than across the ocean surface). A water mass ventilation age tracer has also been simulated and the results of this will help in understanding how global circulation patterns differ between the 2 time intervals.
-
-You can also compare between with and without \textbf{ECOGEM} versions as the only thing that changes between pairs of HOL or pairs of LGM experiments is the biological scheme\footnote{Actually, this is not true, as in the \textbf{ECOGEM} enabled experiments, the mixed layer scheme in the coean circulation model is also activated and which has an impact on ocean circulation. You could then create a 3rd set of HOL+LGM experiments, using the basic \textbf{BIOGEM} implicit export biological scheme, but now also setting the \texttt{go\_imld} parameter to a value of \texttt{1}}.
-
-%------------------------------------------------
-\newpage
-\subsection*{Warm climates of the past}
-
-In this practical we are going to look at the ocean as it \textit{might} have been just over 55 million years ago, at the Paleocene-Eocene Thermal Maximum (PETM) -- in short a lot warmer, and with a somewhat different continental configuration and hence ocean circulation. The exercise is based on a recent 'ECOGENIE' (\textbf{muffin} configured to include \textbf{ECOGEM}) publication\footnote{Wilson, J.D., F.M. Monteiro, D.N. Schmidt, B.A. Ward, and A. Ridgwell, Linking marine plankton ecosystems and climate: A new modeling approach to the warm early Eocene climate, Paleoceanography and Paleoclimatology, 33, 1439–1452, DOI: 10.1029/2018PA003374 (2018).} which you should read first.
-
-We are going to make the rather strong assumption that the ecosystem is structured according to exactly the same rules as in the modern ocean, and simply run the same ecological model configuration but in a new climate and ocean environment. However, because we don't really have any good (or any!) data constraints on the iron supply to the early Eocene ocean via e.g. dust, the ecological configuration does not include iron as a limiting nutrient. Bear that in mind when thinking about your results.
-
-The \textit{user-configs} you need to use, or copy-edit-rename, can be found in the directory:
 \vspace{1mm}
-\\\textsf{\footnotesize genie-userconfigs/MS/wilsonetal.2018}
-\vspace{1mm}
-\\\noindent(and you can run your experiments from here, or better, copy-edit-rename the \textit{user-configs} you run experiments with, from the \textsf{\footnotesize LABS} sub-directory).
-
-Read the \textsf{\footnotesize readme.txt} file for instructions for the basic set of command line parameters needed, but note that you may be running a \textit{user-config} with a different name and likely from a different sub-directory. You want to spin up the following experiments first (and then experiment with them later):
-
-\vspace{1mm}
-\begin{itemize}[noitemsep]
-\item[(1)] \textsf{\footnotesize Modern}
-\item[(3)] \textsf{\footnotesize Early Eocene CO2 and Climate}
-\end{itemize}
-\vspace{1mm}
-
-\noindent Submit these to the cluster, but remember that you will need to recompile muffin between (1) and (3) (and re-compile before (1) if you have not been using the \textit{base-config} \texttt{muffin.CBE.worjh2.BASES} immediately prior to this). Run the spin-ups for 10,000 years.
-
+\noindent\rule{4cm}{0.1mm}
 \vspace{2mm}
-\noindent When you have completed the pair of spin-ups, see what you can diagnose and learn about how ecosystems and the spatial pattern of ecology and biological export differ between a colder modern ocean and the warmer Eocene ocean.
-
-For example, in the warmer Eocene world:
-
-\vspace{1mm}
-\begin{itemize}
-\item What has happened to the mean plankton size in different regions?
-\item What has happened to the fundamental niches in different size classes?
-\item What has happened to the realised niches?
-\item Is the system more or less productive?
-\item Has carbon export gone up or down?
-\end{itemize}
-\vspace{1mm}
-
-See what you can find out about the two systems and think about the mechanisms that might be responsible for the differences \dots
-
-\vspace{8mm}
-\pagebreak
-
-Note that to be more comparable with the Eocene, this particular modern configuration also lacks iron co-limitation. We could also try and remove the effect of the Eocene being warmer than the modern so as to concentrate just on the effect of a different continental configuration and hence ocean circulation. The experiment (included in the \textit{user-config} sub-directory and briefly described in the \textsf{\footnotesize readme } file:
-
-\vspace{1mm}
-\begin{itemize}[noitemsep]
-\item[(2)] \textsf{\footnotesize Late Paleocene Early Eocene Paleogeography}
-\end{itemize}
-\vspace{1mm}
-
-\noindent does exactly this, i.e. attempts to 'remove' the effect of higher ocean temperatures by running an Eocene experiment at \(\times1 CO_{2}\) .
-
-Conversely, we could run modern at \(\times3 CO_{2}\) and then compare to the \(\times3 CO_{2}\) Eocene experiment. This alternative comparative experiment is provided as:
-
-\vspace{1mm}
-\begin{itemize}[noitemsep]
-\item[(S1)] \textsf{\footnotesize Modern with 3 x CO2}
-\end{itemize}
-\vspace{1mm}
-
-\noindent and will also require a 10,000 year long spin-up ... Note that the 2 strategies, while slightly different, are attempting the same thing (i.e. isolating the effect of paleography and ocean circulation from coeval climate change and warming).
-
-\vspace{1mm}
-Finally -- having run some or all of these spin-ups and contrasted the results (focussing on ecological patterns and biological export, but remembering also to assess differences in ocean circulation), you can investigate the impact of geologically rapid warming a-la the PETM, on the system (esp. ecological patterns and biological export plus ocean circulation). There are two immediately obvious possible approaches:
-
-\begin{enumerate}[noitemsep]
-
-\vspace{1mm}
-\item You could use a \(\times1 CO_{2}\) spin-up as a re-start -- either or both of modern and Eocene continental configurations -- and run the \(\times3 CO_{2}\) experiment from this.
-\\This will give you an instantaneous warming -- much faster than occurred associated with PETM onset, and also faster even than modern anthropogenic warming. However, it does provide a nice simple idealized perturbation to investigate and analyse.
-\\An experiment duration of 100, or even 10 years, might be sufficient.\footnote{But running for a full 10,000 years would enable you to follow not only the initial rapid warming perturbation, but also the long-term recovery and adjustment to a new steady state.}
-\\Conversely and for fun, you could also start from a \(\times3 CO_{2}\) \textit{spin-up}, and run a \(\times1 CO_{2}\) experiment, to achieve a rapid cooling. Investigate the differential ecological response to rapid cooling vs. rapid warming.
-
-\vspace{1mm}
-\item Secondly, in the \textit{user-configs}, you might note near the bottom is a \textit{forcing} that determines the value of atmospheric \(CO_{2}\):
-\vspace{-1mm}\small\begin{verbatim}
-# specify forcings
-bg_par_forcing_name="pyyyyz.RpCO2_Rp13CO2"
-\end{verbatim}\normalsize\vspace{-1mm}
-followed by a line that specifies either \(\times1 CO_{2}\) or \(\times3 CO_{2}\), e.g.
-\vspace{-1mm}\small\begin{verbatim}
-bg_par_atm_force_scale_val_3=278.0E-06
-\end{verbatim}\normalsize\vspace{-1mm}
-or
-\vspace{-1mm}\small\begin{verbatim}
-bg_par_atm_force_scale_val_3=834.0E-06
-\end{verbatim}\normalsize\vspace{-1mm}
-(followed by a line specifying the carbon isotopic composition of the atmosphere).
+%------------------------------------------------
 
 %------------------------------------------------
 \newpage
 %------------------------------------------------
-%
-Similar to as you have seen before for a fossil fuel \(CO_{2}\) emissions \\\textsf{\footnotesize biogem\_force\_restore\_atm\_pCO2\_sig.dat}
-which contains:
-\vspace{-1mm}\small\begin{verbatim}
--START-OF-DATA-
-0.0      1.0
-999999.0 1.0
--END-OF-DATA-
-\end{verbatim}\normalsize\vspace{-1mm}
 
-Referring back to the instructions for changing fossil fuel \(CO_{2}\) emissions \textit{forcing}, you should be able to modify this (or better, copy-rename a new forcing directory and edit the file \textsf{\footnotesize biogem\_force\_restore\_atm\_pCO2\_sig.dat} in that) to create a prescribed time-dependent change in atmospheric \(CO_{2}\).
+\section{Sediment model output}
 
-Note that in the format of \textsf{\footnotesize biogem\_force\_restore\_atm\_pCO2\_sig.dat}, the values in the second column scale the value of the parameter \texttt{bg\_par\_atm\_force\_scale\_val\_3} in the \textit{user-config}. Hence, in \textsf{\footnotesize biogem\_force\_restore\_atm\_pCO2\_sig.dat}, setting a value of \texttt{2.0} in place of \texttt{1.0}, will double the applied \(CO_{2}\) forcing. Exactly as per in the fossil fuel \(CO_{2}\) emissions exercises, pulses, ramps, etc etc can be constructed to control the rate and shape of the applied change in atmospheric \(CO_{2}\).
+There is a whole new set of additional outputs from this configuration of \textbf{muffin}, particularly sediment-specific output from the \textbf{SEDGEM} module and which is saved in the \textsf{\footnotesize sedgem} sub-directory of the main experiments results directory. Data saving differs from \textbf{BIOGEM} in that the composition of the sediments (and other diagnostics such as rain and dissolution fluxes) is saved only \uline{at the very end} of a model experiment (hence unlike \textbf{BIOGEM}, which by default saves a series of time-slices throughout the course of a model experiment). So if you kill a run before the very end (or the run crashes),  \uline{you will get no} (or little) \textbf{SEDGEM} output.
 
-\end{enumerate}
+2D (e.g. surface sediment properties, fluxes, etc.) results can be found in  the \textsf{\footnotesize sedgem} sub-directory of your experiment directory  in a \textbf{netCDF} file called \textsf{\footnotesize fields\_sedgem\_2d.nc}. For example, the 2D distribution of \(wt\% CaCO_{3}\) –- which is the weight fraction of calcium carbonate (\(CaCO_{3}\)) in the surface sediments of the deep ocean (i.e., how much plankton carbonate shell material is there compared to other stuff in the mud at the bottom of the ocean), is saved in this \textbf{netCDF} file under a variable called: \textsf{\footnotesize sed\_CaCO3}. Note that there is some duplication of results saving, because a series of \textit{time-slices} of sediment composition are also saved in the 2D \textbf{BIOGEM} netCDF file \textsf{\footnotesize fields\_biogem\_2d.nc}. \textbf{BIOGEM} also saves a selection of \textit{time-series }of sediment properties -- \textsf{\footnotesize .res} files starting \textsf{\footnotesize biogem\_series\_sed}. For example, the \textit{time-series} file: \textsf{\footnotesize biogem\_series\_sed\_CaCO3.res} contains information about how the mean \(CaCO_{3}\) content of surface sediments (uppermost sediment layer) evolves with time. There are also \textit{time-series} file output that record the evolution of burial (and dissolution) fluxes as well as weathering -- all of which will be important for fully understanding system behavior.
 
+As per with \textbf{BIOGEM} data saving, \textbf{SEDGEM} also saves a summary file of sediment fluxes and composition -- \textsf{\footnotesize seddiag\_misc\_DATA\_GLOBAL.res} as well as a parameter valiue summary for use in configuring \textbf{ROKGEM} (discussed later) -- \textsf{\footnotesize seddiag\_misc\_ROKGEM\_parameters.res}
+
+%------------------------------------------------
+\vspace{1mm}
+\noindent\rule{4cm}{0.1mm}
 \vspace{2mm}
-
-\noindent Either way --  assess the important and impact of the rate of \(CO_{2}\) rise and hence warming. (Equally, you might explore rapid cooling and how that fundamentally differs in impact from warming.)
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-%
-\subsection*{Marine ecology following the end Cretaceous Impact}
-
-
-
 %------------------------------------------------
 
-\newpage
+\noindent The model also generates artificial sediment ‘cores’ (e.g. see: \textit{Ridgwell} [2007]) and hence what one might expect to see of your applied perturbations as recorded in a sediment core sand then recovered from the ocean floor(!) In the \textbf{SEDGEM} results sub-directory, there is a \textbf{netCDF} file which contains all the locations selected (if any) –- \textsf{\footnotesize sedcore.nc}. These are not really aligned with latitude as the \textbf{Panoply} display might suggest – the locations are in fact distributed from all over the ocean (\textbf{Panoply} is being fooled in order to display them together). In the \textbf{SEDGEM} 2D \textbf{netCDF} file, these locations are marked in the \textbf{netCDF} variable \textsf{\footnotesize grid\_mask\_sedcore}. The locations of these cores are stored in a a file containing a little ASCII ‘map’ of the ocean.
+\vspace{1mm}
+
+\begin{itemize}[noitemsep]
+\vspace{1mm}
+\item
+If you are using a 'paleo' configuration of \textbf{muffin}, indicated by a parameter section in the \textit{base-config} file headed by something looking like:
+\footnotesize\begin{verbatim}
+# *******************************************************************
+# GRID & BOUNDARY CONDITION CONFIGURATION
+# *******************************************************************
+# insert the automatically generated muffingen parameter list here
+# *******************************************************************
+##################################################################################
+### cGENIE .config file parameter lines generated by muffingen v0.9.21 on: 220314 ###
+\end{verbatim}\normalsize
+then there will be a parameter line that direct muffin to look for \textbf{SEDGEM} configuration files in the respective \textsf{\footnotesize genie-paleo } directory, e.g.:
+\vspace{-1mm}\small\begin{verbatim}
+sg_par_pindir_name='../../cgenie.muffin/genie-paleo/fkl_pp51/'
+\end{verbatim}\normalsize\vspace{-1mm}
+\vspace{1mm}
+\item Otherwise, the file lives in: \textsf{\footnotesize cgenie.muffin/genie-sedgem/data/input}
+\end{itemize}
+\vspace{1mm}
+The filename is given by the parameter: \texttt{sg\_par\_sedcore\_save\_mask\_name}
+\\Simply be editing (using the ASCII text editor) a '0.0' to a '1.0', you can get the model to generate and save a sediment ‘core’ at that particular (\textit{i,j}) location.
 
 %------------------------------------------------
-
-\section{Ecology in ... fake oceans!}
-
+\vspace{1mm}
+\noindent\rule{4cm}{0.1mm}
+\vspace{2mm}
 %------------------------------------------------
-%
-We can also consider the question of the causes and consequences of different ecologies in the ocean in a more general way and return to our hypothetical or 'fake' oceans.
 
-For any of your 'fake' worlds' that you generated earlier, you can add carbon and nutrient cycling (if that was not already included), plus a marine ecology. To do this, you first need to create a new \textit{base-config} that includes all the carbon cycling and nutrients needed by \textbf{ECOGEM} (and \textbf{BIOGEM}), then you need to create/configure a suitable \textit{user-config}.
-
-\begin{enumerate}[noitemsep]
+\noindent \textbf{netCDF} file \textsf{\footnotesize sedcore.nc } variables include:
 
 \vspace{1mm}
-\item \textit{base-config} -- First, you need to enable the \textbf{ECOGEM} module.
-\\At the top of the your \textit{base-config} file, change the \textbf{ECOGEM} 'flag' to true:
+\begin{itemize}[noitemsep]
+\item \textsf{\footnotesize phys\_layer } –- sediment layer number (counting down).
+\item \textsf{\footnotesize phys\_depth } -– (cumulative) depth below surface, measured from the sediment surface to the mid-point of each sediment layer (cm).
+\item \textsf{\footnotesize th (cm) } -- thickness of each sediment layer (cm).
+\item \textsf{\footnotesize age\_CaCO3 } -- the mean age of \(CaCO_{3}\) particles in a sediment layer.
+\\Note that this will not be defined if there is no \(CaCO_{3}\) preserved.
+\item \textsf{\footnotesize ... } then some alternative ways of assigning a chronology to a sediment core … (ignore) ...
+\item \textsf{\footnotesize phys\_porosity  } -- sediment layer density (as if you cared!).
+\item \textsf{\footnotesize sed\_POC } and \textsf{\footnotesize sed\_POC\_13C } -- mean organic matter content of each sediment layer and its \(\delta^{13} C\). But note: in this configuration no organic matter is preserved (hence all zeros for POC).
+\item \textsf{\footnotesize sed\_CaCO3} and \textsf{\footnotesize sed\_CaCO3\_13C } -- mean \(CaCO_{3}\) content (wt\%) of each sediment layer and its \(\delta^{13} C\).
+\item \textsf{\footnotesize sed\_det } and \textsf{\footnotesize sed\_ash } -- the wt\% detrital and ‘ash’ contents of a layer (ash is used as a conservative numerical sediment tracer in order to mark the depth of the start of the experiment).
+\end{itemize}
+\vspace{1mm}
+
+\noindent Obviously – you could plot e.g. \(CaCO_{3}\) (or its \(\delta^{13}C\)) as a function of depth and/or age across and see how your carbon release experiment might be recorded in the marine geological record (e.g., how does this compare with observations across events such as the PETM?).
+
+Note that the sediment cores reflect not only the material which has accumulated (or not, if it has dissolved …) during the course of your experiment, but also the material that accumulated during the spin-up. PLUS, whatever material the sediment core was initialized with to start with. For example, the large interval of initially 100\% detrital material at the base of the sediment core simply reflects the initialization of the sediment array in the model. Also note the ash ‘peak’ near the bottom of the stack (filled) sediment layers – this is a tracer to ‘tag’ the start of the model spin-up. If you look at the spin-up results (not your recent perturbation experiment) – the ash peak lies in a sediment layer with age equal to the total length of of the spin-up carried out. But why is there any ash deeper than the age corresponding to the start of the spin-up? How can it get there (i.e. what processes could move solid material deeper within the sediment column)?
+
+%------------------------------------------------
+\vspace{1mm}
+\noindent\rule{4cm}{0.1mm}
+\vspace{2mm}
+%------------------------------------------------
+
+\noindent If the provided experiment configuration does not specify the creation of any sediment cores -- go ahead and define some by editing file \textsf{\footnotesize fkl\_pp51.sedcoremask.dat} in: \textsf{\footnotesize cgenie.muffin/genie-paleo/fkl\_pp51} and flipping a '0.0' to a '1.0'. Then run a new experiment (copy-paste the \textit{user-config} and rename) for e.g., 100 years again as above and look for the additional (sediment core) output.
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+Published examples of simulated marine sediment core output include (in order of publication date):
+\begin{itemize}[noitemsep]
+\item Ridgwell, A., Interpreting transient carbonate compensation depth changes by marine sediment core modeling, Paleoceanography 22, PA4102, doi:10.1029/2006PA001372 (2007).
+\item Kirtland Turner, S., and A. Ridgwell, Recovering the true size of an Eocene hyperthermal from the marine sedimentary record, Paleoceanography (2013).
+\item Jennions, S M., E. Thomas, D.N. Schmidt, D. Lunt, and A. Ridgwell, Changes in benthic ecosystems and ocean circulation in the Southeast Atlantic across Eocene Thermal Maximum 2, Paleoceanography DOI: 10.1002/2015PA002821 (2015).
+\item Penman, D.E., S.Kirtland Turner, P. Sexton, R. Norris, A.J. Dickson, S. Boulila, A. Ridgwell, R.E. Zeebe, J. Zachos, A. Cameron, T. Westerhold, U. Röhl, IODP Expedition 342 Scientists, An abyssal carbonate compensation depth overshoot in the aftermath of the Palaeocene- Eocene Thermal Maximum, Nature Geoscience 9, doi:10.1038/NGEO2757 (2016).
+\item (in the SI) Gutjahr, M., A. Ridgwell, P.F Sexton, E. Anagnostou, P.N. Pearson, H. Pälike, R.D. Norris, E. Thomas, and G.L. Foster, Very large release of mostly volcanic carbon during the Paleocene-Eocene Thermal Maximum Paleocene-Eocene Thermal Maximum, Nature 548, doi:10.1038/nature23646 (2017).
+\item Fantle, M. S., and A. Ridgwell, Towards an understanding of the Ca isotopic signal related to ocean acidification and alkalinity overshoots in the rock record, Chemical Geology DOI: 10.1016/j.chemgeo.2020.119672 (2020).
+\end{itemize}
+and you might want to think about how you might make use of the \textit{sedcore} output in light of these papers.
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\section{Quantifying how long is the 'long tail' of CO$_{2}$}
+
+The 'full' geological carbon cycle is complex ... we'll pick it apart soon ... but you may as well have a quick 'play'. Regardless, highly idealized perturbations are the way to go first. Specifically -- an illustrative experiment which has a parallel to experiments you have conducted previously, is to add a pulse \(CO_{2}\) release to the atmosphere and track the consequences for atmospheric p\(CO_{2}\) and ocean chemistry (particularly ‘alkalinity’), and now also e.g. deep sea sediments. 
+
+\vspace{1mm}
+In the \textsf{\footnotesize ch09.3.EXPT} \textit{user-config}, the lines:
+\vspace{-2mm}\small\begin{verbatim}
+bg_par_forcing_name='pyyyyz.FpCO2_Fp13CO2'
+bg_par_atm_force_scale_val_3=8.3333e+016
+bg_par_atm_force_scale_val_4=-15.0
+\end{verbatim}\normalsize\vspace{-2mm}
+specify the release of \(CO_{2}\) to the atmosphere at a rate of \(0.1 PgC yr^{-1}\) with an isotopic composition of \(-15\)\permille -- appropriate for a volcanic-related geological source. The lines:
+\vspace{-2mm}\small\begin{verbatim}
+bg_par_atm_force_scale_time_3=10000.0
+bg_par_atm_force_scale_time_4=10000.0
+\end{verbatim}\normalsize\vspace{-2mm}
+then specify that this input (and isotopic composition) continues over 10,000 years.
+
+\vspace{1mm}
+Unless you wish to run an experiment for 10,000 years or more (yawn!!), you might want to reduce the interval emissions are over (changing both parameter values equally) as well as increasing the emissions rate (as you did in earlier exercises). You could also consider isotopic compositions of \(-27\)\permille -- appropriate for a fossil fuel carbon source, or methane derived carbon (e.g., as from hydrates) which would be more like \(-60\)\permille and create a more exciting carbon isotopic perturbation to watch. For example, perhaps something like:
+\vspace{-2mm}\small\begin{verbatim}
+# specify forcings -- 5,000 PgC @ -60 o/oo over 100 yr
+bg_par_forcing_name="pyyyyz.FpCO2_Fp13CO2"
+bg_par_atm_force_scale_val_3=8.3333e+013
+bg_par_atm_force_scale_val_4=-60.0
+bg_par_atm_force_scale_time_3=100.0
+bg_par_atm_force_scale_time_4=100.0
+\end{verbatim}\normalsize\vspace{-2mm}
+would be like a slightly super-charged anthropogenic experiment\footnote{50 PgC per year for 100 years, as opposed to the current ca. 10 PgC per year.} and with more a more pronounced isotopic fingerprint. Or configure the same emissions as you might have explored before\footnote{(e.g., 1000 PgC over 1 year)} .
+
+\vspace{1mm}
+Run the model for as long as you dare (or can be bothered) – 1,000 or 2,000 years might be just enough  to start to see impacts on deep-sea sediments, but 10,000 years or more would be much better. (You can always submit this to the cluster queue and get on with something else.) FYI: 10,000 years is going to take something like an hour ... if you are lucky ...
+
+Remember the earlier comment earlier in the chapter about the frequency of output saving -- you may well want at the very least, more frequent \textit{time-series} saving\footnote{Comment out to obtain default saving intervals, or change a save interval definition file with a shorter regular spacing in time.}.
+
+Plot the time-series of e.g. atmospheric \(pCO_{2}\) and compare to the (much shorter experiments) you have carried out before with a simple ocean+atmosphere only system. Compare how quickly atmospheric \(pCO_{2}\) decays compared to previously \textbf{muffin} publications (e.g., \textit{Ridgwell and Hargreaves} [2007]) or other models (e.g. \textit{Archer et al.} [2009]) and  how the sediments respond (e.g. the time-series of sediment \(CaCO_{3}\) content).
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\noindent BE CAREFUL -- if you have previously edited the \textit{forcing} \textsf{\footnotesize  pyyyyz.FpCO2\_Fp13CO2}, you are going to need to return whatever files you edited back to their original state.
+\small\begin{enumerate}[noitemsep]
+\vspace{1mm}
+\item From \textsf{\footnotesize genie-main}, \texttt{\$ make cleanall}
+\vspace{1mm}
+\item Then head up a directory level (\texttt{cd ..}) to \textsf{\footnotesize cgenie.muffin}
+\vspace{1mm}
+\item Type: \texttt{\$ git status -uno}
+\vspace{1mm}
+\\You should see a list of all files originally cloned from GitHub) that have changed, e.g.:
 \vspace{-1mm}\begin{verbatim}
-ma_flag_ecogem=.TRUE.
+modified:   genie-forcings/pyyyyz.FpCO2_Fp13CO2/biogem_force_flux_atm_pCO2_sig.dat
 \end{verbatim}\vspace{-1mm}
-Next, it is likely that you did not add any biogeochemical tracers when you created your fake world, and the \textit{base-config} section:
-\footnotesize\begin{verbatim}
-# *******************************************************************
-# TRACER CONFIGURATION
-# *******************************************************************
-\end{verbatim}\normalsize
-will probably look like:
-\footnotesize\begin{verbatim}
-# the total number of tracers includes T and S
-# T and S do not need to be explicitly selected and initialized
-# *******************************************************************
-# Set number of tracers
-GOLDSTEINNTRACSOPTS='$(DEFINE)GOLDSTEINNTRACS=2'
-# list selected biogeochemical tracers
-# <<<                                                             >>>
-# list biogeochemical tracer initial values
-# <<<                                                             >>>
-\end{verbatim}\normalsize
-Go find the \textit{base-config} file \textsf{\footnotesize muffin.CBE.p0055c.BASES} in the \textsf{\footnotesize configs} sub-directory of \textsf{\footnotesize genie-main}. Copy all of the section headed
-\footnotesize\begin{verbatim}
-# *******************************************************************
-# TRACER CONFIGURATION
-# *******************************************************************
-\end{verbatim}\normalsize
-into your \textit{base-config}, replacing the original contents with only 2 tracers selected.
-
+(Note that files you create are not listed. TO see those, type: \texttt{\$ git status})
 \vspace{1mm}
-\item \textit{user-config} -- Next, you need to define some biogeochemical cycling PLUS and ecosystem. Go find the \textit{user-config} file: \textsf{\footnotesize wilsonetal.p0055c.8P8Z.pal.3x} in \textsf{\footnotesize genie-userconfigs} sub-directory \\ \textsf{\footnotesize MS/wilsonetal.2018}.
-
-Easiest, is to simply re-use (copy-rename) the  \textit{user-config} file: \textsf{\footnotesize wilsonetal.p0055c.8P8Z.pal.3x}.
-
-\vspace{1mm}
-The only parameters you might want to adjust\footnote{Note that ocean alkalinity is also set for an Eocene world.}, other than a different ecological structure (and \texttt{eg\_par\_ecogem\_plankton\_file}), is atmospheric \(CO_{2}\), which is set to \(\times 3 CO_{2}\) by:
-\small\begin{verbatim}
-bg_par_forcing_name="pyyyyz.RpCO2_Rp13CO2"
-bg_par_atm_force_scale_val_3=834.0E-06
-bg_par_atm_force_scale_val_4=-4.9
-\end{verbatim}\normalsize
-(and atmospheric \(\delta^{13}C\) to \(-4.9\)).
-
-\vspace{1mm}
-Strictly, the scaling for the air-sea gas exchange coefficient, for a fake world, should be:
-\footnotesize\begin{verbatim}
-# re-scale gas transfer coefficient ...
-bg_par_gastransfer_a=0.722
-\end{verbatim}\normalsize
-(changing the value from \texttt{0.5196} to \texttt{0.722}).
-
-\end{enumerate}
-
-\pagebreak
-
-Those changes -- enabling \textbf{ECOGEM} and adding ocean (and atmosphere) tracers to your \textit{base-config}, and then taking a paleo \textbf{ECOGEM} \textit{user-config} as a template to work from, should get you going with an ecology in your fake world.
-
-\vspace{1mm}
-If you also want to diagnose ocean circulation better and add a ventilation tracer, then in the \textit{base-config}, increase the number of selected tracers by 2 (under \texttt{\# Set number of tracers}) and add the following 2 lines to the list of selected tracers:
-\footnotesize\begin{verbatim}
-gm_ocn_select_48=.true. # r
-gm_ocn_select_49=.true. # b
-\end{verbatim}\normalsize
-and ... in the \textit{user-config}, add (anywhere, but e,g, in the \texttt{MISC} parameter section):
-\footnotesize\begin{verbatim}
-# add ventillation tracers
-bg_ctrl_force_ocn_age=.true.
-\end{verbatim}\normalsize
+\item To restore the state of any file that you might have edited, \texttt{git checkout} that file out, e.g.:
+\vspace{-1mm}\begin{verbatim}
+$ git checkout genie-forcings/pyyyyz.FpCO2_Fp13CO2/biogem_force_flux_atm_pCO2_sig.dat
+\end{verbatim}\vspace{-1mm}
+\end{enumerate}\normalsize
 
 %------------------------------------------------
+\vspace{1mm}
+\noindent\rule{4cm}{0.1mm}
+\vspace{2mm}
+%------------------------------------------------
 
+\noindent DON'T FORGET -- Did you remember to run a control experiment? The same experiment\footnote{(Just copy-paste and then rename \textsf{\footnotesize ch09.3.EXPT} -> \textsf{\footnotesize ch09.3.CTRL} or similar.}  you have probably just pressed \textsf{\footnotesize return} on, but with the rate of carbon emissions set to zero (no other changes ... run for the same experiment duration ...).
+
+%------------------------------------------------
+\vspace{1mm}
+\noindent\rule{4cm}{0.1mm}
+\vspace{2mm}
+%------------------------------------------------
+
+\noindent To properly (quantitatively) appreciate the role of ocean-sediment interaction (and weathering) and controlling atmospheric \(pCO_{2}\), you need to contrast these experiments with as similar a model configuration as possible -- for instance, one that is identical excepting having no sediments (or weathering). 
+
+You can achieve this quite simply: create (/copy-rename) a new \textit{user-config} based on \textsf{\footnotesize ch09.3.EXPT} and edit the lines\footnote{You do not have to edit the comment line (\#) but it will help you remember what you have done.}:
+\vspace{-1mm}\small\begin{verbatim}
+# set an 'OPEN' system
+bg_ctrl_force_sed_closedsystem=.false.
+\end{verbatim}\normalsize\vspace{-1mm}
+changing it to:
+\vspace{-1mm}\small\begin{verbatim}
+# set a 'CLOSED' system
+bg_ctrl_force_sed_closedsystem=.true.
+# automatically seed all weathering fluxes as non-zero
+rg_ctrl_force_sed_closedsystem=.TRUE.
+\end{verbatim}\normalsize\vspace{-1mm}
+
+\noindent What this  does is to force the model to always maintain an exact balance between the preservation and burial in marine sediments of \(CaCO_{3}\) and organic matter (both carbon and nutrients), with the supply of solutes derived from the weathering of \(CaCO_{3}\), \(CaSiO_{3}\), organic matter, and apatite (for phosphate) on land, plus volcanic out-gassing. Because no excess or deficit of weathering vs. sedimentation is allowed to occur, no changes in ocean chemistry (other than by air-sea gas exchange) occur. This configuration hence acts (geochemically and dynamically) exactly the same way as a configuration without any sediments or weathering being present (and as used previously). 
+
+However, for this setting to work properly, you do need to flip 'short-circuiting' back on to ensure that \(CO_{2}\) is not being removed and hence being drained from the atmosphere, and hence set: \texttt{rg\_opt\_short\_circuit\_atm=.false.}
+
+%------------------------------------------------
 \newpage
-
 %------------------------------------------------
 
-\section{EcoGEnIE 1.1}
+By comparing the two experiments (with and without a 'closed system', and also both with the control): can you deduce the effect of the sediment and weathering interactions and feedbacks in modulating (accelerating or decelerating) atmospheric \(pCO_{2}\) decline?\footnote{e.g. you could compare the \(pCO_{2}\) time-series of the 2 different experiments, or create anomalies from both with respect to the control, and then contrast.}
 
-As outlined in the Sections: \textit{Choosing a template user-config} and \textit{Configuring muffin experiments}, a number of recommended changes to the configuration of \textbf{ECOGEM} as published by \textit{Ward et al.} [2018] (EcoGEnIE 1.0).
+Also view the sediment distribution (of \(CaCO_{3}\)): what are the impacts on sediment composition in the case of an experiment configured with an ‘open’ system (vs. a 'closed' system)? Here, the time-series file of mean global sediment composition \textsf{\footnotesize biogem\_series\_sed\_CaCO3.res} (in units of: \(wt\%\:CaCO_{3}\)) may help illustrate what is going on here.
+Note that the way the ‘closed’ system is constructed; a response of the sediments is predicted and saved in the output, even though it is not allowed to affect chemistry or atmospheric p\(CO_{2}\).
+
+%------------------------------------------------
+\vspace{1mm}
+\noindent\rule{4cm}{0.1mm}
+\vspace{2mm}
+%------------------------------------------------
+
+\noindent To recap -- you are aiming to run a \(CO_{2}\) emissions experiment using a \textbf{muffin} configuration including variable weathering and sedimentation (\textsf{\footnotesize ch09.3.EXPT}) with a version/copy that you have edited to create a 'closed' ocean-atmosphere system, with no ocean-sediment or weathering feedbacks on atmospheric \(CO_{2}\). Ideally, you would also run a PAIR (not just one!) of control experiments -- one for each of 'open' and 'closed' configurations and each with no \(CO_{2}\) emissions specified. (A total of 4 experiments.)
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\section{Sediments of the modern Earth}
+
+Having had a quick 'play' with the system, we should return -- albeit briefly -- to reality and critically and quantitatively assess to what degree \textbf{muffin}  provides an adequate representation of the interaction between ocean chemistry and sediment composition (e.g., in \(CaCO_{3}\) buffering of \(CO_{2}\) release and 'carbonate compensation'). Key to this, is contrasting  model output against observational-based data. Such an approach is presented in \textit{Ridgwell and Hargreaves} [2007]. Note that the following experiments, for which you are NOT provided \textit{restarts} for, take a few days to run and you might consider getting these\footnote{Although the 2nd-stage \textit{spin-up} will require the first stage one to complete.} on the cluster queue and work on the next section (or more experiments from the previous one) while they run.
 
 \vspace{1mm}
-These changes have been incorporated into an example \textit{user-config} (in the \textsf{\footnotesize genie-userconfigs } sub-directory \textsf{\footnotesize EXAMPLES}: \textsf{\footnotesize muffin.CB.worlg4.BASESFeTDTL.ECOGEM\_NEW.SPIN} (and paired with the \textit{base-config}: \textsf{\footnotesize muffin.CB.worlg4.BASESFeTDTL}), and are:
+The required \textit{base-} and \textit{user-config} files are both provided as part of the \textbf{muffin} code release:
 
 \begin{itemize}[noitemsep]
-
-\vspace{2mm}
-\item Under \texttt{*** REMINERALIZATION ***}:
-\small\vspace{-1mm}\begin{verbatim}
-# set 'instantaneous' water column remineralziation
-bg_par_bio_remin_sinkingrate_physical=9.9E9
-bg_par_bio_remin_sinkingrate_reaction=125.0
-\end{verbatim}\vspace{-1mm}\normalsize
-which instantaneously remineralizes all particulate organic matter throughout the water column according to the remineralization profile and/or reaction rates. This is activated via a 'very large' value for  \texttt{bg\_par\_bio\_remin\_sinkingrate\_physical}. At the same time, reaction rates (including scavenging) are calculated as if the sinking rate was finite and equivalent to the value of: \texttt{bg\_par\_bio\_remin\_sinkingrate\_reaction} (\(m\:d^{-1}\)). 
-
-\vspace{2mm}
-\item Under \texttt{*** MISC ***}:
-\small\vspace{-1mm}\begin{verbatim}
-# set mixed layer to be only diagnosed (for ECOGEM)
-go_ctrl_diagmld=.true.
-# add seaice attenuation of PAR
-eg_ctrl_PARseaicelimit=.true.
-# relative partitioning of C into DOM
-eg_par_beta_POCtoDOC=0.75
-\end{verbatim}\vspace{-1mm}\normalsize
-which firstly substitutes a diagnosed mixed layer depth, rather than actually applying mixed layer physics to ocean circulation, then limits light available under sea-ice in proportion to the fractional sea-ice cover in that grid cell, and lastly, re-partitions carbon from POM to DOM and is tuned to produce an approximately Redfield ratio (\(106\)) of \(104.7:1\) in \(C:P\) of exported POM., and then:
-\small\vspace{-1mm}\begin{verbatim}
-# maximum time-scale to geochemical reaction completion (days)
-bg_par_bio_geochem_tau=90.0
-# extend solubility and geochem constant T range (leave S range as default)
-gm_par_geochem_Tmin  = -2.0
-gm_par_geochem_Tmax  = 45.0
-gm_par_carbchem_Tmin = -2.0
-gm_par_carbchem_Tmax = 45.0
-\end{verbatim}\vspace{-1mm}\normalsize
-which firstly, limits the maximum consumption of any particular reactant by a single reaction, to an imposed lifetime (\(90\:days\)), with the remaining parameters extending the valid temperature range for solubility and geochem constants to \(-2 - 45^{\circ}C\). Note that the valid salinity range is left unchanged.
-
+\vspace{1mm}
+\item \textsf{\footnotesize muffin.CBSR.p\_worbe2.BASES} -- the \textit{base-config} file, including \textbf{SEDGEM} (the '\textsf{\footnotesize S}' in '\textsf{\footnotesize CBSR}' and \textbf{ROKGEM} -- '\textsf{\footnotesize R}') modules.
+\vspace{1mm}
+\item \textsf{\footnotesize muffin.CBSR.p\_worbe2.BASES.RidgwellHargreaves1997\_S36x36.SPIN1} -- the \textit{user-config} for the 1st stage (20 kyr long) \textit{spin-up} described in \textit{Ridgwell and Hargreaves} [2007]. This file lives in the \textsf{\footnotesize EXAMPLES} sub-directory of \textsf{\footnotesize genie-userconfigs}.
 \end{itemize}
 
+This can then be run:
+\vspace{-1mm}\small\begin{verbatim}
+./runmuffin.sh muffin.CBSR.p\_worbe2.BASES EXAMPLES
+   muffin.CBSR.p_worbe2.BASES.RidgwellHargreaves1997_S36x36.SPIN1 20000
+\end{verbatim}\normalsize\vspace{-1mm}
+
+Read the paper and consider the plotted core-top sediment composition data-set (and ideally, \uline{read the associated cited papers by David Archer}). Does the model get the broad patterns right (is it more right than wrong, or more wrong than right)? Do you think the model-data misfits might be important? How so?
+
+%------------------------------------------------
 \vspace{1mm}
-\noindent For reference, the original (i.e. as per in \textit{Ward et al.} [2018]) but reformatted, user-config, is provided as: \textsf{\footnotesize muffin.CB.worlg4.BASESFeTDTL.ECOGEM\_NEW.SPIN} (also in the \textsf{\footnotesize genie-userconfigs} sub-directory \textsf{\footnotesize EXAMPLES}).
+\noindent\rule{4cm}{0.1mm}
+\vspace{2mm}
+%------------------------------------------------
+
+\noindent A \textit{user-config} for the second-stage spin-up as described in \textit{Ridgwell and Hargreaves} [2007] is also provided:
+\begin{itemize}[noitemsep]
+\vspace{1mm}
+\item \textsf{\footnotesize muffin.CBSR.p\_worbe2.BASES.RidgwellHargreaves1997\_S36x36.SPIN2} is the 2nd-stage, 50 kyr \textit{spin-up} that uses \textsf{\footnotesize muffin.CBSR.p\_worbe2.BASES.RidgwellHargreaves1997\_S36x36.SPIN1} as a \textit{re-start}.
+\end{itemize}
+\vspace{1mm}
+and can be run:
+\vspace{-1mm}\small\begin{verbatim}
+./runmuffin.sh muffin.CBSR.p\_worbe2.BASES EXAMPLES
+   muffin.CBSR.p_worbe2.BASES.RidgwellHargreaves1997_S36x36.SPIN2 50000
+   muffin.CBSR.p_worbe2.BASES.RidgwellHargreaves1997_S36x36.SPIN1
+\end{verbatim}\normalsize\vspace{-1mm}
+
+Having run the second spin-up, which now includes a full bioturbated sediment depth of \(CaCO_{3}\) that can potentially be reacted with \(CO_{2}\) added to the system (see: \textit{Ridgwell and Hargreaves} [2007] and also \textit{Ridgwell} [2007]), you could try and perturbation experiment. All you need to do, is take \textsf{\footnotesize muffin.CBSR.p\_worbe2.BASES.RidgwellHargreaves1997\_S36x36.SPIN2}, copy-and-rename as per usual, and then change the \textit{forcing}.
 
 %------------------------------------------------
 \newpage
 %------------------------------------------------
 
-\section{Further ideas and investigations}
-
-\subsubsection{The role of iron limitation}
-\vspace{1mm}
-
-Up to this point, we have included both phosphate and iron as limiting nutrients. You might want to know more about the importance (or not) of iron availability in determining patterns of biological productivity.
-
+The current \textit{forcing} is:
+\vspace{-1mm}\small\begin{verbatim}
+# specify forcings -- ONLY apply a non-carbonate (detrital) flux (to the sediments)
+bg_par_forcing_name="worbe2.detplusopalSED"
+\end{verbatim}\normalsize\vspace{-1mm}
+This specifies a 'detrital' field -- basically the rate of accumulation of non carbonate solids in the sediments (see: \textit{Ridgwell and Hargreaves} [2007] and references there-in). You need to retain this specified detrital flux forcing, but add a \(CO_{2}\) one to the atmosphere. One is provided in the \textit{forcings} directory\footnote{\textsf{\footnotesize worbe2.FpCO2\_Fp13CO2.detplusopalSED}}, but more instructive is to adapt the current one. To do this:
 \begin{enumerate}[noitemsep]
-
 \vspace{1mm}
-\item You can get a more exact picture of the nutrient limitation terms via the netCDF output variables: \textsf{\footnotesize eco2D\_xGamma\_Fe\_001} and \textsf{\footnotesize eco2D\_xGamma\_P\_001}.
-
+\item Copy-and-rename the forcing folder that is currently pointed to -- \textsf{\footnotesize worbe2.detplusopalSED}.
 \vspace{1mm}
-These two variables take values of between 0 and 1. A \textsf{\footnotesize 1} indicates that the factor is not limiting to growth. A \textsf{\footnotesize 0} indicates the factor is completely preventing growth.
+\item Find a previous experiment where you released \(CO_{2}\) to the atmosphere, and find the \textit{forcing} folder used for that\footnote{It may well have been called something like: \textsf{\footnotesize pyyyyz.FpCO2\_Fp13CO2}}.
 \vspace{1mm}
-\begin{itemize}
-\item In what regions are iron and phosphorus more or less limiting to growth? \item In regions where neither is limiting, what other factors might be important?
-\end{itemize}
-
+\item Three files in the \(CO_{2}\) emissions \textit{forcing} folder together define a \(CO_{2}\) flux is to be used:
+\\\textsf{\footnotesize configure\_forcings\_atm.dat}
+\\\textsf{\footnotesize biogem\_force\_flux\_atm\_pCO2\_sig.dat}
+\\\textsf{\footnotesize biogem\_force\_flux\_atm\_pCO2\_13C\_sig.dat}
+\\(If you have forgotten what these are/do -- refer back to the ocean circulation and/or fossil fuel emissions chapters.)
+\\Simply copy these 3 files into your new \textit{forcing} folder.
 \vspace{1mm}
-\item  Plankton stoichiometry plays a critical role in determining which nutrient is most limiting to growth. You can increase the plankton \(Fe:C\) ratio by increasing the minimum and maximum iron quotas. Look at the parameters \texttt{eg\_qminFe\_a} and \texttt{eg\_qmaxFe\_a} in the \textit{user-config} file.
-
-\vspace{1mm}
-\begin{itemize}
-\item What happens to the ecosystem if you increase these parameters by a factor of 2, 5 or 10?
-\item How does a change in these parameters affect the model behaviour?
-\item What has changed in terms of the patterns of nutrient limitation?
-\item What has happened to the concentration of the limiting and non-limiting nutrient?
-\end{itemize}
-
-\vspace{1mm}
-\item[NOTE:] Rather than changing the parameter and subsequently forgetting what you started with ... instead, you might copy/paste a new version of the line in question, and comment out the original by placing a `\texttt{\#}' at the beginning of the line. For example:
+\item Change the name of the forcing in your \textit{user-config}, and scale the \(CO_{2}\) flux as per you did earlier, e.g., adding:
 \vspace{-1mm}\small\begin{verbatim}
-#eg_qminFe_a = 3.0e-6
-eg_qminFe_a  = 6.0e-6
+bg_par_atm_force_scale_val_3=8.3333e+013
+bg_par_atm_force_scale_val_4=-27.0
 \end{verbatim}\normalsize\vspace{-1mm}
-changes the minimum iron quota by a factor of 2, whilst keeping a record of the original setting (inactivated by the \texttt{\#}). Or, you might do something like:
-\vspace{-1mm}\small\begin{verbatim}
-eg_qminFe_a  = 6.0e-6 # 3.0e-6
-\end{verbatim}\normalsize\vspace{-1mm}
-that reduces the total number of lines you end up with in the \textit{user-config} file.
-
-\vspace{1mm}
-\item Nutrient supply ratios are also important in determining the limiting nutrient.
-\\The \texttt{bg\_par\_det\_Fe\_sol\_exp} parameter determines the solubility of atmospheric iron inputs in seawater. Decreasing the value of \texttt{bg\_par\_det\_Fe\_sol\_exp} will therefore decrease the iron-to-phosphorus supply ratio.
-
-\vspace{1mm}
-\begin{itemize}
-\item What happens to the ecosystem if you decrease \texttt{bg\_par\_det\_Fe\_sol\_exp} by e.g. 10, 20 or 50\%?
-\end{itemize}
-
-\vspace{1mm}
-\item Lastly, you can turn off entirely the iron requirement of plankton:
-\vspace{-1mm}\small\begin{verbatim}
-# include cellular quota: Fe -- no Fe limitation enabled
-eg_useFe                    =.FALSE.
-eg_fquota                   =.FALSE.
-\end{verbatim}\normalsize\vspace{-1mm}
-\vspace{1mm}
-\begin{itemize}
-\item What happens to the patterns of biological productivity as well as global total export?
-\end{itemize}
-
+This would give you just \(1 PgC yr^{-1}\) (at \(-27\)\permille), so you need to adjust this (refer to earlier in this chapter, and to earlier chapters).
 \end{enumerate}
 
 %------------------------------------------------
 \vspace{1mm}
 \noindent\rule{4cm}{0.1mm}
+\vspace{2mm}
+%------------------------------------------------
+
+\noindent How the 2nd stage spin-up is derived from the results of the first and how either \textit{user-config} is constructed in the first place, we will look at in the next section. For now, just note the following about the two provided experiment configurations:
+
+\vspace{1mm}
+
+\begin{itemize}[noitemsep]
+\vspace{1mm}
+\item SPIN1 is 'closed':
+\vspace{-1mm}\small\begin{verbatim}
+rg_ctrl_force_sed_closedsystem=.TRUE.
+\end{verbatim}\normalsize\vspace{-1mm}
+\vspace{1mm}
+\item SPIN1 sets a parameter value that is not used in the experiment itself, but informs the calculation of the \textbf{ROKGEM} parameters for use in SPIN2:
+\vspace{-1mm}\small\begin{verbatim}
+sg_par_sed_diag_fracSiweath=0.0
+\end{verbatim}\normalsize\vspace{-1mm}
+\vspace{1mm}
+\item SPIN2 has a section of parameters that were automatically-generated -- the section starting:
+\vspace{-1mm}\small\begin{verbatim}
+ # --- ROKGEM USER-CONFIG --------
+ # NOTE: automatically generated by SEDGEM
+\end{verbatim}\normalsize\vspace{-1mm}
+\end{itemize}
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\section{The marine geology of fake worlds}
+
+You can configure any of your previous fake worlds, or generate new ones, to have a full geologic carbon cycle including deposition of \(CaCO_{3}\) in marine sediments and weathering on land.
+
+In order to generate the requisite \textbf{SEDGEM} configuration files, you need the following settings in your \textbf{muffingen} configuration file:
+
+\begin{itemize}[noitemsep]
+\vspace{1mm}
+\item \texttt{opt\_makeseds=true;} --  requests that \textbf{SEDGEM} files are generated.
+\vspace{1mm}
+\item \texttt{par\_sedsopt=2;} -- requests that a randomized bathymetry is generated. This is needed because fake worlds have by default, a flat bathymetry.
+\\Instead, if you 'draw' a non-uniform bathymetry, you would set:
+\\ \texttt{par\_sedsopt=0;} -- requests that the ocean depth levels ('k1' file') are used to inform the ocean floor depth assumed by \textbf{SEDGEM}.
+\\(Option \texttt{1} is most commonly used in conjunction with a GCM-derived continental configuration.)
+\end{itemize}
+
+\vspace{1mm}
+So, if you define continents in your fake world, but do not change the bathymetry in \textbf{muffingen}, \texttt{par\_sedsopt} option \texttt{2} will give you a randomized distribution of sediment depths (used in the \(CaCO_{3}\) solubility pressure calculation only). Selecting option \texttt{0} will simply translate your chosen \textbf{muffingen} ocean depths into \textbf{SEDGEM} depths. Note that you can still have a flat bottom to the ocean (no variation in ocean floor depth) and choose option \texttt{0}.
+
+If you define a specific bathymetry by hand (e.g. draw in ocean ridges), you probably do not want it over-written (by a random \textbf{SEDGEM} depth pattern) and hence you should chose option \texttt{0}.
+
+For speed of running model experiments, it is recommended that you generate your \textbf{muffingen} \textbf{muffin} configurations at the lowest reasonable resolution -- \(18\times18\times8\) would be suitable -- \(18\times18\) resolution in lon vs. lat, and \(8\) levels in the ocean. (You could try pushing this a little further and more extreme, e.g. \(12\times12\times8\).) Note that when you create your \textit{base-config}, you should use the template:
+\vspace{1mm}
+\\\textsf{\footnotesize CONFIG\_template\_08lvl\_R07.config}
+\vspace{1mm}
+\\(for the 8-level ocean, rather than \textsf{\footnotesize CONFIG\_template\_16lvl\_R07.config } which is designed for 16-ocean level configurations).
+
+Once you have copy-pasted the configuration output of \textbf{muffingen} into the template \textit{base-config} file (and suitably renamed it), you need to enable the geologic carbon cycle modules (\textbf{SEDGEM} and \textbf{ROCKGEM}). At the top of the \textit{base-config} file, ensure that the following are set:
+\vspace{-1mm}\small\begin{verbatim}
+ma_flag_sedgem=.TRUE.
+ma_flag_rokgem=.TRUE.
+\end{verbatim}\normalsize\vspace{-1mm}
+And then, further down and under the heading:
+\vspace{-1mm}\small\begin{verbatim}
+# TRACER CONFIGURATION
+\end{verbatim}\normalsize\vspace{-1mm}
+you need to define how many 'tracers' in the ocean, what they are, and any initial values that differ from modern defaults. Plus, whatever atmospheric and sediment tracers you want (plus default values in the atmosphere). Simplest at this point is to copy-paste from an existing \textit{base-config}, such as:
+\vspace{1mm}
+\\\textsf{\footnotesize cgenie.eb\_go\_gs\_ac\_bg\_sg\_rg.worbe2.BASE}
+\vspace{1mm}
+\\(which is the \textit{base-config} used in \textit{Ridgwell and Hargreaves} [2007]).
+
+\vspace{1mm}
+As for a suitable \textit{user-config} ...
+
+... you could take the \textit{user-config} from \textit{Colbourn et al.} [2013] (itself a modification of Ridgwell and Hargreaves [2007]) -- available as part of the \textbf{muffin} code release, as file:
+\vspace{1mm}
+\\\textsf{\footnotesize EXAMPLE.worbe2.Colbournetal2013.CTRL } (\textsf{\footnotesize genie-userconfigs } sub-directory)
+\vspace{1mm}
+\\Then generalize this according to the paleo sediment configuration used in \textit{Ridgwell and Schmidt} [2010] (file: \textsf{\footnotesize EXAMPLE.p0055c.RidgwellSchmidt2010.SPIN1 } in the \textsf{\footnotesize genie-userconfigs } sub-directory) (i.e. making \(CaCO_{3}/POC\) export invariant, adding a fixed detrital flux to the sediments).
+
+Cutting the lines down to the bare minimum (excepting comments pertaining to new/altered lines), a suitable \textit{user-config} then looks like:
+
+\scriptsize\begin{verbatim}
+# --- CLIMATE --------------------------------------------------
+# enable CO2 climate feedback
+ea_36=y
+# --- BIOLOGICAL NEW PRODUCTION --------------------------------
+bg_par_bio_k0_PO4=1.9582242E-06
+bg_par_bio_c0_PO4=2.1989611E-07
+# --- ORGANIC MATTER EXPORT RATIOS -----------------------------
+bg_par_bio_red_DOMfrac=0.66
+# --- INORGANIC MATTER EXPORT RATIOS ---------------------------
+# set fixed export CaCO3 as a proportion of particulate organic matter
+bg_par_bio_red_POC_CaCO3=0.200
+bg_par_bio_red_POC_CaCO3_pP=0.0
+# --- REMINERALIZATION -----------------------------------------
+bg_par_bio_remin_DOMlifetime=0.5
+bg_par_bio_remin_POC_frac2=6.4591110E-02
+bg_par_bio_remin_POC_eL1=550.5195
+bg_par_bio_remin_POC_eL2=1000000.0
+bg_par_bio_remin_CaCO3_frac2=0.468
+bg_par_bio_remin_CaCO3_eL1=1083.486
+bg_par_bio_remin_CaCO3_eL2=1000000.0
+# --- SEDIMENTS ------------------------------------------------
+# sediment diagenesis options
+sg_par_sed_diagen_CaCO3opt="ridgwell2001lookup"
+sg_ctrl_sed_bioturb=.true.
+sg_ctrl_sed_bioturb_Archer=.false.
+sg_par_n_sed_mix=20
+sg_par_sed_mix_k_sur_max=0.15
+sg_par_sed_mix_k_sur_min=0.15
+# additional detrital flux (g cm-2 kyr-1)
+sg_par_sed_fdet=0.180
+# --- WEATHERING -----------------------------------------------
+# set a 'OPEN' system
+bg_ctrl_force_sed_closedsystem=.false.
+# set CaCO3_weathering-temperature feedback
+rg_opt_weather_T_Ca=.TRUE.
+# set CaSiO3_weathering-temperature feedback
+rg_opt_weather_T_Si=.TRUE.
+# weathering reference mean global land surface temperature (C)
+rg_par_ref_T0=8.48
+#CO2 outgassing rate (mol C yr-1)
+rg_par_outgas_CO2=5.59E+12
+# global silicate weathering rate (mol Ca2+ yr-1)
+rg_par_weather_CaSiO3=5.59E+12
+# global carbonate weathering rate (mol Ca2+ yr-1)
+rg_par_weather_CaCO3=5.59E+12
+# d13C
+rg_par_outgas_CO2_d13C=-6.0
+rg_par_weather_CaCO3_d13C=12.8
+# --- DATA SAVING ----------------------------------------------
+bg_par_data_save_level=4
+bg_ctrl_debug_lvl0=.true.
+ma_debug_loop=1
+# --- END ------------------------------------------------------
+\end{verbatim}\normalsize
+
+Here, the reference temperature against which  the rate of weathering is modified for higher/lower temperatures, is set for a modern-like continental configuration:
+\vspace{-1mm}\small\begin{verbatim}
+# weathering reference mean global land surface temperature (C)
+rg_par_ref_T0=8.48
+\end{verbatim}\normalsize\vspace{-1mm}
+If left un-changed, then the negative silicate weathering feedback will operate on atmospheric \(CO_{2}\) -- letting it accumulate, or removing it, until the reference temperature is achieved. If instead, you want to achieve a specific atmospheric \(CO_{2}\) at steady state, you need to know the relevant mean global land surface temperature. To determine this -- first run \textbf{muffin} with a prescribed atmospheric \(CO_{2}\) value, e.g. by adding:
+\vspace{-1mm}\small\begin{verbatim}
+# --- FORCINGS -------------------------------------------------
+# specify forcings
+bg_par_forcing_name="pyyyyz.RpCO2_Rp13CO2"
+bg_par_atm_force_scale_val_3=278.0E-06
+bg_par_atm_force_scale_val_4=-6.5
+\end{verbatim}\normalsize\vspace{-1mm}
+(or some other value of \(CO_{2}\)) to your \textit{user-config}. Running the model for about 1000 years should be more than enough to achieve a near steady-state of surface climate, allowing to read off the mean global surface air temperature over land (BIOGEM file \textsf{\footnotesize biogem\_series\_misc\_SLT.res}), and set the reference temperature to this value. You can then run an experiment without a prescribed atmospheric \(CO_{2}\) forcing, now knowing that the silicate weathering feedback will always act to restore atmospheric \(CO_{2}\) back to that value.
+
+\vspace{1mm}
+\noindent\rule{4cm}{0.5pt}
+\vspace{2mm}
+
+\noindent Despite the low grid resolution, this is still  going to take a l o n g time for particularly much to happen and you could probably do with some (numerical) 'help'. You can accelerate the run-time of \textbf{muffin} in calculating the balance between weathering and sedimentation, a-la \textit{Lord et al.} [2015]. To do this, you need to add a new section of parameter choices to the \textit{user-config} file:
+\vspace{-1mm}\small\begin{verbatim}
+# --- GEOCHEM ACCELERATION -------------------------------------
+gl_ctrl_update_pCO2=.true.
+ma_gem_notyr_min=10
+ma_gem_notyr_max=10
+ma_gem_yr_min=90
+ma_gem_yr_max=90
+ma_gem_dyr=0
+ma_gem_adapt_auto=.false.
+\end{verbatim}\normalsize\vspace{-1mm}
+Here, this specifies that you would like to spend only \(10\) years of full updating of the model for each \(90\) years spent in an accelerated calculation which treats the entire ocean as if it were a single geochemical reservoir (see: \textit{Lord et al.} [2015]) -- an almost \(10:1\) acceleration and reduction in experiment run-time. (But note that the ocean circulation and ocean carbon and nutrient cycles will appear to be taking longer to come to equilibrium because they are only being fully updated \(10\) years in every \(100\).
+
+Note that this acceleration is good for spin-ups and determining equilibrium weathering-sedimentation states, but not so useful for transient \(CO_{2}\) changes (see in \textit{Lord et al.} [2015] for how a less acceleration and adaptive setup had to be used). Similarly, acceleration is not so useful for varying orbits experiments.
+
+\vspace{1mm}
+\noindent\rule{4cm}{0.5pt}
+\vspace{2mm}
+
+\noindent A couple of different possible experimental investigations follow.\footnote{Note that in using the given \textit{user-config} settings, steady state is only reach after several 100 kyr (which is going to take a while, even at low resolution and with acceleration). Regardless of your assumptions regarding sea-floor bathymetry, you should find that atmospheric \(CO_{2}\) always reaches the same value.
+}
+\begin{enumerate}[noitemsep]
+
+\vspace{1mm}
+\item Firstly, you could simply test what happens if there is no sediment surface depth variability as compared to a configuration with depth (pressure) variability in sediment surface depth (and one that follows a modern-like distribution of depth vs. area). The science question would be something like -- how important is a distribution of ocean depths to setting the steady state alkalinity (or saturation) of the ocean? Or: in having an appreciable amount of shallower sea-floor where \(CaCO_{3}\) will be preserved and buried much more readily -- how much less saturated must the ocean as a whole become in order to balance weathering and sedimentation?
+\\F or this, you'll need 2 \textbf{muffingen} configurations, each with the same continental configuration, but one generated with random sediment depths, and one with a uniform depth.
+\\Simplest, but more tedious, is to run \textbf{muffingen} twice, with your  configuration settings files differing only in the value of \texttt{par\_sedsopt}. However, faster is to generate one configuration using the configuration template \textsf{\footnotesize EXAMPLE\_BLANK.m}, and then generate a 2nd one, using the 'k1' file generated by the first \textbf{muffingen} \textbf{muffin} generation. An example of creating a \textbf{muffin} configuration from a 'k1' file is: \textsf{\footnotesize EXAMPLE\_K1\_permian.m}. Basically, the only thing that changes between the first and second \textbf{muffingen} \textbf{muffin} generation, in addition to \texttt{par\_sedsopt}, is the value of \texttt{par\_gcm}, which changes from \texttt{''} (empty) in \textsf{\footnotesize EXAMPLE\_BLANK.m}, to \texttt{'k1'} in \textsf{\footnotesize EXAMPLE\_K1\_permian.m}.
+
+\vspace{1mm}
+\item As a variant on the above -- you might 'draw' a large and relatively shallow (e.g. 1 or 2 km depth)\ sea-floor plateau, run the model, and determine how much this has influenced ocean chemistry, at steady state (remembering to fun an experiment with no sea-floor plateau in a second experiment as a control).
+
+\vspace{1mm}
+\item How important is continental configuration and the position of the continents in controlling atmospheric \(CO_{2}\) via weathering?
+\\You might, for instance, create 2 different continental configurations in \textbf{muffingen}, both with the same cratonic (land surface) area, and explore whether you achieve a different steady state atmospheric \(CO_{2}\) depending on whether the continent is at the pole, or centered on the equator. Remember that the parameterized silicate weathering feedback acts to restore global mean surface air temperature over land, to the reference value.\footnote{Note that the simple weathering parameterization in \textbf{muffin} does not care how much land there is, only what the mean surface air temperature over that land is.} You might then guess the sign of the change in atmospheric \(CO_{2}\) given that the weathering will act to restore the polar and equatorial continental temperatures to the same value and it does that by causing atmospheric \(CO_{2}\) to change. (But perhaps the magnitude of the effect will be unexpected, which is why you need a model.)
+
+\end{enumerate}
+
+
+%------------------------------------------------
+
+\newpage
+
+%------------------------------------------------
+
+\section{Further ideas}
+
+You might further explore the role of weathering and sensitivity the sensitivity of atmospheric \(pCO_{2}\) and climate to the strength  of the weathering feedback as well as to the assumed rate of volcanic \(CO_{2}\) outgassing, as well as how the products of weathering on land are accommodated through the burial (and pattern of burial) of \(CaCO_{3}\) in deep-sea sediments.
+Parameters of ‘interest’ here, i.e. ones that you might adjust to explore the silicate weathering feedback and long-term controls on atmospheric \(pCO_{2}\), are listed under \texttt{\# --- WEATHERING ---}) in the \textit{user-config}, and include:
+\vspace{1mm}
+\begin{itemize}[noitemsep]
+\item \texttt{rg\_par\_outgas\_CO2} -– the global \(CO_{2}\) outgassing rate in units of \(mol yr^{-1}\).
+\item \texttt{rg\_par\_ref\_T0} -– the reference land surface temperature for weathering (units of \(^{\circ} C\)).
+\end{itemize}
+\vspace{1mm}
+
+In \textbf{muffin}, global weathering rates will increase or decrease depending on whether the mean global surface temperature (which is reported and saved in \textbf{BIOGEM} \textit{time-series} output file: \textsf{\footnotesize biogem\_series\_misc\_SLT.res}). So, if you increase the reference temperature, weathering rates will drop and \(CO_{2}\) will accumulate in the atmosphere until the Earth was warmed sufficient that the mean global land surface temperature again matches the reference temperature. And \textit{vice versa} for the case of reducing the reference temperature. Maybe try a pair of experiments (plus a control in which you do not adjust the reference temperature) in which you adjust the value of \texttt{rg\_par\_ref\_T0} both up and down, to confirm this.
+
+Conversely, increasing or decreasing the rate of \(CO_{2}\) outgassing should also act to increase or decrease, respectively, global temperatures (at steady state). Another pair of experiments (plus a 3rd, control) would be to try increasing and decreasing the value of \texttt{rg\_par\_outgas\_CO2}.
+
+Now ... one problem concerns the time it is going to take the system to re-equilibrate to e.g. a different value of \(CO_{2}\) outgassing. For example, in \textit{Greene et al.} [2019]\footnote{ Greene, S.E., A. Ridgwell, S. Kirtland Turner, D.N. Schmidt, H. Pälike, E. Thomas, L.K. Greene, and B.A.A. Hoogakker, Early Cenozoic Decoupling of Climate and Carbonate Compensation Depth Trends, Paleoceanography and Paleoclimatology, 10.1029/2019PA003601 (2019).} (and in the Supporting Information data table S1 for the paper), you'll see time-series of the adjustment of atmospheric \(pCO_{2}\) in response to a change in outgassing rate. And then see it is a ca. 2 Myr time-scale to equilibrium ...
+
+Help is at hand! And if you read the earlier fake world section, you can accelerate the time-to-equilibrium for systems such as these. Simply add, to your \textit{user-config}:
+
+\vspace{-1mm}\small\begin{verbatim}
+# --- GEOCHEM ACCELERATION -------------------------------------
+gl_ctrl_update_pCO2=.true.
+ma_gem_notyr_min=10
+ma_gem_notyr_max=10
+ma_gem_yr_min=990
+ma_gem_yr_max=990
+ma_gem_dyr=0
+ma_gem_adapt_auto=.false.
+\end{verbatim}\normalsize\vspace{-1mm}
+Following \textit{Greene et al.} [2019] and as per the example \textit{user-config} files associated with this which can be found in: \textsf{\footnotesize genie-userconfigs/MS/greeneetal.2019} -- this specifies that you would like to spend only \(10\) years of full updating of the model for each \(990\) years spent in an accelerated calculation which treats the entire ocean as if it were a single geochemical reservoir (see: \textit{Lord et al.} [2015]) -- an almost \(100:1\) acceleration and reduction in experiment run-time. (But note that the ocean circulation and ocean carbon and nutrient cycles will appear to be taking longer to come to equilibrium because they are only being fully updated \(10\) years in every \(1000\).
+
+\vspace{1mm}
+\noindent\rule{4cm}{0.1mm}
+\vspace{2mm}
+
+\noindent Another pair of important controls on the preservation and burial of \(CaCO_{3}\) in marine sediments (but not one that ultimately at steady state, affects \(CO_{2}\) and climate), are the fluxes of \(CaCO_{3}\) and  organic carbon (POC) to the sediment surface.
+
+All other things being equal -- increasing the export of \(CaCO_{3}\) and hence flux to the sediment surface requires that fraction of \(CaCO_{3}\) that dissolves increases at steady state. In other words -- instantaneously increasing the flux to the sediments of \(CaCO_{3}\) will increase burial relative to the weathering flux. The excess sink of \(CaCO_{3}\) will act to lower DIC and ALK (and \(Ca^{2+}\)), lowering the carbonate saturation state of the ocean, and reducing the preservation of \(CaCO_{3}\). This will continue up to the point where the preservation and burial of \(CaCO_{3}\) once again balances weathering.
+
+An interesting question is what happens to atmospheric \(CO_{2}\). Ultimately it must return to its initial value due to the silicate weathering feedback. However, this occurs on a long (ca. 200 kyr) time-scale, whereas an imbalance between \(CaCO_{3}\) weathering and burial can act to change ocean chemistry on much shorter (1-10 kyr) time-scales. To explore this, you can adjust the parameter that sets the ratio of \(CaCO_{3}\) to POC export -- having the effect of changing the \(CaCO_{3}\) flux to the sediments whilst keeping everything else (almost) in the ocean carbon cycle invariant. The parameter is:
+\vspace{-1mm}\small\begin{verbatim}
+bg_par_bio_red_POC_CaCO3=0.200
+\end{verbatim}\normalsize\vspace{-1mm}
+Adjusting this value higher will increase the global export of \(CaCO_{3}\) from the surface ocean.
+
+It is much more difficult to adjust the POC flux independent of \(CaCO_{3}\) (i.e. keeping the global \(CaCO_{3}\) flux invariant) because of the way muffin parameterizes biological \(CaCO_{3}\) export as a function of POC export. Without perturbing the ocean \(PO_{4}\) and hence productivity and carbon cycling too much, you can shift slightly more or less POC to a form that is assumed to reach the sediment surface without degradation -- i.e. increasing this fraction results in a higher proportion of exported POC reaching the sediment surface, and reducing the fraction decreases the POC flux to the sediments and hence organic matter available to help drive \(CaCO_{3}\) dissolution. This parameter is:
+\vspace{-1mm}\small\begin{verbatim}
+bg_par_bio_remin_POC_frac2=6.4591110E-02
+\end{verbatim}\normalsize\vspace{-1mm}
+Here, by default, just 0.065, or \(6.5\%\) of organic matter exported from the surface ocean always reaches the sediment surface unaltered. (In addition, and particularly at shallowed ocean floor depths, some of the other \(93.5\%\) can also reach the sediment surface. See \textit{Ridgwell et al.} [2007].)
+
+\vspace{1mm}
+\noindent\rule{4cm}{0.1mm}
+\vspace{2mm}
+
+\noindent You might ... investigate other facets of the nature of the relationship between ocean and sediments (and weathering) as how climatic (biogeochemical) signals are encoded in the marine geological record. For instance, you could explore the effect/importance of sediment ‘bioturbation’ (e.g. see \textit{Ridgwell} [2007]). Whether the surface sediment layers are bioturbation or not is set by the parameter:
+\vspace{-1mm}\begin{verbatim}
+sg_ctrl_sed_bioturb=.true.
+\end{verbatim}\vspace{-1mm}
+Simply change to \texttt{.false.} in order to ‘turn off’ bioturbation. What happens if you then run a \(CO_{2}\) release experiment? How is the sediment signal different?
+
+\vspace{1mm}
+\noindent\rule{4cm}{0.1mm}
+\vspace{2mm}
+
+\noindent Rather than driving an initial dissolution of \(CaCO_{3}\) in deep sea sediments, the opposite response -- increased rather than decreased \(CaCO_{3}\) preservation -- can be obtained by removing \(CO_{2}\) from the atmosphere. This can be implemented by a negative rather than positive emissions scaling in the \textit{user-config} (of in the \textit{forcing} itself). BE CAREFUL here, as for a pre-industrial atmosphere with 278 ppm \(CO_{2}\), you do not have a lot more than \(\backsim600 PgC\) in there (the atmosphere) to begin with. So either: remove less than \(600 PgC\), or remove the carbon over rather little longer than 1 year.
+
+Again – view the time-series of ocean composition (e.g. DIC, ALK, \(\delta^{13} C\)) as a function of time, plus mean sediment surface composition (\(wt\% CaCO_{3}\)). Also view the sediment ‘cores’ and hence what in practice has been incorporated into accumulating sediments as a record of what is a very sharp perturbation at the ocean surface (and atmosphere).
+
+How  is an event characterized by \(CO_{2}\) removal from the system recorded differently from one characterized by \(CO_{2}\) release? Are there different implications for constructing core age-scales and chronology, e.g. where in (core) ‘time’ does the excursion maximum appear to lie? Do all sediment locations show identical responses (i.e. does it matter what the initial \(wt\% CaCO_{3}\) is?).
 
 %----------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------
