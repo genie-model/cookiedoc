@@ -25,44 +25,44 @@ You will need the following \textit{re-starts} files prior to embarking on the e
 
 \begin{itemize}[noitemsep]
 \vspace{2mm}
-\item [7.1] This is the basic single (\(PO_{4}\)) nutrient biological export scheme configuration.
+\item [6.1] This is the basic single (\(PO_{4}\)) nutrient biological export scheme configuration.
 \vspace{-1mm}\small\begin{verbatim}
 $ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
-muffin.CB.p_worbe2.BASES.ridgwelletal.SPIN.tar.gz
+cookie.CB.p_worbe2.BASES.ridgwelletal.SPIN.tar.gz
 \end{verbatim}\normalsize\vspace{-1mm}
-\vspace{2mm}
-\item [7.2] A single (\(PO_{4}\)) nutrient biological export scheme but in a higher (vertical) resolution ocean.
-\vspace{-1mm}\small\begin{verbatim}
-$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
-muffin.CB.p_worjh2.BASES.caoetal.SPIN.tar.gz
-\end{verbatim}\normalsize\vspace{-1mm}
-World Ocean\ Atlas modern (\(PO_{4}\)) climatology (re-gridded/interpolated observations), re-gridded to the same ocean grid as \textsf{\footnotesize EXAMPLE.worjh2.Caoetal2009.SPIN}
-\vspace{-1mm}\small\begin{verbatim}
-$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
-worjh2.p_an.200709.nc
-\end{verbatim}\normalsize\vspace{-1mm}
-World Ocean\ Atlas modern (\(O_{2}\)) climatology (re-gridded/interpolated observations), re-gridded to the same ocean grid as \textsf{\footnotesize EXAMPLE.worjh2.Caoetal2009.SPIN}
-\vspace{-1mm}\small\begin{verbatim}
-$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
-worjh2.o_an.200709.nc
-\end{verbatim}\normalsize\vspace{-1mm}
-\vspace{2mm}
-\item [7.3] 
-\small \begin{verbatim}
-$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
-muffin.CB.p_worjh2.BASES.crichtonetal.STND.SPIN.tar.gz
-$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
-muffin.CB.p_worjh2.BASES.crichtonetal.TDEP.SPIN.tar.gz
-\end{verbatim} \normalsize
-\vspace{2mm}
-\item [7.4] 
-\small\begin{verbatim}
-$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
-muffin.CB.p_worjh2.BASESFe.FeMIP.SPIN.tar.gz
-\end{verbatim}\normalsize
-\vspace{2mm}
-\item [7.5] 
-(as per for 7.4)
+%\vspace{2mm}
+%\item [6.2] A single (\(PO_{4}\)) nutrient biological export scheme but in a higher (vertical) resolution ocean.
+%\vspace{-1mm}\small\begin{verbatim}
+%$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
+%cookie.CB.p_worjh2.BASES.caoetal.SPIN.tar.gz
+%\end{verbatim}\normalsize\vspace{-1mm}
+%World Ocean\ Atlas modern (\(PO_{4}\)) climatology (re-gridded/interpolated observations), re-gridded to the same ocean grid as \textsf{\footnotesize EXAMPLE.worjh2.Caoetal2009.SPIN}
+%\vspace{-1mm}\small\begin{verbatim}
+%$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
+%worjh2.p_an.200709.nc
+%\end{verbatim}\normalsize\vspace{-1mm}
+%World Ocean\ Atlas modern (\(O_{2}\)) climatology (re-gridded/interpolated observations), re-gridded to the same ocean grid as \textsf{\footnotesize EXAMPLE.worjh2.Caoetal2009.SPIN}
+%\vspace{-1mm}\small\begin{verbatim}
+%$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
+%worjh2.o_an.200709.nc
+%\end{verbatim}\normalsize\vspace{-1mm}
+%\vspace{2mm}
+%\item [6.3] 
+%\small \begin{verbatim}
+%$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
+%cookie.CB.p_worjh2.BASES.crichtonetal.STND.SPIN.tar.gz
+%$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
+%cookie.CB.p_worjh2.BASES.crichtonetal.TDEP.SPIN.tar.gz
+%\end{verbatim} \normalsize
+%\vspace{2mm}
+%\item [6.4] 
+%\small\begin{verbatim}
+%$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
+%cookie.CB.p_worjh2.BASESFe.FeMIP.SPIN.tar.gz
+%\end{verbatim}\normalsize
+%\vspace{2mm}
+%\item [6.5] 
+%(as per for 6.4)
 \end{itemize}
 
 \vspace{2mm}
@@ -76,7 +76,7 @@ muffin.CB.p_worjh2.BASESFe.FeMIP.SPIN.tar.gz
 
 In this Chapter we'll step through some of the facets of the cycle of carbon (and nutrients) in the ocean -- the 'biological pump'. And then in a later section we'll look at the same processes but in a different way -- through the lens of 'geoengineering', and hopefully learn something further about how everything 'works' regardless of the desirability and or effectiveness, or not, of geoengineering.
 
-\textbf{muffin} incorporates a variety of options for simulating biological export production. To date, these have all been rooted in what is effectively a nutrient mass balance approach to estimating export production, nicely encapsulated by Ernst Maier-Reimer as: “\textit{conceptually not a model of biology in the ocean but rather a model of biogenically induced chemical fluxes [from the surface ocean]}” [\textit{Maier-Reimer,} 1993]. Hence in schemes of this nature -- which we will term ‘biogenic  flux’ schemes --  there is no attempt to explicitly account for changes in cell numbers/biomass and hence, nor zooplankton, which will impact a bias particularly in the seasonal time-dependent response of export. Previous biogenic flux schemes utilized in  \textbf{muffin}  considered a single nutrient (P limitation) only and took either restoring to observations [Cameron et al., 2005] or explicit P-limitation [Ridgwell et al., 2007a,b] approaches. More recently, additional limitation by iron (P+Fe) has been implemented, while nitrogen cycling (including N fixation and denitrification) and hence P+N limitation, has been implemented and explored in the context of extreme nutrient and oxygen cycle perturbation associated with the Cretaceous Oceanic Anoxic Events [Monteiro et al., 2012; Naafs et al., 2029]. Work currently in development includes the additional consideration of Si limitation (P+Si limitation) control on production of diatoms vs. non-diatoms following \textit{Ridgwell et al.} [2002].
+\textbf{cookie} incorporates a variety of options for simulating biological export production. To date, these have all been rooted in what is effectively a nutrient mass balance approach to estimating export production, nicely encapsulated by Ernst Maier-Reimer as: “\textit{conceptually not a model of biology in the ocean but rather a model of biogenically induced chemical fluxes [from the surface ocean]}” [\textit{Maier-Reimer,} 1993]. Hence in schemes of this nature -- which we will term ‘biogenic  flux’ schemes --  there is no attempt to explicitly account for changes in cell numbers/biomass and hence, nor zooplankton, which will impact a bias particularly in the seasonal time-dependent response of export. Previous biogenic flux schemes utilized in  \textbf{cookie}  considered a single nutrient (P limitation) only and took either restoring to observations [Cameron et al., 2005] or explicit P-limitation [Ridgwell et al., 2007a,b] approaches. More recently, additional limitation by iron (P+Fe) has been implemented, while nitrogen cycling (including N fixation and denitrification) and hence P+N limitation, has been implemented and explored in the context of extreme nutrient and oxygen cycle perturbation associated with the Cretaceous Oceanic Anoxic Events [Monteiro et al., 2012; Naafs et al., 2029]. Work currently in development includes the additional consideration of Si limitation (P+Si limitation) control on production of diatoms vs. non-diatoms following \textit{Ridgwell et al.} [2002].
 
 Overall, biological production and net export of particulate (POM) and dissolved (DOM) organic matter plus calcium carbonate (\(CaCO_{3}\)) are directly determined by the availability of nutrients (phosphate and/or total dissolved iron and/or \(NO^{2-}_{3}\) (and/or \(NH^{+}_{4}\)) and/or dissolved silica) together with the degree to which physical conditions, particularly light and temperature, are conducive to growth. DOM is remineralzied (transformed back to inorganic dissolved constituents) relatively rapidly (a ca. annual time-scale) and hence mostly at or close to the ocean surface, while POM is assumed to sink down into the ocean interior. See: \textit{Hülse at al.} [2017]\footnote{Hülse, D., S. Arndt, J.D. Wilson, G. Munhoven, and A. Ridgwell, Understanding the causes and consequences of past marine carbon cycling variability through models, Earth-Science Reviews 171, dx.doi.org/10.1016/j.earscirev.2017.06.004 (2017).} for a comprehensive review (esp. of implementation in models).
 
@@ -99,7 +99,7 @@ Note that a full description of the various biological and ocean interior remine
 \vspace{2mm}
 \item Firstly, it is worth noting, if you have not already, the summary text file: 
 \\\textsf{\footnotesize biogem\_year\_yyyy\_yyy\_diag\_GLOBAL\_AVERAGE.res}
-where \textsf{\footnotesize yyyy\_yyy} is the mid-point of the annual average year saved. Hence for the provided 10,000 year spin-up \\\textsf{\footnotesize muffin.CB.p\_worbe2.BASES.ridgwelletal.SPIN}, the file is: \\\textsf{\footnotesize biogem\_year\_09999\_500\_diag\_GLOBAL\_AVERAGE.res}. 
+where \textsf{\footnotesize yyyy\_yyy} is the mid-point of the annual average year saved. Hence for the provided 10,000 year spin-up \\\textsf{\footnotesize cookie.CB.p\_worbe2.BASES.ridgwelletal.SPIN}, the file is: \\\textsf{\footnotesize biogem\_year\_09999\_500\_diag\_GLOBAL\_AVERAGE.res}. 
 
 \vspace{1mm}
 Each of these files contains summary information associated with each \textit{time-slice}. Model properties that you might pay particular attention to includes:
@@ -281,29 +281,29 @@ The associated experiments would ideally be run for several thousand and maybe a
 
 \noindent All the experiments in this first subsection will start from the same \textit{re-start}\footnote{As per described in Ridgwell et al. [2007].} and are based on the same \textit{user-config}\footnote{The same \textit{user-config} as used to generate the \textit{re-start} (with the exception that the atmospheric \(CO_{2}\) concentration is no longer prescribed).}. To run an e.g. 100 year experiment (but it need not be this -- see above) using the template \textit{user-config} and provided \textit{re-start} would look like:
 \vspace{-1mm}\small\begin{verbatim}
-./runmuffin.sh muffin.CB.p_worbe2.BASES LABS ch07.1.8lvl.EXPT 
-   100 muffin.CB.p_worbe2.BASES.ridgwelletal.SPIN
+./runcookie.sh cookie.CB.p_worbe2.BASES LABS LAB.6.1.EXAMPLE 
+   100 cookie.CB.p_worbe2.BASES.ridgwelletal.SPIN
 \end{verbatim}\normalsize\vspace{-1mm}
-(When you run new experiments, remember to copy and rename the provided \textit{user-config} \textsf{\footnotesize ch07.1.8lvl.EXPT} in order to create new and unique experiments each time.)
+(When you run new experiments, remember to copy and rename the provided \textit{user-config} \\\textsf{\footnotesize LAB.6.1.EXAMPLE} in order to create new and unique experiments each time.)
 
 \vspace{1mm}
 
-Whatever you plan to do re. perturbation experiments to explore the working of the ocean's biological pump, the first thing to do, is to run a \textbf{control experiment} for however long you have decided to run all the actual experiment experiments for. (You need not wait for this to finish, but can submit it as a \textit{job} to the cluster and get on with running some real experiment experiments.) The control experiment can simply be derived (copied) from \textsf{\footnotesize ch07.1.8lvl.EXPT}, with no further alterations in parameter values needed. In this \textit{user-config}, the value of atmospheric  \(pCO_{2}\) is not prescribed (there is no \textit{forcing} defined) and hence \(pCO_{2}\) is free to respond to any change in parameters. In the case of the control -- there are no changes in the biological pump parameters compared to the \textit{spin-up}, so you should see no (or little) drift in \(pCO_{2}\) occurring. 
-A substantive drift in the control experiment (e.g. \(10s\) of \(ppm\) of \(CO_{2}\) in the atmosphere over 100 years) is your way of knowing that you have either used the wrong \textit{re-start} or have accidently modified key parameters in your control experiment \textit{user-config} compared to those used to generate the \textit{re-start}.
+Whatever you plan to do re. perturbation experiments to explore the working of the ocean's biological pump, the first thing to do, is to run a \textbf{control experiment} for however long you have decided to run all the actual experiment experiments for. (You need not wait for this to finish, but can submit it as a \textit{job} to the cluster and get on with running some real experiment experiments.) The control experiment can simply be derived (copied) from \textsf{\footnotesize LAB.6.1.EXAMPLE}, with no further alterations in parameter values needed. In this \textit{user-config}, the value of atmospheric  \(pCO_{2}\) is not prescribed (there is no \textit{forcing} defined) and hence \(pCO_{2}\) is free to respond to any change in parameters. In the case of the control -- there are no changes in the biological pump parameters compared to the \textit{spin-up}, so you should see no (or little) drift in \(pCO_{2}\) occurring. 
+A substantive drift in the control experiment (e.g. \(10s\) of \(ppm\) of \(CO_{2}\) in the atmosphere over 100 years) is your way of knowing that you have either used the wrong \textit{re-start} or have accidentally modified key parameters in your control experiment \textit{user-config} compared to those used to generate the \textit{re-start}.
 
 \vspace{1mm}
 Plan in advance  the output you want to view and make sure it is going to appear(!) In the \textit{user-config} -- check that the results/output select 'level' is going to give you the output you are expecting. In the example \textit{user-config}, this is specified by:
 \vspace{-1mm}\small\begin{verbatim}
 bg_par_data_save_level=7
 \end{verbatim}\normalsize\vspace{-1mm}
-(Refer to Section 14.4 and Appendix I, for more details on how different (2D and 3D) \textit{time-slice} variable fields and \textit{time-series} are selected to be included in the model output.)
+(Refer to Chapter 13 for more details on how different (2D and 3D) \textit{time-slice} variable fields and \textit{time-series} are selected to be included in the model output.)
 
 \vspace{1mm}
 Also note that in the example \textit{user-config} provided, netCDF time-slices are only saved at the very end (final annual average) of the model experiment, regardless of how long that is:
 \vspace{-1mm}\small\begin{verbatim}
 bg_par_infile_slice_name='save_timeslice_NONE.dat'
 \end{verbatim}\normalsize\vspace{-1mm}
-You may want to request more frequent saving of the spatial fields -- see Section 15.2 (nd 15.3).
+You may want to request more frequent saving of the spatial fields -- see Section 13.2 (and 13.3).
 
 %------------------------------------------------
 \newpage
@@ -377,13 +377,13 @@ Because (rightly or wrongly) in the model, \(CaCO_{3}\) depends on surface ocean
 \newpage
 %------------------------------------------------
 %
-\item While it is possible to add a freshwater 'hosing' forcing (as used in an earlier Chapter/exercise) to modify large-scale ocean circulation, there is a simpler way just to 'turn off' the AMOC in the standard modern continental configuration of \textbf{muffin}.
+\item While it is possible to add a freshwater 'hosing' forcing (as used in an earlier Chapter/exercise) to modify large-scale ocean circulation, there is a simpler way just to 'turn off' the AMOC in the standard modern continental configuration of \textbf{cookie}.
 
 \vspace{1mm}
 The consequence of using the simplified \textbf{EMBM} atmosphere in conjunction with no topography over land, is that the net moisture transport from the Atlantic to the Pacific in the real world, is not reproduced. (This net transport is primarily a consequence of the blocking of Westerly transport moisture across the North American continent by e.g. the Rockies, while low latitude Trade Winds travel relatively topographically unrestricted through Central America, meaning that moisture transport from the Pacific to North Atlantic is partly blocked, while the reverse lower latitude transport is now.) To correct for this, there is a built-in prescribed moisture transport (technically, a negative salinity transport), principally from the North Atlantic to the North Pacific. In the model, there is a scaling parameter for the magnitude this transport ... which can be set to zero ... hence removing the prescribed moisture transport and likely leading to a collapse of the AMOC.
 
 \vspace{1mm}
-To kill (collapse) (hopefully) the \textbf{AMOC} in the modern continental configuration of \textbf{muffin}, set:
+To kill (collapse) (hopefully) the \textbf{AMOC} in the modern continental configuration of \textbf{cookie}, set:
 
 \vspace{-1mm}\small\begin{verbatim}
 ea_28=0.0
@@ -412,18 +412,38 @@ Impacts may include (but not be limited to): ocean stratification (rapid warming
 \end{enumerate}
 
 %------------------------------------------------
-\vspace{1mm}
-\noindent\rule{4cm}{0.5pt}
-\vspace{2mm}
+\vspace{1mm} \noindent\rule{4cm}{0.5pt} \vspace{2mm}
 %------------------------------------------------
 
-\noindent And that pretty much wraps up all the main knobs that it is possible to play with using the very basic biological pump scheme in \textbf{muffin}. (However, a few further ideas follow ...)
+\noindent And that pretty much wraps up all the main knobs that it is possible to play with using the very basic biological pump scheme in \textbf{cookie}. (However, a few further ideas follow ...)
 
 %------------------------------------------------
 \newpage
 %------------------------------------------------
 
-\subsection{Further ideas}
+\subsection{Further experiment ideas}
+
+\noindent By default, the update and export in organic matter, of carbon, occurs in a fixed 'Redfield' ratio, with \(PO^{2-}_{4}\). The classical value is \(106\) (i.e., for every mole of \(PO^{2-}_{4}\) taken up from the ocean, \(106\) moles of \(CO_{2}\) are removed (and fixed into organic matter). The parameter determining this is:
+\vspace{-2mm}\small\begin{verbatim}
+bg_par_bio_red_POP_POC=106.0
+\end{verbatim}\normalsize\vspace{-2mm}
+To change the default value (106.0), simply add a new line at the end of the \textit{user-config} file specifying the value you want. A larger number means that \(PO_{4}\) is being utilized more efficiently and more organic matter is being produced for the same nutrient consumption.
+
+You should see impacts on atmospheric \(pCO_{2}\) and the oxygenation of the ocean interior form changing this.
+
+%------------------------------------------------
+\vspace{1mm} \noindent\rule{4cm}{0.5pt} \vspace{2mm}
+%------------------------------------------------
+
+\noindent To test the effect of there being more (or less) \(PO^{2-}_{4}\) in the ocean in the first place, it is possible to increase the inventory of the ocean as a whole follwing a re-start\textit{, }by:
+\vspace{-2mm}\small\begin{verbatim}
+bg_ocn_dinit_8=1.0E-6
+\end{verbatim}\normalsize\vspace{-2mm}
+which will add \(1\:\mu mol\:kg^{-1}\) of \(PO^{2-}_{4}\) uniformly to the ocean. (A larger/smaller number will obviously increase the glacial nutrient inventory by more/less. A negative number will remove \(PO^{2-}_{4}\).)
+
+%------------------------------------------------
+\vspace{1mm} \noindent\rule{4cm}{0.5pt} \vspace{2mm}
+%------------------------------------------------
 
 \noindent You might also play with the 'half saturtaion constant' for nutrient uptake (see \textit{Ridgwell et al.} [2007]):
 \vspace{-2mm}\small\begin{verbatim}
@@ -438,35 +458,7 @@ You might, for instance, try setting the value to zero, which assumes maximum gr
 Or, test an ocean dominated by assumed very large cell sizes and phytoplankton that struggle under anything other than fully eutrophic (high nutrient) conditions. e.g. you might try values of \(1.0 \mu mol \:kg^{-1}\) (\texttt{1.0E-06}) or even \(2.0 \mu mol \:kg^{-1}\) (\texttt{2.0E-06}) and see what happens, particularly to the pattern of surface nutrient concentrations and export.
 
 %------------------------------------------------
-\vspace{1mm}
-\noindent\rule{4cm}{0.5pt}
-\vspace{2mm}
-%------------------------------------------------
-
-\noindent By default, the update and export in organic matter, of carbon, occurs in a fixed 'Redfield' ratio, with \(PO^{2-}_{4}\). The classical value is \(106\) (i.e., for every mole of \(PO^{2-}_{4}\) taken up from the ocean, \(106\) moles of \(CO_{2}\) are removed (and fixed into organic matter). The parameter determining this is:
-\vspace{-2mm}\small\begin{verbatim}
-bg_par_bio_red_POP_POC=106.0
-\end{verbatim}\normalsize\vspace{-2mm}
-To change the default value (106.0), simply add a new line at the end of the \textit{user-config} file specifying the value you want. A larger number means that \(PO_{4}\) is being utilized more efficiently and more organic matter is being produced for the same nutrient consumption.
-
-You should see impacts on atmospheric \(pCO_{2}\) and the oxygenation of the ocean interior form changing this.
-
-%------------------------------------------------
-\vspace{1mm}
-\noindent\rule{4cm}{0.5pt}
-\vspace{2mm}
-%------------------------------------------------
-
-\noindent To test the effect of there being more (or less) \(PO^{2-}_{4}\) in the ocean in the first place, it is possible to increase the inventory of the ocean as a whole follwing a re-start\textit{, }by:
-\vspace{-2mm}\small\begin{verbatim}
-bg_ocn_dinit_8=1.0E-6
-\end{verbatim}\normalsize\vspace{-2mm}
-which will add \(1\:\mu mol\:kg^{-1}\) of \(PO^{2-}_{4}\) uniformly to the ocean. (A larger/smaller number will obviously increase the glacial nutrient inventory by more/less. A negative number will remove \(PO^{2-}_{4}\).)
-
-%------------------------------------------------
-\vspace{1mm}
-\noindent\rule{4cm}{0.5pt}
-\vspace{2mm}
+\vspace{1mm} \noindent\rule{4cm}{0.5pt} \vspace{2mm}
 %------------------------------------------------
 
 \noindent There is one more knob controlling organic matter export and cycling in the ocean that you could tweak and explore the effect of the assumption regarding how much organic matter produced is partitioned into particulate form that sinks, vs. dissolved, controlled by:
@@ -478,30 +470,19 @@ which specifies 66\% of organic matter production is diverted into dissolved for
 bg_par_bio_remin_DOMlifetime=0.5
 \end{verbatim}\normalsize\vspace{0mm}
 
-\vspace{4mm}
+%------------------------------------------------
+\vspace{1mm} \noindent\rule{4cm}{0.5pt} \vspace{2mm}
+%------------------------------------------------
 
 %------------------------------------------------
 \newpage
 %------------------------------------------------
-%
+
+\subsection{Further analysis ideas}
+
 \noindent In addition to the primary environmental properties of atmospheric \(pCO_{2}\) (and climate if you have the feedback enabled), biological export production (and hence the patterns and magnitude of of food sources for marine ecosystems), and dissolved oxygen, you might also look at how the patterns of carbon isotopes (\(\delta^{13}C\)) (particularly of \(DIC\)) change in the ocean. 
 
 How did the different changes in the biological pump that you tested, alter (if at all) the patterns of \(\delta^{13}C\) in the ocean? Can you distinguish between the different biological pump changes, based on \(\delta^{13}C\)? (Carbonate and organic carbon \(\delta^{13}C\) is a key paleoceanographic proxy and one people would ideally like to use in order to reconstruct changes in the past such as in the biological pump.)
-
-%------------------------------------------------
-\vspace{1mm}
-\noindent\rule{4cm}{0.5pt}
-\vspace{2mm}
-%------------------------------------------------
-
-\noindent You might also explore what biogeochemcial cycling (export fluxes and tracer distributions) looks like in the ocean in a higher vertical resolution and seasonal-forced, 16-level modern ocean circulation model configuration.
-
-To run a 100 year experiment (but note it is going to run much slower now ... so you might think of using the cluster queue\footnote{Because you are changing the \textit{base-config}, you will need to run the model at the command line for a few years first, in order to force it to recompile the code and account for the new (larger) array sizes.} or simply shortening the experiment duration) using the provided template \textit{user-config} template and \textit{re-start} would look like:
-\vspace{-1mm}\small\begin{verbatim}
-./runmuffin.sh muffin.CB.p_worjh2.BASES LABS ch07.1.16lvl.EXPT 
-   100 muffin.CB.p_worjh2.BASES.caoetal.SPIN
-\end{verbatim}\normalsize\vspace{-1mm}
-(And see next Section.)
 
 %------------------------------------------------
 \newpage
@@ -517,7 +498,7 @@ Key  to having any 'confidence' in both past and future biogeochemical (e.g. car
 \vspace{2mm}
 %------------------------------------------------
 
-\noindent As an example/practice in model-data comparison, the output of a higher vertical resolution ocean model simulation (\(16\) vs. the previous \(8\) levels in the ocean) -- \textsf{\footnotesize muffin.CB.p\_worjh2.BASES.caoetal.SPIN} -- is provided here (see \textbf{READ.ME} downloads) along with observations of the distributions of \([PO_{4}\)] and \([O_{2}\)] in the modern ocean. The latter (observations) are interpolated and re-gridded to a high (\(1\) degree in lon and lat) resolution grid and available as part of the World Ocean Atlas series of ocean climatologies (both physics and geochemical), and then re-gridded to the same \textbf{muffin} ocean grid as the provided (16 ocean level) experiment (which is the spin-up of \textit{Cao et al.} [2009]).
+\noindent As an example/practice in model-data comparison, the output of a higher vertical resolution ocean model simulation (\(16\) vs. the previous \(8\) levels in the ocean) -- \textsf{\footnotesize cookie.CB.p\_worjh2.BASES.caoetal.SPIN} -- is provided here (see \textbf{READ.ME} downloads) along with observations of the distributions of \([PO_{4}\)] and \([O_{2}\)] in the modern ocean. The latter (observations) are interpolated and re-gridded to a high (\(1\) degree in lon and lat) resolution grid and available as part of the World Ocean Atlas series of ocean climatologies (both physics and geochemical), and then re-gridded to the same \textbf{cookie} ocean grid as the provided (16 ocean level) experiment (which is the spin-up of \textit{Cao et al.} [2009]).
 
 \vspace{1mm}
 
@@ -534,19 +515,19 @@ You may (and ideally should!) have ideas/thoughts on 'why' the model and observa
 So far, both 8- (non-seasonal) and 16- (seasonally forced) level configurations have not account for the role of temperature in biological (metabolic) activity and rates of carbon transformation.
 
 \vspace{1mm}
-A pair of example configurations are provided for you as per published in \textit{Crichton et al.} [2021]\footnote{Crichton, K. A., J. D. Wilson, A. Ridgwell, P. N. Pearson, Calibration of temperature-dependent ocean microbial processes in the cGENIE.muffin (v0.9.13) Earth system model, GMD 10.5194/gmd-14-125-2021 (2021)}. 
+A pair of example configurations are provided for you as per published in \textit{Crichton et al.} [2021]\footnote{Crichton, K. A., J. D. Wilson, A. Ridgwell, P. N. Pearson, Calibration of temperature-dependent ocean microbial processes in the cGENIE.cookie (v0.9.13) Earth system model, GMD 10.5194/gmd-14-125-2021 (2021)}. 
 
 \begin{enumerate}[noitemsep]
 \vspace{1mm}
-\item Example \textit{user-config}: \textsf{\footnotesize EXP.7.3a} and re-start: \textsf{\footnotesize muffin.CB.p\_worjh2.BASES.crichtonetal.STND.SPIN}
+\item Example \textit{user-config}: \textsf{\footnotesize EXP.7.3a} and re-start: \textsf{\footnotesize cookie.CB.p\_worjh2.BASES.crichtonetal.STND.SPIN}
 \\which is the non temperature-dependent ('standard') control configuration of \textit{Crichton et al.} [2021]. (And basically the same as in \textit{Cao et al.} [2009].) 
 \vspace{1mm}
-\item Example \textit{user-config}: \textsf{\footnotesize EXP.7.3b} and re-start: \textsf{\footnotesize muffin.CB.p\_worjh2.BASES.crichtonetal.TDEP.SPIN}
+\item Example \textit{user-config}: \textsf{\footnotesize EXP.7.3b} and re-start: \textsf{\footnotesize cookie.CB.p\_worjh2.BASES.crichtonetal.TDEP.SPIN}
 \\which is the temperature-dependent (both biological uptake and water column remineralization) configuration. 
 \end{enumerate}
 
 \vspace{1mm}
-For both, the \textit{base-config} is the same: \textsf{\footnotesize muffin.CB.p\_worjh2.BASES}
+For both, the \textit{base-config} is the same: \textsf{\footnotesize cookie.CB.p\_worjh2.BASES}
 
 \vspace{1mm}
 \noindent One thing to do is simply to explore how the biogeochemical cycling (export flux magnitudes and patterns, nutrient and dissolved oxygen distributions at the surface and down through the water column) differs. You might then apply a warming perturbation by adjusting the scaling value for atmospheric \(pCO_{2}\) in the prescribed restoring \textit{forcing}:
@@ -586,8 +567,8 @@ Dust is important because mineral aerosols contain iron, primarily in the form o
 
 \noindent All experiments\footnote{Note the use of a different \textit{base-config} to previously.} in this section  start from the same \textit{re-start} and are based on the same \textit{user-config}\footnote{Remember to copy and rename the file \textsf{\footnotesize ch07.4.Fe.EXPT} in order to create new and unique experiments each time.}:
 \vspace{-1mm}\small\begin{verbatim}
-./runmuffin.sh muffin.CB.p_worjh2.BASESFe LABS ch07.4.Fe.EXPT
- 100 muffin.CB.p_worjh2.BASESFe.FeMIP.SPIN
+./runcookie.sh cookie.CB.p_worjh2.BASESFe LABS ch07.4.Fe.EXPT
+ 100 cookie.CB.p_worjh2.BASESFe.FeMIP.SPIN
 \end{verbatim}\normalsize\vspace{-1mm}
 This is effectively the iron cycle configuration used and evaluated in \textit{Tagliabue et al.} [2016]\footnote{Tagliabue, A., O. Aumont, R. DeAth, J.P. Dunne, S. Dutkiewicz, E. Galbraith, K. Misumi, J.K. Moore, A. Ridgwell, E. Sherman, C. Stock, M. Vichi, C. Völker, and A. Yool, How well do global ocean biogeochemistry models simulate dissolved iron distributions?, GBC DOI: 10.1002/2015GB005289 (2016).}.
 
@@ -690,7 +671,7 @@ bg_ctrl_force_det_Fe_sol=.true.
 # Filename for dust Fe solubility field
 bg_par_det_Fe_sol_file='worjh2.det_Fe_sol.MahowaldUNIFORMsol.dat'
 \end{verbatim}\normalsize\vspace{-1mm}
-which tells \textbf{muffin} to use a prescribed field of solubility values rather than calculating it, and then directs \textbf{muffin} to the file: \textsf{\footnotesize worjh2.det\_Fe\_sol.MahowaldUNIFORMsol.dat} containing the spatial pattern of solubility values.
+which tells \textbf{cookie} to use a prescribed field of solubility values rather than calculating it, and then directs \textbf{cookie} to the file: \textsf{\footnotesize worjh2.det\_Fe\_sol.MahowaldUNIFORMsol.dat} containing the spatial pattern of solubility values.
 
 \vspace{1mm}
 This file can be found in the directory: \textsf{\footnotesize genie-biogem/data/input} and can be edited to change (increase or decrease) the solubility of iron in dust in specific regions (hence changing the dissolved iron flux). 
@@ -726,7 +707,7 @@ Increasing or decreasing the iron input to different regions of the ocean surfac
 
 In the following experiments you are going to explore some of the ocean biological controls on atmospheric p\(CO_{2}\) (plus ocean acidification, and the distributions and intensities of oxygen minimum zones). Really, the ‘geoengineering’ focus is just an excuse to be looking at how the biological pump in the ocean works, how it regulates atmospheric p\(CO_{2}\), how sensitive it is to perturbation and what the consequences are of any changes in it. So if you are uncomfortable with ideas of large scale manipulating the Earth system, you might instead think about the relevance of the experiments to e.g. understanding why atmospheric p\(CO_{2}\) was low at the time of the last glacial.
 
-The overall idea of this Chapter is to run future \(CO_{2}\) emissions scenarios and test whether ocean carbon geoengineering is an effective means for reducing future ocean acidification and marine ecological impacts (but keeping in mind that you are also exploring the basic natural operation of the system in doing so). You will require a pre-industrial \textit{spin-up} and will first need to create a new historical p\(CO_{2}\) transient experiment because you are now using a different \textit{base-config} (\texttt{muffin.CB.p\_worjh2.BASESFe}) that includes additional tracers for the marine iron cycle, i.e. you cannot simply use any of the experiments from previous labs as a \textit{re-start}. e.g. refer to Section 14.6  for a guide as to what to ‘look for’ in the model results.
+The overall idea of this Chapter is to run future \(CO_{2}\) emissions scenarios and test whether ocean carbon geoengineering is an effective means for reducing future ocean acidification and marine ecological impacts (but keeping in mind that you are also exploring the basic natural operation of the system in doing so). You will require a pre-industrial \textit{spin-up} and will first need to create a new historical p\(CO_{2}\) transient experiment because you are now using a different \textit{base-config} (\texttt{cookie.CB.p\_worjh2.BASESFe}) that includes additional tracers for the marine iron cycle, i.e. you cannot simply use any of the experiments from previous labs as a \textit{re-start}. e.g. refer to Section 14.6  for a guide as to what to ‘look for’ in the model results.
 
 %------------------------------------------------
 \vspace{1mm}
@@ -736,8 +717,8 @@ The overall idea of this Chapter is to run future \(CO_{2}\) emissions scenarios
 
 \noindent To start with, go ahead and run a new historical transient experiment. A \textit{user-config} is provided for your convenience (\texttt{ch07.5.historical.EXPT}) … but maybe check the settings for e.g. start year, as well as note that there are a number of new parameters to control the iron cycle (amongst other differences) as compared to before:
 \vspace{-2pt}\begin{verbatim}
-$ ./runmuffin.sh muffin.CB.p_worjh2.BASESFe LABS
-   ch07.5.historical.EXPT 245 muffin.CB.p_worjh2.BASESFe.FeMIP.SPIN
+$ ./runcookie.sh cookie.CB.p_worjh2.BASESFe LABS
+   ch07.5.historical.EXPT 245 cookie.CB.p_worjh2.BASESFe.FeMIP.SPIN
 \end{verbatim}\vspace{-2pt}
 (ignore the ‘WARNING’s at the start)
 
@@ -751,7 +732,7 @@ $ ./runmuffin.sh muffin.CB.p_worjh2.BASESFe LABS
 
 The geoengineering (and control) experiments need to be run starting from the end of your historical transient experiment:
 \vspace{-2pt}\begin{verbatim}
-$ ./runmuffin.sh cgenie.eb_go_gs_ac_bg.worjh2.BASEFe LABS
+$ ./runcookie.sh cgenie.eb_go_gs_ac_bg.worjh2.BASEFe LABS
    LAB_4.EXAMPLE 90 LAB_4.historical
 \end{verbatim}\vspace{-2pt}
 Because with a modern configuration and additional tracers in the ocean, the model is running rather slower than in some earlier exercises, you may not want to run beyond the end of the century (hence the 90 year experiment duration, starting from year 2010, as suggested above).
@@ -921,7 +902,7 @@ There is no more to changing the pattern of the flux forcing than simply marking
 \item Don’t forget that different calcifying organisms employ different mineralogies (calcite vs. aragonite), with different saturation states and hence potentially susceptibility to ocean acidification. Hence thresholds of both aragonite and calcite saturation will be relevant, depending on the organism. Depending on the organism, saturation changes occurring in specific regions may much more relevant than a global mean change. Also, it might be the seasonal minimum value reached, rather than annual averaged minimum, that is critical.
 
 \vspace{1mm}
-\item Some of the arguments against some forms of ocean carbon geoengineering concern the potential for adverse impacts on marine organisms (and positive climate feedbacks) induced by decreases in the degree of oxygenation in the ocean, such as expanding and/or intensifying oxygen minimum zones. \textbf{muffin} saves 3D fields of \(O_{2}\) concentrations that can be plotted in slices through the ocean of various orientations.
+\item Some of the arguments against some forms of ocean carbon geoengineering concern the potential for adverse impacts on marine organisms (and positive climate feedbacks) induced by decreases in the degree of oxygenation in the ocean, such as expanding and/or intensifying oxygen minimum zones. \textbf{cookie} saves 3D fields of \(O_{2}\) concentrations that can be plotted in slices through the ocean of various orientations.
 
 \end{itemize}
 
@@ -943,7 +924,7 @@ ea_36=y
 Should you want to assess the impacts of geoengineering independently of changes in climate -- the option is there. (Note that under some of the high end \(CO_{2}\) emissions scenarios, there may be a degree of collapse of the AMOC that will presumably affect the patterns of ocean acidification and oxygenation etc.)
 
 \vspace{1mm}
-\item If you are having doubts that your experiment is actually ‘doing’ anything (different from the control) – remember to create anomaly maps (plots) to look for specific changes in e.g. saturation state, pH, or the water column inventory of anthropogenic \(CO_{2}\). Even before this – plot anomalies of the flux you think you have applied, looking specifically at the region you think you have applied it to. For this, \textbf{muffin} saves the 3D distributions of dissolved Fe and \(PO_{4}\). See Figures below.
+\item If you are having doubts that your experiment is actually ‘doing’ anything (different from the control) – remember to create anomaly maps (plots) to look for specific changes in e.g. saturation state, pH, or the water column inventory of anthropogenic \(CO_{2}\). Even before this – plot anomalies of the flux you think you have applied, looking specifically at the region you think you have applied it to. For this, \textbf{cookie} saves the 3D distributions of dissolved Fe and \(PO_{4}\). See Figures below.
 
 \vspace{1mm}
 \item Always be aware of the caveats regarding this specific model (and models in general) – how much does it different form the ‘real world’ for the modern ocean, particularly in terms of patterns of carbonate saturation? Does it even simulate anthropogenic \(CO_{2}\) uptake adequately in the first place?
@@ -956,11 +937,11 @@ Should you want to assess the impacts of geoengineering independently of changes
 \end{center}
 \caption{
 \textbf{Mean annual ocean surface saturation (aragonite) changes.}
-Top: pre-industrial model ocean surface saturation (aragonite) with ReefBase tropical coral reef locations re-gridded to the \textbf{muffin} grid and color-coded with modern observationally-based saturation values.
+Top: pre-industrial model ocean surface saturation (aragonite) with ReefBase tropical coral reef locations re-gridded to the \textbf{cookie} grid and color-coded with modern observationally-based saturation values.
 2nd and 3rd down: Year 1994 and 2010 ocean surface saturation (aragonite) with ReefBase reef locations.
 Bottom: Year 2010 ocean surface saturation (aragonite) under the A2 \(CO_{2}\) emissions scenario.
 The thick white line delineates the 3.25 saturation contour (inferred to reflect a limitation on corals).
-\textit{Examples here produced using \textbf{muffinplot} but equally do-able in \textbf{Panoply} with the exception of achieving a data overlay. These are provided simply to illustrate some of the impacts you might consider and possible ways of visualizing them.}
+\textit{Examples here produced using \textbf{cookieplot} but equally do-able in \textbf{Panoply} with the exception of achieving a data overlay. These are provided simply to illustrate some of the impacts you might consider and possible ways of visualizing them.}
 }
 \label{fig:chx-oaimpacts}
 \end{figure}
@@ -973,7 +954,7 @@ The thick white line delineates the 3.25 saturation contour (inferred to reflect
 \textbf{Ocean surface export (particulate organic carbon) and zonal \([O_{2}]\) anomalies.}
 Left: anomalies of global mean annual export production, for \(Fe\) fertilization (top), \(PO_{4}\) addition (middle), and ocean liming (bottom).
 Right: Zonal mean anomalies of dissolved \(O_{2}\) concentrations.
-\textit{Examples here produced using \textbf{muffinplot} but equally do-able in \textbf{Panoply} with the exception of achieving a data overlay. These are provided simply to illustrate some of the impacts you might consider and possible ways of visualizing them.}
+\textit{Examples here produced using \textbf{cookieplot} but equally do-able in \textbf{Panoply} with the exception of achieving a data overlay. These are provided simply to illustrate some of the impacts you might consider and possible ways of visualizing them.}
 }
 \label{fig:chx-geoengimpacts}
 \end{figure}
@@ -1009,7 +990,7 @@ Note that there may well be no simple parallel that can be found in geoengineeri
 \subsubsection*{Macro nutrient inventory and uptake}
 
 \vspace{2mm}
-Suggestions have been made that nutrients were used more efficiently during the LGM, meaning that for the same nutrient uptake at the surface more carbon was exported to depth in the ocean. See: \textit{Omta et al.} [2006]. There are also a bunch of (relatively old) hypotheses concerning differences between glacial and modern ocean in how much nitrate (\(NO^{-}_{3}\)) there was. There is no \(NO^{-}_{3}\) in this version of \textbf{muffin} (just \(PO_{4}\) and \(Fe\)), but an analogous change can be made to the phosphorous cycle.
+Suggestions have been made that nutrients were used more efficiently during the LGM, meaning that for the same nutrient uptake at the surface more carbon was exported to depth in the ocean. See: \textit{Omta et al.} [2006]. There are also a bunch of (relatively old) hypotheses concerning differences between glacial and modern ocean in how much nitrate (\(NO^{-}_{3}\)) there was. There is no \(NO^{-}_{3}\) in this version of \textbf{cookie} (just \(PO_{4}\) and \(Fe\)), but an analogous change can be made to the phosphorous cycle.
 
 For the nutrient-to-carbon ratio in organic matter, the relevant parameter is:
 \vspace{-1mm}\small\begin{verbatim}
@@ -1034,7 +1015,7 @@ In terms of geoengineering, changing the ‘Redfield’ ocean plankton might be 
 Kicked off by a classic 1994 \textit{Nature} paper by \textit{Archer and Maier-Reimer} (see: \textit{Kohfeld and Ridgwell} [2009]), one potential means of changing atmospheric \(CO_{2}\) naturally at the last glacial involves changes in the export ratio between \(CaCO_{3}\) (shells) and \(POC\) (particulate organic matter). Such a change in ratio could come about through a variety of ways (e.g., via the 'silica leakage hypothesis' (see: \textit{Kohfeld and Ridgwell} [2009]) and also through the direct effect of \(Fe\) on diatom physiology (see \textit{Watson et al.} [2000] in \textit{Nature} and also Supplemental Information). There are also ideas about an opposite ocean acidification effect, whereby the less acidic glacial (compared to modern) ocean led to increased calcification and \(CaCO_{3}\) export. Note that this response (higher saturation == greater rate of calcification) is encoded into your model configuration – see \textit{Ridgwell et al.} [2007b].
 
 \vspace{1mm}
-In \textbf{muffin}, the \(CaCO_{3}:POC\) rain ratio is controlled (technically: scaled) by the parameter:
+In \textbf{cookie}, the \(CaCO_{3}:POC\) rain ratio is controlled (technically: scaled) by the parameter:
 \vspace{-1mm}\small\begin{verbatim}
 bg_par_bio_red_POC_CaCO3=0.0485
 \end{verbatim}\normalsize\vspace{-1mm}
