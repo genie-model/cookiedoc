@@ -19,12 +19,15 @@ CARBON AND OTHER BIOGEOCHEMICAL CYCLES & FEEDBACKS
 PALEO
 
 10	Climates of Past Worlds
-11	Proxies and Biogeochemical Cycling in the Past	+	glacial CO2
-12	Synthesis: Earth System Dynamics
+11	Proxies and reconstructing past Earth system states
+
+MISC
+
+12	Synthesis: Global carbon cycling, past and future
 
 MODEL OUTPUT AND ANALYSIS
 
-13	muffin Model Output
+13	cookie Model Output
 14	Introduction to Results Analysis
 
 SUPPORTING SOFTWARE
