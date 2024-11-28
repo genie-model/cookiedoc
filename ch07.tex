@@ -10,7 +10,7 @@
 
 \hfill \break
 
-\noindent In the chapter we address the role and nature of marine (plankton) ecosystems.\footnote{Loosely based on original workshop material  devised by Ben Ward <b.a.ward@soton.ac.uk>}
+\noindent In the chapter we address the role and nature of marine (plankton) ecosystems.\footnote{Loosely based on original workshop material devised by Ben Ward <b.a.ward@soton.ac.uk>}
 
 \vspace{1mm}
 \textbf{muffin} includes an explicit ecosystem component, including primary and export production as well as plankton biomass -- \textbf{ECOGEM}\footnote{\href{https://doi.org/10.5194/gmd-2017-258}{\textit{Ward et al.} [2017]} -- Ward, B. A., Wilson, J. D., Death, R. M., Monteiro, F. M., Yool, A., and Ridgwell, A.: EcoGEnIE 0.1: Plankton Ecology in the cGENIE Earth system model, \textit{Geosci. Model Dev. Discuss.}, https://doi.org/10.5194/gmd-2017-258, 2017.} -- that is designed as an alternative option to the 'bioloigically induced export flux' representation of export production (\textbf{BIOGEM}). The ecological model takes what is known as a size-structured approach to representing diversity of function in marine ecosystems, and is flexible in being able to be configured to represent any range of size classes of phytoplankton and zooplankton (and/or mixotrophs).
@@ -29,13 +29,20 @@
 \section*{Read.me}
 
 \vspace{2mm}
-You will need a \textit{re-start} file to carry out the experiments in the Chapter:
-\small\begin{verbatim}
-$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
-muffin.CBE.p_worjh2.BASESFeTDTL.FeMIP.SPIN.tar.gz
-\end{verbatim}\normalsize
+We will use some of the non ecology-enabled, biogeochemical cycles \textit{restarts} from the previous Chapter (specifically: \textsf{\footnotesize cookie.CB.p\_worjh2.BASES.caoetal.SPIN} and \textsf{\footnotesize  cookie.CB.p\_worjh2.BASESFe.FeMIP.SPIN}).
 
-\noindent Extract the results in the usual way and in the usual place ... and return to \textsf{\footnotesize genie-main} in the usual way ... all ... as ... usual.
+\vspace{2mm}
+
+However, you will need to download:
+
+\begin{itemize}[noitemsep]
+\vspace{2mm}
+\item Observational data
+\vspace{-1mm}\small\begin{verbatim}
+$ wget --no-check-certificate http://www.seao2.info//cgenie/data/ ...
+     GEnIE_observations.nc
+\end{verbatim}\normalsize\vspace{-1mm}
+\end{itemize}
 
 %------------------------------------------------
 \newpage
@@ -43,14 +50,14 @@ muffin.CBE.p_worjh2.BASESFeTDTL.FeMIP.SPIN.tar.gz
 
 \section{Getting going with ECOGEM}
 
-Previously, you were running the standard 'biogeochemical' version of \textbf{muffin}\footnote{e.g. see \textit{Ridgwell et al.} [2007]}.  In \textbf{BIOGEM}, the biological pump is driven by an implicit (i.e. unresolved) biological community. As in the real ecosystem, the biological uptake of carbon and nutrients (such as phosphorus and iron) is limited by light, temperature and nutrient availability. However, unlike the real ecosystem, any uptake is \textit{directly} and \textit{instantly} converted to particulate and dissolved organic matter (POM, DOM) and exported to the ocean interior via (gravitational) settling and the ocean surface, respectively. i.e.
+Previously, you were running the standard 'biogeochemical' version of \textbf{cookie}\footnote{e.g. see \textit{Ridgwell et al.} [2007]}.  In \textbf{BIOGEM}, the biological pump is driven by an implicit (i.e. unresolved) biological community. As in the real ecosystem, the biological uptake of carbon and nutrients (such as phosphorus and iron) is limited by light, temperature and nutrient availability. However, unlike the real ecosystem, any uptake is \textit{directly} and \textit{instantly} converted to particulate and dissolved organic matter (POM, DOM) and exported to the ocean interior via (gravitational) settling and the ocean surface, respectively. i.e.
 \vspace{4mm}
 \begin{itemize}
 \item \underline{surface inorganic nutrients} $\xrightarrow[\rm and~export]{\rm production}$ \underline{POM and DOM}
 \end{itemize}
 \vspace{4mm}
 
-In contrast, in this chapter you we are going get started with the '\textbf{ECOGEM}' ecological modeling package\footnote{see: \href{https://doi.org/10.5194/gmd-2017-258}{\textit{Ward et al.} [2017]} -- Ward, B. A., Wilson, J. D., Death, R. M., Monteiro, F. M., Yool, A., and Ridgwell, A.: EcoGEnIE 0.1: Plankton Ecology in the cGENIE Earth system model, \textit{Geosci. Model Dev. Discuss.}, https://doi.org/10.5194/gmd-2017-258, 2017.}. This will allow us to extend the capabilities of \textbf{muffin} to examine a range of questions relating to the role of physiology and community structure in regulating the biological pump and hence atmospheric \(CO_{2}\) etc. In \textbf{ECOGEM}, biological uptake is again limited by light, temperature and nutrient availability ... but now it must pass through an explicit and dynamic intermediary plankton biomass pool before the net products of biological production can expressed as the production of POM and DOM:
+In contrast, in this chapter you we are going get started with the '\textbf{ECOGEM}' ecological modeling package\footnote{see: \href{https://doi.org/10.5194/gmd-2017-258}{\textit{Ward et al.} [2017]} -- Ward, B. A., Wilson, J. D., Death, R. M., Monteiro, F. M., Yool, A., and Ridgwell, A.: EcoGEnIE 0.1: Plankton Ecology in the cGENIE Earth system model, \textit{Geosci. Model Dev. Discuss.}, https://doi.org/10.5194/gmd-2017-258, 2017.}. This will allow us to extend the capabilities of \textbf{cookie} to examine a range of questions relating to the role of physiology and community structure in regulating the biological pump and hence atmospheric \(CO_{2}\) etc. In \textbf{ECOGEM}, biological uptake is again limited by light, temperature and nutrient availability ... but now it must pass through an explicit and dynamic intermediary plankton biomass pool before the net products of biological production can expressed as the production of POM and DOM:
 \vspace{4mm}
 \begin{itemize}
 \item \underline{surface inorganic nutrients} $\xrightarrow[]{\rm production}$ \underline{plankton biomass} $\xrightarrow[]{\rm export}$ \underline{POM and DOM}
@@ -73,12 +80,12 @@ Note that while the experimental configurations are based on those of \textit{Wa
 
 We will start with the simplest possible configuration of \textbf{ECOGEM}, with just a single (small) phytoplankton class\footnote{i.e. as if the ocean was populated with a small species of phytoplankton (photo-autotroph) and nothing else.}. Run this model at the command line (e.g. for 10 years), as follows:
 \vspace{-1mm}\small\begin{verbatim}
-$ ./runmuffin.sh muffin.CBE.p_worjh2.BASESFeTDTL LABS EXP.8.1 10 
-   muffin.CBE.p_worjh2.BASESFeTDTL.FeMIP.SPIN
+$ ./runcookie.sh cookie.CBE.p_worjh2.BASES LABS LAB.7.1.EXAMPLE 10 
+   cookie.CB.p_worjh2.BASES.caoetal.SPIN
 \end{verbatim}\normalsize\vspace{-1mm}
-(Here, you are using a new \textit{base-config} -- \textsf{\footnotesize muffin.CBE.p\_worjh2.BASESFeTDTL} -- identical to the iron-enabled configuration used in the previous Chapter, but now with the ecosystem model enabled.)
+(Here, you are using a new \textit{base-config} -- \textsf{\footnotesize cookie.CBE.p\_worjh2.BASES} -- identical to the 16-level phosphorous-only biogeochemical configuration used in the previous Chapter, but now with the ecosystem model enabled (the '\textsf{\footnotesize E}' in '\textsf{\footnotesize cookie.CBE.p\_worjh2.BASES}').)
 
-The model will run as before ... except much slower ... :( ... as \textbf{muffin} has to calculate plankton growth and ecological interactions in addition to everything else it did previously.
+The model will run as before ... except much slower ... :( ... as \textbf{cookie} has to calculate plankton growth and ecological interactions in addition to everything else it did previously.
 
 %------------------------------------------------
 \newpage
@@ -122,16 +129,16 @@ Models are intended as an (as close as possible) approximation of the real world
 \vspace{1mm}
 \begin{enumerate}[noitemsep]
 \vspace{1mm}
-\item You can download a compilation of key biogeochemical variables (as \textbf{netCDF} files) from the \textsf{\footnotesize mymuffin} \href{http://www.seao2.info/cgenie/data/GEnIE_observations.nc}{webpage} ('\textit{Observations for ECOGEM}').
+\item You can download a compilation of key biogeochemical variables (as \textbf{netCDF} files) from the \textsf{\footnotesize mycookie} \href{http://www.seao2.info/cgenie/data/GEnIE_observations.nc}{webpage} ('\textit{Observations for ECOGEM}').
 \vspace{1mm}
 \item You can open the \textsf{\footnotesize GEnIE\_observations.nc} file in \textbf{Panoply} in the same way as you opened the \textsf{\footnotesize fields\_ecogem\_2D.nc} file.
 \vspace{1mm}
 \item You can now compare the model output to a variety of key biogeochemical variables that have been derived from ocean measurements. The variables in the \textsf{\footnotesize GEnIE\_observations.nc} \textbf{netCDf} file include:
 \vspace{1mm}
 \begin{itemize}[noitemsep]
-\item T and S (not so interesting, except to e.g. evaluate how well \textbf{muffin} simulates different temperature regimes (and habitats)). 
+\item T and S (not so interesting, except to e.g. evaluate how well \textbf{cookie} simulates different temperature regimes (and habitats)). 
 \item DIC and ALK (ignore for the purpose of this chapter).
-\item Phosphate is of more interest -- how well does \textbf{muffin} simulate surface nutrient availability, and to what degree does ecosystem complexity help explain observations. 
+\item Phosphate is of more interest -- how well does \textbf{cookie} simulate surface nutrient availability, and to what degree does ecosystem complexity help explain observations. 
 \item Observed Chlorophyll is remote-sensed, and can be contrasted with the chlorophyll biomass simulated by \textbf{ECOGEM}.
 \end{itemize}
 \vspace{1mm}
@@ -147,21 +154,28 @@ You might visually compare model with observations, and/or e.g. create differenc
 
 \section{Ecosystem configuration}
 
-In the last section you ran a very simple configuration of the \textbf{ECOGEM} ecosystem model, and compared it to observations. In this section we are going to add a bit more ecological realism, with the aim of improving model performance (i.e. as contrasted against observations). We will start by adding a zooplankton population that  should bring a degree of `top-down' control to the phytoplankton population.
+In the last section you ran a very simple configuration of the \textbf{ECOGEM} ecosystem model, and compared it to observations. In this section we are going to add a bit more ecological realism, with the aim of improving model performance (i.e. as contrasted against observations). We will start by adding a zooplankton population that  should bring a degree of `top-down' control to the phytoplankton population. 
 \vspace{2mm}
 
-Details of the ecosystem are specified in the \textit{user-config} file: \textsf{\footnotesize EXP.8.1}
+First, in the \textit{user-config} file (\textsf{\footnotesize LAB.7.1.EXAMPLE}) note:
 
 \begin{enumerate}[noitemsep]
 
 \vspace{1mm}
-\item The \textit{user-config} file can be used to configure the ecological model to your liking. 
+\item \texttt{bg\_par\_bio\_prodopt="NONE"} -- which effectively disables the simple biological export scheme in \textbf{BIOGEM}, replacing it with the explicit biology of \textbf{ECOGEM}. This is a necessary step whenever running \textbf{ECOGEM}, because we do not want the implicit and explicit biological schemes to be implemented simultaneously ...
 
 \vspace{1mm}
-One of the most important amendments to note straight away can be seen near the very start:
-\\\texttt{bg\_par\_bio\_prodopt="NONE"}. This effectively disables the simple biological export scheme in \textbf{BIOGEM}, replacing it with the explicit biology of \textbf{ECOGEM}. This is a necessary step whenever running \textbf{ECOGEM}, because we do not want the implicit and explicit biological schemes to be implemented simultaneously ...
-\vspace{1mm}
-\item We can also see a load of other model parameters. Any that begin with `\texttt{bg\_}' correspond to \textbf{BIOGEM}, while `\texttt{eg\_}' corresponds to \textbf{ECOGEM}. The \textbf{ECOGEM} parameters begin further down the file.
+\item Any parameter name that begin with `\texttt{bg\_}' correspond to \textbf{BIOGEM}, while `\texttt{eg\_}' corresponds to \textbf{ECOGEM}. The \textbf{ECOGEM} parameters are in a block towards the end of the file.
+
+\end{enumerate}
+
+\vspace{2mm}
+
+Then: 
+
+\begin{enumerate}[noitemsep]
+\setcounter{enumi}{1}
+
 \vspace{1mm}
 \item One of the most important parameters specifies the \textit{ecosystem configuration} file:
 \vspace{0mm}
@@ -169,7 +183,7 @@ One of the most important amendments to note straight away can be seen near the 
 eg_par_ecogem_plankton_file ='NPD.eco'
 \end{verbatim}\normalsize
 \vspace{-0mm}
-This points to a file (located in \textsf{\footnotesize \textasciitilde{}/cgenie.muffin/genie-ecogem/data/input/}) that specifies every plankton population ('species', if you like) that is accounted for in the model experiment. 
+This points to a file (located in \textsf{\footnotesize \textasciitilde{}/cgenie.cookie/genie-ecogem/data/input/}) that specifies every plankton population ('species', if you like) that is accounted for in the model experiment. 
 
 \vspace{1mm}
 If you open that file in a text editor, you will see something akin to the following:
@@ -209,7 +223,7 @@ Plankton functional type one of: Prochlorococcus
 %------------------------------------------------
 
 \vspace{1mm}
-\item The first thing to note is that only the lines in between the \texttt{\small -START-OF-DATA-} and \texttt{\small -END-OF-DATA-} tags are read by the computer. The rest is there solely for your guidance.
+\item Note that only the lines in between the \texttt{\small -START-OF-DATA-} and \texttt{\small -END-OF-DATA-} tags are read by the computer. The rest is there solely for your guidance.
 
 \vspace{1mm}
 Each line that is entered in the computer-readable area tells the model to create a distinct plankton population in the model. The 'plankton functional type' of this population is specified in the first column, while the plankton diameter is specified in the second column. A '\texttt{1}' must always be placed in the third column\footnote{It doesn't 'do' anything, but the model still needs it ...  why ... WTF?}.
@@ -237,10 +251,10 @@ eg_par_ecogem_plankton_file ='NPZD.eco'
 \end{verbatim}\normalsize
 
 \vspace{1mm}
-\item Save the new \textit{user-config} file under a different name (e.g. \textsf{\footnotesize EXP.8.1.NPZD}). You can now execute the model at the command line\footnote{Don't forget to change the name of the \textit{user-config} file here as well ...} ...
+\item Save the new \textit{user-config} file under a different name (e.g. \textsf{\footnotesize LAB.7.2.NPZD}). You can now execute the model at the command line\footnote{Don't forget to change the name of the \textit{user-config} file here as well ...} ...
 \vspace{-1mm}\small\begin{verbatim}
-$ ./runmuffin.sh muffin.CBE.p_worjh2.BASESFeTDTL LABS EXP.8.1.NPDZ 10 
-   muffin.CBE.p_worjh2.BASESFeTDTL.FeMIP.SPIN
+$ ./runcookie.sh cookie.CBE.p_worjh2.BASES LABS LAB.7.2.NPDZ 10 
+   cookie.CB.p_worjh2.BASES.caoetal.SPIN
 \end{verbatim}\normalsize\vspace{-1mm}
 ... or submit it to the cluster queue ...
 
@@ -248,10 +262,10 @@ $ ./runmuffin.sh muffin.CBE.p_worjh2.BASESFeTDTL LABS EXP.8.1.NPDZ 10
 \item Once you have completed the new simulation, compare the new results to the old simulation, and also in terms of its ability to reproduce observations. Has the addition of zooplankton to the model improved its behaviour or not? Look also at the global distributions of carbon biomass in the phytoplankton and zooplankton populations (again, a log scale might help).
 
 \vspace{1mm}
-\textit{How have the zooplankton interacted with the phytoplankton to change the ecological dynamics in the model?}
+\textit{How have the zooplankton interacted with the phytoplankton to change the ecological dynamics in the model? Has global productivity (and export production) \textbf{increased} or \textbf{decreased}??}
 
 \vspace{1mm}
-Note that 10 years is clearly far far too short to accommodate any change in the global cycle of nutrients (can carbon and oxygen), but may be sufficient to see much of the impact of changing the assumed ecosystem structure. (You can always run for longer to judge for yourself on what time-scales what components of the Earth system adjust and hence what the 'ideal' (practical) run-time for changing the ecosystem structure might be.)
+10 years is clearly far far too short a time to accommodate any change in the global cycle of nutrients (and carbon and oxygen), but may be sufficient to see much of the impact of changing the assumed ecosystem structure. (You can always run for longer to judge for yourself on what time-scales what components of the Earth system adjust and hence what the 'ideal' (practical) run-time for changing the ecosystem structure might be.)
 
 \end{enumerate}
 
@@ -422,7 +436,7 @@ Have a look at some of these metrics, but bear in mind that they summarise the d
 \subsubsection{Create your own ecosystem}
 \vspace{1mm}
 
-Save the \textit{ecosystem configuration} file under a new name and add some more plankton populations (whatever and as many as you like\footnote{Just bear in mind that the more populations you put in, the slower the model will run!}). Update the \textbf{muffin} parameter \texttt{eg\_par\_ecogem\_plankton\_file} in the \textit{user-config} and save this file under a new name.  Run the new model.
+Save the \textit{ecosystem configuration} file under a new name and add some more plankton populations (whatever and as many as you like\footnote{Just bear in mind that the more populations you put in, the slower the model will run!}). Update the \textbf{cookie} parameter \texttt{eg\_par\_ecogem\_plankton\_file} in the \textit{user-config} and save this file under a new name.  Run the new model.
 
 \vspace{2mm}
 \noindent \textbf{Questions:}
@@ -732,7 +746,7 @@ What might happen to primary production and the biological pump as (future) clim
 There are all good questions for a model!
 
 \vspace{1mm}
-The best place to start is with the full complexity ecosystem structure with 8 size classes for both phytoplankton and zooplankton (as described in \textit{Ward et al.} [2018]), and continuing on from a \textit{re-start} of the pre-industrial ocean (and ecology): \textsf{\footnotesize muffin.CBE.p\_worjh2.BASESFeTDTL.FeMIP.SPIN}. For the \textit{user-config} -- you can either utilize one of the ones you created in earlier ecosystem experimenting, or adapt the  configuration used to create the \textit{re-start} \footnote{Remember to rename it so you do not overwrite the \textit{re-start} ...} -- \textsf{\footnotesize muffin.CBE.p\_worjh2.BASESFeTDTL.FeMIP.SPIN} which you can find in: \textsf{\footnotesize user-configs/EXAMPLES}. (The \textit{base-config} is as per you have been using in this Chapter -- \textsf{\footnotesize muffin.CBE.p\_worjh2.BASESFeTDTL}.) 
+The best place to start is with the full complexity ecosystem structure with 8 size classes for both phytoplankton and zooplankton (as described in \textit{Ward et al.} [2018]), and continuing on from a \textit{re-start} of the pre-industrial ocean (and ecology): \textsf{\footnotesize cookie.CBE.p\_worjh2.BASESFeTDTL.FeMIP.SPIN}. For the \textit{user-config} -- you can either utilize one of the ones you created in earlier ecosystem experimenting, or adapt the  configuration used to create the \textit{re-start} \footnote{Remember to rename it so you do not overwrite the \textit{re-start} ...} -- \textsf{\footnotesize cookie.CBE.p\_worjh2.BASESFeTDTL.FeMIP.SPIN} which you can find in: \textsf{\footnotesize user-configs/EXAMPLES}. (The \textit{base-config} is as per you have been using in this Chapter -- \textsf{\footnotesize cookie.CBE.p\_worjh2.BASESFeTDTL}.) 
 \vspace{2mm}
 
 Then:
@@ -848,7 +862,7 @@ bg_par_atm_force_scale_val_4=-27.0
 
 \section{Ecology in ... past oceans}
 
-Here we consider a series of examples\footnote{Either published or in the works or existing in some publication fantasy ...} of the \textbf{ECOGEM} model of marine ecology, applied to published paleo configuration of \textbf{muffin} and used to ask questions of how different could marine carbon cycling (and atmospheric \(pCO_{2}\)) and oxygenation have been in the (relatively recent) past and how do model projections compare with proxy observations.
+Here we consider a series of examples\footnote{Either published or in the works or existing in some publication fantasy ...} of the \textbf{ECOGEM} model of marine ecology, applied to published paleo configuration of \textbf{cookie} and used to ask questions of how different could marine carbon cycling (and atmospheric \(pCO_{2}\)) and oxygenation have been in the (relatively recent) past and how do model projections compare with proxy observations.
 
 Three examples come  from the Last Glacial Maximum, with direct comparison being made to post glacial time (here, the late Holocene), with the intention to explore the role of climate cooling, altered ocean circulation, and increased iron supply to the ocean in modifying plankton distributions and size structures. Secondly, from around the time of the Paleocene-Eocene Thermal Maximum (PETM) some 55 Myr ago, now both considering a different paleogeography, a warmer ocean, and then transient warming on top of that. And thirdly, marine ecology and carbon cycling in the aftermath of the impact and extinction event at the end of the Cretaceous, some 66 Myr ago, and return to our earlier exploration of what happens if you lose the larger plankton in the ocean.
 
@@ -860,7 +874,7 @@ Three examples come  from the Last Glacial Maximum, with direct comparison being
 
 The Last Glacial Maximum (LGM) (ca. 19 to 23 ka) was characterized by lower sealevel and higher ocean salinity, colder ocean temperatures, and a reorganized meridional overturning circulation in the Atlantic. The latter 2 changes in particular should have impacted marine ecosystems and indeed, observations suggest range migration (temperature-tracking) and shifts in the zone of highest productivity in the Southern Ocean, amongst other impacts. The aim of this particular investigation, is to assess what these ecological changes are (at least in model world).
 
-Provided is a configuration of LGM ocean circulation that has been tuned to fit observations of benthic carbon isotopes, which provide an observational constrain on large-scale ocean circulation. To this, you'll an ecosystem (in place of the default \textbf{BIOGEM} 'induced export' scheme). Also provided is a \textbf{muffin} configuration for late Holocene ('HOL') (0-6 ka), created in exactly the same way and also tuned to respective (0-6 ka) benthic carbon isotope data. Configuration HOL provides a point of comparison (or control) for you to compare the ecology in a colder, LGM ocean against.\footnote{i.e. you run pairs of HOL and LGM experiments and contrast between them, rather than necessarily comparing to previous modern configurations.}
+Provided is a configuration of LGM ocean circulation that has been tuned to fit observations of benthic carbon isotopes, which provide an observational constrain on large-scale ocean circulation. To this, you'll an ecosystem (in place of the default \textbf{BIOGEM} 'induced export' scheme). Also provided is a \textbf{cookie} configuration for late Holocene ('HOL') (0-6 ka), created in exactly the same way and also tuned to respective (0-6 ka) benthic carbon isotope data. Configuration HOL provides a point of comparison (or control) for you to compare the ecology in a colder, LGM ocean against.\footnote{i.e. you run pairs of HOL and LGM experiments and contrast between them, rather than necessarily comparing to previous modern configurations.}
 
 \vspace{1mm}
 
@@ -875,12 +889,12 @@ Spin up the following experiments  (and then experiment with them later)\footnot
 
 \vspace{1mm}
 \begin{itemize}[noitemsep]
-\item[(1)] \textsf{\footnotesize muffin.CB.GIteiiaa.BASESFeTDTL\_rb } \textit{base-config} \\+ \textsf{\footnotesize muffin.CB.GIteiiaa.BASESFeTDTL\_rb.SPIN } \textit{user-config}
-\item[(2)] \textsf{\footnotesize muffin.CB.GIteiiva.BASESFeTDTL\_rb } \textit{base-config} \\+ \textsf{\footnotesize muffin.CB.GIteiiva.BASESFeTDTL\_rb.SPIN } \textit{user-config}
+\item[(1)] \textsf{\footnotesize cookie.CB.GIteiiaa.BASESFeTDTL\_rb } \textit{base-config} \\+ \textsf{\footnotesize cookie.CB.GIteiiaa.BASESFeTDTL\_rb.SPIN } \textit{user-config}
+\item[(2)] \textsf{\footnotesize cookie.CB.GIteiiva.BASESFeTDTL\_rb } \textit{base-config} \\+ \textsf{\footnotesize cookie.CB.GIteiiva.BASESFeTDTL\_rb.SPIN } \textit{user-config}
 \end{itemize}
 \vspace{1mm}
 
-\noindent Submit these to the cluster ...  remembering that you will need to recompile \textbf{muffin} between (1) and (2) (and potentially also re-compile before running (1) if you have not  used that particular \textit{base-config} immediately prior). Run the spin-ups for 10,000 years.
+\noindent Submit these to the cluster ...  remembering that you will need to recompile \textbf{cookie} between (1) and (2) (and potentially also re-compile before running (1) if you have not  used that particular \textit{base-config} immediately prior). Run the spin-ups for 10,000 years.
 
 Neither of these configurations currently have an ecosystem enabled, but they will provide a baseline against which you can  contrast a pair of experiment that include explicit ecology. What you need to do know is to add in/enable \textbf{ECOGEM}. To do this, you need to modify both \textit{base-} and \textit{user-config} files of both the HOL and LGM model configurations.\footnote{Strongly recommended that that you copy-rename both sets of files and edit the copies.}
 
@@ -892,7 +906,7 @@ Neither of these configurations currently have an ecosystem enabled, but they wi
 \vspace{1mm}
 First, you need to enable the \textbf{ECOGEM} module.
 \vspace{1mm}
-\\At the top of the HOL \textit{base-config} file \textsf{\footnotesize muffin.CB.GIteiiaa.BASESFeTDTL\_Crb}\footnote{And similarly for the LGM one.} you will see the line:
+\\At the top of the HOL \textit{base-config} file \textsf{\footnotesize cookie.CB.GIteiiaa.BASESFeTDTL\_Crb}\footnote{And similarly for the LGM one.} you will see the line:
 \vspace{-2mm}\small\begin{verbatim}
 ma_flag_ecogem=.FALSE.
 \end{verbatim}\normalsize\vspace{-2mm}
@@ -919,13 +933,13 @@ bg_par_bio_prodopt="NONE"
 \end{verbatim}\normalsize\vspace{-1mm}
 The only other thing you need then is a section of code that defines all the \textbf{ECOGEM} ecological parameters.
 \vspace{1mm}
-\\ Go open file \textsf{\footnotesize muffin.CBE.p\_worjh2.BASESFeTDTL.FeMIP.SPIN}, which you can find in the \textit{user-config} sub-directory \textsf{\footnotesize MS/wardetal.2018}, and you'll see under the heading:
+\\ Go open file \textsf{\footnotesize cookie.CBE.p\_worjh2.BASESFeTDTL.FeMIP.SPIN}, which you can find in the \textit{user-config} sub-directory \textsf{\footnotesize MS/wardetal.2018}, and you'll see under the heading:
 \footnotesize\begin{verbatim}
 #
 # --- ECOGEM ----------------------------------------------------------
 #
 \end{verbatim}\normalsize
-a long list of parameter settings (down to the next section headed \texttt{DATA SAVING}). Simply copy-paste this entire section (including \texttt{ECOGEM} header lines if you like), anywhere in your \textit{user-config} file. At the very end of the file would do just fine.\footnote{Try and ensure that there is blank line at the very end of the file just in case \textbf{muffin} has any problems reading it in.}
+a long list of parameter settings (down to the next section headed \texttt{DATA SAVING}). Simply copy-paste this entire section (including \texttt{ECOGEM} header lines if you like), anywhere in your \textit{user-config} file. At the very end of the file would do just fine.\footnote{Try and ensure that there is blank line at the very end of the file just in case \textbf{cookie} has any problems reading it in.}
 
 \vspace{1mm}
 And lastly ... under:
@@ -970,7 +984,7 @@ You can also compare between with and without \textbf{ECOGEM} versions as the on
 \newpage
 \subsection*{Warm climates of the past}
 
-In this practical we are going to look at the ocean as it \textit{might} have been just over 55 million years ago, at the Paleocene-Eocene Thermal Maximum (PETM) -- in short a lot warmer, and with a somewhat different continental configuration and hence ocean circulation. The exercise is based on a recent 'ECOGENIE' (\textbf{muffin} configured to include \textbf{ECOGEM}) publication\footnote{Wilson, J.D., F.M. Monteiro, D.N. Schmidt, B.A. Ward, and A. Ridgwell, Linking marine plankton ecosystems and climate: A new modeling approach to the warm early Eocene climate, Paleoceanography and Paleoclimatology, 33, 1439–1452, DOI: 10.1029/2018PA003374 (2018).} which you should read first.
+In this practical we are going to look at the ocean as it \textit{might} have been just over 55 million years ago, at the Paleocene-Eocene Thermal Maximum (PETM) -- in short a lot warmer, and with a somewhat different continental configuration and hence ocean circulation. The exercise is based on a recent 'ECOGENIE' (\textbf{cookie} configured to include \textbf{ECOGEM}) publication\footnote{Wilson, J.D., F.M. Monteiro, D.N. Schmidt, B.A. Ward, and A. Ridgwell, Linking marine plankton ecosystems and climate: A new modeling approach to the warm early Eocene climate, Paleoceanography and Paleoclimatology, 33, 1439–1452, DOI: 10.1029/2018PA003374 (2018).} which you should read first.
 
 We are going to make the rather strong assumption that the ecosystem is structured according to exactly the same rules as in the modern ocean, and simply run the same ecological model configuration but in a new climate and ocean environment. However, because we don't really have any good (or any!) data constraints on the iron supply to the early Eocene ocean via e.g. dust, the ecological configuration does not include iron as a limiting nutrient. Bear that in mind when thinking about your results.
 
@@ -989,7 +1003,7 @@ Read the \textsf{\footnotesize readme.txt} file for instructions for the basic s
 \end{itemize}
 \vspace{1mm}
 
-\noindent Submit these to the cluster, but remember that you will need to recompile muffin between (1) and (3) (and re-compile before (1) if you have not been using the \textit{base-config} \texttt{muffin.CBE.worjh2.BASES} immediately prior to this). Run the spin-ups for 10,000 years.
+\noindent Submit these to the cluster, but remember that you will need to recompile cookie between (1) and (3) (and re-compile before (1) if you have not been using the \textit{base-config} \texttt{cookie.CBE.worjh2.BASES} immediately prior to this). Run the spin-ups for 10,000 years.
 
 \vspace{2mm}
 \noindent When you have completed the pair of spin-ups, see what you can diagnose and learn about how ecosystems and the spatial pattern of ecology and biological export differ between a colder modern ocean and the warmer Eocene ocean.
@@ -1129,7 +1143,7 @@ GOLDSTEINNTRACSOPTS='$(DEFINE)GOLDSTEINNTRACS=2'
 # list biogeochemical tracer initial values
 # <<<                                                             >>>
 \end{verbatim}\normalsize
-Go find the \textit{base-config} file \textsf{\footnotesize muffin.CBE.p0055c.BASES} in the \textsf{\footnotesize configs} sub-directory of \textsf{\footnotesize genie-main}. Copy all of the section headed
+Go find the \textit{base-config} file \textsf{\footnotesize cookie.CBE.p0055c.BASES} in the \textsf{\footnotesize configs} sub-directory of \textsf{\footnotesize genie-main}. Copy all of the section headed
 \footnotesize\begin{verbatim}
 # *******************************************************************
 # TRACER CONFIGURATION
@@ -1185,10 +1199,10 @@ bg_ctrl_force_ocn_age=.true.
 
 \section{EcoGEnIE 1.1}
 
-As outlined in the Sections: \textit{Choosing a template user-config} and \textit{Configuring muffin experiments}, a number of recommended changes to the configuration of \textbf{ECOGEM} as published by \textit{Ward et al.} [2018] (EcoGEnIE 1.0).
+As outlined in the Sections: \textit{Choosing a template user-config} and \textit{Configuring cookie experiments}, a number of recommended changes to the configuration of \textbf{ECOGEM} as published by \textit{Ward et al.} [2018] (EcoGEnIE 1.0).
 
 \vspace{1mm}
-These changes have been incorporated into an example \textit{user-config} (in the \textsf{\footnotesize genie-userconfigs } sub-directory \textsf{\footnotesize EXAMPLES}: \textsf{\footnotesize muffin.CB.worlg4.BASESFeTDTL.ECOGEM\_NEW.SPIN} (and paired with the \textit{base-config}: \textsf{\footnotesize muffin.CB.worlg4.BASESFeTDTL}), and are:
+These changes have been incorporated into an example \textit{user-config} (in the \textsf{\footnotesize genie-userconfigs } sub-directory \textsf{\footnotesize EXAMPLES}: \textsf{\footnotesize cookie.CB.worlg4.BASESFeTDTL.ECOGEM\_NEW.SPIN} (and paired with the \textit{base-config}: \textsf{\footnotesize cookie.CB.worlg4.BASESFeTDTL}), and are:
 
 \begin{itemize}[noitemsep]
 
@@ -1226,7 +1240,7 @@ which firstly, limits the maximum consumption of any particular reactant by a si
 \end{itemize}
 
 \vspace{1mm}
-\noindent For reference, the original (i.e. as per in \textit{Ward et al.} [2018]) but reformatted, user-config, is provided as: \textsf{\footnotesize muffin.CB.worlg4.BASESFeTDTL.ECOGEM\_NEW.SPIN} (also in the \textsf{\footnotesize genie-userconfigs} sub-directory \textsf{\footnotesize EXAMPLES}).
+\noindent For reference, the original (i.e. as per in \textit{Ward et al.} [2018]) but reformatted, user-config, is provided as: \textsf{\footnotesize cookie.CB.worlg4.BASESFeTDTL.ECOGEM\_NEW.SPIN} (also in the \textsf{\footnotesize genie-userconfigs} sub-directory \textsf{\footnotesize EXAMPLES}).
 
 %------------------------------------------------
 \newpage
