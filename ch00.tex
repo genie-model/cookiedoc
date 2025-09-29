@@ -21,9 +21,9 @@
 
 \begin{itemize}
 \item \textbf{(cGENIE.)cookie} is a \uline{model}. Models ARE NOT the ‘real World’. (Don’t get confused!)
-\item The  low resolution (for a 3-D ocean circulation model) of the \textbf{cookie} model limits its applicability for very short time-scale problems.\ In configurations not incorporating the \textbf{PLASIM} atmospheric GCM component, there is no atmospheric dynamics or inter-annual variability in the ocean-atmosphere coupled system.
-\item \textbf{cookie} is best thought of as a ‘discovery and exploring’ tool for learning how the Earth system (might) work rather than necessarily as a detailed ‘simulation’ tool.
-\item It is possible to have fun. (Once the installation pain is over ...)
+\item The  low resolution (for a 3-D ocean circulation model) of the \textbf{cookie} model limits its applicability for very short time-scale problems.\ In configurations not incorporating the \textbf{PLASIM} atmospheric GCM component, there are no atmospheric dynamics or inter-annual variability in the coupled ocean-atmosphere system.
+\item \textbf{cookie} is best thought of as a ‘discovery and exploring’ tool for learning how the Earth system has functioned in the past rather than a detailed ‘simulation’ tool for the future.
+\item It is possible to have fun.
 \end{itemize}
 
 %------------------------------------------------
@@ -45,13 +45,13 @@ This is because you will forget immediately each time! ;)
 
 \subsection*{Software version naming conventions}
 
-You will be using the current version of the cGENIE Earth system model, code-named ‘\textbf{cookie}’ (if \textbf{Apple} can have ‘Leopard’, ‘Lion’ etc., I can haz a baked goods version naming convention). The documentation may not be fully consistent in this respect … and you may need to translate occurrences of e.g. a directory named ‘\texttt{cgenie}’ to ‘\texttt{cgenie.cookie}’. For brevity, the \textbf{cGENIE.cookie} model will be referenced by just ‘\textbf{cookie}’.
+You will be using the current version of the cGENIE Earth system model, code-named ‘\textbf{cookie}’ (if \textbf{Apple} can have ‘Leopard’, ‘Lion’ etc., I can have a baked goods version naming convention). The documentation may not be fully consistent in this respect … and you may need to translate occurrences of e.g. a directory named ‘\texttt{cgenie}’ to ‘\texttt{cgenie.cookie}’. For brevity, the \textbf{cGENIE.cookie} model will be referenced by just ‘\textbf{cookie}’.
 
 %------------------------------------------------
 
 \subsection*{linux ...}
 
-The \textbf{(cGENIE.)cookie} model currently natively compiles and runs only under \textbf{linux}\footnote{For some of you, the mechanics of running the model will be about as much fun as sticking your tongue in an electrical outlet (a popular hobby in England). (However, if you are an experienced linux/unix/tongue-in-electrical-socket user, you can skip onto the next Section and save yourself an entire 15 seconds of reading words.)} (e.g. distributions such as \textbf{Ubuntu}) and unix-like operating systems (such as \textbf{macOS}). Furthermore, \textbf{cookie} has traditionally been configured and accessed (aka ‘run') at the ‘command line’ of the linux (or \textbf{macOS} equivalent, which is unix-like) operating system. The command line is a place where you type text and when you press \small\textsf{Return}\normalsize, something (hopefully, good!) happens. Typically the stuff you type started with a ‘command’ word, and often followed by one or more options and parameters. The command word and any options / parameters MUST be separated by SPACEs.
+The \textbf{(cGENIE.)cookie} model currently naively compiles and runs under \textbf{linux}\footnote{For some of you, the mechanics of running the model will be about as much fun as sticking your tongue in an electrical outlet (a popular hobby in England). (However, if you are an experienced linux/unix/tongue-in-electrical-socket user, you can skip onto the next Section and save yourself an entire 15 seconds of reading words.)} (e.g. distributions such as \textbf{Ubuntu}) and unix-like operating systems (such as \textbf{macOS}). \textbf{cookie} (like most climate models) is configured and accessed (aka ‘run') at the ‘command line’ of the linux (or \textbf{macOS} equivalent, which is unix-like) operating system. The command line is a place where you type text and when you press \small\textsf{Return}\normalsize, something (hopefully, good!) happens. Typically the stuff you type started with a ‘command’ word, and often followed by one or more options and parameters. The command word and any options / parameters MUST be separated by SPACEs.
 
 The start of each line of the command line is indicated with something like: \texttt{\$}. The \texttt{\$} is called the ‘prompt’ and is ... prompting you to type some input (commands, Tweets, swear words, etc.). See – the computer is just sat there waiting for you to command it to go do something (stupid?). Typically, you will also be informed (reminded) of the user-name, computer name, and current directory, e.g.:
 
@@ -69,9 +69,9 @@ The start of each line of the command line is indicated with something like: \te
 \end{verbatim}
 \vspace{-2mm}
 
-If you are not or not very familiar with the linux/unix command line, such as how to navigate up and down the directory tree and to display the contents of the current directory you are in – for a brief summary of some basic/useful \textbf{linux} commands and usage -- see HOW-TO Section \ref{how-to-linux} (page \pageref{how-to-linux}).
+If you are not or not very familiar with the linux/unix command line, such as how to navigate up and down the directory tree and to display the contents of the current directory you are in – for a brief summary of some basic/useful \textbf{linux} commands and usage -- see the linux HOW-TO Section towards the back of the book.
 
-NOTE: BE VERY CAREFUL that spaces are not missed out when typing out example lines. Also be careful not to confuse the number one (\texttt{1}) for the letter 'el' (\texttt{l}). Mis-spelling/typing will probably be the primary reason for any wailing and gnashing of teeth ...
+NOTE: BE VERY CAREFUL that spaces are not missed out when typing out example lines. Also be careful not to confuse the number one (\texttt{1}) for the letter 'el' (\texttt{l}). Mis-spelling/typing is generally the most likely reason for things not working.
 
 NOTE-the-second: If you find yourself terminally bored typing in long long instructions lines, you may be tempted to simply copy-paste from the cookie manual PDF to the command line, This can work, but firstly be aware that trying to copy-paste multiple lines at once is doomed to failure -- copy-paste the first line and then following that add the second (or subsequent) line.
 Also note that the inverted comma symbol in the PDF is not the same inverted comma symbol that linux is expecting ... You should also make liberal use of the up arrow key that bring back the previously entered command (keep pressing the key for progressively older commands). For instance, a mistake in a command line can be corrected by bringing back the offending line and using the left/right arrows to navigate through the characters and correct any mistake.
@@ -162,7 +162,7 @@ This (the \textbf{cookie} manual), and additional documentation (of varying degr
 
 \subsection*{This document in particular}
 
-The instructions  may not be entirely bug-free – use your judgment.
+The instructions  may not be entirely bug-free -– use your judgment.
 
 %------------------------------------------------
 
@@ -184,7 +184,7 @@ You are going to be installing the model from scratch – why? Why not? It will 
 
 In running \textbf{cookie} locally -- log into your \textbf{linux}/\textbf{macOS} box (and skip on to the next section)! \footnote{If you fail at this step, you'll have to take up box-modelling instead.}
 
-\noindent Or ... and much more likely to be the case -- if you are running \textbf{cookie} \uline{remotely} (e.g. on a user account on a computing cluster or server), then log into the remote server or cluster account using a 'suitable terminal program'\footnote{It very much depends on what software you are using. Provided are instructions for some \uline{examples}, but only examples, and your reality may be rather different.}:
+\noindent Or ... and much more likely to be the case -- if you are running \textbf{cookie} \uline{remotely} (e.g. via a user account on a computing cluster or server), then log into the remote server or cluster account using a 'suitable terminal program'\footnote{It very much depends on what software you are using. Provided are instructions for some \uline{examples}, but only examples, and your reality may be rather different.}:
 
 \begin{itemize}
 \vspace{1mm}
@@ -200,18 +200,18 @@ $ ssh username@clustername
 where \texttt{clustername}, the cluster (or remote server) name(!) might, for example, be
 \\\texttt{catname.ucr.edu}, and enter your  account password (and tell it whether or not you want this password stored, if asked).
 \vspace{1mm}
-\\\textbf{IMPORTANT!} -- When you type in a password in linux, NOTHING appears on the screen, not even \texttt{********} as in common on Windozs. As you type (the password), characters are being entered ... you just cannot see them. Don't panic -- just type in the password (even if you cannot see characters appearing) and hit \textsf{\scriptsize Enter}.
+\\\textbf{IMPORTANT!} -- When you type in a password in \textbf{linux}, NOTHING appears on the screen, not even \texttt{********} as in common on \textbf{Windoz}. As you type (the password), characters are being entered ... you just cannot see them. Don't panic -- just type in the password (even if you cannot see characters appearing) and hit \textsf{\scriptsize Enter}.
 
 \vspace{1mm}
 \item On a \textbf{Windoz} machine – first start the \textbf{WinSCP} program (an sftp file transfer client). Under \textsf{\footnotesize Host Name}, enter the remote server or cluster name (e.g. \texttt{catname.ucr.edu}):
-\\The \textsf{\footnotesize Port number} should be set to \textsf{\footnotesize 22} (except for \texttt{sterling.ucr.edu}). Enter your computing cluster user-name on the line below this (‘User Name’) and then the Password. Click on Login. This is your file transfer client.
+\\The \textsf{\footnotesize Port number} should be set to \textsf{\footnotesize 22} (except for \texttt{sterling.ucr.edu}). Enter your computing cluster user-name on the line below this (‘\textsf{\footnotesize User Name}’) and then the \textsf{\footnotesize Password}. Click on \textsf{\footnotesize Login}.
 \\You will also need a terminal window. This can be opened by clicking on the ‘\textsf{\footnotesize Open session in PuTTY}’ icon on the top icon row, or pressing \textsf{\footnotesize Ctrl+P}. \\You should now have TWO windows open – a ‘shell’ window (lines of text on an otherwise blank screen) and a file manager (transfer) window. Ensure that you have both these before moving on. It is recommended that you maximize both these windows to full screen. (But no-one will die horribly for not doing so. Probably ...).
 \\ You can also log in directly from the shell/terminal window e.g. \textbf{PuTTY} first (rather than first opening an sftp connection first).
  You will sill have to open an sftp connection for file transfer.
 \end{itemize}
 
 \vspace{1mm}
-Note that the cluster you access may not use the standard 'port' number of \textsf{\footnotesize 22}. For a different port number -- in a GUI interface (e.g. \textbf{WinSCP}) simply change the number in the port box, or at the command line, you will need to type:
+Note that the cluster you access may not use the standard 'port' number of \textsf{\footnotesize 22}. If your computer uses a different port number -- in the login window of your sftp client, simply change the number in the \textsf{\footnotesize Port} box, or if you are using the command line, you will need to type:
 \vspace{-1mm}
 \begin{verbatim}
 $ ssh -p xxxxx username@clustername
@@ -270,26 +270,27 @@ By doing this, you have created your own code repository (and an identical copy 
 \\ This is the default assumed platform. No changes are necessary IF the \textbf{netCDF} libraries are installed in their default locations and a relatively recent version of \textbf{netCDF} is used.\footnote{By 'relatively recent' -- the default settings assume that the \textbf{FORTRAN} and \textbf{C} \textbf{netCDF} libraries are separate.}
 
 \vspace{1mm}
-\item \textbf{sterling} (UCR cluster) -- no changes are necessary.
+\item \textbf{sterling} (UCR cluster) -- no changes are necessary (the cluster is automatically identified).
 
 \vspace{1mm}
-\item \textbf{eevee} (UCR cluster) -- no changes are necessary.
+\item \textbf{eevee} (UCR cluster) -- no changes are necessary (the cluster is automatically identified).
 
 \vspace{1mm}
 \item \textbf{macOS}
-\\ Please refer to the separate macOS instructions in Section \ref{how-to-macos}.
+\\ Please refer to the separate \textbf{macOS} instructions.
 
 \vspace{1mm}
-\item \textbf{windows} 
-\\ Please refer to the separate Windows instructions in Section \ref{how-to-windows}.
+\item \textbf{Windows} 
+\\ Please refer to the separate \textbf{Windoz} instructions.
 
 \vspace{1mm} 
 \item \textbf{Otherwise} ...
-\\... one or more edits will be required to the file \textsf{\footnotesize user.mak}, which lives in the \textsf{\small genie-main} directory.
+\\... one or more edits will be required to the file \textsf{\footnotesize user.mak}, which lives in the \textsf{\footnotesize genie-main} directory.
 
 \begin{enumerate}[noitemsep]
 \vspace{2mm}
-\item At the end of the \textsf{\small user.mak}, the \textbf{netCDF} path needs to be changed. 
+\item At the end of the \textsf{\footnotesize user.mak}, the \textbf{netCDF} path needs to be changed.
+\vspace{1mm}  
 \\First comment out\footnote{To 'comment out' a line -- simply add a \texttt{\#} symbol to the very start of the line. When \textbf{cookie} runs, this line will be ignored.}. i.e.,
 \small\begin{verbatim}
   ### DEFAULT ###
@@ -318,12 +319,7 @@ Then un-comment\footnote{To 'un-comment' a line -- simply remove (delete) the \t
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
-\noindent Finally, if your computer is configured to use python v.2 by default and/or does not have python v.3, such as \texttt{sterling} and \texttt{eevee} which were configured originally for \textbf{cgenie.muffin}, then you need to switch to a different branch of the code-base. From \textsf{\footnotesize cgenie.cookie}, type:
-
-\vspace{-2mm}
-\small\begin{verbatim}
-git checkout main.py2
-\end{verbatim}\normalsize
+\noindent If your computer is configured to use python v.2 by default and/or does not have python v.3, then you will need to make a few minor changes (see HOW-TO).
 
 %------------------------------------------------
 \newpage
@@ -335,27 +331,21 @@ git checkout main.py2
 
 \vspace{1mm} 
 \noindent First, change directory (see: Figure \ref{fig:directories}, and refer to the linux HOW-TO) to\footnote{Note: the model is *always* run from \texttt{cgenie.cookie/genie-main}}:
-\vspace{-2mm}
-\small\begin{verbatim}
+\vspace{-2mm}\begin{verbatim}
 cgenie.cookie/genie-main
-\end{verbatim}\normalsize
-\vspace{-2mm}
+\end{verbatim}\vspace{-2mm}
 
 \noindent If you are not ‘linux-friendly’ (see: Section \ref{how-to-linux} for \textbf{linux} basics) – maybe at first do this in steps – list the contents of the directory (\texttt{ls}) to check where you are (i.e. what directories are available to chance to), then change to \texttt{cgenie.cookie} (\texttt{cd cgenie.cookie}), then list again (\texttt{ls}) (and see what further directories are there), then change to \texttt{genie-main} (\texttt{cd genie-main}), and only then … type\footnote{Remembering that the \texttt{\$} is to indicate the command line, and you do not actually type it in.}:
-\vspace{-2mm}
-\small\begin{verbatim}
+\vspace{-2mm}\begin{verbatim}
 $ make testbiogem
-\end{verbatim}\normalsize
-\vspace{-2mm}
+\end{verbatim}\vspace{-2mm}
 
 \noindent This compiles a basic carbon cycle enabled configuration of \textbf{cookie} and runs a short test, comparing the results against those of a pre-run experiment (also downloaded alongside the model source code). It serves to check that you have the software environment correctly configured. There may be some ’Warnings’ reported (== somepony’s sloppy programming) but these are not detrimental to the ultimate science results (we hope!).
 \vspace{1mm}
 If you see the error message:
-\vspace{-2mm}
-\small\begin{verbatim}
+\vspace{-2mm}\begin{verbatim}
 make: *** No rule to make target 
-\end{verbatim}\normalsize
-\vspace{-2mm}
+\end{verbatim}\vspace{-2mm}
 when you try this, you are probably in the wrong directory (it should be \textsf{\footnotesize cgenie.cookie/genie-main}).
 
 %------------------------------------------------
@@ -384,18 +374,14 @@ when you try this, you are probably in the wrong directory (it should be \textsf
 
 \vspace{1mm}
 \noindent If the test doesn't 'work'\footnote{Note that if you have disabled the compilation of the C program that compares netCDf files, the test will run but never complete and you'll not get a \texttt{**TEST OK**} reported, even if the test experiment ran correctly.} -- try issuing the command:
-\vspace{-2mm}
-\small\begin{verbatim}
+\vspace{-2mm}\begin{verbatim}
 $ make cleanall
-\end{verbatim}\normalsize
-\vspace{-2mm}
+\end{verbatim}\vspace{-2mm}
 
 \noindent and then re-try the test. 
 
-Refer to the FAQ section at the end of this book for further clues as why the model installation appears not to be working.\
-
-\textbf{NOTE}: Currently, the netCDXF C library is not installed on the \texttt{eevee}
- cluster, meaning that the test experiment will run, but the comparison against a set of standard results will not. Hence it will appear to 'fail'.
+\vspace{1mm}
+Refer to the FAQ section at the end of this book for further clues as why the model installation appears not to be working.
 
 %------------------------------------------------
 \newpage
@@ -415,7 +401,7 @@ $ ./installcookie.sh
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
-\subsubsection*{Brief notes on git}
+\subsubsection*{Some brief notes on git}
 
 The simplest workable installation of \textbf{cookie}, as described above, is to use \texttt{git clone}. You end up with a carbon copy of the cookie code repo (I am too lazy to type out 'repository' again) which you have also automatically now 'checked out'. Changes and developments will occur to the code on the GitHub repo from time-to-time, and if may be that either you might benefit by using a more up-to-date code base, or specific changes may have been made that you absolutely need. To determine the status of your repo, type\footnote{Here, the -uno ensures that files (e.g. experiment configuration files) you have created, but not added and committed, are not listed.} (from \texttt{cgenie.cookie}):
 
@@ -462,7 +448,7 @@ If unlucky, there will be conflict as your stashed changed are merged back onto 
 %------------------------------------------------
 
 \begin{figure}
-\includegraphics[width=\linewidth]{directories.png}
+\includegraphics[width=\linewidth]{Figures.usermanual.1.png}
 \caption{Directory structure of the \textbf{cookie} model. Highlighted in \textcolor{red}{red} are directories and sub-directories that you will need to access at some point. Vertical \textcolor[rgb]{0,0.501961,0}{green} lines designate directory levels, with example commands shown for moving between them.}
 \label{fig:directories}
 \end{figure}
@@ -477,11 +463,9 @@ The overall sequence of configuring and running \textbf{cookie} (job submission 
 
 At the command-line (\texttt{\$}) and \uline{in the \textsf{\footnotesize genie-main} directory} (not your home directory), you will be entering in a command (\texttt{./runcookie.sh}) together with a list of parameters that will be passed to the model, and as if by magic the model will run (or sometimes not). The form of the command you are going to be issuing is:
 
-\vspace{-1mm}
-\begin{verbatim}
+\vspace{-1mm}\begin{verbatim}
 $ ./runcookie.sh #1 #2 #3 #4 (#5)
-\end{verbatim}
-\vspace{-1mm}
+\end{verbatim}\vspace{-1mm}
 
 \noindent(\uline{don't type it yet}!) It requires that you must list at least 4 parameters after \texttt{./runcookie.sh}, separated by S P A C E S and on a single continuous line (even if it ‘wraps’ around across 2 lines of the screen).
 These parameters are:
@@ -496,9 +480,9 @@ These parameters are:
 \item[\textbf{(\#5)}] ... There is also one optional (5th) parameter (to be described later).
 \end{enumerate}
 
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-\vspace{2mm}
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
 
 \noindent As an example of running the \textbf{cookie} Earth system model:
 
@@ -514,11 +498,9 @@ These parameters are:
 
 The full command for your first example experiment, which you are going to issue from the \texttt{\~}\texttt{/cgenie.cookie/genie-main} directory, then looks like:
 
-\vspace{-1mm}
-\begin{verbatim}
+\vspace{-1mm}\begin{verbatim}
 $ ./runcookie.sh cookie.CB.p_worbe2.BASES LABS LAB.0.3.EXAMPLE 10
-\end{verbatim}
-\vspace{-1mm}
+\end{verbatim}\vspace{-1mm}
 
 \noindent(\uline{you can try it now}!)
 
@@ -529,101 +511,119 @@ $ ./runcookie.sh cookie.CB.p_worbe2.BASES LABS LAB.0.3.EXAMPLE 10
 
 \textbf{ALSO -- take care not to confuse an el (‘\texttt{l}’) with a one (‘\texttt{1}’)  ... (it is a ‘one’ here).}
 
+%------------------------------------------------
 \newpage
+%------------------------------------------------
 
-\noindent What should happen is: First, you will end up twiddling your thumbs a while, as all the components of \textbf{cookie} are compiled from the raw source code (\textbf{FORTRAN}). When it has finished doing this, the model will initialize and carry out some brief self-checking. Only then will it start actually ‘running’ and doing something, starting with a header describing the columns of numbers that follow:
+\noindent What should happen is: First, you will end up twiddling your thumbs a while, as all the components of \textbf{cookie} are compiled from the raw source code (\textbf{FORTRAN}). When it has finished doing this, the model will initialize and carry out some brief self-checking. Only then will it start actually ‘running’ and doing something ... in this particular example, the output should look something like this:
 
-\vspace{1mm}
-\begin{itemize}
-\item[] \texttt{model year}  -- ... guess!
-\item[] \texttt{ice(\%)} -- global sea-ice fraction (\%)
-\item[] \texttt{<SST>} -- global sea surface temperature ('SST') $^{\circ}$C
-\item[] \texttt{<SSS>} -- global sea surface salinity ‘SSS’ (\%\textit{o})
-\end{itemize}
-\vspace{1mm}
-
-The choice of what information to display on screen as the model is running is rather arbitrary, but the chosen metrics do tend to summarize some of the main properties of the climate system and carbon cycle – for my own personal convenience rather than reflecting any fundamental scientific truth ... you may also see columns of information for:
-
-\vspace{1mm}
-\begin{itemize}
-\item[] p\(CO_{2}\)(uatm) -– mean atmospheric CO\(_{2}\) concentration (in units of \(\mu\)atm)
-\item[] \(\delta^{13}CO_{2}\)  – mean \(\delta^{13}C\) value of atmospheric CO\(_{2}\) (\%\textit{o}) (NOTE: only if \(^{13}C\) tracer is selected)
-\item[] \texttt{<DIC>} -- global mean ocean dissolved inorganic carbon (DIC) concentration (\(\mu\)mol kg-1)
-\item[] \texttt{<ALK>}   – global mean ocean alkalinity (ALK) concentration (\(\mu\)eq kg-1) and in experiments with a modern continental configuration, also:
-\item[] \texttt{AMO(Sv)} -- Atlantic meridional overturning circulation (Sv)
-\\(assuming that you have a modern continental configuration to even have an Atlantic ocean!)
-\end{itemize}
-\vspace{1mm}
-
-This information is reported at the same intervals as time-series data (see later and/or refer to the User Manual) is saved and is indicated by:
-
-\vspace{-2mm}
-\begin{verbatim}
->>> SAVING BIOGEM TIME-SERIES AVERAGE CENTERED @ year :
-\end{verbatim}
-\vspace{-2mm}
-
-Interleaved between these lines are lines reporting the saving of time-slice data (the 2- and 3-D model states – more of which later as well as in the User Manual). These appear as:
-
-\vspace{-2mm}
-\begin{verbatim}
->>> SAVING BIOGEM TIME-SLICE AVERAGE CENTERED @ year:
-\end{verbatim}
-\vspace{-2mm}
-
-You can stop the model at any point (all data up to that time will have been saved) by hitting: \textsf{\footnotesize <Ctrl-C>} (\textsf{\footnotesize CONTROL} key + ‘\textsf{\footnotesize C}’ key).
-
-Just from examining the screen output: how close to steady state does the system appear to have come after just 10 years? i.e., do SST and/or sea-ice extents appear to be converging towards stable (constant) values? This will be an important question to think about later on: ‘has the model reached steady-state (and does it matter)?’
-
-\newpage
-
-\noindent In this particular example, the output should look something like the following:
-
-\footnotesize
-\begin{verbatim}
+\vspace{-2mm}\tiny\begin{verbatim}
 
  *******************************************************
- *** Initialisation complete: simulation starting ...
+  *** Initialisation complete: simulation starting ...
  *******************************************************
 
-      model year  * pCO2(uatm)   d13CO2  *  AMO(Sv)  ice(%)   <SST>   <SSS>  *  <DIC>(uM)  <ALK>(uM)
+ >   model year |   pCO2(uatm)   SAT(oC) |   AMOC(Sv)    ice(%)   SST(oC)  SSS(PSU) |       pH  OHMEGA |   [O2](uM)  fPOC(PgC/yr)
 
- $N$        0.00       278.000   -6.500       0.000   0.000  -0.000  34.900      2244.000   2363.000
- >>> SAVING BIOGEM TIME-SLICE AVERAGE CENTERED @ year  :        0.500
- >>> SAVING BIOGEM TIME-SERIES AVERAGE CENTERED @ year :        0.500
- $N$        1.00       279.960   -6.598      13.613   0.744   2.509  34.901      2241.498   2363.111
- >>> SAVING BIOGEM TIME-SLICE AVERAGE CENTERED @ year  :        1.500
- >>> SAVING BIOGEM TIME-SERIES AVERAGE CENTERED @ year :        1.500
- $N$        2.00       279.525   -6.580      12.828   3.499   4.471  34.901      2240.173   2363.135
- >>> SAVING BIOGEM TIME-SERIES AVERAGE CENTERED @ year :        2.500
- $N$        3.00       279.258   -6.568      11.695   5.028   5.996  34.901      2239.169   2363.161
- >>> SAVING BIOGEM TIME-SERIES AVERAGE CENTERED @ year :        3.500
- $N$        4.00       279.044   -6.558      10.444   5.929   7.209  34.901      2238.354   2363.191
- >>> SAVING BIOGEM TIME-SLICE AVERAGE CENTERED @ year  :        4.500
- >>> SAVING BIOGEM TIME-SERIES AVERAGE CENTERED @ year :        4.500
- $N$        5.00       278.899   -6.551       9.380   6.191   8.156  34.902      2237.664   2363.220
- >>> SAVING BIOGEM TIME-SERIES AVERAGE CENTERED @ year :        5.500
- $N$        6.00       278.777   -6.545       8.500   6.623   8.975  34.902      2237.069   2363.246
- >>> SAVING BIOGEM TIME-SERIES AVERAGE CENTERED @ year :        6.500
- $N$        7.00       278.680   -6.541       7.922   6.629   9.637  34.903      2236.548   2363.267
- >>> SAVING BIOGEM TIME-SERIES AVERAGE CENTERED @ year :        7.500
- $N$        8.00       278.601   -6.537       7.917   6.738  10.225  34.903      2236.087   2363.285
- >>> SAVING BIOGEM TIME-SERIES AVERAGE CENTERED @ year :        8.500
- $N$        9.00       278.528   -6.534       7.952   6.740  10.732  34.904      2235.682   2363.301
+ >          0.5 |      285.042    -3.667 |     12.715     0.274     1.408    34.902 |    8.048   2.537 |    181.360        12.327
+ >          1.5 |      295.295    -2.531 |     13.189     2.126     3.450    34.902 |    8.079   2.896 |    191.671        12.636
+ >          2.5 |      302.383    -1.270 |     12.266     4.282     5.004    34.904 |    8.088   3.131 |    196.879        12.394
+ >          3.5 |      307.657    -0.274 |     11.020     5.525     6.214    34.906 |    8.093   3.318 |    199.930        12.216
+ >          4.5 |      311.667     0.628 |      9.831     6.037     7.185    34.908 |    8.096   3.469 |    201.861        12.096
+ >          5.5 |      314.811     1.437 |      8.876     6.387     7.987    34.910 |    8.099   3.597 |    203.157        11.994
+ >          6.5 |      317.299     2.150 |      8.091     6.628     8.667    34.911 |    8.101   3.707 |    204.047        11.899
+ >          7.5 |      319.290     2.782 |      7.872     6.673     9.256    34.913 |    8.103   3.800 |    204.669        11.822
+ >          8.5 |      320.852     3.342 |      7.886     6.734     9.773    34.914 |    8.105   3.882 |    205.073        11.742
  >>> SAVING BIOGEM TIME-SLICE AVERAGE CENTERED @ year  :        9.500
- >>> SAVING BIOGEM TIME-SERIES AVERAGE CENTERED @ year :        9.500
- $N$       10.00       278.466   -6.531       8.025   6.694  11.176  34.904      2235.325   2363.314
+ >          9.5 |      322.066     3.848 |      7.935     6.684    10.232    34.914 |    8.106   3.954 |    205.320        11.670
 
  *******************************************************
   *** Simulation complete: shutdown starting ...
  *******************************************************
 
-\end{verbatim}
-\normalsize
+\end{verbatim}\normalsize\vspace{-2mm}
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent What do all these numbers mean? From left-to-right:
+
+\vspace{1mm}\begin{itemize}
+\item[] \texttt{model year}  -- ... guess!
+\end{itemize}\vspace{1mm}
+
+\noindent Then:
+
+\vspace{1mm}\begin{itemize}
+\item[] p\(CO_{2}\)(uatm) -– mean atmospheric CO\(_{2}\) concentration (in units of \(\mu\)atm)
+\item[] \texttt{<SST>} -- global mean surface air temperature ('SAT') $^{\circ}$C
+\end{itemize}\vspace{1mm}
+
+Note that if you are not running an experiment without a carbon cycle, there will be no values for p\(CO_{2}\).
+
+\vspace{1mm}\begin{itemize}
+\item[] \texttt{AMO(Sv)} -- Atlantic meridional overturning circulation (AMOC) (Sv)
+\item[] \texttt{ice(\%)} -- global sea-ice fraction (\%)
+\item[] \texttt{<SST>} -- global sea surface temperature ('SST') $^{\circ}$C
+\item[] \texttt{<SSS>} -- global sea surface salinity ‘SSS’ (\%\textit{o})
+\end{itemize}\vspace{1mm}
+
+Note that if you are not running an experiment with a modern-like Atlantic basin, no value is given for the AMOC.
+
+\noindent After that, a couple of carbonate chemistry indicators:
+
+\vspace{1mm}\begin{itemize}
+\item[] \texttt{pH} -- Mean ocean surface pH.
+\item[] \texttt{OHMEGA} -- Mean ocean surface OHMEGA ...
+\end{itemize}\vspace{1mm}
+
+\noindent which will become apparent later.
+
+Note that if you are not running an experiment without a carbon cycle, no values will be given.
+
+\noindent Finally:
+
+\vspace{1mm}\begin{itemize}
+\item[] \texttt{O2} -- Dissolved oxygen in the ocean(global mean). ($\mu mol kg^{-1}$)
+\item[] \texttt{fPOC} -- Global total annual export production (in terms of particulate organic carbon ($PgC yr^{-1}$).
+\end{itemize}\vspace{1mm}
+
+Note that you need some sort of biological pump in the ocean for these to be meaningful.
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent The choice of what information to display on screen as the model is running is rather arbitrary, but the chosen metrics do tend to summarize some of the main properties of the climate system and carbon cycle – for my own personal convenience rather than reflecting any fundamental scientific truth ... 
+
+This information is reported at the same intervals as \textit{time-series} data (see later and/or refer to the User Manual) is saved and is indicated by:
+
+Interleaved between these lines are lines reporting the saving of \textit{time-slice} data (the 2- and 3-D model states – more of which later as well as in the User Manual). These appear as:
+
+\vspace{-2mm}\small\begin{verbatim}
+>>> SAVING BIOGEM TIME-SLICE AVERAGE CENTERED @ year:
+\end{verbatim}\normalsize\vspace{-2mm}
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent \textbf{You can stop the model at any point (all data up to that time will have been saved) by hitting: \textsf{\footnotesize <Ctrl-C>} (\textsf{\footnotesize CONTROL} key + ‘\textsf{\footnotesize C}’ key).}
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent Just from examining the screen output: how close to steady state does the system appear to have come after just 10 years? i.e., do SST and/or sea-ice extents appear to be converging towards stable (constant) values? This will be an important question to think about later on: ‘has the model reached steady-state (and does it matter)?’
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
 
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{chx-jobcreation.pdf}\centering
-\vspace{-0mm}
+\includegraphics[width=0.9\textwidth]{Figures.usermanual.2.png}\centering
+\vspace{2mm}
 \caption{Schematic of the sequence-of-events in configuring and running an experiment.}
 \label{fig:chx-jobcreation}
 \end{figure}
@@ -636,7 +636,10 @@ Just from examining the screen output: how close to steady state does the system
 
 The key to creating new experiments is to \textbf{remember that the name of the \textit{user-config} file, that contains the parameter settings that define that specific experiment, becomes the name of the experiment and hence name of the model results sub-directory in \textsf{\footnotesize cgenie\_output}}. Changing the name of the \textit{user-config} file, hence leads to a new experiment name and a new model results sub-directory. (Conversely, not changing the name of the  \textit{user-config} file and re-running it results in the results of any previous experiment run using that \textit{user-config} file, being over-written.)
 
-\vspace{1mm}
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
 There are two obvious ways to create a new \textit{user-config} file and hence new experiment (although the simplest and recommended way, is the 2nd one):
 
 \begin{enumerate}[noitemsep]
@@ -673,22 +676,29 @@ There are two obvious ways to create a new \textit{user-config} file and hence n
 
 \section{Model output}
 
-The first thing to note about output (i.e., saved results files) from \textbf{cookie} is that every science module saves its own results in its own sub-directory (and sometimes in very different and difficult-to-fathom ways …) – see Figure 1.1. All the sub-directories of results, plus copies of input parameters and the model executable, are gathered together in a directory that is assigned the same name as the experiment (== \textit{user-config} file name). The experiment results directories all live in:
-\small\begin{verbatim}
+Experiment results are saved in a single sub-directory of the experiment results directory (along with a sub-directory for \textit{restart} files, and one for copies of your parameter choices). The experiment results directories all live in:
+
+\vspace{-1mm}\begin{verbatim}
 ~/cgenie_output
-\end{verbatim}
+\end{verbatim}\vspace{-1mm}
 and will be assigned a directory name something like:
-\small\begin{verbatim}\normalsize
+
+\vspace{-1mm}\begin{verbatim}
 LAB.0.3.EXAMPLE
-\end{verbatim}\normalsize
-(this being the results directory name for an experiment called \texttt{LAB.0.3.EXAMPLE}). Within this directory are each module’s results sub-directories.
-We will primarily consider only results saved by the ocean biogeochemical module \textbf{‘BIOGEM’} (subdirectory: \small\textsf{biogem}\normalsize). The results files in this example will thus be found in:
-\small\begin{verbatim}
-~/cgenie_output/LAB.0.3.EXAMPLE/biogem
-\end{verbatim}\normalsize
-\textbf{BIOGEM} has a flexible and powerful facility of saving results by means of spatially explicit ‘time-slices’, and as a semi-continuous ‘time-series’ of a single global (or otherwise representative mean) variable. In contrast, the atmospheric chemistry module '\textbf{ATCHEM}' does not save its own results (\textbf{BIOGEM} can save information about atmospheric composition and air-sea gas exchange) while the marine sediment module \textbf{SEDGEM} does save its own results, but only at the very end of a model experiment (\textbf{BIOGEM} can also save the spatial distribution of sediment composition as time-slices as well as mean composition as a time-series). Furthermore, to attain a common format for both ocean physical properties and biogeochemistry, \textbf{BIOGEM} can save a range of ocean results in addition to temperature and salinity, such as: velocities, sea-ice extent, mixed layer depth, convective frequency, etc.
+\end{verbatim}\vspace{-1mm}
+(this being the results directory name for an experiment called \textsf{\footnotesize LAB.0.3.EXAMPLE}) and the actual results results hence in:
+
+\vspace{-1mm}\begin{verbatim}
+~/cgenie_output/LAB.0.3.EXAMPLE/results
+\end{verbatim}\vspace{-1mm}
 
 \noindent NOTE: If in an sftp client window you find that you cannot 'see' the \textsf{\footnotesize cgenie\_output} directory ... or cannot find any of the results sub-directories you are expecting, \uline{you will need to refresh the directory listing} (e.g. for \textbf{WinSCP}, there is a double green-arrow \textsf{\footnotesize Refresh} icon button near the top right of the window that you can click on). sftp client programs generally do not automatically refresh directory listing on the remote computer.
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent \textbf{cGENIE.cookie} has a flexible and powerful facility of saving results by means of spatially explicit ‘time-slices’, and as a semi-continuous ‘time-series’ of a single global (or otherwise representative mean) variable, described as follows.
 
 %------------------------------------------------
 
@@ -697,19 +707,17 @@ We will primarily consider only results saved by the ocean biogeochemical module
 One of the most informative data sets that can be saved is that of the spatial distribution of properties (such as tracers or physical ocean attributes). However, saving full spatial distributions (e.g., a 36\(\times\)36\(\times\)8 array) for any or all of the tracers each and every time-step is clearly not practical; not only in terms of data storage but also because of the detrimental effect that repeated file access has on model run-time.
 Instead, \textbf{BIOGEM} will save the full spatial distribution of tracer properties only at one or more predefined time points (in units of years). These are termed \textit{time-slices}. At the specified time points, a set of spatially-explicit data fields are saved for all the key tracer, flux, and physical characteristics of the system. However, rather than taking an instantaneous snapshot, the time-slice is constructed as an average over a specified integration interval (the default is set to 1.0 years, i.e. an annual average). \textbf{BIOGEM}  assumes that the specified time point represents the mid-point of the (annual) average with the results that output years end up being reported as e.g.,
 
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-\small\begin{verbatim}
+\vspace{-1mm}\small\begin{verbatim}
 0.5
 1.5
 2.5
 4.5
 …
-\end{verbatim}\normalsize
+\end{verbatim}\normalsize\vspace{-1mm}
 (the mid-points of averages made over the intervals: 0-1, 1-2, 2-3, 4-5 years, etc.).
 
+%------------------------------------------------
+\newpage
 %------------------------------------------------
 
 \subsection{Time-series output}
@@ -720,16 +728,15 @@ The second data format for model output is much more closely spaced in time. Mod
 
 \subsection{File naming convention}
 
-The \textsf{\footnotesize biogem} results directory will contain files with names of the form:
+The \textsf{\footnotesize results} results directory will contain files with names of the form:
 
 \vspace{1mm}
 \begin{itemize}[noitemsep]
 \setlength{\itemindent}{.2in}
-\item \textsf{\footnotesize \_restart.nc} (is the re-start file created form the run you have just complete, and can be ignored).
-\item \textsf{\footnotesize biogem\_series\_*.res} – these are the time-series files (in ASCII / plain text format).
-\item \textsf{\footnotesize biogem\_year\_*\_diag\_GLOBAL.res} – these contain (global diagnostics) summary information and are saved at the same frequency as the time-slices (also as ASCII / plain text).
 \item \textsf{\footnotesize fields\_biogem\_2d.nc} – 2-D fields of ocean and atmosphere properties, as \textbf{NetCDF}.
 \item \textsf{\footnotesize fields\_biogem\_3d.nc} – 3-D fields of ocean properties, as \textbf{NetCDF}.
+\item \textsf{\footnotesize timeseries\_*.txt} – these are the time-series files (in ASCII / plain text format).
+\item \textsf{\footnotesize SUMMARY\_AT\_year\_*\_diag\_GLOBAL.txt} – these contain (global diagnostics) summary information and are saved at the same frequency as the time-slices (also as ASCII / plain text).
 \end{itemize}
 \vspace{1mm}
 
@@ -744,11 +751,11 @@ Having the e.g., 2D and 3D \textbf{netCDF} files always called the same name (\t
 
 You can specify that \textbf{netCDF} files are named following the name of your experiment, by adding the following line to your \textit{user-config}:
 
-\vspace{-2pt}\begin{verbatim}
+\vspace{-1mm}\begin{verbatim}
 bg_ctrl_ncout_expid_name=.true.
 \end{verbatim}
 
-%-----------------------------------------------
+%------------------------------------------------
 \newpage
 %------------------------------------------------
 
@@ -763,23 +770,23 @@ A descriptive summary of all the time-series (\textsf{\footnotesize biogem\_seri
 \vspace{1mm}
 \begin{itemize}[noitemsep]
 \setlength{\itemindent}{.2in}
-\item \textsf{\footnotesize biogem\_series\_atm\_humidity.res}  - mean atmospheric (surface) humidity
-\item \textsf{\footnotesize biogem\_series\_atm\_temp.res}      - mean atmospheric (surface) air temperature
-\item \textsf{\footnotesize biogem\_series\_misc\_opsi.res}     - overturning stream-function (e.g. AMOC) strength
-\item \textsf{\footnotesize biogem\_series\_misc\_seaice.res}   - mean ocean sea-ice cover and thickness
-\item \textsf{\footnotesize biogem\_series\_ocn\_sal.res}       - mean ocean surface and whole ocean salinity
-\item \textsf{\footnotesize biogem\_series\_ocn\_temp.res}      - mean ocean surface and whole ocean temperature
+\item \textsf{\footnotesize timeseries\_atm\_humidity.res}  - mean atmospheric (surface) humidity
+\item \textsf{\footnotesize timeseries\_atm\_temp.res}      - mean atmospheric (surface) air temperature
+\item \textsf{\footnotesize timeseries\_misc\_opsi.res}     - overturning stream-function (e.g. AMOC) strength
+\item \textsf{\footnotesize timeseries\_misc\_seaice.res}   - mean ocean sea-ice cover and thickness
+\item \textsf{\footnotesize timeseries\_ocn\_sal.res}       - mean ocean surface and whole ocean salinity
+\item \textsf{\footnotesize timeseries\_ocn\_temp.res}      - mean ocean surface and whole ocean temperature
 \end{itemize}
 
 %------------------------------------------------
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-\vspace{2mm}
+\vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
 %------------------------------------------------
 
 \noindent One way of viewing the contents of files (in a shell window/terminal) is to change directory to the experiment results directory and opening the file in a file editor at the command line. But that is not so much fun.
 
-Instead – change to the experiment results directory and then to the \textsf{\footnotesize biogem} sub-directory in the Secure File Transfer Client, and try double-clicking (if you have set up the \textbf{WinSCP} preferences correctly) or right-mouse-button-clicking (the then Edit with) on one of the .res files (listed above). For \texttt{biogem\_series\_ocn\_temp.res}, you should see 5 columns:
+Instead – change to the experiment results directory and then to the \textsf{\footnotesize biogem} sub-directory in the Secure File Transfer Client, and try double-clicking (if you have set up the \textbf{WinSCP} preferences correctly) or right-mouse-button-clicking (the then Edit with) on one of the .res files (listed above).
+\vspace{1mm}
+For \texttt{timeseries\_ocn\_temp.txt}, you should see 5 columns:
 \small\begin{verbatim}
  % time (yr) / temperature (C) / _surT (ice-free) (C) / _benT (C) / _surT (C)
 \end{verbatim}\normalsize
@@ -798,10 +805,14 @@ In \textbf{Excel}: Choose \textsf{\footnotesize File} then \textsf{\footnotesize
 \textbf{MUTLAB} will ignore lines starting with a \textsf{\footnotesize \%}, which the time-series starts with. However, it may be that the header line wraps-around and there is in effect a 2nd header line but without a \textsf{\footnotesize \%}. In this case, extra care (or a quick edit of the header in the ASCII file) will be required to load the data into \textbf{MUTLAB}.
 
 %------------------------------------------------
+\newpage
+%------------------------------------------------
 
 \subsection{2- and 3-D time-slice output}
 
 For the time-slice \textbf{NetCDF} (*.nc) files you will be using a program called \textbf{Panoply}. If you want your own (FREE!) copy of this utility, you can get it here (and is available for: \textbf{Windoz}, \textbf{Mac}, and linux operating systems): http://www.giss.nasa.gov/tools/panoply/.
+
+\vspace{1mm}
 
 \noindent When you open the \textbf{NetCDF} file, you will be presented with a ‘\textsf{\footnotesize Datasets and Variables}’ window (on the left hand side of the application window). This contains a list of all the parameters available that you can display. You will find that the ‘\textsf{\footnotesize Long Name}’ description of the variable will be the most helpful to identify the one you want. Simply double-click on a variable to display. 
 
@@ -827,18 +838,12 @@ So be careful when opening a new plot that you are looking at what you *think* y
 All the defaults can be changed via the ‘\textsf{\footnotesize Edit}’ drop-down menu and ‘\textsf{\footnotesize Preferences}’.
 \end{enumerate}
 
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-\vspace{2mm}
-
-\noindent Explore different data fields and play with different ways of displaying them. Aim for a set of display properties that show the information you are interested in / want to present in the clearest possible manner. Try different years (time-slice number), depth level (for a Latitude-Longitude plot), or longitude (for a vertical section).
-
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-\vspace{2mm}
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
+%------------------------------------------------
 
 \noindent To save plots in \textbf{Panoply}:
-\small
+\footnotesize
 \\\textsf{File}
 \\\textsf{Save Image As …}
 \normalsize
@@ -852,9 +857,9 @@ All the defaults can be changed via the ‘\textsf{\footnotesize Edit}’ drop-d
 
 This bit is no particular fun at all, but it is a very handy ‘trick’ for running the model in the background, and maximizes drinking time in the bar vs. sat bored watching a computer screen :)
 
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-\vspace{2mm}
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
+%------------------------------------------------
 
 \noindent Running jobs interactively is all very well, but there are three important limitations:
 \begin{enumerate}[noitemsep]
@@ -866,9 +871,9 @@ This bit is no particular fun at all, but it is a very handy ‘trick’ for run
 \item Any cluster or computer you are likely to be accessing using a shell will not have many computing cores itself, either because it is a single machine with only one or two processors, or if a cluster, by using a terminal you are running on the ‘head node’, which will have similar computing core limitations to running on a single machine. The more experiments you run simultaneously, the slower they will all run …
 \end{enumerate}
 
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
-\vspace{2mm}
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
+%------------------------------------------------
 
 \noindent The alternative is to submit your experiment as a ‘job’ to a queuing system which then manages what compute resources are used to run the model. Once you have submitted the experiment, that is it – you can go straight to the bar :)
 
