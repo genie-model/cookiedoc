@@ -543,6 +543,8 @@ $ ./runcookie.sh cookie.CB.p_worbe2.BASES LABS LAB.0.3.EXAMPLE 10
 
 \end{verbatim}\normalsize\vspace{-2mm}
 
+(Note that you might want to increase the width of your terminal window in order to get the values reported for each year appearing on the same line and not wrapped-over to the next one.)
+
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
@@ -571,6 +573,7 @@ Note that if you are not running an experiment without a carbon cycle, there wil
 
 Note that if you are not running an experiment with a modern-like Atlantic basin, no value is given for the AMOC.
 
+\vspace{1mm}
 \noindent After that, a couple of carbonate chemistry indicators:
 
 \vspace{1mm}\begin{itemize}
@@ -581,6 +584,10 @@ Note that if you are not running an experiment with a modern-like Atlantic basin
 \noindent which will become apparent later.
 
 Note that if you are not running an experiment without a carbon cycle, no values will be given.
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
 
 \noindent Finally:
 
@@ -605,10 +612,6 @@ Interleaved between these lines are lines reporting the saving of \textit{time-s
 >>> SAVING BIOGEM TIME-SLICE AVERAGE CENTERED @ year:
 \end{verbatim}\normalsize\vspace{-2mm}
 
-%------------------------------------------------
-\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
-%------------------------------------------------
-
 \noindent \textbf{You can stop the model at any point (all data up to that time will have been saved) by hitting: \textsf{\footnotesize <Ctrl-C>} (\textsf{\footnotesize CONTROL} key + ‘\textsf{\footnotesize C}’ key).}
 
 %------------------------------------------------
@@ -618,11 +621,11 @@ Interleaved between these lines are lines reporting the saving of \textit{time-s
 \noindent Just from examining the screen output: how close to steady state does the system appear to have come after just 10 years? i.e., do SST and/or sea-ice extents appear to be converging towards stable (constant) values? This will be an important question to think about later on: ‘has the model reached steady-state (and does it matter)?’
 
 %------------------------------------------------
-\newpage
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
 \begin{figure}
-\includegraphics[width=0.9\textwidth]{Figures.usermanual.2.png}\centering
+\includegraphics[width=0.8\textwidth]{Figures.usermanual.2.png}\centering
 \vspace{2mm}
 \caption{Schematic of the sequence-of-events in configuring and running an experiment.}
 \label{fig:chx-jobcreation}
@@ -636,11 +639,7 @@ Interleaved between these lines are lines reporting the saving of \textit{time-s
 
 The key to creating new experiments is to \textbf{remember that the name of the \textit{user-config} file, that contains the parameter settings that define that specific experiment, becomes the name of the experiment and hence name of the model results sub-directory in \textsf{\footnotesize cgenie\_output}}. Changing the name of the \textit{user-config} file, hence leads to a new experiment name and a new model results sub-directory. (Conversely, not changing the name of the  \textit{user-config} file and re-running it results in the results of any previous experiment run using that \textit{user-config} file, being over-written.)
 
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-There are two obvious ways to create a new \textit{user-config} file and hence new experiment (although the simplest and recommended way, is the 2nd one):
+There are two obvious ways to create a new \textit{user-config} file and hence new experiment:
 
 \begin{enumerate}[noitemsep]
 
@@ -676,7 +675,7 @@ There are two obvious ways to create a new \textit{user-config} file and hence n
 
 \section{Model output}
 
-Experiment results are saved in a single sub-directory of the experiment results directory (along with a sub-directory for \textit{restart} files, and one for copies of your parameter choices). The experiment results directories all live in:
+Experiment results are saved in a single sub-directory of the experiment results directory (along with a sub-directory for \textit{restart} files, and one for copies of your parameter choices). The directories continaing the results of all your different experiment live in:
 
 \vspace{-1mm}\begin{verbatim}
 ~/cgenie_output
@@ -686,7 +685,7 @@ and will be assigned a directory name something like:
 \vspace{-1mm}\begin{verbatim}
 LAB.0.3.EXAMPLE
 \end{verbatim}\vspace{-1mm}
-(this being the results directory name for an experiment called \textsf{\footnotesize LAB.0.3.EXAMPLE}) and the actual results results hence in:
+(this being the results directory name for an experiment called \textsf{\footnotesize LAB.0.3.EXAMPLE}) and the actual results results live in a sub-directory of this -- \textsf{\footnotesize results}, hence:
 
 \vspace{-1mm}\begin{verbatim}
 ~/cgenie_output/LAB.0.3.EXAMPLE/results
@@ -705,16 +704,28 @@ LAB.0.3.EXAMPLE
 \subsection{Time-slice output}
 
 One of the most informative data sets that can be saved is that of the spatial distribution of properties (such as tracers or physical ocean attributes). However, saving full spatial distributions (e.g., a 36\(\times\)36\(\times\)8 array) for any or all of the tracers each and every time-step is clearly not practical; not only in terms of data storage but also because of the detrimental effect that repeated file access has on model run-time.
-Instead, \textbf{BIOGEM} will save the full spatial distribution of tracer properties only at one or more predefined time points (in units of years). These are termed \textit{time-slices}. At the specified time points, a set of spatially-explicit data fields are saved for all the key tracer, flux, and physical characteristics of the system. However, rather than taking an instantaneous snapshot, the time-slice is constructed as an average over a specified integration interval (the default is set to 1.0 years, i.e. an annual average). \textbf{BIOGEM}  assumes that the specified time point represents the mid-point of the (annual) average with the results that output years end up being reported as e.g.,
+Instead, \textbf{BIOGEM} will save the full spatial distribution of tracer properties only at one or more predefined time points (in units of years). These are termed \textit{time-slices}. At the specified time points, a set of spatially-explicit data fields are saved for all the key tracer, flux, and physical characteristics of the system. However, rather than taking an instantaneous snapshot, the time-slice is constructed as an average over a specified integration interval (the default is set to 1.0 years, i.e. an annual average). \textbf{BIOGEM}  assumes that the specified time point represents the mid-point of the (annual) average with the results that output years end up being reported.
 
-\vspace{-1mm}\small\begin{verbatim}
-0.5
-1.5
-2.5
-4.5
+\vspace{1mm}
+For example, to save regularly every 10 years you would set:
+
+\vspace{-1mm}
+\small\begin{verbatim}
+bg_par_data_save_slice_timeinterval=10.0
+\end{verbatim}\normalsize
+\vspace{-1mm}
+and which would give you save points at:
+
+\vspace{-1mm}\footnotesize\begin{verbatim}
+9.5
+19.5
+29.5
+39.5
 …
 \end{verbatim}\normalsize\vspace{-1mm}
-(the mid-points of averages made over the intervals: 0-1, 1-2, 2-3, 4-5 years, etc.).
+(the mid-points of averages made over the intervals: 9-10, 19-20, 29-30, 39-40 years, etc.).
+
+\noindent Otherwise, you can specify the name of a file containing times to save at, or simply only save at the end. (see later)
 
 %------------------------------------------------
 \newpage
@@ -723,6 +734,16 @@ Instead, \textbf{BIOGEM} will save the full spatial distribution of tracer prope
 \subsection{Time-series output}
 
 The second data format for model output is much more closely spaced in time. Model characteristics must then be reducible to a single meaningful variable for this to be practical (i.e., saving the time-varying nature of 3-D ocean tracer distributions is not). Suitable reduced indicators would be the total inventories in the ocean and/or atmosphere of various tracers (or equivalently, the mean global concentrations / partial pressures, respectively). Like the time-slices, the data values saved in the time-series files represent averages over a specified integration interval (the default is set to 1.0 years (annual average) but the results are reported with respect to the mid-point of the average which is where the ‘.5’ bits come in again).
+
+The much smaller and simpler (text) file format now allow you to save much more frequently. For example, for experiments up to a few 100 years, you could save every single year, which you would set by:
+
+\vspace{-1mm}
+\small\begin{verbatim}
+bg_par_data_save_sig_timeinterval=1.0
+\end{verbatim}\normalsize
+\vspace{-1mm}
+
+\noindent Otherwise, you can specify the name of a file containing times to save at. (see later)
 
 %------------------------------------------------
 
