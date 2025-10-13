@@ -55,19 +55,15 @@ The \textbf{(cGENIE.)cookie} model currently naively compiles and runs under \te
 
 The start of each line of the command line is indicated with something like: \texttt{\$}. The \texttt{\$} is called the ‘prompt’ and is ... prompting you to type some input (commands, Tweets, swear words, etc.). See – the computer is just sat there waiting for you to command it to go do something (stupid?). Typically, you will also be informed (reminded) of the user-name, computer name, and current directory, e.g.:
 
-\vspace{-2mm}
-\begin{verbatim}
+\vspace{-2mm}\begin{verbatim}
 [username@host ~]$
-\end{verbatim}
-\vspace{-2mm}
+\end{verbatim}\vspace{-2mm}
 
 \noindent which is in this example is user ‘\texttt{username}’ (yours will be different!) on computer name ‘\texttt{host}’\footnote{Sprout the cat will eventually appear under ‘cat-of-the-day’ on my home-page if you press \textsf{F5} enough times – all my computing clusters are named after my cats …} and the current directory is the ‘home’ directory -- represented by the \texttt{\~} symbol. If, for example, you were instead currently in the \texttt{myfolder} directory, you would see at the command prompt something like:
 
-\vspace{-2mm}
-\begin{verbatim}
+\vspace{-2mm}\begin{verbatim}
 [username@host myfolder]$
-\end{verbatim}
-\vspace{-2mm}
+\end{verbatim}\vspace{-2mm}
 
 If you are not or not very familiar with the linux/unix command line, such as how to navigate up and down the directory tree and to display the contents of the current directory you are in – for a brief summary of some basic/useful \textbf{linux} commands and usage -- see the linux HOW-TO Section towards the back of the book.
 
@@ -99,7 +95,11 @@ For running \textbf{cupcake}, your options are:
 \vspace{1mm}
 \item \textbf{Locally}
 \\It is  possible to install and run the ‘\textbf{(cGENIE.)cookie}’ Earth system model either on a linux box (e.g. \textbf{Ubuntu}) or on a \textbf{Mac} \footnote{Sets of detailed installation instructions are available in the HOW-TO section of this manual.}\footnote{It is also possible to run \textbf{cookie} under \textbf{Windows}.}. At a minimum, you will need:
-\vspace{1mm}
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
 \begin{enumerate}[noitemsep]
 \setlength{\itemindent}{.2in}
 \item A FORTRAN (f90 and f77 combatable) compiler of some sort.
@@ -660,7 +660,7 @@ There are two obvious ways to create a new \textit{user-config} file and hence n
 \\There are also ways of configuring \textbf{sftp} clients so that you can double-click on a file in the remove window, edit it, and save it back to the remote computer.\footnote{Actually what happens is that the file is transferred locally, opened, and you edit a local copy. When you save it (locally), it is automatically transferred back.} 
 \vspace{1mm}
 \item Or, if you are comfortable working at the linux command line; working from the same directory (e.g. \textsf{\footnotesize LABS}) that the file you want to copy lives in, you can copy a file (to a new filename) by:
-\\\texttt{\$ cp oldfile newfile }
+\\\texttt{\small \$ cp oldfile newfile }
 \\(after which you can edit the new \textit{user-config} file \textsf{\footnotesize newfile}, re-save, and then run the experiment.)
 \end{itemize}
 \vspace{1mm}
@@ -901,8 +901,8 @@ This bit is no particular fun at all, but it is a very handy ‘trick’ for run
 For example -- to run the same experiment as before (\textsf{\footnotesize LAB\_0.EXAMPLE}) for maybe 100 years (or even longer if you wish – I am just pulling factors of 10 out of thin air here) but now submit the experiment as a job to the cluster queue, type (again: SINGLE, CONTINUOUS LINE):
 \vspace{-1mm}
 \small\begin{verbatim}
-$ qsub -q QUEUE.q -j y -o cgenie_log -V -S /bin/bash runcookie.sh
-  ./runcookie.sh cookie.CB.p_worbe2.BASES LABS LAB.0.3.EXAMPLE 100
+$ qsub -q QUEUE.q -j y -o cgenie_log -V -S /bin/bash 
+  runcookie.sh cookie.CB.p_worbe2.BASES LABS LAB.0.3.EXAMPLE 100
 \end{verbatim}\normalsize
 \vspace{-1mm}
 
