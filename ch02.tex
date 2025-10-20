@@ -48,25 +48,21 @@
 
 \section*{READ.ME}
 
-You will need to download a new \textit{re-start} file prior to embarking on the experiments with modern ocean circulation.
-To fetch this: change to the \textsf{\footnotesize cgenie\_output} directory, and type (or copy and paste carefully from the PDF ...):
+You will need to download new \textit{re-start} files prior to embarking on the experiments with modern ocean circulation. To fetch them: change to the \textsf{\footnotesize cgenie\_output} directory, and type (or copy and paste carefully from the PDF ...):
 
 \vspace{-2mm}\small\begin{verbatim}
 $ wget --no-check-certificate http://www.seao2.info/cgenie_output/
+   cookie.C.p_worjh2.r.SPIN.tar.gz
+$ wget --no-check-certificate http://www.seao2.info/cgenie_output/
    cookie.C.p_worjh2.rb.SPIN.tar.gz
 \end{verbatim}\normalsize\vspace{-2mm}
-(single line ... no space between line fragments ...)
+(single line ... no space between line fragments ...) This downloads  archived/compressed copies of the 10,000 year \textit{spin-up} experiments: \textsf{\footnotesize  cookie.C.p\_worjh2.r.SPIN} and \textsf{\footnotesize  cookie.C.p\_worjh2.rb.SPIN}. Extract the contents by typing:
 
-\vspace{1mm}
-This downloads an archived/compressed copy of the 10,000 year \textit{spin-up} experiment \textsf{\footnotesize  cookie.C.p\_worjh2.rb.SPIN}. Extract the contents of this archive by typing:
-
-\vspace{-2mm}
-\begin{verbatim}
+\vspace{-2mm}\small\begin{verbatim}
+$ tar xfzv cookie.C.p_worjh2.r.SPIN.tar.gz
 $ tar xfzv cookie.C.p_worjh2.rb.SPIN.tar.gz
-\end{verbatim}
-\vspace{-2mm}
-
-You’ll then need to change directory back to \textsf{\footnotesize genie-main} to run the model.
+\end{verbatim}\normalsize\vspace{-2mm}
+You will then need to change directory back to \textsf{\footnotesize genie-main} to run the model.
 
 %------------------------------------------------
 \newpage
@@ -80,7 +76,7 @@ You’ll then need to change directory back to \textsf{\footnotesize genie-main}
 \vspace{1mm}
 \item Note that the configurations provided for this exercise do not have a carbon cycle, but do include a numerical 'age' tracer to help diagnose ocean circulation and rate of ventilation of the deep ocean.
 \vspace{1mm}
-\item Make use of \textit{control} experiments in order to create anomaly maps (see later). An ideal control experiment is one that is run for as long as your 'real' (perturbation) experiments, but has no changes made to the \textit{user-config}.
+\item Make use of \textit{control} experiments in order to create anomaly maps (see later). An ideal control experiment is one that is run for as long as your 'real' (perturbation) experiments, but has no changes made to the \textit{user-config} (compared to the \textit{re-start}).
 \end{enumerate}
 
 %------------------------------------------------
@@ -96,14 +92,13 @@ Run the model for … whatever, 10 years will do for now::
 $ ./runcookie.sh cookie.C.p_worjh2.r LABS LABS.2.1.EXAMPLE 10 
    cookie.C.p_worjh2.r.SPIN
 \end{verbatim}\normalsize\vspace{-2mm}
-
 where \textsf{\footnotesize cookie.C.p\_worjh2.r.SPIN} is the \textit{re-start} experiment name.
 
 \vspace{1mm}
 You will analyze the results of this in the next couple of Sections.
 
 \vspace{1mm}
-\noindent Note: For the initial steps, you will be using a seasonally-forced modern continental configuration of cGENIE with 16 vertical levels in the ocean. This is indicated by the code '\textsf{\footnotesize p\_worjh2}' in the \textit{base-config} file-name. The grid and definition of the vertical levels are illustrated in Figure \ref{fig:ch3-ijgrid}) and (Figure \ref{fig:ch3-kgrid}), respectively.
+\noindent NOTE: For the initial steps, you will be using a seasonally-forced modern continental configuration of cGENIE with 16 vertical levels in the ocean. This is indicated by the code '\textsf{\footnotesize p\_worjh2}' in the \textit{base-config} file-name. The grid and definition of the vertical levels are illustrated in Figure \ref{fig:ch3-ijgrid}) and (Figure \ref{fig:ch3-kgrid}), respectively.
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
@@ -115,8 +110,7 @@ You will analyze the results of this in the next couple of Sections.
 \caption{
 \textbf{The \textbf{cookie} grid for a modern \(36\times36\) ‘p\_worjh2’ configuration.} Light blue numbers are the ‘i’ co-ordinates. Green numbers are the ‘j’ co-ordinates.
 The depth of the ocean at any location is indicated by its ‘k’ value – a number between 1 and 16, with 16 being the surface layer of the ocean, and 1 the maximum possible depth anywhere.
-Numbers > 90 (91, 92, 93, 94) and shaded grey are land (and specify the direction of run-off).
-The longitude of the western edge of this particular modern ocean grid is at 260$^{\circ}$W, and the increments are 10$^{\circ}$.
+Numbers > 90 (i.e., 91, 92, 93, 94) and shaded grey are land (the numbers specify the compass direction of rainfall run-off). The longitude of the western edge of this particular modern ocean grid is at 260$^{\circ}$W, and the increments are 10$^{\circ}$.
 }
 \label{fig:ch3-ijgrid}
 \end{figure}
@@ -171,7 +165,7 @@ Visualizing the 3D flow (/transport) of the ocean, much less the rate at which t
 \noindent The second approach is to visualize the large-scale ocean transport in terms of the meridional overturning circulation ('stream-function') (e.g. see background literature).
 
 \vspace{1mm}
-Two example plots (using \textbf{Panoply}) are shown in Figure \ref{fig:ch3-amoc1} for the Atlantic basin, and Figure \ref{fig:ch3-amoc2} for the Pacific. In the In the 2D \textbf{netCDF} file, relevant fields (netCDF variables)\footnote{Note that these fields are only meaningful for the modern arrangement of the continents and a continuous separation of the Atlantic from the Pacific from high northern latitudes down to the tip of South America. Different (e.g. paleo) arrangements of the continents may not have recognisable (or definable) Atlantic and/or Pacific basins and it may only be possible to define and visualize the global meridional overturning circulation -- variable: \textsf{\footnotesize phys\_opsi}.} are:
+\noindent Two example plots (using \textbf{Panoply}) are shown in Figure \ref{fig:ch3-amoc1} for the Atlantic basin, and Figure \ref{fig:ch3-amoc2} for the Pacific. In the In the 2D \textbf{netCDF} file, relevant fields (netCDF variables)\footnote{Note that these fields are only meaningful for the modern arrangement of the continents and a continuous separation of the Atlantic from the Pacific from high northern latitudes down to the tip of South America. Different (e.g. paleo) arrangements of the continents may not have recognisable (or definable) Atlantic and/or Pacific basins and it may only be possible to define and visualize the global meridional overturning circulation -- variable: \textsf{\footnotesize phys\_opsi}.} are:
 \begin{itemize}[noitemsep]
 \setlength{\itemindent}{.0in}
 \item [] \textsf{\footnotesize phys\_opsia} == global overturning stream-function
@@ -217,7 +211,7 @@ The first line points \textbf{cookie} to a directory located in \textsf{\footnot
 
 There are then three lines (\texttt{bg\_par\_force\_point\_i=20}, ...) that specify the location in the ocean of the geochemical forcing that is going to be applied. The point sources are specified in (i,j,k) coordinates, which in this case is (22,33,08). For the ocean model resolution we are using, the grid is 36x36x16, and in which: longitude (i) is counted from left-to-right (1 to 36); latitude (j) is counted from bottom-to-top (1 to 36); level depth (k) is counted from downwards top-to-bottom (16 down to 1). Thus, (22,33,08) is a release of tracer in the North Atlantic, a little south of Greenland, and intermediate depth (level = 8 out of 16). Refer to the Figures for how the horizontal (Figure \ref{fig:ch3-ijgrid}) and vertical (Figure \ref{fig:ch3-kgrid}) grid is specified.
 
-Finally, there is a scaling parameter (\texttt{bg\_par\_ocn\_force\_scale\_val\_49}) which modifies the magnitude of the flux to be applied\footnote{Flux \textit{forcings} in \textbf{cookie} are in units of \(mol yr^{-1}\) per model grid point.} -- the default value in the forcing definition itself is just \(1.0 mol yr^{-1}\).
+Finally, there is a scaling parameter (\texttt{bg\_par\_ocn\_force\_scale\_val\_49}) which modifies the magnitude of the flux to be applied\footnote{Flux \textit{forcings} in \textbf{cookie} are in units of \(mol yr^{-1}\) per model grid point.} -- the default value in the forcing definition itself is zero \(0.0 mol yr^{-1}\) (so you will need to set something here!).
 
 %------------------------------------------------
 \newpage 
@@ -315,6 +309,12 @@ The \textit{base-config}, and \textit{restart}, provided for the ('blue') circul
 Explore the distribution of water mass age and think about the physical ocean circulations reasons for this. Are all the modelled distributions reasonable? Are there indicators of facets of the simulated circulation that are not particularly realistic? Try plotting both lon-lat and lat-depth slices through the ocean. How does the distribution of water mass age relate to the overturning stream-function for Atlantic or Pacific basins (more on this in the next Section)?
 
 %------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent For the remainder of the sections in this chapter, we'll ditch the 'blue' color tracer and use a configuration (and different \textit{base-config}) with just the 'red' one: \textsf{\footnotesize cookie.C.p\_worjh2.r}
+
+%------------------------------------------------
 \newpage
 %------------------------------------------------
 
@@ -325,7 +325,7 @@ The ocean biogeochemistry module (\textbf{BIOGEM}) in \textbf{cookie} provides a
 The \textit{user-config} file for this is called: \textsf{\footnotesize LAB.2.5.hosing}. This includes a prescribed transport of salt to the North Atlantic (north of ca. 30$^{\circ}$N) from the result of the global surface ocean (for mass balance). This is specified by the line:
 
 \vspace{-2mm}\small\begin{verbatim}
-bg_par_forcing_name="p_worxx2.Fsal_SUR_NAtl"
+bg_par_forcing_name="p_worjh2.Fsal_SUR_NAtl"
 \end{verbatim}\normalsize\vspace{-2mm}
 
 This is paired with a scaling parameter for ease of changing the magnitude of the flux forcing:
@@ -337,7 +337,7 @@ bg_par_ocn_force_scale_val_2=0.0
 \noindent which by default is zero (i.e., no flux forcing).
 
 \vspace{1mm}
-To orientate you in freshwater forcing space: \texttt{bg\_par\_ocn\_force\_scale\_val\_2=-1.1E18} -- equivalent to 1Sv -- should be sufficient to make ‘stuff happen’ and quickly. BUT, this is a pretty extreme flux (see overleaf for a rough conversion between salinity forcing units (mol yr$^{-1}$) and fresh water flux (in m$^{3}$ s$^{-1}$ or Sv). Much more than this and the model may crash or at the very least, you might be left with a large freshwater pond in the North Atlantic. Don't forget the minus sign if you want a net freshwater flux to the N Atlantic rather than a salinity one ...
+To orientate you in freshwater forcing space: \texttt{\small bg\_par\_ocn\_force\_scale\_val\_2=-1.1E18} -- equivalent to 1Sv -- should be sufficient to make ‘stuff happen’ and quickly. BUT, this is a pretty extreme flux (see overleaf for a rough conversion between salinity forcing units (mol yr$^{-1}$) and fresh water flux (in m$^{3}$ s$^{-1}$ or Sv). Much more than this and the model may crash or at the very least, you might be left with a large freshwater pond in the North Atlantic. Don't forget the minus sign if you want a net freshwater flux to the N Atlantic rather than a salinity one ...
 
 \vspace{1mm}
 To run the model for 10 years using the same \textit{re-start} as previously:
@@ -388,7 +388,19 @@ Note that you can switch off the auto-scaling feature (Always fit to data) and c
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
-\noindent Finally, a brief note on units ... the freshwater forcing is implemented as negative salinity, just to really screw with your mind. The generic internal \textbf{cookie} model units for the forcing end up as \(PSU kg^{-1} yr^{-1}\). Which sort of does not make much sense ...
+\noindent Try and answer the question: \textbf{How much fresh water flux (in Sv) is required to collapse the AMOC?} and how non-linear is the response of overturning to fresh water flux?
+
+You will need to submit multiple experiment jobs to the cluster queue, with each experiment differing in the assumed radiative forcing parameter value. Plot the strength of the AMOC that is reached at the end of each experiment (from the time-series file: \textsf{\footnotesize biogem\_series\_misc\_opsi.res}) vs. radiative forcing.
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+A brief note on units ... the freshwater forcing is implemented as negative salinity, just to really screw with your mind. The generic internal \textbf{cookie} model units for the forcing end up as \(PSU kg^{-1} yr^{-1}\). Which sort of does not make much sense ...
 
 Start, by thinking of a value of \texttt{bg\_par\_ocn\_force\_scale\_val\_2} of \(-34.9\) as equivalent to taking all the salt out of \(1 kg\) of freshwater (since the mean global salinity is \(34.9 PSU\)). Or equivalently, since the ocean volume is fixed, an applied forcing value of \(-34.9\) is equivalent to adding \(1 kg\) of freshwater to a (surface) box. So, a value of \texttt{bg\_par\_ocn\_force\_scale\_val\_2} of \(-3.49\times10^{4}\) (\(-3.49E04)\) would be a flux of \(1 m^{3} yr^{-1}\) (\(1000 kg m^{-3}\)) of freshwater.
 
@@ -427,13 +439,17 @@ $ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.6.warming 10
    cookie.C.p_worjh2.r.SPIN
 \end{verbatim}\normalsize\vspace{-2mm}
 
-Potentially interesting properties of the Earth system to look at include sea-ice extent and AMOC strength (in the ASCII time-series files), and the overturning stream-function and sea-ice extent in the 2-D \textbf{netCDF} output. It is also possible to fresh water force the model with an age tracer and hence make projections of how patterns of ventilation age change with transient warming.
+Potentially interesting properties of the Earth system to look at include sea-ice extent and AMOC strength (in the ASCII time-series files), and the overturning stream-function (2D with \textbf{netCDF} variable \textsf{\footnotesize phys\_opsia}) and sea-ice extent in the 2-D \textbf{netCDF} output. Withe the age tracer included you can also make projections of how patterns of ventilation age change with transient warming.
 
-\vspace{1mm}
-Overall, try and answer the question: \textbf{How much radiative forcing is required to collapse the AMOC? What atmospheric \(CO_{2}\) value does this approximately correspond to?} 
+Finally -- is the spatial pattern of warming even? You will need to create a difference map of surface temperature -- variable \textsf{\footnotesize atm\_temp} in \textsf{\footnotesize fields\_biogem\_2d.nc} -- to be able to see this well.
 
-\noindent \textbf{What to look at?} The strength of the AMOC is summarized in the time-series file: \textsf{\footnotesize biogem\_series\_misc\_opsi.res} and can be visualized in 2D with \textbf{netCDF} variable \textsf{\footnotesize phys\_opsia}.
-Also -- is the spatial pattern of warming even? You will need to create a difference map of surface temperature -- variable \textsf{\footnotesize atm\_temp} in \textsf{\footnotesize fields\_biogem\_2d.nc} -- to be able to see this well.
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent Try and answer the question: \textbf{How much radiative forcing is required to collapse the AMOC?} (and how much atmospheric \(CO_{2}\) does this approximately correspond to?) How non-linear is the response of overturning to fresh water flux?
+
+You will need to submit multiple experiment jobs to the cluster queue, with each experiment differing in the assumed radiative forcing parameter value. Plot the strength of the AMOC that is reached at the end of each experiment (from the time-series file: \textsf{\footnotesize biogem\_series\_misc\_opsi.res}) vs. radiative forcing.
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
@@ -485,11 +501,14 @@ bg_par_ocn_force_scale_val_2=0.0
 
 \noindent which by default is zero (i.e., no flux forcing). Setting the value of this parameter to: \\\texttt{bg\_par\_ocn\_force\_scale\_val\_2=1.1E18} would create a net freshwater removal from the Eastern Mediterranean of 1Sv (probably the largest you want to try). Note that you need to apply a value that is \uline{positive} so that we get a salt addition rather than freshwater addition in the Eastern Mediterranean.
 
-\vspace{1mm}
-Try running this for 10 years to start with. i.e.,
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+Try running the experiment for 20 years to start with. i.e.,
 
 \vspace{-2mm}\small\begin{verbatim}
-$ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.7.saltymed 10 
+$ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.7.saltymed 20 
    cookie.C.p_worjh2.r.SPIN
 \end{verbatim}\normalsize\vspace{-2mm}
 
