@@ -26,39 +26,39 @@ You will need the following \textit{re-starts} files prior to embarking on the e
 \begin{itemize}[noitemsep]
 \vspace{2mm}
 \item [6.1] This is the basic single (\(PO_{4}\)) nutrient biological export scheme configuration for playing with.
-\vspace{-2mm}\small\begin{verbatim}
-$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
-     cookie.CB.p_worbe2.BASES.ridgwelletal.SPIN.tar.gz
+\vspace{-2mm}\footnotesize\begin{verbatim}
+$ wget --no-check-certificate 
+     http://www.seao2.info/cgenie_output/cookie.CB.p_worbe2.BASES.ridgwelletal.SPIN.tar.gz
 \end{verbatim}\normalsize\vspace{-1mm}
 \vspace{2mm}
 \item [6.2] A single (\(PO_{4}\)) nutrient biological export scheme but in a higher (vertical) resolution ocean.
-\vspace{-1mm}\small\begin{verbatim}
+\vspace{-1mm}\footnotesize\begin{verbatim}
 $ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
      cookie.CB.p_worjh2.BASES.caoetal.SPIN.tar.gz
 \end{verbatim}\normalsize\vspace{-1mm}
 World Ocean\ Atlas modern (\(PO_{4}\)) climatology (re-gridded/interpolated observations), re-gridded to the same ocean grid as \textsf{\footnotesize EXAMPLE.worjh2.Caoetal2009.SPIN}
-\vspace{-1mm}\small\begin{verbatim}
-$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
-     worjh2.p_an.200709.nc
+\vspace{-1mm}\footnotesize\begin{verbatim}
+$ wget --no-check-certificate 
+     http://www.seao2.info/cgenie_output/worjh2.p_an.200709.nc
 \end{verbatim}\normalsize\vspace{-1mm}
 World Ocean\ Atlas modern (\(O_{2}\)) climatology (re-gridded/interpolated observations), re-gridded to the same ocean grid as \textsf{\footnotesize EXAMPLE.worjh2.Caoetal2009.SPIN}
-\vspace{-1mm}\small\begin{verbatim}
-$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
-     worjh2.o_an.200709.nc
+\vspace{-1mm}\footnotesize\begin{verbatim}
+$ wget --no-check-certificate 
+     vworjh2.o_an.200709.nc
 \end{verbatim}\normalsize\vspace{-1mm}
 \vspace{2mm}
 \item [6.3] This is a paired T-dependent and non-T-dependent export and remineralizaton configuration.
-\vspace{-1mm}\small \begin{verbatim}
-$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
-     cookie.CB.p_worjh2.BASES.crichtonetal.STND.SPIN.tar.gz
-$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
-     cookie.CB.p_worjh2.BASES.crichtonetal.TDEP.SPIN.tar.gz
+\vspace{-1mm}\footnotesize \begin{verbatim}
+$ wget --no-check-certificate 
+     http://www.seao2.info/cgenie_output/cookie.CB.p_worjh2.BASES.crichtonetal.STND.SPIN.tar.gz
+$ wget --no-check-certificate 
+     http://www.seao2.info/cgenie_output/cookie.CB.p_worjh2.BASES.crichtonetal.TDEP.SPIN.tar.gz
 \end{verbatim} \normalsize
 \vspace{2mm}
 \item [6.4] This is a scheme with T-dependent biological export (but with a non T-dependent, fixed remineralization profile) and with Fe co-limitation alongside P.
-\vspace{-1mm}\small\begin{verbatim}
-$ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
-     cookie.CB.p_worjh2.BASESFe.FeMIP.SPIN.tar.gz
+\vspace{-1mm}\footnotesize\begin{verbatim}
+$ wget --no-check-certificate 
+     http://www.seao2.info/cgenie_output/cookie.CB.p_worjh2.BASESFe.FeMIP.SPIN.tar.gz
 \end{verbatim}\normalsize
 \vspace{2mm}
 \item [6.5] (same \textit{restart} as per for 6.4)
@@ -73,7 +73,7 @@ $ wget --no-check-certificate http://www.seao2.info/cgenie_output/ ...
 
 \section*{The ocean's biological pump}
 
-In this Chapter we'll step through some of the facets of the cycle of carbon (and nutrients) in the ocean -- the 'biological pump'. And then in a later section we'll look at the same processes but in a different way -- through the lens of 'geoengineering', and hopefully learn something further about how everything 'works' regardless of the desirability and or effectiveness, or not, of geoengineering.
+In this Chapter we'll step through some of the facets of the cycle of carbon (and nutrients) in the ocean -- the 'biological pump'. And then in a later section we'll look at the same processes but in a different way -- through the lens of 'geoengineering', and hopefully learn something further about how everything 'works' regardless of the desirability and effectiveness (or not) of geoengineering.
 
 \textbf{cookie} incorporates a variety of options for simulating biological export production. To date, these have all been rooted in what is effectively a nutrient mass balance approach to estimating export production, nicely encapsulated by Ernst Maier-Reimer as: “\textit{conceptually not a model of biology in the ocean but rather a model of biogenically induced chemical fluxes [from the surface ocean]}” [\textit{Maier-Reimer,} 1993]. Hence in schemes of this nature -- which we will term ‘biogenic  flux’ schemes --  there is no attempt to explicitly account for changes in cell numbers/biomass and hence, nor zooplankton, which will impact a bias particularly in the seasonal time-dependent response of export. Previous biogenic flux schemes utilized in  \textbf{cookie}  considered a single nutrient (P limitation) only and took either restoring to observations [Cameron et al., 2005] or explicit P-limitation [Ridgwell et al., 2007a,b] approaches. More recently, additional limitation by iron (P+Fe) has been implemented, while nitrogen cycling (including N fixation and denitrification) and hence P+N limitation, has been implemented and explored in the context of extreme nutrient and oxygen cycle perturbation associated with the Cretaceous Oceanic Anoxic Events [Monteiro et al., 2012; Naafs et al., 2029]. Work currently in development includes the additional consideration of Si limitation (P+Si limitation) control on production of diatoms vs. non-diatoms following \textit{Ridgwell et al.} [2002].
 
@@ -227,9 +227,7 @@ are the rations of \(CaCO_{3}/POC\) and \(POC/POP\), respectively.
 \end{itemize}
 
 %------------------------------------------------
-\vspace{1mm}
-\noindent\rule{4cm}{0.5pt}
-\vspace{2mm}
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
 \noindent From just the \textit{spin-up} experiment results you can explore and/or plot some of these fields. Or better -- construct a control experiment following on from the provided \textit{restart} and analyze/explore that.
@@ -240,7 +238,7 @@ are the rations of \(CaCO_{3}/POC\) and \(POC/POP\), respectively.
 
 \section{Basic controls on biological productivity}
 
-The following exercises  will utilize a very basic (but relatively uncomplicated and fast) representation of the biological pump -- one with only a single nutrient (PO$_{4}$) potentially limiting to biological export, considered. The scheme is described in full in \textit{Ridgwell et al.} [2007]\footnote{Ridgwell, A., et al., Marine geochemical data assimilation in an efficient Earth System Model of global biogeochemical cycling, Biogeosci. 4, 87-104 (2007). }. Note that this specific configuration of the (modern) ocean model accounts only for 8 layers in the ocean (but spanning the same \(0-5000 \) water depth range as the 16-level model configuration used in evaluating AMOC stability as well as fossil fuel \(CO_{2}\) uptake). Although the limited vertical resolution of the 8-level model places additional constraints on the ability of the model to reproduce features such as oxygen minimum zones in the ocean, it does enable a much shorter run-time (via a longer time-step in the model as well as calculations only needing to be carried out for about \(50\%\) of the total number of 16-level ocean cells). Hence we are making  trade-off between model fidelity (in reproducing observed distribution of tracers in the modern ocean) and speed (and hence the ability to more effectively 'play' with the Earth system in a relatively short amount of real time).
+The following exercises  will utilize a very basic (but relatively uncomplicated and fast) representation of the biological pump -- one with only a single nutrient (PO$_{4}$) potentially limiting to biological export, considered. The scheme is described in full in \textit{Ridgwell et al.} [2007]\footnote{Ridgwell, A., et al., Marine geochemical data assimilation in an efficient Earth System Model of global biogeochemical cycling, Biogeosci. 4, 87-104 (2007). }. Note that this specific configuration of the (modern) ocean model accounts only for 8 layers in the ocean (but spanning the same \(0-5000 \) water depth range as the 16-level model configuration used in evaluating AMOC stability). Although the limited vertical resolution of the 8-level model places additional constraints on the ability of the model to reproduce features such as oxygen minimum zones in the ocean, it does enable a much shorter run-time (via a longer time-step in the model as well as calculations only needing to be carried out for about \(50\%\) of the total number of 16-level ocean cells). Hence we are making  trade-off between model fidelity (in reproducing observed distribution of tracers in the modern ocean) and speed (and hence the ability to more effectively 'play' with the Earth system in a relatively short amount of real time).
 
 \vspace{1mm}
 
@@ -270,20 +268,18 @@ We will consider the following scientific questions as a starting point, and the
 \newpage
 %------------------------------------------------
 %
-Experiments modifying the biological pump in the ocean would ideally be run for a few thousand and perhaps as long as 5000 years in order to obtain a complete new (quasi) steady state of carbon and nutrient cycling in the ocean. However, the main impacts in the ocean and on atmospheric \(pCO_{2}\) often tend develop relatively rapidly (decades). Hence model experiments could be run for a few 10s or perhaps a few 100 years to see something 'happen'.  A full 5000 years can also be run, and you can periodically download and viewing the results as the experiment progresses and not necessarily wait until the end of the experiment to determine a good answer. As always -- if possible -- run a representative (or perhaps the most extreme, such as shutting off the biological pump entirely) experiment for 5,000 or even 10,000 years, and answer for yourself how long the different facets of the system (ocean circulation if that has been modified or if there is a feedback with climate, total global export production, mean ocean \([O_{2}]\)) take to adjust. Don't forget to submit your long jobs to the cluster and forget all about them!
+Experiments modifying the biological pump in the ocean would ideally be run for a few thousand and perhaps as long as 5000 years in order to obtain a complete new (quasi) steady state of carbon and nutrient cycling in the ocean. However, the main impacts in the ocean and on atmospheric \(pCO_{2}\) often tend develop relatively rapidly (decades). Hence model experiments could be run for a few 10s or perhaps a few 100 years to see something 'happen'.  A full 5000 years can also be run, and you can periodically download and viewing the results as the experiment progresses and not necessarily wait until the end of the experiment to determine a good answer. As always -- if possible -- run a representative (or perhaps the most extreme, such as shutting off the biological pump entirely) experiment for 5,000 or even 10,000 years, and answer for yourself how long different key facets of the system (ocean circulation, global export production, mean ocean \([O_{2}]\), etc.) take to adjust. Don't forget to submit your jobs to the cluster!
 
 %------------------------------------------------
-\vspace{1mm}
-\noindent\rule{4cm}{0.5pt}
-\vspace{2mm}
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
 \noindent All the experiments in this first section will start from the same \textit{re-start}\footnote{As per described in Ridgwell et al. [2007].} and are based on the same \textit{user-config}\footnote{The same \textit{user-config} as used to generate the \textit{re-start} (with the exception that the atmospheric \(CO_{2}\) concentration is no longer prescribed).}. To run an e.g. 100 year experiment (but it need not be this -- see above) using the template \textit{user-config} and provided \textit{re-start} would look like:
 \vspace{-1mm}\small\begin{verbatim}
-./runcookie.sh cookie.CB.p_worbe2.BASES LABS LAB.6.1.EXAMPLE 
-   100 cookie.CB.p_worbe2.BASES.ridgwelletal.SPIN
+./runcookie.sh cookie.CB.p_worbe2.BASES LABS LAB.6.1.EXAMPLE 100 
+   cookie.CB.p_worbe2.BASES.ridgwelletal.SPIN
 \end{verbatim}\normalsize\vspace{-1mm}
-(When you run new experiments, remember to copy and rename the provided \textit{user-config} \\\textsf{\footnotesize LAB.6.1.EXAMPLE} in order to create new and unique experiments each time.)
+(When you run new experiments based on this, remember to copy and rename the provided \textit{user-config}\textsf{\footnotesize LAB.6.1.EXAMPLE} in order to create new and unique experiments each time.)
 
 \vspace{1mm}
 
@@ -303,6 +299,9 @@ Also note that in the example \textit{user-config} provided, netCDF time-slices 
 bg_par_infile_slice_name='save_timeslice_NONE.dat'
 \end{verbatim}\normalsize\vspace{-1mm}
 You may want to request more frequent saving of the spatial fields -- see Section 13.2 (and 13.3).
+
+\vspace{1mm}
+In the example \textit{user-config}, \textit{time-series} saving is set to every year.
 
 %------------------------------------------------
 \newpage
@@ -436,13 +435,20 @@ Key  to having any 'confidence' in both past and future biogeochemical (e.g. car
 
 While the comparison can be made more formally and statistically (with a little \textbf{MATLAB} or \textbf{python} code), much can be gain visually (and indeed this is typically how model-data comparisons are made in the literature). Fortunately, this visual comparison can be made in \textbf{Panoply} and both re-gridded observations and model output, being \textbf{netCDF} format, can be loaded into \textbf{Panoply}. When making visual comparisons, make sure that you use the same scale limits in both plots (these can be set manually). You can also create difference plots of model minus observations. For difference plots -- be careful when changing depth or longitude slices, that you change to the same slice in both model and observations. Note that for difference plots the convention is to use a color-scale that goes from blue (negative) to red (positive) through white (or sometimes, a yellow). Set the magnitude of the scale limits equal so that zero (no difference between model and data) maps onto white (or yellow).
 
-You may (and ideally should!) have ideas/thoughts on 'why' the model and observations diverge where they do. These thoughts may well involve processes in the ocean, e.g. is the dissolved oxygenation feature x due to insufficient ro excessive organic matter remineralization in the ocean, or is the surface surface dissolved phosphate concentration in region y excessive/over-depleted due to insufficient/excessive biological productivity? Perhaps the most fundamental purpose or advantage of models is that they provide you a way to test and attempt to answer such questions (which are basically questions of understanding global biogeochemical cycles in the first place and how tracer patterns in the ocean arise). So given a hypothesis for model-data mismatch, you might return to the previous section and see if a model parameter is listed that could be adjusted in value to test your hypothesis. In the 2 vague examples -- changing reminerilization depth or changing a control on biological export, might do. (Just note that the first section of this chapter uses a faster 8-level ocean model configuration, whereas the model-data comparisons are on the basis of a 16-level ocean and so the results of testing parameter changes in an 8-level ocean should be regarded as qualitatively rather than quantitatively comparable.)
+You may (and ideally should!) have ideas/thoughts on 'why' the model and observations diverge where they do. These thoughts may well involve processes in the ocean, e.g. is the dissolved oxygenation feature x due to insufficient ro excessive organic matter remineralization in the ocean, or is the surface surface dissolved phosphate concentration in region y excessive/over-depleted due to insufficient/excessive biological productivity? Perhaps the most fundamental purpose or advantage of models is that they provide you a way to test and attempt to answer such questions (which are basically questions of understanding global biogeochemical cycles in the first place and how tracer patterns in the ocean arise). So given a hypothesis for model-data mismatch, you might return to the previous section and see if a model parameter is listed that could be adjusted in value to test your hypothesis (e.g., changing reminerilization depth or changing a control on biological export might improve or worsen the model-data git -- often it can improve in one location and degrade elsewhere).
+
+Note that the first section of this chapter uses a faster 8-level ocean model configuration, whereas the model-data comparisons are on the basis of a 16-level ocean and so the results of testing parameter changes in an 8-level ocean should be regarded as qualitatively rather than quantitatively comparable.
 
 %------------------------------------------------
 \vspace{1mm} \noindent\rule{4cm}{0.1mm} \vspace{2mm}
 %------------------------------------------------
 
-\noindent If you wish to play with (modify and test hypotheses etc.) this configuration, an example \textit{user-config} (with fixed climate and no $CO_{2}$-climate feedback) is provided as: \textsf{\footnotesize LAB.6.2.EXAMPLE}.
+\noindent If you wish to play with (modify and test hypotheses etc.) this configuration, and/or run a control experiment to make the comparisons with observations with, an example \textit{user-config} (with fixed climate and no $CO_{2}$-climate feedback) is provided as: \textsf{\footnotesize LAB.6.2.EXAMPLE} and can be run"
+
+\vspace{-1mm}\small\begin{verbatim}
+./runcookie.sh cookie.CB.p_worjh2.BASES LABS LAB.6.2.EXAMPLE 100 
+   cookie.CB.p_worjh2.BASES.caoetal.SPIN
+\end{verbatim}\normalsize\vspace{-1mm}
 
 %------------------------------------------------
 \newpage
@@ -465,7 +471,7 @@ A pair of example configurations are provided for you as per published in \texti
 \vspace{1mm}
 \item The \textit{user-config} for the temperature-dependent (both biological uptake and water column remineralization) configuration of \textit{Crichton et al.} [2021]:
 \\\textsf{\footnotesize LAB.6.3.TDEP} 
-\\and the resulting spin-up: 
+\\and the corresponding spin-up: 
 \\\textsf{\footnotesize cookie.CB.p\_worjh2.BASES.crichtonetal.TDEP.SPIN}
 \end{enumerate}
 
