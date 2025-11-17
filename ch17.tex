@@ -15,11 +15,11 @@
 \newpage
 %------------------------------------------------
 
-\section{cookiegen basics}
+\section{Introduction}
 
 %------------------------------------------------
 
-\subsection{overview of the cookiegen software}
+\subsection{cookiegen}
 
 \textbf{cookiegen} is a collection of \textbf{MATLAB}\footnote{As a \textbf{MATLAB} code, (only) very basic familiarity with using \textbf{MATLAB} at the command line is required. And a copy/license of the \textbf{MATLAB} software ... A sufficient grasp of \textbf{MATLAB} can be gained by going through the following sections/subsections of the \textsf{matlabananas} textbook, which can be found on \href{https://github.com/derpycode/matlabananas}{GitHub} (look for the PDF file compiled form the latex source -- \textsf{BANANAS.pdf}):
 \vspace{1mm}
@@ -28,13 +28,13 @@
 \item Section 1.6 -- Changing directories and file search paths.
 \item Section 2.2 -- Using \textit{functions} ... of which \texttt{cookiegen} is one.
 \end{itemize}
-} functions that can create all the primary configuration files required by the cGENIE (\textbf{cookie}) Earth system model. \textbf{cookiegen} was originally designed to take the output from a fully coupled GCM, particularly of past climates with different continental configurations, and then re-grid the output needed by the \textbf{cookie} model (in the form of files of boundary conditions, all  saved  in their respective correct format). However, \textbf{cookiegen} can also be used to 'draw' conceptual alternative Earths (in terms of continental configuration). Again, saving the required \textbf{cookie} files in their appropriate formats.
+} functions that can create all the primary configuration files required by the cGENIE (\textbf{cookie}) Earth system model. \textbf{cookiegen} was originally designed to take the output from a fully coupled GCM, particularly of past climates with different continental configurations, and then re-grid the output needed by the \textbf{cookie} model (in the form of files of boundary conditions, all  saved  in their respective correct format). However, \textbf{cookiegen} can also be used to 'draw' conceptual alternative Earths (in terms of continental configuration) and modify existing configurations.
 
 %------------------------------------------------
 
 \subsection{Installing cookiegen}
 
-The \textbf{cookiegen} code is hosted on \textbf{GitHub}:
+The \textbf{Summary} code is hosted on \textbf{GitHub}:
 
 \vspace{2mm}
 \href{https://github.com/genie-model/cookiegen}{\texttt{https://github.com/genie-model/cookiegen}}
@@ -46,31 +46,185 @@ There are 2 ways to get your mitts on the \textbf{cookiegen} code:
 \begin{enumerate}
 
 \vspace{1mm}
-\item By downloading an archive file, containing all the code etc. For this -- click on the \textcolor[rgb]{0,0.501961,0}{green} \textsf{\small{Clone or Download}} button, and select \textsf{\small{Download ZIP}}.
+\item By downloading an archive file, containing all the code etc. For this -- click on the \textcolor[rgb]{0,0.501961,0}{green} \textsf{\footnotesize Clone or Download} button, and select \textsf{\footnotesize Download ZIP}.
 \\You then unpack/unzip the files and directory structure where you want it.
 \\This [archive download] is the simplest and  perfectly workable way to proceed\footnote{Note that this way, you will be unable to easily update the code with whatever new developments or bug fixes occur in the future, nor can propagate back any code changes that you might have made and might want to become part of the official \textbf{cookiegen} code  (i.e. downloading the \textsf{zip} file becomes a one-off installation that loses its formal connection to the \textbf{GitHub} repository).} (and is the recommended option).
 
 \vspace{1mm}
 \item Or you can \textit{clone} the repository to where you intend to run \textbf{cookiegen}. Note that you will need a git client installed on your computer. There are GUI clients for git, or this can be done at the command line:
 
-\vspace{-2mm}
-\begin{verbatim}
+\vspace{-2mm}\begin{verbatim}
 $ git clone https://github.com/genie-model/cookiegen.git
-\end{verbatim}
-\vspace{-2mm}
+\end{verbatim}\vspace{-2mm}
 
 By doing this, you have created your own code repository (and an identical copy of the one hosted on GitHub). As part of the \texttt{git clone} command, you also automatically \textit{check out} (from your very own personal repository) a copy of the code.
 
 \end{enumerate}
 \vspace{2mm}
 
-Note that you download or clone \textbf{cookiegen} to the computer that you have \textbf{MATLAB} installed on and will use to run \textbf{cookiegen} (i.e. not necessarily to the computer where \textbf{cookie} itself is run).
+\noindent Note that you download or clone \textbf{cookiegen} to the computer that you have \textbf{MATLAB} installed on and will use to run \textbf{cookiegen} (i.e. not necessarily to the computer where \textbf{cookie} itself is run).
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\section{Quick Start Guide}
 
 %------------------------------------------------
 
-\newpage
+There are 5 steps in using \textbf{cookiegen} to create and ready a new model configuration to be run. The basic steps and quick start methodology is outlined below.\footnote{In practice and particularly for more specific usage, some decisions regarding the \textit{base-config} (tracer selection) and \textit{user-config} and some copy-pasting will be required (detailed later).}
 
-\subsection{Running cookiegen}
+\begin{enumerate}
+
+\vspace{2mm}
+\item Select an existing \textbf{cookiegen} configuration -- these live in the \textsf{\footnotesize CONFIGS} folder. The most common options are:
+
+\begin{itemize}[noitemsep]
+
+\vspace{1mm}
+\item \textsf{\footnotesize EXAMPLE\_BLANK} -- Generates a continental configuration starting from an all-ocean (no land) ('water-world') grid. Requires the user to edit in the location of any land (and optionally also modify seafloor topography).
+
+\vspace{1mm}
+\item \textsf{\footnotesize EXAMPLE\_MASK\_INPUT} -- Generates a continental configuration from a simple text file containing a grid of '1's (ocean) and '0's (land). By default, this file lives in \textsf{\footnotesize INPUT}.\footnote{The file example provided is: \textsf{\footnotesize wordrake.txt}.} 
+
+\vspace{1mm}
+\item \textsf{\footnotesize EXAMPLE\_GCMHadCM3L\_modern} -- Generates a continental configuration derived from the model output of a coupled GCM experiment for the present-day. 
+
+\vspace{1mm}
+\item \textsf{\footnotesize EXAMPLE\_GCMHadCM3L\_paleo} -- Generates a continental configuration derived from the model output of a coupled GCM experiment for the late Permian. (So, identical in operation to \textsf{\footnotesize EXAMPLE\_GCMHadCM3L\_modern}.)
+
+\end{itemize}
+
+\vspace{1mm}
+Copy and rename the configuration file closest to what you are after. Make sure that at the minimum, you \uline{specify a new 'name' for the continental configuration ('World')} you are about to generate -- in the configuration file, the parameter name for this is: \texttt{par\_wor\_name} -- This \uline{must be an 8-character long string}.\footnote{You can use under-scores, but not spaces and not '-'. \uline{Do not} use fewer than or mroe than 8 characters ...}
+
+\vspace{2mm}
+\item Run the \textbf{cookiegen} function, passing the name of a file containing the parameters defining the creation of your new configuration, i.e.,
+\vspace{0mm}\small\begin{verbatim}
+>> makecookie('FILENAME')
+\end{verbatim}\normalsize\vspace{0mm}
+where \texttt{FILENAME} is the name of your configuration file.
+
+\vspace{2mm}
+Depending on whether \texttt{\small opt\_user} is set to \texttt{\small true}, an editor window will open (firstly for changes to the land-sea mask to be made, then later for the ocean bathymetry to be edited) and which requires manual intervention (mouse clicks from you) until \textbf{cookiegen} can continue and complete. Refer to the instructions that appear on the \textbf{MATLAB} command line.
+
+\end{enumerate}
+
+\vspace{2mm}
+\noindent Using the default settings, all the files you need will appear in the \textsf{\footnotesize OUTPUT} folder and the model will be run-able after just 3 more short steps:
+
+\begin{enumerate}
+\setcounter{enumi}{2}
+
+\vspace{2mm}
+\item A sub-folder will appear in \textsf{\footnotesize OUTPUT} with the name of your configuration.
+\\(The name of your configuration is an 8-character string which is defined in the \textbf{cookiegen} configuration file [parameter name: \texttt{par\_wor\_name}].)
+\\\uline{Copy the entire sub-folder to the \textsf{\footnotesize genie-paleo} folder of your \textbf{cookie} installation.}
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\vspace{2mm}
+\item In the example \textbf{cookiegen} configuration files, a generic \textit{base-config} file suitable for a 16-level (36x36) ocean has been specified [parameter name: \texttt{par\_cfgid}]. This file has been copied to \textsf{\footnotesize OUTPUT} (from \textsf{\footnotesize DATA}) and renamed incorporating the 8-character 'World' name you specified (and with the file extension \textsf{\footnotesize .config}).
+\\\uline{Copy this file to the \textsf{\footnotesize genie-basconfigs} folder of your \textbf{cookie} installation}.
+
+\vspace{2mm}
+\item Also the example \textbf{cookiegen} configuration files, a generic \textit{user-config} suitable for running a basic climate-only (no carbon cycle) experiment has been specified [parameter name: \texttt{par\_usrid}]. This file has been copied to \textsf{\footnotesize OUTPUT} (from \textsf{\footnotesize DATA}) and renamed incorporating the 8-character 'World' name you specified (and with the file extension \textsf{\footnotesize .SPIN}).
+\\\uline{Copy this file to the \textsf{\footnotesize genie-userconfigs} folder (or sub-folder) of your \textbf{cookie} installation}.
+
+\end{enumerate}
+
+\vspace{2mm}
+\noindent If you named your 'World' e.g., \textsf{\footnotesize MY\_WORLD} and transferred the \textit{user-config} into the \textsf{\footnotesize LABS} sub-directory of \textsf{\footnotesize genie-userconfigs}, you would run a generic climate-only experiment (for 10 years):
+
+\vspace{-2mm}\small\begin{verbatim}
+./runcookie.sh cookie.C.MY_WORLD.NONE LABS cookie.C.MY_WORLD.NONE.SPIN 10
+\end{verbatim}\normalsize\vspace{-2mm}
+Note that in changing to a new \textit{base-config}, the model will automatically re-compile before actually running the experiment.
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent If you want something beyond a generic/default climate-only configuration and experiment, steps 4 and 5 (above) need to be slightly modified. Some suggestions follow (also read the rest of the Chapter!!).
+
+\begin{itemize}[noitemsep]
+\setlength{\itemindent}{.05in}
+
+\vspace{2mm}
+\item [+ 'age'] To better diagnose the large-scale circulation of the ocean, you can add the capability to simulate 'ventilation age' -- see \textbf{Section 2.4}. To do this:
+
+\begin{enumerate}
+\setcounter{enumi}{4}
+
+\vspace{1mm}
+\item From \textsf{\footnotesize cGENIE.baseconfigs}, open the file \textsf{\footnotesize TRACERCONFIG.AGE.txt} -- select and copy all the lines. Open the \textit{base-config} file that \textbf{cookiegen} generated, delete the lines in-between:
+
+\vspace{0mm}\footnotesize\begin{verbatim}
+# \/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/
+...
+# /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\
+\end{verbatim}\normalsize\vspace{0mm}
+
+and the paste in the contents of \textsf{\footnotesize TRACERCONFIG.AGE.txt} that you have just copied.\footnote{If you have not transferred this file to the cluster, do this now. Either way, it is recommended that you change the name form the default generated file, e.g. change \textsf{\footnotesize NONE} $\rightarrow$ \textsf{\footnotesize AGE} in the file-name.} 
+
+\textsf{\footnotesize LAB.2.1.EXAMPLE} would also work.
+
+\vspace{1mm}
+\item In place of the automatically-generated \textit{user-config} in \textsf{\footnotesize OUTPUT}, use \textsf{\footnotesize USERCONFIG.AGETRACER.SPIN}, which you can find in the sub-directory: \textsf{\footnotesize CGENIE.userconfigs}.
+
+\end{enumerate}
+
+\vspace{2mm}
+\item [+ carbon] If you want a basic (abiotic) ocean carbon cycle as per \textbf{Chapter 5}:
+
+\begin{enumerate}
+\setcounter{enumi}{4}
+
+\vspace{1mm}
+\item Replace the default tracer definition text block in your \textit{base-config} with the contents of \textsf{\footnotesize TRACERCONFIG.CARBONATECHEMSTRY.txt} \\(\uline{Refer to the the +age modification instructions (above) for further details}.)
+
+\vspace{1mm}
+\item Use the example \textit{user-config} \textsf{\footnotesize USERCONFIG.CARBONATECHEMSITRY.SPIN} (from the \textsf{\footnotesize CGENIE.userconfigs} sub-directory).
+
+\textsf{\footnotesize LAB.5.1.EXAMPLE} (or \textsf{\footnotesize LAB.5.1.historical} or \textsf{\footnotesize LAB.5.1.emissions}) would also work.
+
+\end{enumerate}
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\vspace{2mm}
+\item [+ biopump] If you want a simple single nutrient (P) biological pump in the ocean, following \textit{Ridgwell et al.} [2007] (for an 8-level non-seasonal ocean) or \textit{Cao et al.} [2009] (for a 16-level seasonally-forced ocean):
+
+\begin{enumerate}
+\setcounter{enumi}{4}
+
+\vspace{1mm}
+\item Replace the default tracer definition text block in your \textit{base-config} with the contents of \textsf{\footnotesize TRACERCONFIG.Ridgwelletal.2007.txt} (for an 8-level ocean) or \textsf{\footnotesize TRACERCONFIG.Caoetal.2009.txt} (16-level ocean). \\(\uline{Refer to the the +age modification instructions (above) for further details}.)
+
+\vspace{1mm}
+\item From the \textsf{\footnotesize CGENIE.userconfigs} sub-directory, in place of the automatically-generated \textit{user-config}, use: \textsf{\footnotesize USERCONFIG.Ridgwelletal.2007.txt} or \textsf{\footnotesize USERCONFIG.Caoetal.2009.txt}.
+
+\textsf{\footnotesize LAB.6.1.EXAMPLE} (8-level) or \textsf{\footnotesize LAB.6.2.EXAMPLE} (16-level) would also work.
+
+\end{enumerate}
+
+\end{itemize}
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\section{Running cookiegen}
+
+%------------------------------------------------
 
 To use the \textbf{cGENIE.cookie} model configuration generator \textbf{cookiegen} -- at the command line in \textbf{MATLAB}, simply type:
 
@@ -78,389 +232,314 @@ To use the \textbf{cGENIE.cookie} model configuration generator \textbf{cookiege
 >> makecookie('FILENAME')
 \end{verbatim}\vspace{-2mm}
 
-\noindent where \texttt{FILENAME} is the name of an ASCII  (plain text) format configuration file (having a \texttt{.m} filename extension) that specifies the required settings (see subsequent section).
+\noindent where \texttt{FILENAME} is the name of a configuration file with an \texttt{.m} file-name extension, that specifies the required settings (see subsequent section).
 
-This file (\textsf{\footnotesize FILENAME.m}), must either be present in the directory where you installed \textbf{cookiegen} (the directory where e.g. where the file \texttt{makecookie.m} is located) e.g. \textsf{\footnotesize C:\textbackslash cookiegen}. In this case, your \textbf{MATLAB} working directory must also be  set to \textsf{\footnotesize C:\textbackslash cookiegen}. Or, the \textbf{MATLAB} working directory and the file \textsf{\footnotesize FILENAME.m} can reside elsewhere. In this case, you will then 'add' the location of \textbf{cookiegen} to \textbf{MATLAB}'s search path by the \textbf{MATLAB} function \texttt{addpath}\footnote{Refer to the \textbf{MATLAB} '\textsf{bananas}' text for the syntax for using \texttt{addpath}.}.
+\textsf{\footnotesize FILENAME.m} must be present in the directory where you installed \textbf{cookiegen} (the directory where e.g. where the file (\textsf{\footnotesize makecookie.m} is located). \uline{Or}, if you would like to store it elsewhere, you will need to 'add' its location \textbf{MATLAB}'s search path by the \textbf{MATLAB} function \texttt{addpath}.
 
-The \textsf{\footnotesize cookiegen} model configuration generator then starts, and depending on the specific settings in the configuration file, may require no user input, or may require user input (either because this option was requested, or because a re-gridding issue arose that requires manual intervention to resolve). A series of plots are created (and saved) as the configuration generation progresses together with the \textbf{cookie} model configuration files themselves. All the various steps plus details of how the contents of the configuration files are generated are reported at the command line, and saved in a n ASCII format \texttt{*.log} file for future reference.
+The \textsf{\footnotesize cookiegen} model configuration generator then starts, and depending on the specific settings in the configuration file, may require no user input, or may require user input (either because this option was requested, or because a re-gridding issue arose that requires manual intervention to resolve). A series of plots are created (and saved) as the configuration generation progresses together with the \textbf{cookie} model configuration files themselves. All the various steps plus details of how the contents of the configuration files are generated are reported at the command line, and saved in an ASCII format \texttt{*.log} file for future reference.
 
-Depending on the specific configuration file settings (see later), \textbf{cookiegen} has 5 main modes of operation, which are summarized as follows (and described in more detail, along with specific examples, below):
+\vspace{1mm}
+\noindent Depending on the specific configuration file settings, \textbf{cookiegen} has 5 main modes of operation. The most common options are:
 
 \begin{enumerate}[noitemsep]
 \setlength{\itemindent}{.2in}
 \setcounter{enumi}{0}
 \vspace{1mm}
-\item \textbf{Configuration derivation based on re-gridding climate output from a GCM.}
-\\ The most common usage of \textbf{cookiegen}, and enabling a new (typically paleo) configuration to be derived from the output of a GCM experiment. Currently options for utilizing 4 different GCMs are provided: HadCM3(l) (\texttt{'hadcm3'} or \texttt{'hadcm3l'}), FOAM (\texttt{'foam'}), CESM (\texttt{'cesm'}), and ROCKEE-3D (\texttt{'rockee'}).
-\vspace{1mm}
-\item \textbf{Derivation based on re-gridding a high resolution input topography.}
-\\ In this option -- \texttt{'mat'} -- a land-sea mask and ocean bathymetry are re-gridded from a high(er) resolution \textsf{\footnotesize .mat} (\textbf{MATLAB}) topography file. Zonal wind-stress and speed, and zonal planetary albedo, are prescribed.
-\vspace{1mm}
-\item \textbf{Derivation based on an existing model topography '\texttt{.k1}' file (or simplified \texttt{.k2}) format variant).}
-\\ This option -- \texttt{'k1'} or \texttt{'k2'} -- allows a topography to be re-created, or adapted/altered, all directly from an existing model 'k1' file (and hence existing model configuration). Zonal wind-stress and speed, and zonal planetary albedo, are prescribed.
-\vspace{1mm}
-\item \textbf{Derivation based on a prescribed land-sea mask.}
-\\ This option -- \texttt{'mask'} -- will create a new configuration from any specified land-sea mask, whether 'real' or completely hypothetical. Zonal wind-stress and speed, and zonal planetary albedo, are prescribed.
+\item \textbf{Configuration based on re-gridding climate output from a GCM.}
+\\ The most common usage of \textbf{cookiegen}, and enabling a new (typically paleo) configuration to be derived from the output of a GCM experiment. Currently options for utilizing 4 different GCMs are provided: HadCM3(l) (\texttt{'hadcm3'} or \texttt{'hadcm3l'}), FOAM (\texttt{'foam'}), CESM (\texttt{'cesm'}), and ROCKEE-3D (\texttt{'rockee'}).\\2D wind-stress and speed + zonal planetary albedo, are derived from GCM climate fields.
 \vspace{1mm}
 \item \textbf{From a blank (all ocean) initial template.}
-\\ Finally, this option -- \texttt{''} -- enables a topography to be drawn by hand within \textbf{cookiegen} and hence represents an interactive alternative to (4) (rather than editing a land-sea mask in a text editor). Zonal wind-stress and speed, and zonal planetary albedo, are prescribed.
+\\ This option -- \texttt{''} (empty string) -- enables a topography to be drawn by hand within \textbf{cookiegen} and hence represents an interactive alternative to (3) (editing a land-sea mask in a text editor).\\Idealized zonal wind-stress and speed, and zonal planetary albedo, are used.
+\vspace{1mm}
+\item \textbf{From a simple land-sea mask file.}
+\\ This option -- \texttt{'mask'} -- will create a new configuration from any specified land-sea mask, whether 'real' or hypothetical. It provides a different way of 'drawing' continents -- now via a text file beforehand, rather than 'by hand' drawing during the running of \textsf{\footnotesize makecookie}.\\Idealized zonal wind-stress and speed, and zonal planetary albedo, are used.
 \end{enumerate}
 
-\vspace{2mm}
-Also depending on the specific options, and particularly whether or not \texttt{opt\_user} is set to \texttt{true}, an editor window will open, firstly for changes to the land-sea mask to be made, then later for the ocean bathymetry to be edited. Finally, a window will open allowing 'island paths' to be edited. The latter may be needed if \textbf{cookiegen} cannot unambiguously determine them unaided.
+\vspace{1mm}
+\noindent Less common options are:
 
-Once you have successfully run \textbf{makecookie}, copy/transfer the entire  configuration subdirectory (the directory with the same name as whatever you called your 'world')  and its contents, from the \textbf{cookiegen} output directory (e.g. \textsf{\footnotesize cookiegen/OUTPUT.EXAMPLES}) on your local computer, to: \textsf{\footnotesize cgenie.cookie/genie-paleo}.
+\begin{enumerate}[noitemsep]
+\setlength{\itemindent}{.2in}
+\setcounter{enumi}{3}
+\vspace{1mm}
+\item \textbf{Derivation based on an existing model topography '\texttt{.k1}' (or simplified \texttt{.k2}) file.}
+\\ This option -- \texttt{'k1'} or \texttt{'k2'} -- allows a topography to be re-created, or adapted/altered, all directly from an existing model 'k1' file (and hence existing model configuration).\\Idealized zonal wind-stress and speed, and zonal planetary albedo, are used.
+\vspace{1mm}
+\item \textbf{Derivation based on re-gridding a high resolution input topography.}
+\\ In this option -- \texttt{'mat'} -- a land-sea mask and ocean bathymetry are re-gridded from a high(er) resolution \textsf{\footnotesize .mat} (\textbf{MATLAB}) topography file.\\Idealized zonal wind-stress and speed, and zonal planetary albedo, are used.
+\end{enumerate}
 
 %------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
 
+%------------------------------------------------
 \newpage
+%------------------------------------------------
 
-\section{Configuring cookiegen -- overview}
+\section{Configuring cookiegen}
 
 %------------------------------------------------
+
+\section{Overview}
 
 When \textbf{makecookie} is run, a configuration file with a specified filename\footnote{i.e. the single parameter passed to \textbf{makecookie} when it is invoked at the command line.} is loaded. The configuration file has a simple plain text (ASCII) format, but is given a \textsf{\footnotesize .m} extension, enabling the values of a number of controlling parameter values to be set directly in \textbf{MATLAB}.\footnote{Note that the parameter filename is passed as a string without the .m extension (which is implicitly assumed). An error message will be generated if the file does not exist or has the incorrect extension.} The configuration file parameters control facets of \textbf{makecookie} behavior such as the primary mode of operation, input and output filenames, what types of configuration files you want to generate, as well as there being a number of parameters controlling the finer details of re-gridding and configuration file generation, including whether to enable user-input or not.
 
-The configuration files can be edited with the \textbf{MATLAB} editor (indeed, as a \textsf{\footnotesize .m} file, they are inherently a \textbf{MATLAB} format file and associated with this program), or any  text editor\footnote{But make sure they retain a \textsf{\small .m} rather than \textsf{\small .txt} filename extension}. The configuration file is divided up into a series of sections of different parameter options. The main (most commonly used) parameters are summarized as follows (and are more fully described later):
-
-\begin{itemize}
+The configuration files can be edited with the \textbf{MATLAB} editor (indeed, as a \textsf{\footnotesize .m} file, they are inherently a \textbf{MATLAB} format file and associated with this program), or any  text editor\footnote{But make sure they retain a \textsf{\footnotesize .m} rather than \textsf{\footnotesize .txt} filename extension}. The configuration file is divided up into a series of sections of different parameter options. The main (most commonly used) parameters are summarized as follows (and are more fully described later). Highlighted in \textcolor{blue}{\textbf{blue}} are the most commonly changed parameters.
 
 \vspace{2mm}
+
+%------------------------------------------------
+\begin{itemize}
+%------------------------------------------------
+
+\vspace{1mm}
 \item []
 \small\vspace{-2pt}\begin{verbatim}
-% *** CONFIG NAME AND MAIN INPUT SETTINGS *******************************
+% *** CONFIG NAME AND INPUT DATA SETTINGS ******************************* %
 \end{verbatim}\vspace{-2pt}\normalsize
 
 \begin{itemize}[noitemsep]
 
 \vspace{1mm}
-\item [] \texttt{par\_wor\_name}
-\vspace{1mm}
-\\Defines the name of the model configuration. This must be a string, \uline{8 characters long}.
-\\e.g. \texttt{par\_wor\_name='my\_world'}
+\item [] \textcolor{blue}{\texttt{par\_wor\_name}}
+
+\textcolor{blue}{Defines the name of the model configuration. This must be a string and \uline{it must 8 characters long}.
+\\e.g. \texttt{par\_wor\_name='my\_world'}}
 
 \vspace{1mm}
 \item [] \texttt{par\_gcm}
-\vspace{1mm}
-\\Defines the format of the input. The string is blank for an interactive user-defined world, i.e. \texttt{par\_gcm=''}
+
+Defines the format of the input. The string is blank for an interactive user-defined world.\footnote{If you utilize one of the example configuration files in the \textsf{\footnotesize CONFIGS} sub-directory, you will not need to change this.}
 
 \vspace{1mm}
-\item [] \texttt{par\_expid}
+\item \textcolor{blue}{\texttt{par\_expid}}
+
+\textcolor{blue}{Defines the name of the GCM experiment if a GCM input is selected, or the land-sea '\textsf{\footnotesize .dat}' if using the mask input option (or the '\textsf{\footnotesize .k1}' or '\textsf{\footnotesize .k2}' file). By default, these files (or folder, in the case of GCM model input) live in the \textsf{\footnotesize INPUT} sub-directory.}
+
 \vspace{1mm}
-\\Defines the name of the GCM experiment if a GCM input is selected, or the '\textsf{\small .k1}' or '\textsf{\small .dat}' files if those respective input formats are selected by the above option.\footnote{By default, these files live in the \textsf{\small INPUT.EXAMPLES} sub-directory.}
+\item \texttt{par\_cfgid}
+
+Specifies an optional template \textit{base-config}. If specified, '\textsf{\footnotesize makecookie} will copy the \textit{base-config} file -- automatically add the required parameter block defining the new continental configuration -- and save this to the output directory (\texttt{par\_pathout}). If empty, \texttt{par\_cfgid=''}, a base-config file will have to be manually selected and the continental configuration parameter block copied-pasted into it.
+
+\vspace{1mm}
+\item \texttt{par\_usrid}
+
+Specifies an optional template \textit{user-config}. If specified, '\textsf{\footnotesize makecookie} will copy the \textit{user-config} file and save it to the output directory (\texttt{par\_pathout}). 
+
+\vspace{1mm}
+\item \textcolor{blue}{\texttt{par\_age}}
+
+\textcolor{blue}{Defines the geologic age of the configuration (in Ma). This is used to modify the value of the solar constant, as well as initial ocean concentrations of Mg, Ca, SO4.}
+
+\end{itemize}
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\vspace{2mm}
+\item []
+\small\vspace{-2pt}\begin{verbatim}
+% *** INPUT + OUTPUT SETTINGS ******************************************* %
+\end{verbatim}\vspace{-2pt}\normalsize
+
+\begin{itemize}[noitemsep]
+
+\vspace{1mm}
+\item \texttt{par\_pathin}
+
+Specifies the sub-directory where the input files can be found.\footnote{This need not be changed.}
+
+\vspace{1mm}
+\item \texttt{par\_pathout}
+
+Specifies the sub-directory where the \textbf{cookie} configuration files will be saved to.\footnote{This need not be changed.}
+
+\vspace{1mm}
+\item \texttt{par\_plotformat}
+
+Specifies the format of the plots that are created by \textsf{\footnotesize makecookie}. If you need better quality figures saved, set this parameter to \texttt{pdf}. \footnote{Note that \textsf{\footnotesize makecookie} will take much longer to run when saving vector graphics.} 
+
+\vspace{1mm}
+\item \textcolor{blue}{\texttt{opt\_user}}
+
+\textcolor{blue}{Selects whether or not you wish to have the chance to manually edit the land-sea mask and the seafloor topography. Valid options are \texttt{true} and \texttt{false}. (Even if this option is selected, you need not do any editing.)}
 
 \end{itemize}
 
 \vspace{2mm}
 \item []
 \small\vspace{-2pt}\begin{verbatim}
-% *** FILE PATHS ********************************************************
-\end{verbatim}\vspace{-2pt}\normalsize
-
-\vspace{2mm}
-\item []
-\small\vspace{-2pt}\begin{verbatim}
-% *** GCM netCDF FILENAMES **********************************************
-\end{verbatim}\vspace{-2pt}\normalsize
-
-\vspace{2mm}
-\item []
-\small\vspace{-2pt}\begin{verbatim}
-% *** GRID RESOLUTION ***************************************************
+% *** GRID -- HORIZONTAL ************************************************ %
 \end{verbatim}\vspace{-2pt}\normalsize
 
 \begin{itemize}[noitemsep]
 
 \vspace{1mm}
-\item \texttt{par\_max\_i}
-\vspace{1mm}
-\\Defines the number of grid points in the longitude ('i') direction.
+\item \texttt{par\_max\_i} [default: \texttt{36}]
+
+Defines the number of grid points in the longitude ('i') direction.
 \\This is typically 36 or 18, e.g. \texttt{par\_max\_i=36}
 
 \vspace{1mm}
-\item \texttt{par\_max\_i}
-\vspace{1mm}
-\\Defines the number of grid points in the latitude ('j') direction.
+\item \texttt{par\_max\_i} [default: \texttt{36}]
+
+Defines the number of grid points in the latitude ('j') direction.
 \\This is typically 36 or 18 and is typically the same number as for the i direction, e.g. \texttt{par\_max\_j=36}
 
 \vspace{1mm}
-\item \texttt{par\_max\_k}
-\vspace{1mm}
-\\Defines the number of  layers in the ocean circulation model.
-\\This is almost always either 16 or 8, e.g. \texttt{par\_max\_k=16}
-
-\vspace{1mm}
 \item \texttt{opt\_equalarea} [default: \texttt{true}]
-\vspace{1mm}
-\\This specifies whether or not an equal area grid is used/assumed. (A value of \texttt{false} results in the latitude grid being defined in equal increments of latitude).
 
-\end{itemize}
-
-\pagebreak
-
-\vspace{2mm}
-\item []
-\small\vspace{-2pt}\begin{verbatim}
-% *** REGRIDDING SETTINGS ***********************************************
-\end{verbatim}\vspace{-2pt}\normalsize
-
-\begin{itemize}[noitemsep]
+This specifies whether or not an equal area grid is used/assumed. (A value of \texttt{false} results in the latitude grid being defined in equal increments of latitude).
 
 \vspace{1mm}
-\item [] \texttt{par\_max\_D} [default: \texttt{5000.0}]
-\vspace{1mm}
-\\Sets the maximum ocean (scale) depth (in m).
-\\ See subsequent sub-sub-section on 'Ocean depth (and maximum levels)' for further details and usage.
+\item \texttt{par\_lon\_off} [default: \texttt{-180.0}]
 
-\vspace{1mm}
-For the sediment model re-gridding (you can ignore this is you are not using the \textbf{SEDGEM} module and wanting to simulate marine sediments, and have \texttt{par\_sedsopt=2} selected), there is:
-\vspace{1mm}
-\item [] \texttt{par\_sed\_Dmin} [default: \texttt{1000.0}]
-\\\texttt{par\_sed\_Dmax} [default: \texttt{5000.0}]
-\vspace{1mm}
-\\which together set the minimum and maximum depths used in generating a random seafloor topography for \textbf{SEDGEM}.\footnote{Note that while \(5000m\) corresponds to the default deepest depth of the ocean circulation model, about \(15\%\) of the modern seafloor lies below this (and mostly shallower than \(6000m\)). So selecting \texttt{6000.0} would arguably enable a better simulation of e.g. the CCD.}
+This specifies the longitude offset of the model grid. The basic modern configurations have an offset of \texttt{-260.0}. The standard paleo value is \texttt{-180.0}.
 
 \end{itemize}
 
 \vspace{2mm}
 \item []
 \small\vspace{-2pt}\begin{verbatim}
-% *** OPTIONS -- MAIN ***************************************************
+% *** GRID -- vertical ************************************************** %
 \end{verbatim}\vspace{-2pt}\normalsize
 
 \begin{itemize}[noitemsep]
 
 \vspace{1mm}
-\item [] \texttt{opt\_user} [default: \texttt{true}]
-\vspace{1mm}
-\\Determines whether \textbf{cookiegen} pauses and allows user-modification of land-sea mask and ocean depth (and island paths).
+\item \texttt{par\_max\_k}
+
+Defines the number of  layers in the ocean circulation model.
+\\This is almost always either 16 (e.g., \texttt{par\_max\_k=16}) or 8.
 
 \vspace{1mm}
-\item [] \texttt{opt\_plots} [default: \texttt{false}]
+\item \texttt{par\_max\_k\_shallow}
+
+Defines the k (ocean level) value of the shallowest allowed seafloor. This is primarily used to exclude cells where the ocean model grid is only a single layer thick when re-gridding from a GCM or high resolution topography.
+
 \vspace{1mm}
-\\Determines whether or not to plot all input and re-gridded boundary conditions.\footnote{For GCM-based re-gridded, this can sometimes take some time to do.}
+\item \textcolor{blue}{\texttt{par\_min\_k}} [default: \texttt{1}]
+
+\textcolor{blue}{Defines the k (ocean level) value of the deepest part of the ocean. Choosing a value of 3 for a 16-level flat-bottom ocean gives approximately the modern ocean volume.}
+
+\vspace{1mm}
+\item \texttt{par\_max\_D} [default: \texttt{5000.0}]
+
+Sets the maximum ocean (scale) depth (in m).
+\\This is almost invariably 5000.0, but some series of paleo configurations use 5500.0 m.
+
+\end{itemize}
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\vspace{2mm}
+\item []
+\small\vspace{-2pt}\begin{verbatim}
+% *** MODULE SUPPORT **************************************************** %
+\end{verbatim}\vspace{-2pt}\normalsize
+
+\begin{itemize}[noitemsep]
+
+\vspace{1mm}
+\item \texttt{opt\_makegold} [default: \texttt{true}]
+
+Create the ocean circulation model files?
+\\If you only want to (re-)generate sediment model (SEDGEM) or land surface scheme (ENTS) files, you might want to set this to \texttt{false}.
+
+\vspace{1mm}
+\item \texttt{opt\_makeseds} [default: \texttt{false}]
+
+Generate sediment model (SEDGEM) files?
+
+\vspace{1mm}
+\item \texttt{opt\_makeents} [default: \texttt{false}]
+
+Generate land surface scheme (ENTS) files?
+
+\end{itemize}
+
+\vspace{2mm}
+\item []
+\small\vspace{-2pt}\begin{verbatim}
+% *** BOUNDARY CONDITION SIMPLIFICATIONS ******************************** %
+\end{verbatim}\vspace{-2pt}\normalsize
+
+\begin{itemize}[noitemsep]
+
+\vspace{1mm}
+\item \texttt{opt\_makezonalwind}
+
+Determines whether \textbf{cookiegen} applies an idealized zonal wind boundary conditions. For non-GCM-derived configurations this is the only option. For GCM-derived configurations, this allows the assumption of zonal wind boundary conditions to be evaluated against a 2D re-gridded wind product.
+
+\vspace{1mm}
+\item \texttt{opt\_makezonalalbedo}
+
+Determines whether \textbf{cookiegen} applies an idealized planetary albedo boundary condition. For non-GCM-derived configurations this is the only option. For GCM-derived configurations, the default (\texttt{true}) is for a zonal planetary albedo boundary condition derived from the GCM and consistent with the standard model configurations. A \texttt{false} will create and apply a 2D re-gridded planetary albedo product.
+
+\vspace{1mm}
+\item \texttt{opt\_makerndseds}
+
+Determines whether \textbf{cookiegen} creates a randomized seafloor topography for the purpose of calculating pressure-dependent carbonate chemistry and carbonate saturation at the sediment surface. Otherwise, seafloor topography is the same as that used by the physical ocean circulation model.
 
 \end{itemize}
 
 \end{itemize}
 
+%------------------------------------------------
+\newpage
 %------------------------------------------------
 
 \subsection{cookiegen configuration examples}
 
-A series of example configurations are provided in the main \textbf{cookiegen} directory. These illustrate parameter settings and the primary ways of using \textbf{cookiegen}. They also serve as useful template parameter setting files.  They are:
+Several example configurations are provided in the \textsf{\footnotesize CONFIGS} sub-directory. These illustrate parameter settings and the primary ways of using \textbf{cookiegen}. They also serve as useful templates for creating your own \textbf{cookiegen} configuration files. In alphabetical order, but with the commonly used examples highlighted in \textcolor{blue}{\textbf{blue}}, they are:
 
 \vspace{1mm}
 \begin{itemize}[noitemsep]
 
 \vspace{1mm}
-\item \textsf{\footnotesize EXAMPLE\_BLANK} -- Starts from a blank ('water-world'), all-ocean (no land) template. User input (allowing continents and seafloor topography to be 'drawn') is automatically activated whether you want it or not!\footnote{Because it assumes that you are going to go on and draw something ...}\(^{,}\)\footnote{Edit the \textbf{cookiegen} code to be able to turn off.}
+\item \textcolor{blue}{\textsf{\footnotesize EXAMPLE\_BLANK} -- Starts from a blank ('water-world'), all-ocean (no land) template. User input (allowing continents and seafloor topography to be 'drawn') is automatically activated whether you want it or not!}\footnote{Because it assumes that you are going to go on and draw something ...}\(^{,}\)\footnote{Edit the \textbf{cookiegen} code to be able to turn off.}
 
 \vspace{1mm}
-\item \textsf{\footnotesize EXAMPLE\_BLANK\_deep} -- As above, except with a slightly deeper ocean -- 18 levels with the first 16 spanning 5000.0 m.\footnote{Refer to subsequence explanation re. the details of these parameters.} (Simply provided as an example of creating model grids with more depth levels and a deeper maximum depth.)
+\item \textcolor{blue}{\textsf{\footnotesize EXAMPLE\_GCMHadCM3L\_modern} -- Takes the continental configuration and climate simulation output from a fully coupled GCM experiment (files in directory \textsf{\footnotesize GCMHadCM3L} in the \textbf{cookiegen} sub-directory \textsf{\footnotesize INPUT}) and derives full \textbf{cookie} model boundary conditions. User input (allowing continents and seafloor topography to be 'edited') is activated by default.}
 
 \vspace{1mm}
-\item \textsf{\footnotesize EXAMPLE\_MASK\_drakeworld} -- The first of a series of 4 conceptual worlds (loosely following the literature). This starts from a land-sea mask (\footnotesize\textsf{wordrake.dat}\normalsize) which is stored in the \textbf{cookiegen} subdirectory \footnotesize\textsf{INPUT.EXAMPLES}\normalsize. The land fraction is minimal (as it is trying to reproduce the sort of zero-area numerical barrier used in the literature). This configuration has a barrier to ocean circulation, from the N pole down, with a high southern latitude gateway (a Drake Passage like feature).
+\item \textsf{\footnotesize EXAMPLE\_GCMHadCM3L\_modern\_adjusted} -- A variant on the above with an additional parameter setting included in the configuration file:
+\\\texttt{par\_mask\_name='mask.modern\_adjusted'}
+\\This mask file specifies grid locations to be swapped between land and ocean and hence forgoing the need to make adjustments to the land-sea mask interactively.
 
 \vspace{1mm}
-\item \textsf{\footnotesize EXAMPLE\_MASK\_eqpasworld} -- As above, except with an equatorial (only) gateway.
+\item \textcolor{blue}{\textsf{\footnotesize EXAMPLE\_GCMHadCM3L\_paleo} -- Takes the paleo continental configuration and climate simulation output from a fully coupled GCM experiment (files in directory \textsf{\footnotesize GCMHadCM3L} in the \textbf{cookiegen} sub-directory textsf{\footnotesize\ INPUT}) and derives full \textbf{cookie} model boundary conditions. User input (allowing continents and seafloor topography to be 'edited') is activated by default.}
 
 \vspace{1mm}
-\item \textsf{\footnotesize EXAMPLE\_MASK\_ridgeworld} -- As above, except with no gateway.
+\item \textsf{\footnotesize EXAMPLE\_K1file\_INPUT} -- Starts from a cookie model configuration 'k1' topography defining file: \textsf{\footnotesize work2in\_.k1}, which is stored in the \textbf{cookiegen} sub-directory \textsf{\footnotesize INPUT}. The k1 file defines a late Permian continental configuration (and bathymetry). User modification is enabled by default (so \textbf{MATLAB} pauses for modifications to be made), but this can be disabled (\texttt{opt\_user=false}).
 
 \vspace{1mm}
-\item \textsf{\footnotesize EXAMPLE\_MASK\_waterworld} -- As above, but with no barriers, i.e. a 'water world'.
+\item \textsf{\footnotesize EXAMPLE\_K2file\_INPUT} -- Starts from a cookie model configuration 'k2' topography defining file: \textsf{\footnotesize work2in\_.k2}, which is stored in the \textbf{cookiegen} sub-directory \textsf{\footnotesize INPUT}. The k2 file defines an early Eocene continental configuration (and bathymetry). User modification is enabled by default (so \textbf{MATLAB} pauses for modifications to be made), but this can be disabled (\texttt{opt\_user=false}).
 
 \vspace{1mm}
-\item \textsf{\footnotesize EXAMPLE\_GCMFOAM\_modern} -- Takes the continental configuration and climate simulation output from a fully coupled GCM experiment (files in directory \footnotesize\textsf{GCMFOAM }\normalsize in the \textbf{cookiegen} subdirectory \footnotesize\textsf{INPUT.EXAMPLES }\normalsize) and derives full \textbf{cookie} model boundary conditions. User input (allowing continents and seafloor topography to be 'edited') is activated by default.
-
-\vspace{1mm}
-\item \textsf{\footnotesize EXAMPLE\_GCMHadCM3L\_modern} -- Similar to the above -- takes the continental configuration and climate simulation output from a fully coupled GCM experiment (files in directory \footnotesize\textsf{GCMHadCM3L }\normalsize in the \textbf{cookiegen} subdirectory \footnotesize\textsf{INPUT.EXAMPLES }\normalsize) and derives full \textbf{cookie} model boundary conditions. User input (allowing continents and seafloor topography to be 'edited') is activated by default.
-
-\vspace{1mm}
-\item \textsf{\footnotesize EXAMPLE\_K1\_permian} -- Starts from a cookie model configuration 'k1' topography defining file: \textsf{\footnotesize p0251b.k1}, which is stored in the \textbf{cookiegen} subdirectory \texttt{INPUT.EXAMPLES}. The k1 file defines a late Permian continental configuration (and bathymetry). User modification is enabled by default (so \textbf{MATLAB} pauses for modifications to be made), but this can be disabled (\texttt{opt\_user=false}).
-
-\vspace{1mm}
-\item \textsf{\footnotesize EXAMPLE\_K1\_SEDGEMonly} -- Similar to \textsf{\footnotesize EXAMPLE\_K1\_permian} -- starts from a cookie model configuration 'k1' topography defining file: \textsf{\footnotesize p0251b.k1}, but only generates the SEDGEM sediment model files (and nothing else).
-
-\vspace{1mm}
-\item \textsf{\footnotesize EXAMPLE\_K2\_supercontinent} -- Starts from a simplified version of the cookie model configuration 'k1' topography defining file -- here given  the extension 'k2'. This (\textsf{\footnotesize wppcont1.k2}) is stored in the \textbf{cookiegen} subdirectory \texttt{INPUT.EXAMPLES}. The k2 file defines an idealized pole-to-pole super-continent. User modification is enabled by default (so \textbf{MATLAB} pauses for modifications to be made), but this can be disabled (\texttt{opt\_user=false}).
-
-\vspace{1mm}
-\item \textsf{\footnotesize EXAMPLE\_MAT\_present\_bathymetry} -- Takes as input a high resolution topography in a \textbf{MATLAB} \textsf{\footnotesize .mat} file format. In this specific example, the file (subdirectory \texttt{INPUT.EXAMPLES}) inputted is \textsf{\footnotesize present\_bathymetry} (\textsf{\footnotesize .mat}) which describes at \(1^{\circ}\) resolution, the modern plate configurations plus seafloor topography (as negative height).\footnote{The specific grid resolution is defined, and the file loaded and the grid orientation assumed, in the \texttt{LOAD GRID (AXES) DATA} and \texttt{LOAD TOPO \& MASK DATA} sections. Different resolutions and orientations (and file formats) can be dealt with here by editing the code.}
-\\If you want anything other than a \(1^{\circ}\) resolution (or a different longitude origin) then you need to edit the code:
-\small\begin{verbatim}
-% NOTE: assume equal Dlon, Dlat grid (non equal area) and 1 degree
-%       also that the input grid starts at -180E
-% >>> EDIT ME >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-gi_lonce = [-180.0:1.0:180.0];
-gi_latce = [-90.0:1.0:90.0];
-% <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-\end{verbatim}\normalsize
-Note that non-rectilinear grids are not supported here. If you have 3 poles in your grid ... too bad.
+\item \textcolor{blue}{\textsf{\footnotesize EXAMPLE\_MASK\_INPUT} -- A conceptual world (loosely following the literature) generated from a land-sea mask (\textsf{\footnotesize wordrake.dat}) which is stored in the \textbf{cookiegen} sub-directory \textsf{\footnotesize INPUT}. The land fraction is minimal (as it is trying to reproduce the sort of zero-area numerical barrier used in the literature). This configuration has a barrier to ocean circulation, from the N pole down, with a high southern latitude gateway (a Drake Passage like feature).}
 
 \end{itemize}
-\vspace{2mm}
 
 %------------------------------------------------
-
 \newpage
-
-\section{Pre-generated worlds}
-
-A series of conceptual ('fake') worlds have been generated and are provided for you convenience :o) These fall into 2 categories:
-
-\begin{enumerate}[noitemsep]
-\vspace{1mm}
-\item Conceptual worlds
-\\These include 'water world', 'ridge world', 'drake world', etc. and associated variants, e.g. as published in fully coupled GCMs\footnote{Example of aquaplanets and drake worlds in the MITgcm with simplified atmosphere:
-\\Rose, B. E. J., Ferreira, D. \& Marshall, J. The role of oceans and sea ice in abrupt transitions between multiple climate states. J. Clim. 26, 2862–2879 (2013).
-\\Ferreira, D., Marshall, J. \& Rose, B. Climate determinism revisited: Multiple equilibria in a complex climate model. J. Clim. 24, 992–1012 (2011).}. They are designed to test controls on large-scale ocean circulation and do conform to an Earth-appropriate ocean volume or total cratonic area.
-\vspace{1mm}
-\item Idealized-continent worlds
-\\These involve idealized super-continental configurations but aim to retain modern ocean volume and total cratonic area characteristics.
-\end{enumerate}
-\vspace{1mm}
-
-Both \textsf{\footnotesize genie-paleo} configuration file sets (sub-directories), and example \textit{base-configs} are provided as part of the cookie code base. The details of these two series of fake worlds are as follows. Remember that the \textsf{\footnotesize .m} file configurations that create each of the fake world configurations are saved in the respective \textsf{\footnotesize genie-paleo} sub-directory, and hence both the specific details of how the world was created are available, as well as the ability to exactly recreate the world.
-
-%------------------------------------------------
-%
-\subsection{Conceptual worlds}
-
-\small\begin{itemize}[noitemsep]
-\vspace{1mm}
-\item \textsf{\footnotesize } [TO\ BE\ ADDED]
-\end{itemize}\normalsize
-\vspace{1mm}
-
-%------------------------------------------------
-%
-\subsection{Idealized-continent worlds}
-
-The idealized continents come both without (i.e. the configuration is either land, or deep ocean) or with, continental shelves, and in the latter case, come with varying number of 'steps' down to deeper water (and hence to the abyssal plain).
-
-The fake world series 'k1' configuration names start with one of two, 4 character strings:
-\begin{itemize}[noitemsep]
-\vspace{1mm}
-\item \textsf{\footnotesize fkh\_} == 'high' resolution (\(36\times36\times16\))
-\item \textsf{\footnotesize fkl\_} == 'low' resolution (\(18\times18\times16\))
-\end{itemize}
-\vspace{1mm}
-\noindent (No low vertical resolution, e.g. \(8\) level version is currently provided.)
-\vspace{1mm}
-
-The next 2 characters delineate the shape/position of the world:
-\begin{itemize}[noitemsep]
-\vspace{1mm}
-\item \textsf{\footnotesize 1e} == a single Equatorial-centered super-continent
-\item \textsf{\footnotesize np} == a singleNorth polar-centered super-continent
-\item \textsf{\footnotesize pp} == a pole-to-pole super-continent
-\end{itemize}
-\vspace{2mm}
-
-The 7th character is the 'series' represents:
-\begin{itemize}[noitemsep]
-\vspace{1mm}
-\item \textsf{\footnotesize 0} == An earlier generation of worlds, with shelves stepping down in increments of only \(1\) ocean level.
-\\Note that in generating the wind-stress in this series, the presence/absence of high latitude gateways is automatically identified (meaning that the zonal wind-stress profiles differ between \textsf{\footnotesize np} and \textsf{\footnotesize pp} in the magnitude of wind-stress in the Southern Hemisphere) -- \texttt{par\_tauopt=0}.
-\vspace{1mm}
-\item \textsf{\footnotesize 1} == A subsequent generation, with shelves stepping down in increments of 2 ocean levels.
-\\Note: An intermediate wind-stress magnitude is applied to both hemispheres in all configurations (i.e. no distinction is made between hemisphere with or without high latitude gateways) -- \texttt{par\_tauopt=3} .
-\vspace{1mm}
-\item \textsf{\footnotesize 2} == A modification of \#1,  generated with a newer version of \textbf{cookiegen}, and with an imposed limit of \(1000-5000 m\) for the range of \textbf{SEDGEM} open ocean depths (the previous version included   depths extending to the shallow sub-surface).
-\\Note that \texttt{par\_tauopt=0} is used. 
-\\Also note that in \textsf{\footnotesize pp}, shelves are only created on the Eastern margin of the basin so as to retain consistency in total shelf area with  \textsf{\footnotesize np}.
-\end{itemize}
-\vspace{2mm}
-
-The 8th character (digit) specifies the number of shelves, which for the initial series is:
-
-\vspace{1mm}
-\small\begin{enumerate}[noitemsep]
-\setlength{\itemindent}{.2in}
-\setcounter{enumi}{-1}
-\item (none)
-\item level \(15\)
-\item level \(15 + 14\)
-\item level \(15 + 14 + 13\)
-\item level \(15 + 14 + 13 + 12\)
-\item level \(15 + 14 + 13 + 12 + 11\)
-\end{enumerate}\normalsize
-\vspace{1mm}
-and for the newer series:
-\small\begin{enumerate}[noitemsep]
-\setlength{\itemindent}{.2in}
-\setcounter{enumi}{-1}
-\item (none)
-\item level \(15\)
-\item level \(15 + 13\)
-\item level \(15 + 13 + 11\)
-\item level \(15 + 13 + 11 + 9\)
-\end{enumerate}\normalsize
-\vspace{1mm}
-
-All the oceans are ca. \(3500 m\) deep, i.e. truncated at ocean level \(3\), in order to produce approximately the present-day ocean volume.\footnote{To change this, simply search-and-replace the \texttt{3} in the \textsf{\footnotesize .k1} file with e.g. \texttt{1}.}
-
-Example \textit{base-configs} are provide for some, but not all of the idealized worlds, and follow the same naming convention and have full filenames of the form: \textsf{\footnotesize cookie.CB.\(\ast\ast\ast\ast\ast\ast\ast\ast\).BASES.config}, where \(\ast\ast\ast\ast\ast\ast\ast\ast\) is the 8-character fake world 'k1' configuration name (see above). A basic set of tracers is provided (\textsf{\footnotesize BASES}).
-
-Other than the rate at which the shelves step down\footnote{(and that the earlier generation was for a pole-to-pole super-continent only)}, the main difference between the different generations of worlds, is in the applied zonal wind field strength. In the earlier fake world series, the 'zonal wind-stress generation option' (\texttt{par\_tauopt}) was \texttt{0}. This attempts to automatically determine the presence of high latitude ocean gateways and if they exist, apply a stronger zonal wind field in that hemisphere (otherwise, a wind stress appropriate for a modern northern-hemisphere configuration with no zonal gateway is applied). To reduce the number of boundary conditions that change and co-vary between different fake worlds, in the second generation of idealized continent worlds, an intermediate strength zonal wind field is applied to all, regardless of the presence of absence of high latitude circumpolar ocean gateways. This is  'zonal wind-stress generation option' \texttt{3}. Note that for the same resolution, wind-fields can be substituted/replaced, and using the saved \textsf{\footnotesize .m} configuration file, worlds can be re-generated with different wind-stress options if desired. The depth range of the ocean floor in\ \textbf{SEDGEM} (which informs the pressure used in the \(CaCO_{3}\) stability calculation) is slightly restricted in \#3 (the upper limit increased to \(1000 m\)).
-
-%------------------------------------------------
-%
-\subsection{Modern worlds}
-
-To both help illustrate how the configuration files are organized and accessed for paleo worlds, and to help make modifying older (modern) configurations easier, the 2 basic (published) modern configurations are provided in a 'genie-paleo' format (i.e. the format generated by \textbf{cookiegen}):
-\begin{itemize}[noitemsep]
-\vspace{1mm}
-\item \textsf{\footnotesize p\_worbe2} == The 8-level \(36\times36\) ocean configuration of \textit{Ridgwell et al.} [2007] and including the geological carbon cycle (\textbf{SEDGEM}+\textbf{ROKGEM}) configuration files of \textit{Ridgwell and Hargreaves} [2007] (also: \textit{Lord et al.} [2015]).
-\vspace{1mm}
-\item \textsf{\footnotesize p\_worjh2} ==  The 16-level \(36\times36\) ocean configuration of \textit{Cao et al.} [2009] and including the geological carbon cycle (\textbf{SEDGEM}+\textbf{ROKGEM}) configuration files of \textit{Archer et al.} [2009] (also: \textit{Winkelmann et al.} [2015]).
-\end{itemize}
-
-\vspace{2mm}
-\noindent Corresponding example \textit{base-} and \textit{user-config} files are provided:
-\begin{itemize}[noitemsep]
-\vspace{1mm}
-\item \textsf{\footnotesize cookie.CBSR.p\_worbe2.BASES.config} plus: \textsf{\footnotesize cookie.CBSR.p\_worbe2.BASES.SPIN1} \\(in: \textsf{\footnotesize genie-userconfig/EXAMPLES}), which runs the first-stage spin-up described in \textit{Ridgwell and Hargreaves} [2007] (and also used in \textit{Lord et al.} [2015]).
-\vspace{1mm}
-\item \textsf{\footnotesize cookie.CBSR.p\_worjh2.BASES.config} plus: \textsf{\footnotesize cookie.CBSR.p\_worjh2.BASES.SPIN1} \\(in: \textsf{\footnotesize genie-userconfig/EXAMPLES}), which runs the first-stage spin-up used in \textit{Archer et al.} [2009] and \textit{Winkelmann et al.} [2015].
-\end{itemize}
-
-as well as some reduced tracer and biogeochemical complexity variants, such as \textsf{\footnotesize cookie.CB ...} and \textsf{\footnotesize cookie.C ...}
-
-\vspace{2mm}
-\noindent To make modified (e.g. wind fields) versions of either of the 2 modern 'paleo' format configurations:
-\begin{enumerate}[noitemsep]
-\vspace{1mm}
-\item Copy and rename the  (8- or 16-level ocean configuration) \textsf{\footnotesize genie-paleo} sub-directory, giving it an \uline{8 (or 6) character string name}.
-\vspace{1mm}
-\item In this new sub-directory, edit the files (wind stress, wind velocity, wind speed, albedo, and/or topography) you want to modify. (These files do not need to be renamed.)
-\vspace{1mm}
-\item Copy and rename the corresponding \textit{base-config} file (disabling the parameter settings for \textbf{SEDGEM} and \textbf{ROCKGEM}, and/or enabling \textbf{ECOGEM}, as required).
-\\Then, in the \textit{base-config} file, edit all instances of the \textsf{\footnotesize genie-paleo} subdirectory parameters  to match the new \textsf{\footnotesize genie-paleo} sub-directory you assigned in step (1). (Parameters, e.g.: \textsf{\footnotesize ea\_1='../../cgenie.cookie/genie-paleo/p\_worbe2'}.
-\vspace{1mm}
-\item Copy-rename the example \textit{user-config}, or modify your own existing one.
-\\Note that when employing the geological carbon cycle, the resolution of the sediment (and weathering) grids and associated boundary condition files are now defined in the \textit{base-config} rather than the \textit{user-config} (as originally done).
-\end{enumerate}
-
-%------------------------------------------------
-%
-%
 %------------------------------------------------
 
-\newpage
-
-\section{Configuring cookie experiments}\label{sec:configuring_cookie_experiments}
+\section{Creating base- and user-configs for cookie}\label{sec:configuring_cookie_experiments}
 
 %------------------------------------------------
 
-Having created a new \textbf{cookie} configuration using the \textbf{MATLAB} function \textsf{\footnotesize cookiegen.m}, you are now going to need to create the 2 key model and experiment configuration files before you can actually run anything\footnote{Note that steps 1c, 1d, and 2 are not independent of each other and need to be consistent -- e.g. if you define Fe co-limitation of biological productivity in step 2, you need to have selected the appropriate tracers in step 1c. And if you specify biological productivity calculated by \textbf{ECOGEM} in step 2, you need to have selected the \textbf{ECOGEM} module in step 1d.}:
+Having created a new \textbf{cookie} configuration using the \textbf{MATLAB} function \textsf{\footnotesize cookiegen.m}, unless you are using automatically-generated ocean-only \textit{base-} and \textit{user-configs} files (see earlier), you are now going to need to create these configuration files before you can actually run anything\footnote{Note that steps 1c, 1d, and 2 are not independent of each other and need to be consistent -- e.g. if you define Fe co-limitation of biological productivity in step 2, you need to have selected the appropriate tracers in step 1c. And if you specify biological productivity calculated by \textbf{ECOGEM} in step 2, you need to have selected the \textbf{ECOGEM} module in step 1d.}:
 
 \begin{enumerate}[noitemsep]
 \vspace{1mm}
 \item You need to create a \textit{base-config}, which includes the parameter settings of your new world.
-\\There will there be 4 steps involved in this:
+\\There are 4 sub-steps involved in this:
+\vspace{1mm}
 \begin{enumerate}[noitemsep]
 \item Choosing a template \textit{base-config} file, which specifies appropriate physics parameters.
 \item Copy-pasting a list of parameter settings that has been automatically-generated by \textbf{cookiegen} into the template\textit{ base-config} file.
@@ -472,20 +551,21 @@ Having created a new \textbf{cookie} configuration using the \textbf{MATLAB} fun
 \end{enumerate}
 \vspace{1mm}
 
-Templates are provided and more detailed instructions follow. However, note that if you have similar \textit{base-config} and \textit{user-config} files already, then you can simply adapt these. Another option is to utilize \textit{base-config} and \textit{user-config} files associated with any of the published experiments listed in \textsf{\footnotesize genie-userconfigs/MS}, or any of the described \textsf{\footnotesize EXAMPLE.*} example configurations.
+A number of templates are provided and more detailed instructions follow. However, note that if you have similar \textit{base-config} and \textit{user-config} files already, then you can simply adapt these. Another option is to utilize \textit{base-config} and \textit{user-config} files associated with any of the published experiments listed in \textsf{\footnotesize genie-userconfigs/MS}, or any of the described \textsf{\footnotesize EXAMPLE.*} example configurations.
 
 \vspace{1mm}
-And then finally ...
+And ...
 \begin{enumerate}[noitemsep]
 \vspace{1mm}
 \setcounter{enumi}{2}
-\item You will need to ensure that all file are in their correct location in the \textbf{cookie} directory structure.
+\item Ensure that all files are in their correct location in the \textbf{cookie} directory structure.
 \end{enumerate}
 \vspace{1mm}
 
 %------------------------------------------------
-%
-\noindent\rule{4cm}{0.5pt}
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
 \subsubsection{1a. Choosing a template \textit{base-config}}
 
 If you do not want to adapt an existing \textit{base-config} (see suggestions above) or want to start 'fresh', a pair of alterative template files are provided with \textbf{cookiegen} (copy and rename the file, and then edit). The template files are missing the definitions of the world settings and tracers, which will be rectified in steps 1b and 1c, respectively. They also only specify a basic set of science modules (addressed in step 1d). Otherwise, they differ only in the tunable physics parameter values, under the heading:
@@ -586,20 +666,31 @@ Finally, it should be noted that compared to the \textit{Cao et al.} [2009] conf
 \\\texttt{ea\_diffa\_scl=0.25}
 \\\texttt{\# grid point distance over which scalar is applied (j direction)}
 \\\texttt{ea\_diffa\_len=3}
-\\but by default, reduced atmospheric diffusivity is disabled.}
+\\but by default, reduced atmospheric diffusivity is disabled.} In the \textit{Cao et al.} [2009] configuration, these parameter settings were:
+
+\footnotesize\vspace{-2pt}\begin{verbatim}
+#diffusivity scaling factor
+ea_diffa_scl=0.25
+#grid point distance over which scalar is applied (j direction)
+ea_diffa_len=3
+\end{verbatim}\vspace{-2pt}\normalsize
 
 \end{itemize}
-\vspace{1mm}
 
 %------------------------------------------------
-%
-\noindent\rule{4cm}{0.5pt}
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
 \subsubsection{1b. Defining your 'world' in the \textit{base-config}}
 
 Having chosen a \textit{base-config} file to work with, you are now going to copy-paste in the block of parameters that defines the \textbf{cookiegen}-generated world.
 
 \vspace{2mm}
-In the template \textit{base-config} there is a highlighted (\(<<<\;\;\;\;\;>>>\)) line in the  file:
+\noindent In the template \textit{base-config} files there is a highlighted (\(<<<\;\;\;\;\;>>>\)) line:
 \footnotesize\vspace{-2pt}\begin{verbatim}
 # *******************************************************************
 # GRID & BOUNDARY CONDITION CONFIGURATION
@@ -611,15 +702,41 @@ In the template \textit{base-config} there is a highlighted (\(<<<\;\;\;\;\;>>>\
 \end{verbatim}\vspace{-2pt}\normalsize
 
 Copy and paste the contents of the \textbf{cookiegen} output file\footnote{In the filename, \texttt{yymmdd} is the date of the configuration creation.}: \textsf{\footnotesize config\_yymmdd.txt}
-into the template file where indicated -- immediately above, immediately below, or simply replacing the entire \(<<<\;\;\;\;\;>>>\) line.
+into the template file where indicated -- immediately above, immediately below, or simply replacing the entire \(<<<\;\;\;\;\;>>>\) line so the block of text becomes something like:
+\footnotesize\vspace{-2pt}\begin{verbatim}
+# *******************************************************************
+# GRID & BOUNDARY CONDITION CONFIGURATION
+# *******************************************************************
+# insert the automatically generated cookiegen parameter list here
+# *******************************************************************
+##################################################################################
+### cGENIE .config file parameter lines generated by cookiegen v0.9.99 on: 251112 ###
+# INPUT FILE PATH
+ea_1='../../cgenie.cookie/genie-paleo/paleo___'
+go_1='../../cgenie.cookie/genie-paleo/paleo___'
+gs_1='../../cgenie.cookie/genie-paleo/paleo___'
+# Grid resolution
+...
+...
+# Ocean Ca, Mg, SO4 concentrations (modern defaults, mol kg-1)
+bg_ocn_init_35=10.280E-03
+bg_ocn_init_50=52.820E-03
+bg_ocn_init_38=28.240E-03
+##################################################################################
+# *******************************************************************
+\end{verbatim}\vspace{-2pt}\normalsize
 
 %------------------------------------------------
-\newpage 
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 %
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
 \subsubsection{1c. Defining tracers in the \textit{base-config}}
 
-As per for defining the specific world, there is an explicit section of the template \textit{base-config} that needs to be edited:
+As per for defining the specific world, there is an explicit section of the template \textit{base-config} that needs to be edited in order to increase the number of tracers represented in the model beyond T and S (in the ocean, and temperature and humidity in the atmosphere):
 
 \footnotesize\vspace{-2pt}\begin{verbatim}
 # *******************************************************************
@@ -637,7 +754,7 @@ GOLDSTEINNTRACSOPTS='$(DEFINE)GOLDSTEINNTRACS=2'
 # *******************************************************************
 \end{verbatim}\vspace{-2pt}\normalsize
 
-The template \textit{base-config} files come with just 2 ocean tracers defined -- temperature and salinity (i.e., there is no carbon cycle or ocean nutrients \textit{etc.} enabled at this point). These are implicit and essential to ocean circulation and hence are not  listed. However, the count of total number of tracers in the ocean (which determines the compiled tracer and tracer-related array size) includes them, i.e.
+\noindent The template \textit{base-config} files come with just 2 ocean tracers defined -- temperature and salinity (i.e., there is no carbon cycle or ocean nutrients \textit{etc.} enabled at this point). These are implicit and essential to ocean circulation and hence are not  listed. However, the count of total number of tracers in the ocean (which determines the compiled tracer and tracer-related array size) includes them, i.e.
 
 \footnotesize\vspace{-2pt}\begin{verbatim}
 # Set number of tracers
@@ -646,6 +763,7 @@ GOLDSTEINNTRACSOPTS='$(DEFINE)GOLDSTEINNTRACS=2'
 
 So how to fill out the list of tracers? A complete list of all gaseous (in the atmosphere), dissolved (ocean only), and particulate (ocean and also sediments) tracers can be found in the files: \textsf{\footnotesize tracer\_define.atm}, \textsf{\footnotesize tracer\_define.ocn}, and \textsf{\footnotesize tracer\_define.sed}, respectively (in directory \textsf{\footnotesize genie-main/data/input}). However, starting from scratch and knowing which ones to add to create a consistent and sufficient set is not trivial. Instead, and as before, you could take a published configuration from one of the \textsf{\footnotesize genie-useroncigs/MS} subdirectories (refer to the \textit{base-config} employed in the README file) or an EXAMPLE.
 
+\vspace{1mm}
 Either copy-paste the entire \texttt{\# TRACER\ CONFIGURATION} section, or individually update the three subsections (or copy-paste the entire block, then edit):
 
 \begin{enumerate}[noitemsep]
@@ -665,10 +783,6 @@ GOLDSTEINNTRACSOPTS='$(DEFINE)GOLDSTEINNTRACS=2'
 \\Note that if you employ a \textit{re-start}, then these values are over-written.
 \end{enumerate}
 \vspace{1mm}
-
-%------------------------------------------------
-\newpage 
-%------------------------------------------------
 
 A series of template tracer lists, taken from published configurations, are also provided:
 
@@ -714,8 +828,13 @@ A series of template tracer lists, taken from published configurations, are also
 \end{itemize}
 
 %------------------------------------------------
-%
-\noindent\rule{4cm}{0.5pt}
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+%------------------------------------------------
+\newpage 
+%------------------------------------------------
+
 \subsubsection{1d. Enabling science modules in the \textit{base-config}}
 
 The final step in configuring your \textit{base-config} file, is to ensure that all the science modules you wish to include are included (and those you do not want, are not). The template \textit{base-config} files specify the basic/simply climate system combination of \textbf{GOLDSTEIN} ocean circulation model, \textbf{GOLDSTEIN} sea-ice model, and the \textbf{EMBM} atmospheric model. In addition, the atmospheric geochemistry module (\textbf{ATCHEM}) and the ocean biogeochemsitry module (\textbf{BIOGEM}) are selected. These settings look like:
@@ -740,9 +859,9 @@ ma_flag_ecogem=.FALSE.
 
 \noindent Note that \textbf{ATCHEM} and \textbf{BIOGEM} have to be selected together, as do \textbf{SEDGEM} and \textbf{ROKGEM} (if you want an 'open system because \textbf{ROKGEM} provides the weathering input). \textbf{ECOGEM} is a replacement for the implicit biological export scheme in \textbf{BIOGEM} and hence requires \textbf{BIOGEM} to be selected (and hence also \textbf{ATCHEM}). If you want the \textbf{ECOGEM} marine ecosystem model, set \texttt{ma\_flag\_ecogem=.TRUE.}
 
-\vspace{1mm}
-\noindent\rule{4cm}{0.5pt}
-\vspace{2mm}
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
 
 %------------------------------------------------
 \newpage 
@@ -979,10 +1098,9 @@ Additional recommend changes for sinking and water column remineralziation, reac
 
 \begin{enumerate}[noitemsep]
 \vspace{1mm}
-\item First, ensure that you have remembered to copy/transfer the entire configuration file subdirectory created by \textbf{cookiegen}\footnote{Which by default will appear in a directory: \textsf{\footnotesize INPUT.EXAMPLES}} to: \textsf{\footnotesize cgenie.cookie/genie-paleo}.
+\item First, ensure that you have remembered to copy/transfer the entire configuration file sub-directory created by \textbf{cookiegen}\footnote{Which by default will appear in a directory: \textsf{\footnotesize OUTPUT}} to: \textsf{\footnotesize cgenie.cookie/genie-paleo}.
 \vspace{1mm}
-\item Next, your new \textit{base-config} will need to be transferred to: \textsf{\footnotesize cgenie.cookie/genie-main/configs}.
-\\Ensure that it has a \textsf{\footnotesize .config} file extension.
+\item Next, your new \textit{base-config} will need to be transferred to: \textsf{\footnotesize genie-baseconfigs}.
 \vspace{1mm}
 \item Your \textit{user-config} can go 'anywhere' ... ish. Putting it directly in \textsf{\footnotesize genie-userconfigs}\footnote{The directory parameter passed to \textsf{\footnotesize runcookie.sh} is then just \texttt{/}} may eventually make things over-crowded. Better is to create a sub-directory of \textsf{\footnotesize genie-userconfigs} (or even a sub-directory of this) and place it there \footnote{If you place the \textit{user-config} file into a sub-directory  \textsf{\footnotesize myexperiments}, the directory parameter passed to \textsf{\footnotesize runcookie.sh} is then \texttt{myexperiments}} or simply in: \textsf{\footnotesize genie-userconfigs/LABS}
 \vspace{1mm}
@@ -1006,13 +1124,12 @@ Additional recommend changes for sinking and water column remineralziation, reac
 Good luck!
 
 %------------------------------------------------
-%------------------------------------------------
-
 \newpage
+%------------------------------------------------
 
 \section{cookiegen parameter settings -- details}
 
-%------------------------------------------------
+Compared to \textbf{muffingen}, \textbf{cookiegen} adopts a somewhat simplified set of example configuration files and some of the parameters that you might want to adjust, and not explicitly listed in the revised files. The following Sections describe several different ways of adjusting the generated continental configurations including use of some of the 'hidden' parameters.
 
 \subsubsection{Zonal wind-stress}
 
@@ -1030,27 +1147,19 @@ The presence of a pole-to-pole super-continent (or 'ridge-world') would be an ex
 \item \texttt{par\_tauopt=3;}
 \\'grey' world -- an intermediate strength zonal flow is applied in both hemispheres. For hedging your bets of for use across a wide range of different continental configuration where you do not want to manually chose and prescribe either strong (\texttt{2}) or weak (\texttt{1}) and don't dare trust \textbf{cookiegen} to make the choice for you (option \texttt{0}).
 \end{itemize}
-\vspace{1mm}
 
+\vspace{1mm}
 For reference -- the modern world has a mix of strong (southern) and weak (northern) hemisphere zonal flows.
 
-The different \textsf{\footnotesize EXAMPLE} (\textsf{\footnotesize .m}) configuration files have a mixture of default choices, for example (not exhaustively listing all the different example configurations ...):
-
 \vspace{1mm}
-\begin{itemize}
-\item \textsf{\footnotesize EXAMPLE\_MASK\_drakeworld}, \textsf{\footnotesize EXAMPLE\_MASK\_eqpasworld}, etc.:
-\\\texttt{par\_tauopt=0;}\footnote{Note that some of these could be pre-determined -- e.g. water-world could be set with option \#2 (strong zonal winds), and ridge-world with \#1 (weak zonal winds). For configurations with a circumpolar passage only in one hemisphere such as drake-world, option \#0 will configure this with a weak northern zonal wind field and a strong southern one.}
-\item \textsf{\footnotesize EXAMPLE\_K1\_permian}, \textsf{\footnotesize EXAMPLE\_K2\_supercontinent}:
-\\\texttt{par\_tauopt=1}
-\item (none of the current examples prescribe strong zonal winds, but could (see footnotes)):
-\\\texttt{par\_tauopt=2}
-\item \textsf{\footnotesize EXAMPLE\_BLANK}:
-\\\texttt{par\_tauopt=3}\footnote{By default, a water world is created, which would normally be wind stress option \#2. However, assuming some unknown continental configuration may be drawn, the 'grey world' intermediate wind stress option is set (\#3).}
-\item \textsf{\footnotesize EXAMPLE\_GCMHadCM3L\_modern}\normalsize, \textsf{\footnotesize EXAMPLE\_GCMFOAM\_modern}\normalsize:
-\\n/a\footnote{(so any value can be set as it is ignored)} (wind-stress derived from GCM fields)
-\end{itemize}
-\vspace{1mm}
+\noindent Note that when deriving a \textbf{cookie} configuration from GCM output, selecting a zonal wind profile will result in the generation of an idealized profile rather than calculate the zonal average from the GCM fields. (This is different from \textbf{cookiegen} behavior for planetary albedo, where selecting the \texttt{ opt\_makezonalalbedo} option will generate an idealized albedo field, whereas otherwise, a zonal mean albedo field is still generated and used by default, but with the values derived from a 2D re-gridded GCM field.)
 
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+%------------------------------------------------
+\newpage
 %------------------------------------------------
 
 \subsubsection{Ocean depth (and maximum levels)}
@@ -1085,7 +1194,7 @@ If you require a deeper (maximum depth) ocean than 5000 m, be aware that retaini
 
 \noindent (the additional number of depth (k) levels) to a non-zero value. The effect of this is assume that the maximum ocean depth parameter (\texttt{par\_max\_D}) corresponds to the specified maximum number of ocean layers (\texttt{par\_max\_k}) minus the number of additional layers (\texttt{par\_add\_Dk})\footnote{(rather than the maximum number of ocean levels as usually applied)}.  The maximum ocean depth is then re-calculated based on \texttt{par\_max\_k} minus \texttt{par\_add\_Dk} number of levels, corresponding to depth \texttt{par\_max\_D} (with the same logarithmic distribution of layer thicknesses with ocean depth applied to the additional layers deeper than \texttt{par\_max\_D}).
 
-For example, setting:
+\noindent For example, setting:
 
 \vspace{1mm}
 \texttt{par\_add\_Dk=2}
@@ -1105,7 +1214,156 @@ For example, setting:
 
 \noindent together configures an 18-level ocean model with the first 16 (18-2=16) levels spanning  5000.0 m, with an automatically re-calculated maximum ocean depth (\texttt{par\_max\_D} value) of 6922.2705 m and the additional 2 levels spanning this additional depth (1922.2705 m).\footnote{Note that there is no way, unless the logarithmic function for the distribution of layer thicknesses with ocean depth is changed, to retain the same modern/default  layer thickness distribution for the upper ocean layers and have a maximum ocean depth that is different to 5000.0 m unless you carry out the calculation yourself for the depth occupied by e.g. 18 levels. (You cannot calculate how many layers occupies e.g. 6000.0 m and still retain the upper ocean depth distribution as the depth profile does not fit neatly into 6000.0 m.)}
 
+\vspace{1mm}
 When \textbf{cookiegen} writes out the parameter settings (file: \textsf{\footnotesize config\_??????.txt}), the scale depth of the ocean is also written out. By default this will be equal to the value of \texttt{par\_max\_D} (5000.0 m), \uline{unless}, the value of \texttt{par\_add\_Dk} is non-zero, when the above described re-calculation of the maximum ocean depth is made (and written out in the parameter file).
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\section{Appendix -- pre-generated Worlds}
+
+A series of conceptual ('fake') worlds have been generated and are provided for you convenience :o) These fall into 2 categories:
+
+\begin{enumerate}[noitemsep]
+\vspace{1mm}
+\item Conceptual worlds
+\\These include 'water world', 'ridge world', 'drake world', etc. and associated variants, e.g. as published in fully coupled GCMs\footnote{Example of aquaplanets and drake worlds in the MITgcm with simplified atmosphere:
+\\Rose, B. E. J., Ferreira, D. \& Marshall, J. The role of oceans and sea ice in abrupt transitions between multiple climate states. J. Clim. 26, 2862–2879 (2013).
+\\Ferreira, D., Marshall, J. \& Rose, B. Climate determinism revisited: Multiple equilibria in a complex climate model. J. Clim. 24, 992–1012 (2011).}. They are designed to test controls on large-scale ocean circulation and do conform to an Earth-appropriate ocean volume or total cratonic area.
+\vspace{1mm}
+\item Idealized-continent worlds
+\\These involve idealized super-continental configurations but aim to retain modern ocean volume and total cratonic area characteristics.
+\end{enumerate}
+\vspace{1mm}
+
+Both \textsf{\footnotesize genie-paleo} configuration file sets (sub-directories), and example \textit{base-configs} are provided as part of the cookie code base. The details of these two series of fake worlds are as follows. Remember that the \textsf{\footnotesize .m} file configurations that create each of the fake world configurations are saved in the respective \textsf{\footnotesize genie-paleo} sub-directory, and hence both the specific details of how the world was created are available, as well as the ability to exactly recreate the world.
+
+%------------------------------------------------
+%
+\subsection{Conceptual worlds}
+
+\small\begin{itemize}[noitemsep]
+\vspace{1mm}
+\item \textsf{\footnotesize } [TO\ BE\ ADDED]
+\end{itemize}\normalsize
+\vspace{1mm}
+
+%------------------------------------------------
+%
+\subsection{Idealized-continent worlds}
+
+The idealized continents come both without (i.e. the configuration is either land, or deep ocean) or with, continental shelves, and in the latter case, come with varying number of 'steps' down to deeper water (and hence to the abyssal plain).
+
+The fake world series 'k1' configuration names start with one of two, 4 character strings:
+\begin{itemize}[noitemsep]
+\vspace{1mm}
+\item \textsf{\footnotesize fkh\_} == 'high' resolution (\(36\times36\times16\))
+\item \textsf{\footnotesize fkl\_} == 'low' resolution (\(18\times18\times16\))
+\end{itemize}
+\vspace{1mm}
+\noindent (No low vertical resolution, e.g. \(8\) level version is currently provided.)
+\vspace{1mm}
+
+The next 2 characters delineate the shape/position of the world:
+\begin{itemize}[noitemsep]
+\vspace{1mm}
+\item \textsf{\footnotesize 1e} == a single Equatorial-centered super-continent
+\item \textsf{\footnotesize np} == a singleNorth polar-centered super-continent
+\item \textsf{\footnotesize pp} == a pole-to-pole super-continent
+\end{itemize}
+\vspace{2mm}
+
+The 7th character is the 'series' represents:
+\begin{itemize}[noitemsep]
+\vspace{1mm}
+\item \textsf{\footnotesize 0} == An earlier generation of worlds, with shelves stepping down in increments of only \(1\) ocean level.
+\\Note that in generating the wind-stress in this series, the presence/absence of high latitude gateways is automatically identified (meaning that the zonal wind-stress profiles differ between \textsf{\footnotesize np} and \textsf{\footnotesize pp} in the magnitude of wind-stress in the Southern Hemisphere) -- \texttt{par\_tauopt=0}.
+\vspace{1mm}
+\item \textsf{\footnotesize 1} == A subsequent generation, with shelves stepping down in increments of 2 ocean levels.
+\\Note: An intermediate wind-stress magnitude is applied to both hemispheres in all configurations (i.e. no distinction is made between hemisphere with or without high latitude gateways) -- \texttt{par\_tauopt=3} .
+\vspace{1mm}
+\item \textsf{\footnotesize 2} == A modification of \#1,  generated with a newer version of \textbf{cookiegen}, and with an imposed limit of \(1000-5000 m\) for the range of \textbf{SEDGEM} open ocean depths (the previous version included   depths extending to the shallow sub-surface).
+\\Note that \texttt{par\_tauopt=0} is used. 
+\\Also note that in \textsf{\footnotesize pp}, shelves are only created on the Eastern margin of the basin so as to retain consistency in total shelf area with  \textsf{\footnotesize np}.
+\end{itemize}
+\vspace{2mm}
+
+The 8th character (digit) specifies the number of shelves, which for the initial series is:
+
+\vspace{1mm}
+\small\begin{enumerate}[noitemsep]
+\setlength{\itemindent}{.2in}
+\setcounter{enumi}{-1}
+\item (none)
+\item level \(15\)
+\item level \(15 + 14\)
+\item level \(15 + 14 + 13\)
+\item level \(15 + 14 + 13 + 12\)
+\item level \(15 + 14 + 13 + 12 + 11\)
+\end{enumerate}\normalsize
+\vspace{1mm}
+and for the newer series:
+\small\begin{enumerate}[noitemsep]
+\setlength{\itemindent}{.2in}
+\setcounter{enumi}{-1}
+\item (none)
+\item level \(15\)
+\item level \(15 + 13\)
+\item level \(15 + 13 + 11\)
+\item level \(15 + 13 + 11 + 9\)
+\end{enumerate}\normalsize
+\vspace{1mm}
+
+All the oceans are ca. \(3500 m\) deep, i.e. truncated at ocean level \(3\), in order to produce approximately the present-day ocean volume.\footnote{To change this, simply search-and-replace the \texttt{3} in the \textsf{\footnotesize .k1} file with e.g. \texttt{1}.}
+
+Example \textit{base-configs} are provide for some, but not all of the idealized worlds, and follow the same naming convention and have full filenames of the form: \textsf{\footnotesize cookie.CB.\(\ast\ast\ast\ast\ast\ast\ast\ast\).BASES.config}, where \(\ast\ast\ast\ast\ast\ast\ast\ast\) is the 8-character fake world 'k1' configuration name (see above). A basic set of tracers is provided (\textsf{\footnotesize BASES}).
+
+Other than the rate at which the shelves step down\footnote{(and that the earlier generation was for a pole-to-pole super-continent only)}, the main difference between the different generations of worlds, is in the applied zonal wind field strength. In the earlier fake world series, the 'zonal wind-stress generation option' (\texttt{par\_tauopt}) was \texttt{0}. This attempts to automatically determine the presence of high latitude ocean gateways and if they exist, apply a stronger zonal wind field in that hemisphere (otherwise, a wind stress appropriate for a modern northern-hemisphere configuration with no zonal gateway is applied). To reduce the number of boundary conditions that change and co-vary between different fake worlds, in the second generation of idealized continent worlds, an intermediate strength zonal wind field is applied to all, regardless of the presence of absence of high latitude circumpolar ocean gateways. This is  'zonal wind-stress generation option' \texttt{3}. Note that for the same resolution, wind-fields can be substituted/replaced, and using the saved \textsf{\footnotesize .m} configuration file, worlds can be re-generated with different wind-stress options if desired. The depth range of the ocean floor in\ \textbf{SEDGEM} (which informs the pressure used in the \(CaCO_{3}\) stability calculation) is slightly restricted in \#3 (the upper limit increased to \(1000 m\)).
+
+%------------------------------------------------
+%
+\subsection{Modern worlds}
+
+To both help illustrate how the configuration files are organized and accessed for paleo worlds, and to help make modifying older (modern) configurations easier, the 2 basic (published) modern configurations are provided in a 'genie-paleo' format (i.e. the format generated by \textbf{cookiegen}):
+\begin{itemize}[noitemsep]
+\vspace{1mm}
+\item \textsf{\footnotesize p\_worbe2} == The 8-level \(36\times36\) ocean configuration of \textit{Ridgwell et al.} [2007] and including the geological carbon cycle (\textbf{SEDGEM}+\textbf{ROKGEM}) configuration files of \textit{Ridgwell and Hargreaves} [2007] (also: \textit{Lord et al.} [2015]).
+\vspace{1mm}
+\item \textsf{\footnotesize p\_worjh2} ==  The 16-level \(36\times36\) ocean configuration of \textit{Cao et al.} [2009] and including the geological carbon cycle (\textbf{SEDGEM}+\textbf{ROKGEM}) configuration files of \textit{Archer et al.} [2009] (also: \textit{Winkelmann et al.} [2015]).
+\end{itemize}
+
+\vspace{2mm}
+\noindent Corresponding example \textit{base-} and \textit{user-config} files are provided:
+\begin{itemize}[noitemsep]
+\vspace{1mm}
+\item \textsf{\footnotesize cookie.CBSR.p\_worbe2.BASES.config} plus: \textsf{\footnotesize cookie.CBSR.p\_worbe2.BASES.SPIN1} \\(in: \textsf{\footnotesize genie-userconfig/EXAMPLES}), which runs the first-stage spin-up described in \textit{Ridgwell and Hargreaves} [2007] (and also used in \textit{Lord et al.} [2015]).
+\vspace{1mm}
+\item \textsf{\footnotesize cookie.CBSR.p\_worjh2.BASES.config} plus: \textsf{\footnotesize cookie.CBSR.p\_worjh2.BASES.SPIN1} \\(in: \textsf{\footnotesize genie-userconfig/EXAMPLES}), which runs the first-stage spin-up used in \textit{Archer et al.} [2009] and \textit{Winkelmann et al.} [2015].
+\end{itemize}
+
+as well as some reduced tracer and biogeochemical complexity variants, such as \textsf{\footnotesize cookie.CB ...} and \textsf{\footnotesize cookie.C ...}
+
+\vspace{2mm}
+\noindent To make modified (e.g. wind fields) versions of either of the 2 modern 'paleo' format configurations:
+\begin{enumerate}[noitemsep]
+\vspace{1mm}
+\item Copy and rename the  (8- or 16-level ocean configuration) \textsf{\footnotesize genie-paleo} sub-directory, giving it an \uline{8 (or 6) character string name}.
+\vspace{1mm}
+\item In this new sub-directory, edit the files (wind stress, wind velocity, wind speed, albedo, and/or topography) you want to modify. (These files do not need to be renamed.)
+\vspace{1mm}
+\item Copy and rename the corresponding \textit{base-config} file (disabling the parameter settings for \textbf{SEDGEM} and \textbf{ROCKGEM}, and/or enabling \textbf{ECOGEM}, as required).
+\\Then, in the \textit{base-config} file, edit all instances of the \textsf{\footnotesize genie-paleo} subdirectory parameters  to match the new \textsf{\footnotesize genie-paleo} sub-directory you assigned in step (1). (Parameters, e.g.: \textsf{\footnotesize ea\_1='../../cgenie.cookie/genie-paleo/p\_worbe2'}.
+\vspace{1mm}
+\item Copy-rename the example \textit{user-config}, or modify your own existing one.
+\\Note that when employing the geological carbon cycle, the resolution of the sediment (and weathering) grids and associated boundary condition files are now defined in the \textit{base-config} rather than the \textit{user-config} (as originally done).
+\end{enumerate}
+
+%------------------------------------------------
 
 %----------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------
