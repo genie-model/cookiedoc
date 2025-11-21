@@ -532,16 +532,21 @@ bg_par_forcing_name=’pyyyyz.RpCO2_Rp13CO2.RCP8p5'
 \vspace{1mm}
 
 \noindent \uline{NOTE}: ensure that
-the scaling parameters are either commented out, e.g.:
+the scaling parameters, if set, are either commented out, e.g.:
 \vspace{-2pt}\small\begin{verbatim}
 #bg_par_atm_force_scale_val_3=8.3333e+013
 #bg_par_atm_force_scale_val_4=-27.0
 \end{verbatim}\normalsize\vspace{-2pt}
 \noindent or simply deleted in their entirety (because the RCP forcing contains the actual values/correct units and you do not need to modify them any further).
 
-\vspace{1mm}
+To start at year 2010:
+\vspace{-1mm}\small\begin{verbatim}
+# change start year
+bg_par_misc_t_start=2010.0
+\end{verbatim}\normalsize\vspace{-1mm}
 
-The equivalent carbon emissions required to follow these concentration pathways are diagnosed by \textbf{cookie} and provided as a \textit{time-series} output (in units of \(mol C yr^{-1}\)) in file: 
+\vspace{1mm}
+Note that the equivalent carbon emissions required to follow these concentration pathways are diagnosed by \textbf{cookie} and provided as a \textit{time-series} output (in units of \(mol C yr^{-1}\)) in file: 
 \vspace{1mm}
 \\\textsf{\footnotesize biogem\_series\_diag\_misc\_specified\_forcing\_pCO2.res}
 

@@ -13,7 +13,7 @@
 \noindent In the chapter we address the role and nature of marine (plankton) ecosystems.\footnote{Loosely based on original workshop material devised by Ben Ward <b.a.ward@soton.ac.uk>}
 
 \vspace{1mm}
-\textbf{muffin} includes an explicit ecosystem component, including primary and export production as well as plankton biomass -- \textbf{ECOGEM}\footnote{\href{https://doi.org/10.5194/gmd-2017-258}{\textit{Ward et al.} [2017]} -- Ward, B. A., Wilson, J. D., Death, R. M., Monteiro, F. M., Yool, A., and Ridgwell, A.: EcoGEnIE 0.1: Plankton Ecology in the cGENIE Earth system model, \textit{Geosci. Model Dev. Discuss.}, https://doi.org/10.5194/gmd-2017-258, 2017.} -- that is designed as an alternative option to the 'bioloigically induced export flux' representation of export production (\textbf{BIOGEM}). The ecological model takes what is known as a size-structured approach to representing diversity of function in marine ecosystems, and is flexible in being able to be configured to represent any range of size classes of phytoplankton and zooplankton (and/or mixotrophs).
+\noindent \textbf{cookie} includes an explicit ecosystem component, including primary and export production as well as plankton biomass -- \textbf{ECOGEM}\footnote{\href{https://doi.org/10.5194/gmd-2017-258}{\textit{Ward et al.} [2017]} -- Ward, B. A., Wilson, J. D., Death, R. M., Monteiro, F. M., Yool, A., and Ridgwell, A.: EcoGEnIE 0.1: Plankton Ecology in the cGENIE Earth system model, \textit{Geosci. Model Dev. Discuss.}, https://doi.org/10.5194/gmd-2017-258, 2017.} -- that is designed as an alternative option to the 'bioloigically induced export flux' representation of export production (\textbf{BIOGEM}). The ecological model takes what is known as a size-structured approach to representing diversity of function in marine ecosystems, and is flexible in being able to be configured to represent any range of size classes of phytoplankton and zooplankton (and/or mixotrophs).
 
 \section*{Stuff to keep in mind\dots}
 \begin{itemize}
@@ -29,7 +29,7 @@
 \section*{Read.me}
 
 \vspace{2mm}
-We will use some of the non ecology-enabled, biogeochemical cycles \textit{restarts} from the previous Chapter (specifically: \textsf{\footnotesize cookie.CB.p\_worjh2.BASES.caoetal.SPIN} and \textsf{\footnotesize  cookie.CB.p\_worjh2.BASESFe.FeMIP.SPIN}).
+We will use some non ecology-enabled, biogeochemical cycles \textit{restarts} from the previous Chapter (specifically: \textsf{\footnotesize cookie.CB.p\_worjh2.BASES.caoetal.SPIN} and \textsf{\footnotesize  cookie.CB.p\_worjh2.BASESFe.FeMIP.SPIN}) which comprise a stable ocean circulation and a cycle of nutrients already modified by the biological pump (although we are not going to explore changing the mechanistic control on biological productivity).
 
 \vspace{2mm}
 
@@ -39,8 +39,8 @@ However, you will need to download:
 \vspace{2mm}
 \item Observational data
 \vspace{-1mm}\small\begin{verbatim}
-$ wget --no-check-certificate http://www.seao2.info//cgenie/data/ ...
-     GEnIE_observations.nc
+$ wget --no-check-certificate 
+     http://www.seao2.info//cgenie/data/GEnIE_observations.nc
 \end{verbatim}\normalsize\vspace{-1mm}
 \end{itemize}
 
@@ -50,7 +50,7 @@ $ wget --no-check-certificate http://www.seao2.info//cgenie/data/ ...
 
 \section{Getting going with ECOGEM}
 
-Previously, you were running the standard 'biogeochemical' version of \textbf{cookie}\footnote{e.g. see \textit{Ridgwell et al.} [2007]}.  In \textbf{BIOGEM}, the biological pump is driven by an implicit (i.e. unresolved) biological community. As in the real ecosystem, the biological uptake of carbon and nutrients (such as phosphorus and iron) is limited by light, temperature and nutrient availability. However, unlike the real ecosystem, any uptake is \textit{directly} and \textit{instantly} converted to particulate and dissolved organic matter (POM, DOM) and exported to the ocean interior via (gravitational) settling and the ocean surface, respectively. i.e.
+Previously, you were running the standard 'biogeochemical' version of \textbf{cookie}\footnote{e.g. see \textit{Ridgwell et al.} [2007]}.  In \textbf{BIOGEM}, the biological pump is driven by an implicit (i.e. unresolved) biological community. As in the real ecosystem, the biological uptake of carbon and nutrients (such as phosphorus and iron) is limited by light, temperature and nutrient availability. However, unlike the real ecosystem, any uptake is \textit{directly} and \textit{instantly} converted to particulate and dissolved organic matter (POM, DOM), of which the POM is exported to the ocean interior via (gravitational) settling, i.e.:
 \vspace{4mm}
 \begin{itemize}
 \item \underline{surface inorganic nutrients} $\xrightarrow[\rm and~export]{\rm production}$ \underline{POM and DOM}
@@ -71,21 +71,20 @@ The existence of a plankton biomass reservoir creates a delay term in the system
 Note that while the experimental configurations are based on those of \textit{Ward et al.} [2018], here we use a slightly different modern continental configuration and physics tuning (and hence ocean circulation state) and a slightly different iron cycle tuning. \textbf{ECOGEM} itself has also been adjusted to reduce the carbon export relative to phosphorous and has photosynthesis suppressed under sea-ice.
 
 %------------------------------------------------
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
 \subsubsection{Running the model}
 \vspace{1mm}
 
-We will start with the simplest possible configuration of \textbf{ECOGEM}, with just a single (small) phytoplankton class\footnote{i.e. as if the ocean was populated with a small species of phytoplankton (photo-autotroph) and nothing else.}. Run this model at the command line (e.g. for 10 years), as follows:
+We will start with the simplest possible configuration of \textbf{ECOGEM}, with just a single (small) phytoplankton class\footnote{i.e. as if the ocean was populated with a small species of phytoplankton (photo-autotroph) and nothing else.}. You can run an experiment (e.g. for 10 years) based on this configuration:
 \vspace{-1mm}\small\begin{verbatim}
 $ ./runcookie.sh cookie.CBE.p_worjh2.BASES LABS LAB.7.1.EXAMPLE 10 
    cookie.CB.p_worjh2.BASES.caoetal.SPIN
 \end{verbatim}\normalsize\vspace{-1mm}
-(Here, you are using a new \textit{base-config} -- \textsf{\footnotesize cookie.CBE.p\_worjh2.BASES} -- identical to the 16-level phosphorous-only biogeochemical configuration used in the previous Chapter, but now with the ecosystem model enabled (the '\textsf{\footnotesize E}' in '\textsf{\footnotesize cookie.CBE.p\_worjh2.BASES}').)
+(Here, although you are using a new \textit{base-config} -- \textsf{\footnotesize cookie.CBE.p\_worjh2.BASES} -- it is identical to the 16-level phosphorous-only biogeochemical configuration used in the previous Chapter except now with the ecosystem model enabled (the '\textsf{\footnotesize E}' in '\textsf{\footnotesize cookie.CBE.p\_worjh2.BASES}').)
 
-The model will run as before ... except much slower ... :( ... as \textbf{cookie} has to calculate plankton growth and ecological interactions in addition to everything else it did previously.
+The model will run as before ... except much slower ... :( ... as \textbf{cookie} has to calculate plankton growth and ecological interactions in addition to everything else it was doing previously.
 
 %------------------------------------------------
 \newpage
@@ -94,31 +93,66 @@ The model will run as before ... except much slower ... :( ... as \textbf{cookie
 \subsubsection{Viewing 2D time-slice output}
 \vspace{1mm}
 
-What is 'new'?
+What to look for?
 
 \vspace{1mm}
-\noindent Following the same convention as for \textbf{BIOGEM}, \textbf{ECOGEM} \textit{time-slice} output is saved in the subdirectory of your experiment results directory, named \footnotesize\textsf{ecogem }\normalsize.\footnote{for this particular example experiment, the full path to the \textbf{ECOGEM} results would be: \\ \scriptsize\textsf{/cgenie\_output/EXP.8.1/ecogem/}\normalsize.}
+\noindent \textbf{ECOGEM} saves its own 2D (but not 3D) netCDF \textit{time-slice} output (also in the \textsf{\footnotesize results} sub-directory of your experiment output folder).
 
-\begin{enumerate}[noitemsep]
-\vspace{1mm}
-\item Open the \textsf{\footnotesize fields\_ecogem\_2D.nc} file by locating it in the correct directory, and double clicking on it in the file transfer window (if you have that software function configured), or transfer locally and then open (e.g. in \textbf{Panoply}).
-\vspace{1mm}
-\item You should now see a list of 2D arrays that were output by \textbf{ECOGEM}. Looking at the \textsf{\footnotesize Long Name} description, simply click on a variable of interest. If a menu window pops up, just click on \textsf{\footnotesize Create} or hit the \textsf{\footnotesize Return} key.
-\vspace{1mm}
-\item Check the \textbf{Panoply} settings to make sure you really know what you are looking at.
-\vspace{1mm}
-\begin{itemize}[noitemsep]
-\item Which \textit{time-slice} (i.e. simulation year) are you looking at?
-\item What is the data range (i.e. colour scale)
-\end{itemize}
-\end{enumerate}
-\vspace{2mm}
+\begin{table}[htp!]
+\begin{tabular}{p{0.25\linewidth} p{0.20\linewidth} p{0.25\linewidth} p{0.20\linewidth}}
+\toprule
+\textbf{variable} & \textbf{variable} & \textbf{Description} & \textbf{Application}\\
+ & (long name) & &\\
+\midrule
 
-\noindent A guide to some key \textbf{ECOGEM} output variables  can be found at the end of Chapter \ref{ch:model-output}.
+\textsf{\footnotesize eco2D\_Plankton\_C\_x} & \textsf{\footnotesize C Biomass - Popn. \#x} & 
+\small{Biomass ($mmol C m^{-3}$) of phytoplankton or zooplankton [OF GIVEN SIZE CLASS].} & \small{Relative dominance of different size classes.\footnote{Relative cellular numbers can be derived using cell volume.} Comparison to observations.}\\
+\textsf{\footnotesize eco2D\_Plankton\_P\_x} & \textsf{\footnotesize P Biomass - Popn. \#x} & 
+\small{Biomass ($mmol P m^{-3}$) of phytoplankton or zooplankton [OF GIVEN SIZE CLASS].} & \small{(as above)}\\
+\textsf{\footnotesize eco2D\_Plankton\_Chl\_x} & \textsf{\footnotesize Chl Biomass - Popn. \#x} & 
+\small{Biomass ($mg Chl m^{-3}$) of phytoplankton [OF GIVEN SIZE CLASS].} & \small{Comparison to observations.}\\
+
+\midrule
+
+\textsf{\footnotesize eco2D\_Plankton\_C\_x} & \textsf{\footnotesize C Biomass - Total} & 
+\small{Total ecosystem biomass ($mmol C m^{-3}$)} & \small{--}\\
+\textsf{\footnotesize eco2D\_Plankton\_P\_x} & \textsf{\footnotesize P Biomass - Total} & 
+\small{Total ecosystem biomass ($mmol P m^{-3}$)} & \small{--}\\
+\textsf{\footnotesize eco2D\_Plankton\_Chl\_x} & \textsf{\footnotesize Chl Biomass - Total} & 
+\small{Total ecosystem biomass ($mg Chl m^{-3}$)} & \small{Comparison to observations, e.g., satellite retrieval.}\\
+
+\midrule
+
+\textsf{\footnotesize eco2D\_Size\_*} & \textsf{\footnotesize --} & 
+\small{Various size-related metric.} & \small{Analysis of ecosystem changes.}\\
+
+\midrule
+
+\textsf{\footnotesize eco2D\_Uptake\_Fluxes\_x} & \textsf{\footnotesize Uptake Fluxes x} & 
+\small{Rate of nutrient (can carbon) update.} & \small{Primary productivity.}\\
+
+\midrule
+
+\textsf{\footnotesize eco2D\_xGamma\_*} & \textsf{\footnotesize Limitation [BY NUTRIENT] [OF GIVEN SIZE CLASS]} & 
+\small{Various size-related metric.} & \small{Analysis of ecosystem changes.}\\
+
+\midrule
+
+\textsf{\footnotesize eco2D\_Diversity\_*} & \textsf{\footnotesize --} & 
+\small{Nutrient limitation of growth.} & \small{Analysis of ecosystem controls.}\\
+
+\midrule
+
+\textsf{\footnotesize eco2D\_Nutrients\_*} & \textsf{\footnotesize Nutrients *} & 
+\small{Ocean surface nutrient concentrations including that of DIC, in units of \(mmol m^{-3}\).} & \small{(Duplicate of \textbf{BIOGEM} fields ... but different units.)}\\
+
+\bottomrule
+\end{tabular}
+\caption{Summary of the main 2D time-slice output for ecology.}
+\end{table}
 
 %------------------------------------------------
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
 \subsubsection{Comparing to observations}
@@ -129,24 +163,22 @@ Models are intended as an (as close as possible) approximation of the real world
 \vspace{1mm}
 \begin{enumerate}[noitemsep]
 \vspace{1mm}
-\item You can download a compilation of key biogeochemical variables (as \textbf{netCDF} files) from the \textsf{\footnotesize mycookie} \href{http://www.seao2.info/cgenie/data/GEnIE_observations.nc}{webpage} ('\textit{Observations for ECOGEM}').
+\item Download a compilation of key biogeochemical variables -- \\\textsf{\footnotesize http://www.seao2.info/cgenie/data/GEnIE\_observations.nc} \href{http://www.seao2.info/cgenie/data/GEnIE_observations.nc}.
 \vspace{1mm}
-\item You can open the \textsf{\footnotesize GEnIE\_observations.nc} file in \textbf{Panoply} in the same way as you opened the \textsf{\footnotesize fields\_ecogem\_2D.nc} file.
-\vspace{1mm}
-\item You can now compare the model output to a variety of key biogeochemical variables that have been derived from ocean measurements. The variables in the \textsf{\footnotesize GEnIE\_observations.nc} \textbf{netCDf} file include:
+\item Compare model output to key biogeochemical variables derived from ocean measurements.\footnote{Remember that you can create difference maps.}  The variables in the \textsf{\footnotesize GEnIE\_observations.nc} \textbf{netCDf} file include:
 \vspace{1mm}
 \begin{itemize}[noitemsep]
-\item T and S (not so interesting, except to e.g. evaluate how well \textbf{cookie} simulates different temperature regimes (and habitats)). 
-\item DIC and ALK (ignore for the purpose of this chapter).
-\item Phosphate is of more interest -- how well does \textbf{cookie} simulate surface nutrient availability, and to what degree does ecosystem complexity help explain observations. 
+\item Phosphate -- how well does \textbf{cookie} simulate surface nutrient availability, and to what degree does ecosystem complexity help explain observations?
 \item Observed Chlorophyll is remote-sensed, and can be contrasted with the chlorophyll biomass simulated by \textbf{ECOGEM}.
 \end{itemize}
 \vspace{1mm}
-You might visually compare model with observations, and/or e.g. create difference maps.
-\vspace{1mm}
-\item When doing this, be asking yourself the question: does the model perform well or poorly with respect to reproducing these variables? If not, \uline{why not}?
+\item Does the model perform well with respect to reproducing these variables? If not, \uline{why not}?
 \end{enumerate}
 \vspace{2mm}
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
 
 %------------------------------------------------
 \newpage
@@ -157,24 +189,12 @@ You might visually compare model with observations, and/or e.g. create differenc
 In the last section you ran a very simple configuration of the \textbf{ECOGEM} ecosystem model, and compared it to observations. In this section we are going to add a bit more ecological realism, with the aim of improving model performance (i.e. as contrasted against observations). We will start by adding a zooplankton population that  should bring a degree of `top-down' control to the phytoplankton population. 
 \vspace{2mm}
 
-First, in the \textit{user-config} file (\textsf{\footnotesize LAB.7.1.EXAMPLE}) note:
+First, in the \textit{user-config} file (\textsf{\footnotesize LAB.7.1.EXAMPLE}), note:
 
 \begin{enumerate}[noitemsep]
 
 \vspace{1mm}
-\item \texttt{bg\_par\_bio\_prodopt="NONE"} -- which effectively disables the simple biological export scheme in \textbf{BIOGEM}, replacing it with the explicit biology of \textbf{ECOGEM}. This is a necessary step whenever running \textbf{ECOGEM}, because we do not want the implicit and explicit biological schemes to be implemented simultaneously ...
-
-\vspace{1mm}
-\item Any parameter name that begin with `\texttt{bg\_}' correspond to \textbf{BIOGEM}, while `\texttt{eg\_}' corresponds to \textbf{ECOGEM}. The \textbf{ECOGEM} parameters are in a block towards the end of the file.
-
-\end{enumerate}
-
-\vspace{2mm}
-
-Then: 
-
-\begin{enumerate}[noitemsep]
-\setcounter{enumi}{1}
+\item \texttt{bg\_par\_bio\_prodopt="NONE"} -- which effectively disables the simple biological export scheme in \textbf{BIOGEM}, replacing it with the explicit biology of \textbf{ECOGEM}. This is a necessary step whenever running \textbf{ECOGEM}, because we do not want the implicit and explicit biological schemes to be implemented simultaneously ... then:
 
 \vspace{1mm}
 \item One of the most important parameters specifies the \textit{ecosystem configuration} file:
@@ -222,8 +242,7 @@ Plankton functional type one of: Prochlorococcus
 \newpage
 %------------------------------------------------
 
-\vspace{1mm}
-\item Note that only the lines in between the \texttt{\small -START-OF-DATA-} and \texttt{\small -END-OF-DATA-} tags are read by the computer. The rest is there solely for your guidance.
+\noindent \textsf{\footnotesize NPD.eco} note that only the lines in between the \texttt{\small -START-OF-DATA-} and \texttt{\small -END-OF-DATA-} tags are read by the computer. The rest is there solely for your guidance.
 
 \vspace{1mm}
 Each line that is entered in the computer-readable area tells the model to create a distinct plankton population in the model. The 'plankton functional type' of this population is specified in the first column, while the plankton diameter is specified in the second column. A '\texttt{1}' must always be placed in the third column\footnote{It doesn't 'do' anything, but the model still needs it ...  why ... WTF?}.
@@ -238,14 +257,14 @@ In this 'NPD' (single nutrient-plankton-detritus) configuration, we only have a 
 \item[NOTE:] This file format is fussy, and you\uline{ cannot have any empty lines} in between the  \texttt{\small -START-OF-DATA-} and \texttt{\small -END-OF-DATA-} tags -- every line between these tags must have data (3 parameter values).
 
 \vspace{2mm}
-\item We can increase the ecological complexity of the model by adding another plankton population. Save the \textit{ecosystem configuration} file under a new and highly intuitive name (such as \textsf{\footnotesize NP\underline{Z}D.eco}), and add another line specifying a 100 micron zooplankton. e.g.:
+\item You can increase the ecological complexity of the model by adding another plankton population. Save the \textit{ecosystem configuration} file under a new and highly intuitive name (such as \textsf{\footnotesize NP\underline{Z}D.eco}), and add another line specifying a 100 micron zooplankton. e.g.:
 \small\begin{verbatim}
  Zooplankton     100.00   1
 \end{verbatim}\normalsize
 It is important that the zooplankton is 10 times larger than the phytoplankton in terms of diameter. This is the optimal predator-prey length ratio in the default configuration. (You could maybe think about changing this value later on.)
 
 \vspace{2mm}
-\item  To run the model with this new configuration, change the name of the \textit{ecosystem configuration file} in the \textit{user-config} file\dots
+\item To run the model with this new configuration, change the name of the \textit{ecosystem configuration file} in the \textit{user-config} file\dots
 \small\begin{verbatim}
 eg_par_ecogem_plankton_file ='NPZD.eco'
 \end{verbatim}\normalsize
@@ -270,8 +289,7 @@ $ ./runcookie.sh cookie.CBE.p_worjh2.BASES LABS LAB.7.2.NPDZ 10
 \end{enumerate}
 
 %------------------------------------------------
-\vspace{1mm}
-\noindent\rule{4cm}{0.1mm}
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
 %------------------------------------------------
@@ -281,18 +299,16 @@ $ ./runcookie.sh cookie.CBE.p_worjh2.BASES LABS LAB.7.2.NPDZ 10
 \subsubsection{Visualising composite data}
 \vspace{1mm}
 
-We can perhaps get a better handle on this question by looking at the ratio of phytoplankton-to-zooplankton biomass. Such ratios can, however, be difficult to assess simply by eye-balling two maps. Instead we can use \textbf{Panoply} to combine data arrays.
+We can perhaps get a better handle on this question by looking at the ratio of phytoplankton-to-zooplankton biomass. Use \textbf{Panoply} to combine data arrays.
 
 \vspace{1mm}
 \begin{enumerate}[noitemsep]
 \vspace{1mm}
-\item First close all your \textbf{Panoply} plot windows. Then open a new one for \textsf{\footnotesize C~Biomass - Popn.~001 (10.00~micron phytoplankton)}. Next, select \textsf{\footnotesize C~Biomass - Popn.~002 (100.00~micron zooplankton)}, and click the \textsf{\footnotesize Combine Plot} icon at the top of the \textbf{Panoply} window.
+\item Open \textsf{\footnotesize C~Biomass - Popn.~001 (10.00~micron phytoplankton)}. Next, select \textsf{\footnotesize C~Biomass - Popn.~002 (100.00~micron zooplankton)}, and click the \textsf{\footnotesize Combine Plot} icon at the top of the \textbf{Panoply} window.
 \vspace{1mm}
-\item A box will open up asking you \textsf{\footnotesize In which existing plot should I combine the variable}. As you now only have one plot available, this should be a straightforward choice. Click \textsf{\footnotesize Combine}.
+\item A box will open up asking you \textsf{\footnotesize In which existing plot should I combine the variable}. Click \textsf{\footnotesize Combine}.
 \vspace{1mm}
-\item A new map should appear showing the total zooplankton carbon biomass minus the total phytoplankton carbon biomass (see the label on the colour scale). This is not what we want. Below the map, under the \textsf{\footnotesize Array(s)} tab, there is a drop down menu showing the range of different ways the two arrays can be combined. We want to look at the Z:P biomass ratio, so select \textsf{\footnotesize Array 2 / Array 1}.
-\vspace{1mm}
-\item You now need to make sure that you are looking at the right year (you can time-lock the two arrays by clicking on the chain icon). You may also find it helpful to look at the data on a log scale, with a scale range of \textsf{\footnotesize 0.1} to \textsf{\footnotesize 10}. You might also like to change the \textsf{\footnotesize Color Table:} option to \textsf{\footnotesize GMT\_polar.cpt}.
+\item The new map shows total zooplankton carbon biomass minus the total phytoplankton carbon biomass (see the label on the color scale). We want to look at the Z:P biomass ratio, so from \textsf{\footnotesize Array(s)}, select \textsf{\footnotesize Array 2 / Array 1}.\footnote{Make sure that you are looking at the right year for both.} You may find it helpful to look at the data on a log scale, with a scale range of \textsf{\footnotesize 0.1} to \textsf{\footnotesize 10}. You might also like to change the \textsf{\footnotesize Color Table:} option to \textsf{\footnotesize GMT\_polar.cpt}.
 \end{enumerate}
 
 \vspace{2mm}
@@ -331,7 +347,7 @@ We are going to add a few more plankton size classes, so that we end up with sma
 eg_par_ecogem_plankton_file='3P3Z.eco'
 \end{verbatim}\vspace{-2mm}
 \vspace{1mm}
-\item Save the new \textit{user-config} file under a different name (e.g. \texttt{BSS.3P3Z.SPIN}) and then run the new model at the command line (e.g. for 10 years).
+\item Save the new \textit{user-config} file under a different name (e.g., \textsf{\footnotesize LAB.7.2.3P3Z}) and then run the new model at the command line (e.g. for 10 years).
 \end{enumerate}
 \vspace{2mm}
 
@@ -370,7 +386,7 @@ $j$     & Functional Type       & \multicolumn{1}{r}{Diameter ($\mu$m)}  \\
 \subsubsection{Viewing 2D time-slice output}
 \vspace{1mm}
 
-Open up the 2D \textit{time-slice} data for the new experiment, following the same procedure as in the previous section. You will now see a lot more \textit{time-slice} variables now appear listed in \textbf{Panoply}. We have all the same diagnostics as before, plus some new ones relating to the new plankton populations you have just added. There are also variables describing the size distribution and diversity of the photosynthetic community (non-phototrophic populations are ignored in these metrics). These were not included before, because there was only one phytoplankton population.
+In the 2D \textit{time-slice} netCDF data, there are now a lot more variables. There are all the same diagnostics as before, plus some new ones relating to the new plankton populations you have just added. There are also variables describing the size distribution and diversity of the photosynthetic community (non-phototrophic populations are ignored in these metrics). These were not included before, because there was only one phytoplankton population.
 
 \vspace{2mm}
 \begin{itemize}[noitemsep]
@@ -415,7 +431,7 @@ Open up the 2D \textit{time-slice} data for the new experiment, following the sa
 \end{itemize}
 \vspace{1mm}
 
-Have a look at some of these metrics, but bear in mind that they summarise the diversity of a phytoplankton community that includes just three species. They are probably not that revealing, so we will come back to them later. Instead, have a look some of the other metrics describing the model ecosystem.
+View the spatial distributions of some of these metrics, but bear in mind that they summarize the diversity of a phytoplankton community that includes just three species. They are probably not that revealing, so we will come back to them later. Instead, have a look some of the other metrics describing the model ecosystem.
 
 \vspace{2mm}
 \noindent \textbf{Questions:}
@@ -464,7 +480,7 @@ We are now going to switch to a more diverse version of the size-structured ecos
 \vspace{1mm}
 \item Save the \textit{ecosystem configuration} file under a new name, replacing the existing plankton populations with the ones described in Table~\ref{planktonconfig2}.
 \vspace{1mm}
-\item Create a new \textit{user-config} and point to the new \textit{ecosystem configuration} file.
+\item Create a new \textit{user-config} (e.g., \textsf{\footnotesize LAB.7.4.8P8Z}) and point to the new \textit{ecosystem configuration} file, e.g., (e.g. \textsf{\footnotesize 8P8Z.eco}).
 \vspace{1mm}
 \item Run the new model for at least 20 years (this will probably take about 10 minutes).
 \end{enumerate}
@@ -517,7 +533,7 @@ We can now begin to look at the size and diversity metrics  in a more meaningful
 
 \begin{enumerate}[noitemsep]
 \vspace{1mm}
-\item Look first at:
+\item View:
 \vspace{1mm}
 \begin{enumerate}[noitemsep]
 \item the total carbon biomass
@@ -525,14 +541,14 @@ We can now begin to look at the size and diversity metrics  in a more meaningful
 \item the geometric mean size
 \end{enumerate}
 \vspace{1mm}
-Make sure that in each case that you are looking at the \uline{last} year of model output. You may also find it useful to adjust the colour scale, or to change to a logarithmic colour scale (e.g. try a logarithmic scale from 2 to 20 microns for the geometric mean size).
+Make sure that in each case that you are looking at the \uline{last} year of model output. You may also find it useful to adjust the color scale, or to change to a logarithmic colour scale.
 
 \vspace{1mm}
 Looking at the maps, we can perhaps pick out three different ``biomes'' in terms of their community properties:
 \vspace{1mm}
 \begin{enumerate}
 \item The low-latitude oligotrophic gyres are relatively unproductive, and support some of the lowest annual mean biomass in the surface ocean. In these regions the mean phytoplankton size is very small.
-\item Subpolar latitudes between 40$^\circ$ and 50$^\circ$ (either N or S) are much more productive, and support very high annual mean biomass. These communities also have the highest mean sizes of any region.
+\item Sub-polar latitudes between 40$^\circ$ and 50$^\circ$ (either N or S) are much more productive, and support very high annual mean biomass. These communities also have the highest mean sizes of any region.
 \item The polar oceans are also highly productive (except perhaps the high Arctic), and support relatively high annual mean biomass. These communities are made up (in the model, at least) of slightly smaller phytoplankton than we see in the subpolar regions.
 \end{enumerate}
 
@@ -566,7 +582,7 @@ To find out the answers to these questions, you are going to pull the model apar
 The first step is to find out the impact of abiotic factors on the distribution of different phytoplankton sizes. In other words, we need to find out what the distribution of the phytoplankton would be in the absence of any ecological interactions, such as resource competition and predation. This is effectively their `fundamental niche'.
 
 \vspace{1mm}
-The fundamental niche is fairly abstract, and not something that can be measured in the real world. In model world, however, we can get a useful estimate of the fundamental niche by making a few simple changes to the model.
+The fundamental niche is a fairly abstract concept, and not something that can be measured in the real world. In model world, however, we can get a useful estimate of the fundamental niche by making a few simple changes to the model.
 
 \begin{enumerate}[noitemsep]
 \vspace{1mm}
@@ -605,7 +621,7 @@ The next step is asses the impact of resource competition. We are first going to
 
 \begin{enumerate}[noitemsep]
 \vspace{1mm}
-\item All you need to do at this stage is to re-enable nutrient and light competition. To do this, simply delete `\texttt{eg\_fundamental~=~.TRUE.}' from the \textit{user-config} file (or comment out the line to disable it), and save under a new name. Leave the \textit{ecosystem configuration} file as it is.
+\item All you need to do at this stage is to re-enable nutrient and light competition. To do this, simply delete `\texttt{\small eg\_fundamental~=~.TRUE.}' from the \textit{user-config} file (or comment out the line to disable it), and save under a new name. Leave the \textit{ecosystem configuration} file as it is.
 
 \vspace{1mm}
 \item You should have a community of eight phytoplankton size classes that are competing for nutrients and light, again as a function of temperature. This is a much more realistic simulation, as feedbacks between the ecosystem and the environment serve to limit the size of the phytoplankton populations. Examine the model to find out:
@@ -662,6 +678,7 @@ eg_pp_sig_a=1.0e99
 
 You began with a full food-web containing 8 phytoplankton and 8 zooplankton size classes. The diversity of zooplankton clearly has an effect on the phytoplankton community that is not seen in the previous experiment. This effect can be imitated with just one generalist zooplankton if we instruct it to graze preferentially on the most successful prey.
 
+\vspace{1mm}
 Re-enable this 'prey switching' effect by changing the following control parameter to a \texttt{2}:
 \vspace{-1mm}\small\begin{verbatim}
 eg_ns=2
@@ -740,108 +757,71 @@ For instance -- you might also try having an ecosystem comprising just a single 
 
 \section{Ecology in ... future oceans}
 
-What might happen to primary production and the biological pump as (future) climate continues to change? What might happen to the distribution of species (here: size classes) in the ocean? Does it 'matter' e.g. for marine bio geochemical cycling and feedbacks on atmospheric \(pCO_{2}\)? (And how different is the Earth system response when using a complex ecosystem model rather than the highly simplified representation of biological export you used previously?)
+What might happen to primary production and the biological pump as (future) climate continues to change? What might happen to the distribution of species (here: size classes) in the ocean? Does it 'matter' e.g. for marine bio geochemical cycling and feedback on atmospheric \(pCO_{2}\)? (And how different is the Earth system response when using a complex ecosystem model rather than the highly simplified representation of biological export you used previously?)
 
 \vspace{1mm}
 There are all good questions for a model!
 
 \vspace{1mm}
-The best place to start is with the full complexity ecosystem structure with 8 size classes for both phytoplankton and zooplankton (as described in \textit{Ward et al.} [2018]), and continuing on from a \textit{re-start} of the pre-industrial ocean (and ecology): \textsf{\footnotesize cookie.CBE.p\_worjh2.BASESFeTDTL.FeMIP.SPIN}. For the \textit{user-config} -- you can either utilize one of the ones you created in earlier ecosystem experimenting, or adapt the  configuration used to create the \textit{re-start} \footnote{Remember to rename it so you do not overwrite the \textit{re-start} ...} -- \textsf{\footnotesize cookie.CBE.p\_worjh2.BASESFeTDTL.FeMIP.SPIN} which you can find in: \textsf{\footnotesize user-configs/EXAMPLES}. (The \textit{base-config} is as per you have been using in this Chapter -- \textsf{\footnotesize cookie.CBE.p\_worjh2.BASESFeTDTL}.) 
-\vspace{2mm}
-
-Then:
-\vspace{1mm}
+The best place to start is with the full complexity ecosystem structure with 8 size classes for both phytoplankton and zooplankton (as described in \textit{Ward et al.} [2018]). However, you do not have a \textit{restart} for this -- so far, you were adding an ecosystem to a distribution of nutrients and carbon cycling derived from a much simpler description of biological export production.
 
 \begin{enumerate}[noitemsep]
 
-\vspace{1mm}
-\item First, create a \textit{control} based on your chosen \textit{user-config} so that you can more easily spot any mis-matched parameter values or other problems -- do to this, turn off the atmospheric \(pCO_{2}\) \textit{forcing} (so that \(pCO_{2}\) can respond to and indicate any significant changes in the marine carbon cycle), but leave on the dust flux \textit{forcing} (because we still need a supply of dissolved iron to the ocean surface):
+\vspace{2mm}
+\item First, create a \textit{restart} that includes a complete ecosystem. You could run this for 10,000 years (it would take 3 days!). But you might get away with e.g., 1,000 years following on from the non-ecosystem \textit{restart}. Copy your previous full-complexity ecosystem \textit{user-config} (\textsf{\footnotesize LAB.7.4.8P8Z}) to e.g., \textsf{\footnotesize LAB.7.6.8P8Z} and run it:
+
 \vspace{-1mm}\small\begin{verbatim}
-# specify forcings
-bg_par_forcing_name="worjh2.FeMahowald2006"
+$ ./runcookie.sh cookie.CBE.p_worjh2.BASES LABS LAB.7.6.8P8Z 1000
+   cookie.CB.p_worjh2.BASES.caoetal.SPIN
 \end{verbatim}\normalsize\vspace{-1mm}
 
-\vspace{1mm}
-\item Second, you will need either:
+Even 1,000 years might not be long enough ... check the \textit{time-series} of POC export and surface nutrient concentrations and judge whether steady-state has been reached or not.
+
+\vspace{2mm}
+\item You then need to run a historical transient experiment (e.g., as per in Chapter 5). To adapt your \textit{spin-up} experiment as a historical transient, add the following lines to the \textit{user-config}.
 
 \vspace{1mm}
 \begin{itemize}[noitemsep]
-\item A \textit{user-config} with an conceptual emissions scenario (e.g. anything that you have played with previously). This can be run directly on from the pre-industrial spin-up.
 
 \vspace{1mm}
-This will allow you to explore questions concerning the impact on marine ecosystems and carbon cycling of the rate of warming (driven by your assumed rate of carbon emissions), and/or the importance of and sensitivity of marine ecosystems and carbon cycling, to the total (maximum) warming.
-
-\vspace{1mm}
-A template emissions \textit{forcing} (plus dust) is provided as:
-\vspace{1mm}
-\\\textsf{\footnotesize worjh2.FeMahowald2006.FpCO2\_Fp13CO2}
-
-\vspace{1mm}
-As per before, you need to re-scale the values in the forcing because the \(CO_{2}\) flux is assumed to be in units of \(PgC\:yr^{-1}\) \footnote{As per notes in the \textit{forcing} \textit{time-series} \textsf{\footnotesize .sig} file itself.} (and \(\delta^{13}C\) is given a default value of \(1.0\)). i.e. add the lines:
+\item Under \texttt{\small \# *** DATA SAVING ***}, make sure you change the existing line to the following, or add these at the \uline{end} of the parameter block:
 \vspace{-1mm}\small\begin{verbatim}
-bg_par_atm_force_scale_val_3=8.3333e+013
-bg_par_atm_force_scale_val_4=-27.0
+bg_par_data_save_sig_timeinterval=0.0
+bg_par_infile_slice_name='save_timeslice_historicalfuture.dat'
+bg_par_data_save_slice_timeinterval=0.0
+bg_par_infile_sig_name='save_timeseries_historicalfuture.dat'
 \end{verbatim}\normalsize\vspace{-1mm}
-and remember that the forcing is provided as a pulse of \(1\:molyr^{-1}\) (\(1PgC \:yr^{-1}\) when scaled) carbon emissions over just a single year, and hence the \textit{time-series} file for the \textit{forcing}: \textsf{\footnotesize biogem\_force\_flux\_atm\_pCO2\_sig.dat} needs to be edited -- see Chapter \ref{ch:fossil-fuel-co2}.
+These simply ensure you are saving output at appropriate years/intervals.
+
+\vspace{1mm}
+\item Under \texttt{\small \# *** FORCINGS ***} and in place of any existing forcing lines:
+\vspace{-1mm}\small\begin{verbatim}
+# historical forcing of pCO2
+bg_par_forcing_name='pyyyyz.RpCO2_Rp13CO2.historical2010'
+\end{verbatim}\normalsize\vspace{-1mm}
+This prescribes increasing atmospheric CO2 following historical observations.
+
+\vspace{1mm}
+\item And then under \texttt{\small \# *** MISC ***}:
+\vspace{-1mm}\small\begin{verbatim}
+# change start year
+bg_par_misc_t_start=1765.0
+\end{verbatim}\normalsize\vspace{-1mm}
+Starts the experiment at year 1765.
 
 \end{itemize}
+
+Run this experiments, starting form the end of your \textit{spin-up}, for 245 years, which will take it up until year 2010.
+
+\vspace{2mm}
+\item To further adapt your \textit{user-config} to run future CO2 scenarios -- see Section 5.2.3.
+
+\end{enumerate}
 
 %------------------------------------------------
 \newpage
 %------------------------------------------------
-Or:
-%\vspace{1mm}
 
-\begin{itemize}[noitemsep]
-\item A historical transient (plus dust) \textit{forcing} and then run from e.g. 1750 through 2010 (as per before), for which the forcing is:
-\vspace{1mm}
-\\\textsf{\footnotesize worjh2.FeMahowald2006.historical2010}
-
-\vspace{1mm}
-
-\vspace{1mm}
-Remember that here that you do not re-scale the atmospheric \(pCO_{2}\) (or \(\delta^{13}C\)) value as was done with the forcing used to generate the re-start (this historical transient forcing includes the actual values of  \(pCO_{2}\) and in the correct units). 
-
-\vspace{1mm}
-Note that with the full complexity ecosystem model included, the 245 years of this experiment will take much longer than before when you ran a historical transient experiment. You could 'cheat' a little and start from year 1850 rather than 1765, on the basis that nothing much happens in between (in terms of rising \(pCO_{2}\) and warming). To do this -- simply run the transient experiment only for 160 years (1850 to 2010) and adjust the starting date in the \textit{user-config}:
-\vspace{-1mm}\small\begin{verbatim}
-# change start year
-bg_par_misc_t_start=1850.0
-\end{verbatim}\normalsize\vspace{-1mm}
-
-\vspace{1mm}
-You will also need \textit{time-series} and \textit{time-slice} saving that aligns with the historical (and future) period:
-\vspace{-1mm}\small\begin{verbatim}
-# save frequency
-bg_par_infile_slice_name='save_timeslice_historicalfuture.dat'
-bg_par_infile_sig_name='save_timeseries_historicalfuture.dat'
-\end{verbatim}\normalsize\vspace{-1mm}
-(i.e. just as before when you ran a historical transient).
-
-\vspace{1mm}
-Once you have run this experiment, you can use it as a \textit{re-start} for a future emissions scenario, which could e.g. involve one of:
-\vspace{1mm}
-\begin{itemize}[noitemsep]
-\item \textsf{\footnotesize worjh2.FeMahowald2006.FpCO2\_Fp13CO2\_A1\_AIM}
-\item \textsf{\footnotesize worjh2.FeMahowald2006.FpCO2\_Fp13CO2\_A2\_ASF}
-\item \textsf{\footnotesize worjh2.FeMahowald2006.FpCO2\_Fp13CO2\_B1\_IMAGE}
-\item \textsf{\footnotesize worjh2.FeMahowald2006.FpCO2\_Fp13CO2\_B2\_MESSAGE}
-\end{itemize}
-\vspace{1mm}
-(or adapt or create your own) and remember to add the emissions units scaling:
-\vspace{-1mm}\small\begin{verbatim}
-bg_par_atm_force_scale_val_3=8.3333e+013
-bg_par_atm_force_scale_val_4=-27.0
-\end{verbatim}\normalsize\vspace{-1mm}
-
-\end{itemize}
-
-\vspace{1mm}
-\noindent Whichever route you chose, will also require (another) control experiment run for the same number of years (and with dust but not \(pCO_{2}\) \textit{forcing}).
-
-\end{enumerate}
-
-\vspace{1mm}
 \noindent What to look for? The questions (at the start) should help guide you in this, and might include:
 
 \vspace{1mm}
@@ -865,6 +845,8 @@ bg_par_atm_force_scale_val_4=-27.0
 Here we consider a series of examples\footnote{Either published or in the works or existing in some publication fantasy ...} of the \textbf{ECOGEM} model of marine ecology, applied to published paleo configuration of \textbf{cookie} and used to ask questions of how different could marine carbon cycling (and atmospheric \(pCO_{2}\)) and oxygenation have been in the (relatively recent) past and how do model projections compare with proxy observations.
 
 Three examples come  from the Last Glacial Maximum, with direct comparison being made to post glacial time (here, the late Holocene), with the intention to explore the role of climate cooling, altered ocean circulation, and increased iron supply to the ocean in modifying plankton distributions and size structures. Secondly, from around the time of the Paleocene-Eocene Thermal Maximum (PETM) some 55 Myr ago, now both considering a different paleogeography, a warmer ocean, and then transient warming on top of that. And thirdly, marine ecology and carbon cycling in the aftermath of the impact and extinction event at the end of the Cretaceous, some 66 Myr ago, and return to our earlier exploration of what happens if you lose the larger plankton in the ocean.
+
+In general, any of the different \textit{user-configs} you have created and experimented with, you be applied to a paleo \textit{base-config}. Primarily, only the atmospheric the atmospheric CO2 forcing values needs changing in order to simulate e.g., a warmed past climate state.
 
 %------------------------------------------------
 \newpage

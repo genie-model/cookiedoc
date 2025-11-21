@@ -1,40 +1,40 @@
 
-0	Installation, Configuration, Basic Usage
+0	Installation, Configuration, Basic Usage		[complete]
 
 CLIMATE DYNAMICS
 
-1	Basic Climate Feedbacks & Experimental Design
-2	Ocean Circulation
-3	Alternative Worlds and Ocean Dynamics
-4	Atmospheric Dynamics
+1	Basic Climate Feedbacks & Experimental Design	[complete]
+2	Ocean Circulation								[complete]
+3	Alternative Worlds and Ocean Dynamics			[TO BE UPDATED]
+4	Atmospheric Dynamics							[TO BE WRITTEN]
 
 CARBON AND OTHER BIOGEOCHEMICAL CYCLES & FEEDBACKS
 
-5	Fossil Fuel CO2 and ‘Ocean Acidification’
-6	Ocean Biogeochemical Cycles
-7	Marine Ecosystems and Dynamics
-8	The Geological Cycle of Carbon
-9	Land Surface and Carbon Feedbacks
+5	Fossil Fuel CO2 and ‘Ocean Acidification’		[complete]
+6	Ocean Biogeochemical Cycles						[complete]
+7	Marine Ecosystems and Dynamics					[PARTIALLY complete]
+8	The Geological Cycle of Carbon					[TO BE UPDATED]
+9	Land Surface and Carbon Feedbacks				[TO BE WRITTEN]
 
 PALEO
 
-10	Climates of Past Worlds
-11	Proxies and reconstructing past Earth system states
+10	Climates of Past Worlds							[TO BE UPDATED]
+11	Proxies and reconstructing past Earth states	[TO BE UPDATED]
 
 MISC
 
-12	Synthesis: Global carbon cycling, past and future
+12	Synthesis: Carbon cycling, past and future		[TO BE UPDATED]
 
 MODEL OUTPUT AND ANALYSIS
 
-13	cookie Model Output
-14	Introduction to Results Analysis
+13	cookie Model Output								[TO BE UPDATED]
+14	Introduction to Results Analysis				[TO BE UPDATED]
 
 SUPPORTING SOFTWARE
 
-15	muffinplot
-16	muffindata
-17	muffingen
+15	muffinplot										[TO BE UPDATED]
+16	muffindata										[TO BE UPDATED]
+17	cookiegen										[PARTIALLY complete]
 
 HELP!
 
