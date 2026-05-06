@@ -53,9 +53,9 @@ There are 2 ways to get your mitts on the \textbf{cookiegen} code:
 \vspace{1mm}
 \item Or you can \textit{clone} the repository to where you intend to run \textbf{cookiegen}. Note that you will need a git client installed on your computer. There are GUI clients for git, or this can be done at the command line:
 
-\vspace{-2mm}\begin{verbatim}
+\vspace{-2mm}\small\begin{verbatim}
 $ git clone https://github.com/genie-model/cookiegen.git
-\end{verbatim}\vspace{-2mm}
+\end{verbatim}\normalsize\vspace{-2mm}
 
 By doing this, you have created your own code repository (and an identical copy of the one hosted on GitHub). As part of the \texttt{git clone} command, you also automatically \textit{check out} (from your very own personal repository) a copy of the code.
 
@@ -96,14 +96,14 @@ There are 5 steps in using \textbf{cookiegen} to create and ready a new model co
 \end{itemize}
 
 \vspace{1mm}
-Copy and rename the configuration file closest to what you are after. Make sure that at the minimum, you \uline{specify a new 'name' for the continental configuration ('World')} you are about to generate -- in the configuration file, the parameter name for this is: \texttt{par\_wor\_name} -- This \uline{must be an 8-character long string}.\footnote{You can use under-scores, but not spaces and not '-'. \uline{Do not} use fewer than or mroe than 8 characters ...}
+Copy and rename the configuration file closest to what you are after. Make sure that at the minimum, you \uline{specify a new 'name' for the continental configuration ('World')} you are about to generate -- in the configuration file, the parameter name for this is: \texttt{\small par\_wor\_name} -- This \uline{must be an 8-character long string}.\footnote{You can use under-scores, but not spaces and not '-'. \uline{Do not} use fewer than or mroe than 8 characters ...}
 
 \vspace{2mm}
 \item Run the \textbf{cookiegen} function, passing the name of a file containing the parameters defining the creation of your new configuration, i.e.,
 \vspace{0mm}\small\begin{verbatim}
 >> makecookie('FILENAME')
 \end{verbatim}\normalsize\vspace{0mm}
-where \texttt{FILENAME} is the name of your configuration file.
+where \texttt{\small FILENAME} is the name of your configuration file.
 
 \vspace{2mm}
 Depending on whether \texttt{\small opt\_user} is set to \texttt{\small true}, an editor window will open (firstly for changes to the land-sea mask to be made, then later for the ocean bathymetry to be edited) and which requires manual intervention (mouse clicks from you) until \textbf{cookiegen} can continue and complete. Refer to the instructions that appear on the \textbf{MATLAB} command line.
@@ -118,7 +118,7 @@ Depending on whether \texttt{\small opt\_user} is set to \texttt{\small true}, a
 
 \vspace{2mm}
 \item A sub-folder will appear in \textsf{\footnotesize OUTPUT} with the name of your configuration.
-\\(The name of your configuration is an 8-character string which is defined in the \textbf{cookiegen} configuration file [parameter name: \texttt{par\_wor\_name}].)
+\\(The name of your configuration is an 8-character string which is defined in the \textbf{cookiegen} configuration file [parameter name: \texttt{\small par\_wor\_name}].)
 \\\uline{Copy the entire sub-folder to the \textsf{\footnotesize genie-paleo} folder of your \textbf{cookie} installation.}
 
 %------------------------------------------------
@@ -126,12 +126,12 @@ Depending on whether \texttt{\small opt\_user} is set to \texttt{\small true}, a
 %------------------------------------------------
 
 \vspace{2mm}
-\item In the example \textbf{cookiegen} configuration files, a generic \textit{base-config} file suitable for a 16-level (36x36) ocean has been specified [parameter name: \texttt{par\_cfgid}]. This file has been copied to \textsf{\footnotesize OUTPUT} (from \textsf{\footnotesize DATA}) and renamed incorporating the 8-character 'World' name you specified (and with the file extension \textsf{\footnotesize .config}).
-\\\uline{Copy this file to the \textsf{\footnotesize genie-basconfigs} folder of your \textbf{cookie} installation}.
+\item In the example \textbf{cookiegen} configuration file, a generic \textit{base-config} file suitable for a 16-level (36x36) ocean has been specified [parameter name: \texttt{\small  par\_cfgid}]. This file has been copied to \textsf{\footnotesize OUTPUT} (from \textsf{\footnotesize DATA}) and renamed incorporating the 8-character 'World' name you specified (and with the file extension \textsf{\footnotesize .config}).
+\\\uline{Copy this file to the \textsf{\footnotesize genie-baseconfigs} folder of your \textbf{cookie} installation}.
 
 \vspace{2mm}
-\item Also the example \textbf{cookiegen} configuration files, a generic \textit{user-config} suitable for running a basic climate-only (no carbon cycle) experiment has been specified [parameter name: \texttt{par\_usrid}]. This file has been copied to \textsf{\footnotesize OUTPUT} (from \textsf{\footnotesize DATA}) and renamed incorporating the 8-character 'World' name you specified (and with the file extension \textsf{\footnotesize .SPIN}).
-\\\uline{Copy this file to the \textsf{\footnotesize genie-userconfigs} folder (or sub-folder) of your \textbf{cookie} installation}.
+\item In the example \textbf{cookiegen} configuration file, a generic \textit{user-config} suitable for running a basic climate-only (no carbon cycle) experiment has been specified [parameter name: \texttt{\small  par\_usrid}]. This file has been copied to \textsf{\footnotesize OUTPUT} (from \textsf{\footnotesize DATA}) and renamed incorporating the 8-character 'World' name you specified (and with the file extension \textsf{\footnotesize .SPIN}).
+\\\uline{Copy this file to the \textsf{\footnotesize genie-userconfigs} folder (or sub-folder such as \textsf{\footnotesize LABS}) of your \textbf{cookie} installation}.
 
 \end{enumerate}
 
@@ -228,9 +228,9 @@ and the paste in the contents of \textsf{\footnotesize TRACERCONFIG.AGE.txt} tha
 
 To use the \textbf{cGENIE.cookie} model configuration generator \textbf{cookiegen} -- at the command line in \textbf{MATLAB}, simply type:
 
-\vspace{-2mm}\begin{verbatim}
+\vspace{-2mm}\small\begin{verbatim}
 >> makecookie('FILENAME')
-\end{verbatim}\vspace{-2mm}
+\end{verbatim}\normalsize\vspace{-2mm}
 
 \noindent where \texttt{FILENAME} is the name of a configuration file with an \texttt{.m} file-name extension, that specifies the required settings (see subsequent section).
 

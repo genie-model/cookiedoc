@@ -13,7 +13,7 @@ CARBON AND OTHER BIOGEOCHEMICAL CYCLES & FEEDBACKS
 5	Fossil Fuel CO2 and ‘Ocean Acidification’		[complete]
 6	Ocean Biogeochemical Cycles						[complete]
 7	Marine Ecosystems and Dynamics					[PARTIALLY complete]
-8	The Geological Cycle of Carbon					[TO BE UPDATED]
+8	The Geological Cycle of Carbon					[PARTIALLY complete]
 9	Land Surface and Carbon Feedbacks				[TO BE WRITTEN]
 
 PALEO
