@@ -44,34 +44,28 @@ In the next section will be chucking \(CO_{2}\) into the atmosphere, just for th
 
 \subsection{Idealized emissions forcing (1)}
 
-A new \textit{user-config} is provided -- \textsf{\footnotesize\ LAB.5.1} -- which unlike experimental setups in previous Chapters, is configured with climate being responsive to any changes in atmospheric \(CO_{2}\) (i.e., it takes account of \(CO_{2}\)-climate feedback). (We can make this choice because now we are going to calculate atmospheric $CO_{2}$.) The setting (near the top of the \textit{user-config} file) that does this is:
-\vspace{-2mm}\small\begin{verbatim}
-# set CO2-climate feedback
-ea_36=y
-\end{verbatim}\normalsize\vspace{-2mm}
-(Previously it was disabled (\texttt{\small ea\_36=n}) and climate was fixed at a given radiative forcing equivalent, set by parameter \texttt{\small ea\_radfor\_scl\_co2}.)
+A new \textit{user-config} is provided -- \textsf{\footnotesize\ LAB.5.1.1}. Note that additional (time-series and netCDF) output has been prescribed, via the \textit{user-config} parameter settings:
 
-\vspace{1mm}
-Additional (netCDF) output has also been prescribed, via the \textit{user-config} parameter setting:
-
-\vspace{-2mm}\small\begin{verbatim}
+\vspace{-2mm}\footnotesize\begin{verbatim}
 bg_ctrl_save_basic_reservoirs=.TRUE.
 bg_ctrl_save_basic_geochemistry=.TRUE.
 \end{verbatim}\normalsize\vspace{-2mm}
-so that more data relevant to assessing carbonate chemistry and ocean acidification is saved.
+so that more information relevant to assessing carbonate chemistry and ocean acidification is saved.
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
 %------------------------------------------------
 
-\noindent First, you should start with a control experiment to provide a baseline response (or hopefully, lack of response) to which you can contrast your perturbation experiments. It is also a good experiment to interrogate and explore new output and concepts (i.e., carbonate chemistry). For this, copy and rename \textsf{\footnotesize LAB.5.1} to e.g., \textsf{\footnotesize LAB.5.1.control} and run for e.g., 50 years:
+\noindent First, you should start with a control experiment to provide a baseline response (or hopefully, lack of response) to which you can contrast your perturbation experiments. It is also a good experiment to interrogate and explore new output and concepts (i.e., carbonate chemistry) with.
+
+Copy and rename \textsf{\footnotesize LAB.5.1.1} to e.g., \textsf{\footnotesize LAB.5.1.1.control} and run for e.g., 50 years:
 
 \vspace{-2mm}\small\begin{verbatim}
-$ ./runcookie.sh cookie.CB.p_worjh2.rCARB LABS LAB.5.1.control 50 
+$ ./runcookie.sh cookie.CB.p_worjh2.rCARB LABS LAB.5.1.1.control 50 
    cookie.CB.p_worjh2.rCARB.SPIN
 \end{verbatim}\normalsize\vspace{-2mm}
 
-\noindent Now, you can run an actual experiment -- copy/rename \textsf{\footnotesize\ LAB.5.1} again (e.g., \textsf{\footnotesize\ LAB.5.1.emissions}) and find the parameter section under the heading \texttt{\small FORCINGS}:
+\noindent Next, you can run an actual experiment -- copy/rename \textsf{\footnotesize\ LAB.5.1.1} again (e.g., to \textsf{\footnotesize\ LAB.5.1.1.emissions}) and find the parameter section under the heading \texttt{\small FORCINGS}:
 
 \vspace{-2mm}\footnotesize\begin{verbatim}
 # SPEFICY ANY FORCINGS OF OCEAN/ATMOSPHERE/SEDIMENTS
@@ -84,16 +78,13 @@ bg_par_atm_force_scale_val_3=0.0
 bg_par_atm_force_scale_time_3=1.0
 \end{verbatim}\normalsize\vspace{-2mm}
 
-Here: \texttt{\small bg\_par\_atm\_force\_scale\_val\_3} is how many $PgC yr^{-1}$ of $CO_2$ you are going to release to the atmosphere, and \texttt{\small bg\_par\_atm\_force\_scale\_time\_3} is over how many years.\footnote{Technically, both parameters scale the values contained in the \textit{forcing}.} Pick a rate, and duration (no longer than the total experiment duration), and run your experiment. One strategy is to release \(CO_{2}\) just over a single year. While this is obviously rather unrealistic and many impacts will decay away rapidly afterwards, it represents a useful idealized experiment for assessing the time-scale(s) of fossil fuel \(CO_{2}\) uptake by the ocean. (For reference -- current emissions are ca. \(10\:PgC\:yr^{-1}\)) and have occurred on a time-scale of a ca. 50 years.)
+Here: \texttt{\small bg\_par\_atm\_force\_scale\_val\_3} is how many $PgC yr^{-1}$ of $CO_2$ you are going to release to the atmosphere, and \texttt{\small bg\_par\_atm\_force\_scale\_time\_3} is over how many years.\footnote{Technically, both parameters scale the values contained in the \textit{forcing}.} Pick a rate, and duration (no longer than the total experiment duration), and run your experiment. One strategy is to release \(CO_{2}\) just over a single year. While this is obviously rather unrealistic and many impacts will decay away rapidly afterwards, it represents a useful idealized experiment for assessing the time-scale(s) of fossil fuel \(CO_{2}\) uptake by the ocean. (For reference -- current emissions are ca. \(10\:PgC\:yr^{-1}\)) and have occurred on a time-scale of ca. 50 years.)
 
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-Run for the same as your control experiment (which might have been 50 years) and also starting from the same \textit{re-start} experiment \textsf{\footnotesize cookie.CB.p\_worjh2.rCARB.SPIN}, i.e.:
+\vspace{1mm}
+\noindent Run for the same duration as your control experiment (which should have been 50 years) and also starting from the same \textit{re-start} experiment \textsf{\footnotesize cookie.CB.p\_worjh2.rCARB.SPIN}, i.e.:
 
 \vspace{-2mm}\small\begin{verbatim}
-$ ./runcookie.sh cookie.CB.p_worjh2.rCARB LABS LAB.5.1.emissions 50 
+$ ./runcookie.sh cookie.CB.p_worjh2.rCARB LABS LAB.5.1.1.emissions 50 
    cookie.CB.p_worjh2.rCARB.SPIN
 \end{verbatim}\normalsize\vspace{-2mm}
 
@@ -101,18 +92,94 @@ $ ./runcookie.sh cookie.CB.p_worjh2.rCARB LABS LAB.5.1.emissions 50
 \vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
 %------------------------------------------------
 
-\noindent What specific model results variables to consider … ?\footnote{\textbf{A summary of relevant \textit{time-slices} and \textit{time-slice} output is given in the Appendix to this Chapter.}} 
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\subsubsection*{What impacts to look for?}
  
-Obviously atmospheric $CO_{2}$ to start with. Think about the climate change and ocean acidification literature and which environmental (physical and geochemical) properties are considered either critical for ecosystems or are simply helpful and/or illustrative. In the 3-D netCDF \textit{time-slice} file remember, for instance, that ocean surface waters in which aragonite becomes under-saturated (OHMEGA < 1.0) is regarded as a critical threshold for organisms making aragonite shells and skeletons and spells TROUBLE for some poor calcifying marine organism somewhere. For climate change ... the variables of particular interest should be obvious. Remember that there are both \textit{time-series} outputs, as well as  2D and 3D fields, any or all of which might be  helpful for elucidating impacts.
+\noindent Obviously, start with how atmospheric $CO_{2}$ changes, which you get from the \textit{time-series} output.
 
-Because we have now linked radiative forcing to $CO_2$ -- \texttt{\small ea\_36=y} -- climate, including ocean temperature and perhaps the AMOC, will also be changing (and hence you might want to view or plot \textit{time-series} and/or spatial \textit{time-slice} distributions).
+Because we have linked radiative forcing to $CO_2$ -- \texttt{\small ea\_36=y} -- climate, including ocean temperature and perhaps the AMOC, will also be changing, and hence you might want to view or plot some of the different \textit{time-series} and/or spatial \textit{time-slice} distributions) relevant to climate that you have analyzed in previous exercises.
 
-\vspace{1mm}
-\noindent \uline{Before moving on}, ensure you have developed a strategy for what you are 'looking for' in the model output.
+Refer to the climate change and ocean acidification literature and think about which environmental (physical and geochemical) properties are considered either critical for ecosystems or are simply helpful and/or illustrative. In the 3-D netCDF \textit{time-slice} file remember, for instance, that ocean surface waters in which aragonite becomes under-saturated (OHMEGA < 1.0) is regarded as a critical threshold for organisms making aragonite shells and skeletons and spells TROUBLE for some poor calcifying marine organism somewhere. For climate change ... the variables of particular interest should be obvious. Remember that there are both \textit{time-series} outputs, as well as  2D and 3D fields, any or all of which might be  helpful for elucidating impacts.
+
+\vspace{1mm} 
+\noindent \textbf{A summary of relevant \textit{time-slices} and \textit{time-slice} output is given in the Appendix to this Chapter.}
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
 %------------------------------------------------
+
+\subsubsection*{Where has my carbon gone???}
+
+In your emissions experiment -- in the time-series of atmospheric \(pCO_{2}\) (file: \textsf{\footnotesize timeseries\_atm\_pCO2.txt}) -- depending on your carbon emissions duration, you'll will see atmospheric \(pCO_{2}\) initially rise, but then once the emissions cease, start decaying back down again. Where is it 'going'?
+
+Well obviously the ocean. D'uh! (At least, this is true in this particularly configuration of \textbf{cookie} without a terrestrial biosphere.) A better question would be: 'where in the ocean has it gone?', and even better: 'why there?'.
+
+In the 3D netCDF output, the variable \textsf{\footnotesize ocn\_DIC} is the total dissolved carbon inorganic concentration (\(DIC\)). Open this up ... and by slicing horizontally (e.g. start at the surface, and then slice downwards), or vertically (up through the middle of the Atlantic would be a good latitude-vertical section to create), can you 'see' where the carbon (as \(DIC\)) is going? If not ... why not? Try making the same data sections from the same year of the control experiment. \(DIC\) is everywhere in the ocean in the control, with a highly spatially variable distribution. It could be then that the carbon taken up from the atmosphere in your experiment, simply overprints too small a pattern of (fossil fuel \(DIC\)) to tell background + fossil fuel from just background. (A similar situation arose when looking for the surface temperature impact of a weakening AMOC.)
+
+To resolve this, \uline{create difference maps} of a slice (lon-lat, or lat-depth) from your experiment at time \(t\) minus the control, also at time \(t\). Now re-evaluate whether you can tell where the fossil fuel \(CO_{2}\) is going. Why (there)?
+
+%------------------------------------------------
+\vspace{1mm} \noindent\rule{4cm}{0.1mm} \vspace{2mm}
+%------------------------------------------------
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\noindent What about the other carbonate system parameters? Can you track identify patterns of uptake and ocean circulation transport. For instance \(CO_{2(aq)}\)? What about \(CO^{2-}_{3}\) (before looking, and remembering your basic carbonate chemistry, what would you expect)? (\(HCO^{2-}_{3}\) should primarily track \(DIC\).) Are there any other carbonate system impacts you can discern? Some 3D ocean fields to consider might include:
+
+\vspace{1mm}
+\begin{itemize}[noitemsep]
+\item \(pH\) -- variable \textsf{\footnotesize carbchem\_pHsws} 
+\\(There is also a field for the hydrogen ion concentration if you really want to see it.)
+\item Calcite saturation state (\(\Omega_{(cal)}\)) -- variable \textsf{\footnotesize carbchem\_ohm\_cal}
+\item Aragonite saturation state (\(\Omega_{(arg)}\)) -- variable \textsf{\footnotesize carbchem\_ohm\_arg} 
+\end{itemize}
+
+\vspace{1mm}
+\noindent In looking at the different fields and based on your reading of the literature (you did read the background papers, right ... ?), think about what organisms live where and what environmental (carbonate system) variables might affect them (or their prey).
+
+%------------------------------------------------
+\vspace{1mm} \noindent\rule{4cm}{0.1mm} \vspace{2mm}
+%------------------------------------------------
+
+\noindent To track the fate of carbon -- also see the subsection -- "\textit{Isotopic tracing of fossil fuel CO$_{2}$ uptake}".
+
+%------------------------------------------------
+\vspace{1mm} \noindent\rule{4cm}{0.1mm} \vspace{2mm}
+%------------------------------------------------
+
+\vspace{1mm}
+\noindent \uline{Before moving on}, ensure that you have developed a strategy for what you are 'looking for' in the model output.
+
+%------------------------------------------------
+\vspace{1mm} \noindent\rule{4cm}{0.1mm} \vspace{2mm}
+%------------------------------------------------
+
+\subsubsection*{Feedbacks}
+
+Your experiment differs from those in previous Chapters because it is configured with climate being responsive to any changes in atmospheric \(CO_{2}\) (i.e., it takes account of \(CO_{2}\)-climate feedback). (We can make this choice now because we have a carbon cycle and can calculate atmospheric $CO_{2}$ in the first place.) The setting (near the top of the \textit{user-config} file) that does this is:
+\vspace{-2mm}\small\begin{verbatim}
+# set CO2-climate feedback
+ea_36=y
+\end{verbatim}\normalsize\vspace{-2mm}
+(Previously it was disabled (\texttt{\small ea\_36=n}) and climate was fixed at a given radiative forcing equivalent, set by parameter \texttt{\small ea\_radfor\_scl\_co2}.)
+
+\vspace{1mm}
+The presence of feedback between climate and carbon emissions complicates understanding of the response. For instance, additional carbon will enter the atmosphere from the ocean due to surface warming and hence the value of atmospheric \(CO_{2}\) at any one time may be higher than you would get from emissions alone. A great advantage of numerical models is the ability to pick apart feedbacks and isolate different mechanisms and dynamics. In this example, we can remove the climate feedback and analyze the response of the global carbon cycle to emissions in the absence of a changing climate.
+
+\vspace{1mm}
+To do this, in a new \textit{user-config} file, simply set:
+\vspace{-2mm}\small\begin{verbatim}
+ea_36=n
+\end{verbatim}\normalsize\vspace{-2mm}
+and then re-run your emissions experiment.
+
+\vspace{1mm}
+\noindent \textbf{Q. How and why do the experiments differ?}
 
 %------------------------------------------------
 \newpage
@@ -271,48 +338,9 @@ if you, for instance, called your new \textit{forcing} directory (in \textsf{\fo
 \newpage
 %------------------------------------------------
 
-\subsection{Where has my carbon gone???}
+\subsection{Historical (real-world!) greenhouse gas changes}
 
-In any of the emissions experiments you have tried out, in the time-series of atmospheric \(pCO_{2}\) (file: \textsf{\footnotesize timeseries\_atm\_pCO2.txt}) you'll undoubtedly see atmospheric \(pCO_{2}\) initially rise, but then once the emissions cease, start decaying back down again. Where is it 'going'?
-
-Well obviously the ocean. D'uh! (At least, this is true in this particularly configuration of \textbf{cookie} without a terrestrial biosphere.) A better question would be: 'where in the ocean has it gone?', and even better: 'why there?'.
-
-In the 3D netCDF output, the variable \textsf{\footnotesize ocn\_DIC} is the total dissolved carbon inorganic concentration (\(DIC\)). Open this up ... and by slicing horizontally (e.g. start at the surface, and then slice downwards), or vertically (up through the middle of the Atlantic would be a good latitude-vertical section to create), can you 'see' where the carbon (as \(DIC\)) is going? If not ... why not? Try making the same data sections from the same year of the control experiment. \(DIC\) is everywhere in the ocean in the control, with a highly spatially variable distribution. It could be then that the carbon taken up from the atmosphere in your experiment, simply overprints too small a pattern of (fossil fuel \(DIC\)) to tell background + fossil fuel from just background. (A similar situation arose when looking for the surface temperature impact of a weakening AMOC.)
-
-To resolve this, \uline{create difference maps} of a slice (lon-lat, or lat-depth) from your experiment at time \(t\) minus the control, also at time \(t\). Now re-evaluate whether you can tell where the fossil fuel \(CO_{2}\) is going. Why (there)? (We'll also consider this question in the next exercise.)
-
-%------------------------------------------------
-\vspace{1mm} \noindent\rule{4cm}{0.1mm} \vspace{2mm}
-%------------------------------------------------
-
-\noindent What about the other carbonate system parameters? Can you track identify patterns of uptake and ocean circulation transport. For instance \(CO_{2(aq)}\)? What about \(CO^{2-}_{3}\) (before looking, and remembering your basic carbonate chemistry, what would you expect)? (\(HCO^{2-}_{3}\) should primarily track \(DIC\).)
-
-Are there any other carbonate system impacts you can discern? Some 3D ocean fields to consider might include:
-
-\vspace{1mm}
-\begin{itemize}[noitemsep]
-\item \(pH\) -- variable \textsf{\footnotesize carbchem\_pHsws} 
-\\(There is also a field for the hydrogen ion concentration if you really want to see it.)
-\item Calcite saturation state (\(\Omega_{(cal)}\)) -- variable \textsf{\footnotesize carbchem\_ohm\_cal}
-\item Aragonite saturation state (\(\Omega_{(arg)}\)) -- variable \textsf{\footnotesize carbchem\_ohm\_arg} 
-\end{itemize}
-
-\vspace{1mm}
-\noindent In looking at the different fields and based on your reading of the literature (you did read the background papers, right ... ?), think about what organisms live where and what environmental (carbonate system) variables might affect them (or their prey).
-
-%------------------------------------------------
-\vspace{1mm} \noindent\rule{4cm}{0.1mm} \vspace{2mm}
-%------------------------------------------------
-
-\noindent To track the fate of carbon -- also see the subsection -- "\textit{Isotopic tracing of fossil fuel CO$_{2}$ uptake}".
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-\subsection{Historical (real-world!) emissions forcing}
-
-Historical and future (e.g. IPCC 'SRES') emissions scenarios can  be prescribed explicitly and simply in \textbf{cookie}. An example is given as \textit{user-config} file: \textsf{\footnotesize LAB.5.1.historical}. In this, a historical emissions forcing (technically: a prescribed concentration profile of \(pCO_{2}\) is specified by the \textit{forcing}:
+Historical and future (e.g. IPCC 'SRES') emissions scenarios can  be prescribed explicitly and simply in \textbf{cookie}. An example is given as \textit{user-config} file: \textsf{\footnotesize LAB.5.1.3}. In this, a historical emissions forcing (technically: a prescribed concentration profile of \(pCO_{2}\) is specified by the \textit{forcing}:
 \vspace{-2pt}\small\begin{verbatim}
 bg_par_forcing_name=’pyyyyz.RpCO2_Rp13CO2.historical2010’
 \end{verbatim}\normalsize\vspace{-2pt}
@@ -329,16 +357,9 @@ It is also convenient to specify a set of points in time at which data is saved 
 bg_par_infile_slice_name=’save_timeslice_historicalfuture.dat’
 bg_par_infile_sig_name=’save_timeseries_historicalfuture.dat’
 \end{verbatim}\normalsize\vspace{-2pt}
-specifies a series of time points at which data is saved that aligns with historically relevant years. Try viewing the contents of these (text) files:
-\vspace{2pt}
-\\ \footnotesize\textsf{save\_timeslice\_historicalfuture.dat }\normalsize
-\\ \footnotesize\textsf{save\_timeseries\_historicalfuture.dat }\normalsize
-\vspace{2pt}
-\\which can be found in the directory: \footnotesize\textsf{genie-biogem/data/input }\normalsize, to get a sense of how frequently the data will be saved, and how this differs from the default settings, which are defined in the files:
-\vspace{2pt}
-\\ \footnotesize\textsf{save\_timeseries.dat }\normalsize
-\\ \footnotesize\textsf{save\_timeslice.dat }\normalsize
-\vspace{2pt}
+specifies a series of time points at which data is saved that aligns with historically relevant years.\footnote{  These files: \textsf{save\_timeslice\_historicalfuture.dat} and \textsf{save\_timeseries\_historicalfuture.dat}live in the directory: \textsf{genie-biogem/data/input}, and can be edited to add or remove different years to save data at, or copied and renamed, with the new file-names substituted in the two \textit{user-config} parameter settings.}
+
+Copy and rename \textsf{\footnotesize LAB.5.1.3} to something more meaningful, e.g., \textsf{\footnotesize LAB.5.1.3.historical}.
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
@@ -346,32 +367,31 @@ specifies a series of time points at which data is saved that aligns with histor
 
 \noindent Running a transient historically-forced experiment looks like this (\uline{all one line}!):
 \vspace{-2pt}\small\begin{verbatim}
-$ ./runcookie.sh cookie.CB.p_worjh2.rCARB LABS LAB.5.1.historical 245
+$ ./runcookie.sh cookie.CB.p_worjh2.rCARB LABS LAB.5.1.3.historical 245
    cookie.CB.p_worjh2.rCARB.SPIN
 \end{verbatim}\normalsize\vspace{-2pt}
-The \texttt{245} parameter value for experiment duration (years) arises on the basis of the start year being \(1765\) (as specified by \texttt{\small bg\_par\_misc\_t\_start=1765.0}) and to give an experiment end at year \(2100\).
+The \texttt{245} parameter value for experiment duration (years) arises on the basis of the start year being \(1765\) (as specified by \texttt{\small bg\_par\_misc\_t\_start=1765.0}) and to give an experiment end at year \(2010\).
 
 \vspace{1mm}
-
 Note that from year 1765 onward, changes in atmospheric \(CO_{2}\) only rise very s l o w l y initially. Don't expect to see anything happen in 10 seconds flat because relatively few people and countries in the 1800s could be bothered to burn much more than a little local coal. You could potentially start your experiment at year 1850, changing the value of \texttt{\small bg\_par\_misc\_t\_start} and specifying shorter experiment duration (\(150\) years) if you are desperate for the End of the World to come.\footnote{Don’t forget: you could submit this experiment to the cluster and do more (idealized emissions) ‘playing’ which it runs.} 
 
-\vspace{1mm}
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
+%------------------------------------------------
 
-\noindent Given that there is observationally-based information on the distribution of anthropogenic \(CO_{2}\) taken up by the ocean (e.g., \textit{Sabine et al.} [2004]) ... and you are running a historical transient experiment with the model driven by observed increases in atmospheric p\(CO_{2}\) ... you are in a position to critically evaluate the models ability (or lack of) to represent the future-critical process of oceanic fossil fuel \(CO_{2}\) uptake and transport by large scale ocean circulation.
+\noindent There is observationally-based information on the distribution of anthropogenic \(CO_{2}\) taken up by the ocean (e.g., \textit{Sabine et al.} [2004]) ... and you are running a historical transient experiment with the model driven by observed increases in atmospheric p\(CO_{2}\) ... so you are in a position to critically evaluate the models ability (or lack of) to represent the future-critical process of oceanic fossil fuel \(CO_{2}\) uptake and transport by large scale ocean circulation.
 
-\vspace{1mm}
+%------------------------------------------------
+\newpage
+%------------------------------------------------
 
-In the 2D \textbf{netCDF} output, there is a variable for the water column integrated inventory of DIC – equivalent to the Sabine map except you will need to subtract the preindustrial background of DIC first, i.e., to create a DIC anomaly map representing only the added fossil fuel \(CO_{2}\) component of ocean DIC. The data in the Sabine paper clusters around 1994. A \textit{time-slice} centered on this year (1994.5) has been configured in the model exactly for this purpose. Your baseline state can either be from prior to \(CO_{2}\) emissions commencing at any significant rate (e.g., 1750.5) or (better), from a control experiment. Note that similar comparisons could be (and are regularly) made with other tracers such as CFCs, which provide additional insights into the patterns and time-scales of trace gas update and ocean circulation. (See: \textit{Cao et al.} [2009])
-
-\vspace{1mm}
-
-Observational data, re-gridded to the \textbf{cookie} grid and in netCDF format can be downloaded from: \href{http://www.seao2.org/mymuffin.html}{http://www.seao2.org/mymuffin.html} (and under the ‘got data?’ box on the left). You could for instance, compare horizontal or vertical slices (3D netCDF) and create difference (anomaly) maps. Somewhat more representative of the entire ocean is to compare (or calculate difference maps) of zonal average profiles. Unfortunately, the observations are not in the form of water column integrals and hence you cannot create difference maps of model as per the \textit{Sabine} paper … unless you use the 3D \textbf{BIOGEM} \textbf{MATLAB} plotting scripts. Examples of \textbf{MATLAB} plotting of the model \textit{vs.} observed anthropogenic anomaly are shown in Figure \ref{fig:chx-co2uptake}.
+Observational data, re-gridded to the \textbf{cookie} grid and in netCDF format can be downloaded from: \href{http://www.seao2.org/mymuffin.html}{http://www.seao2.org/mymuffin.html} (and under the ‘got data?’ box on the left). You could for instance, compare horizontal or vertical slices (3D netCDF) and create difference (anomaly) maps. Because the data in the Sabine paper clusters around 1994, a \textit{time-slice} is deliberately saved centered on this year (1994.5). Your baseline state can either be from prior to \(CO_{2}\) emissions commencing at any significant rate (e.g., 1750.5) or (better), from a control experiment. Note that similar comparisons could be (and are regularly) made with other tracers such as CFCs, which provide additional insights into the patterns and time-scales of trace gas update and ocean circulation. (See: \textit{Cao et al.} [2009])
 
 \vspace{2mm}
 
 \begin{figure}[ht]
 \begin{center}
-\includegraphics[scale=0.5]{chx-co2uptake.pdf}
+\includegraphics[scale=0.6]{chx-co2uptake.pdf}
 \end{center}
 \vspace{-10pt}
 \caption{Observed (top) \textit{vs.} Model (bottom) anthropogenic \(CO_{2}\) inventories.
@@ -379,7 +399,7 @@ Data and model water column integrals in units of mol \(CO_{2}\) m$^{-2}$ and ar
 \label{fig:chx-co2uptake}
 \end{figure}
 
-\noindent  Note that model and data are not strictly comparable in the particular configuration used here, as we do not have any biology or a 'biological pump' (more on this later) in the ocean. (The example in the figure uses the with-biology biogeochemical configuration described by \textit{Cao et al.} [2009].)
+\noindent Note that model and data are not strictly comparable in the particular configuration used here, as we do not have any biology or a 'biological pump' (more on this later) in the ocean. (The example in the figure uses the with-biology biogeochemical configuration described by \textit{Cao et al.} [2009].) Also note that the model and observations are processed here as water-column integrals using \textbf{MATLAB}.
 
 %------------------------------------------------
 \newpage
@@ -389,7 +409,7 @@ Data and model water column integrals in units of mol \(CO_{2}\) m$^{-2}$ and ar
 
 \noindent Finally, and the closest to being slightly interesting: rather than applying highly idealized pulses  of \(CO_{2}\) emissions, the IPCC 'SRES' emissions scenarios\footnote{Note that the past few IPCC assessment reports have switched to 'using 'RCP's -- Representative Emissions Pathways, rather than the SRES emissions scenarios -- see later Section.}  can be used to make future projections with. An example forcing of this sort is provided and can be selected by changing the name of the forcing selection parameter (\textsf{\footnotesize bg\_par\_forcing\_name}) to any one of the following:
 
-\vspace{1mm}
+\vspace{1mm}\footnotesize
 \begin{itemize}[noitemsep]
 \item \textsf{\footnotesize pyyyyz.FpCO2\_Fp13CO2.A1\_AIM}
 \item \textsf{\footnotesize pyyyyz.FpCO2\_Fp13CO2.A1G\_MINICAM}
@@ -398,33 +418,30 @@ Data and model water column integrals in units of mol \(CO_{2}\) m$^{-2}$ and ar
 \item \textsf{\footnotesize pyyyyz.FpCO2\_Fp13CO2.B1\_IMAGE}
 \item \textsf{\footnotesize pyyyyz.FpCO2\_Fp13CO2.B2\_MESSAGE}
 \end{itemize}
+\normalsize\vspace{1mm}
+
+These are different plausible 'future' emissions scenarios, derived from different socio-economic and future technological assumptions in making their future emissions projections. They all start at year 2010 and end at year 2100.
+
 \vspace{1mm}
-
-These are 'future' emissions scenarios, which all start at year 2010, and end at year 2100. They are derived from different socio-economic and future technological assumptions in making their future emissions projections.
-
-\vspace{1mm}
-
-Again, as these forcings have units of \(PgCyr^{-1}\) in the time-series files, you will need to ensure that the scaling parameter in your \textit{user-config} file is set to turn units of \(PgCyr^{-1}\) into \(mol C yr^{-1}\):\footnote{For completeness also add in the specification of the isotopic composition of the carbon emissions -- refer back to the idealized experiments.}
-\vspace{-2pt}\small\begin{verbatim}
+These particular \textit{forcings} use units of \(PgCyr^{-1}\) in the \textit{forcing} \textit{time-series} files, so you will need to ensure that the scaling parameter in your \textit{user-config} file is set to turn units of \(PgCyr^{-1}\) into \(mol C yr^{-1}\):\footnote{For completeness also add in the specification of the isotopic composition of the carbon emissions -- refer back to the idealized experiments.}
+\vspace{-1mm}\small\begin{verbatim}
 bg_par_atm_force_scale_val_3=8.3333e+013
-\end{verbatim}\normalsize\vspace{-2pt}
+\end{verbatim}\normalsize\vspace{-1mm}
 
-You will want to run your experiment starting from the end of the historical transient experiment you have just run rather than the original steady-state \textit{re-start}:\footnote{Note that the \textit{user-config} \textsf{\footnotesize LAB.5.1.future } is not provided for you – you will need to create this (or a file named whatever you like) by copying e.g., \textsf{\footnotesize LAB.5.1.emissions} and making the parameter changes described above (forcing specification parameter, emissions scaling parameter, and start year parameter).}
-\vspace{-2pt}\small\begin{verbatim}
-$ ./runcookie.sh cookie.CB.p_worjh2.rCARB LABS LAB.5.1.future 90 LAB.5.1.historical
-\end{verbatim}\normalsize\vspace{-2pt}
-and to run for 90 years from 20120 to 2100, set the start year to the year that the previous historical transient finished on (\(2010\)):
-\vspace{-2pt}\small\begin{verbatim}
+You will want to run your experiment starting from the end of the historical transient experiment you have just run rather than the original steady-state \textit{re-start}:\footnote{Note that the \textit{user-config} \textsf{\footnotesize LAB.5.1.4.future } is not provided for you – you will need to create this (or a file named whatever you like) by copying e.g., \textsf{\footnotesize LAB.5.1.4.future} and making the parameter changes described above (forcing specification parameter, emissions scaling parameter, and start year parameter).}
+\vspace{-1mm}\small\begin{verbatim}
+$ ./runcookie.sh cookie.CB.p_worjh2.rCARB LABS LAB.5.1.4.future 90 LAB.5.1.3.historical
+\end{verbatim}\normalsize\vspace{-1mm}
+and to run for 90 years from 2010 to 2100, set the start year to the year that the previous historical transient finished on (\(2010\)):
+\vspace{-1mm}\small\begin{verbatim}
 bg_par_misc_t_start=2010.0
-\end{verbatim}\normalsize\vspace{-2pt}
+\end{verbatim}\normalsize\vspace{-1mm}
 
 %------------------------------------------------
 \vspace{1mm} \noindent\rule{4cm}{0.1mm} \vspace{2mm}
 %------------------------------------------------
 
 \noindent You can also easily replace the details of the emissions with other SRES scenarios – simply find the year \textit{vs.} emissions rate information from the interweb\footnote{e.g., http://sres.ciesin.columbia.edu/final\_data.html} and edit or copy-and-paste the flux values for each decade into the file \footnotesize\textsf{biogem\_force\_flux\_atm\_pCO2\_sig.dat }\normalsize in the forcing directory.\textbf{ cookie} will then automatically interpolate between the decadal tie-points to give a continuous change in emissions. Now you are able to make a rather more realistic/plausible assessment of when and where potential ecological impacts (via assumed ocean chemistry criteria) might occur.
-
-Try running (e.g. as jobs submitted to the cluster queue) some other actual or made up $CO_{2}$ emissions scenarios.
 
 %------------------------------------------------
 \newpage
@@ -590,21 +607,27 @@ Note that the equivalent carbon emissions required to follow these concentration
 
 \subsection{Isotopic tracing of fossil fuel CO$_{2}$ uptake}
 
-\noindent The  experiments on fossil fuel \(CO_{2}\) emissions to the atmosphere include an assumed isotopic composition of the emitted carbon. For any of the carbon emissions experiments you have run (including the historical transient) -- explore in the 3D output how the  isotopic composition of fossil fuel carbon is propagated from the atmosphere into the ocean and  through the ocean via its large-scale circulation. The variable you want to plot is: \textsf{\footnotesize ocn\_DIC\_13C}\footnote{Also calculated and saved are the isotopic compositions of the 3 different aqueous carbonate chemsitry components -- \textsf{\footnotesize carb\_d13C\_CO2}, \textsf{\footnotesize carb\_d13C\_CO32}, and \textsf{\footnotesize carb\_d13C\_HCO3}.}. In this, it is helpful to also take a control experiment (you did run one, right ... ?) and create a difference map to better visualize how the \(\delta^{13}C\) patterns in the ocean evolve through time.
+\noindent The  experiments on fossil fuel \(CO_{2}\) emissions to the atmosphere include an assumed isotopic composition of the emitted carbon. For any of the carbon emissions experiments (including the historical transient) it is possible to trace how the isotopic composition of fossil fuel carbon is propagated from the atmosphere into the ocean and hence throughout the ocean via its large-scale circulation. However, by default, it is not saved in the output, so you will need to change one of the parameter value settings in your \textit{user-configs}, and then re-run all the experiments that you want to analyze \(\delta^{13}C\) in:
+
+\vspace{-1mm}\small\begin{verbatim}
+bg_ctrl_save_basic_proxies=.true.
+\end{verbatim}\normalsize\vspace{-1mm}
+
+The key variable to plot (but also see the Appendix at the end of this Chapter) is: \textsf{\footnotesize ocn\_DIC\_13C}\footnote{Also calculated and saved are the isotopic compositions of the 3 different aqueous carbonate chemistry components -- \textsf{\footnotesize carb\_d13C\_CO2}, \textsf{\footnotesize carb\_d13C\_CO32}, and \textsf{\footnotesize carb\_d13C\_HCO3}.}. In this, it is helpful to also take a control experiment (you did run one, right ... ?) and create a difference map to better visualize how the \(\delta^{13}C\) patterns in the ocean evolve through time.
 
 %------------------------------------------------
 \vspace{1mm} \noindent\rule{4cm}{0.1mm} \vspace{2mm}
 %------------------------------------------------
 
-\noindent By default, fossil fuel carbon is tagged with a mean fossil fuel isotopic signature of \(-27\)\permille. This in set by the parameter:
+\noindent By default, fossil fuel carbon is tagged with a mean fossil fuel isotopic signature of \(-27\)\permille. This is set by the parameter:
 \vspace{-1mm}\small\begin{verbatim}
 bg_par_atm_force_scale_val_4=-27.0
 \end{verbatim}\normalsize\vspace{-1mm}
-which scales the value of \(1.0\) specified in the file \textsf{\footnotesize biogem\_force\_flux\_atm\_pCO2\_13C\_sig.dat} in the \textit{forcing} directory, which in the previous fossil fuel release experiments was the \textsf{\footnotesize genie-forcing} sub-directory: \textsf{\footnotesize pyyyyz.FpCO2\_Fp13CO2}
+which scales the value of \(1.0\) specified in the file \textsf{\footnotesize biogem\_force\_flux\_atm\_pCO2\_13C\_sig.dat} in the \textit{forcing} directory, which in the previous fossil fuel release experiments was generally the \textsf{\footnotesize genie-forcing} sub-directory:  \textsf{\footnotesize pyyyyz.FpCO2\_Fp13CO2\_PgC} or \textsf{\footnotesize pyyyyz.FpCO2\_Fp13CO2}.
 
 \vspace{1mm}
 
-To create a more pronounced 'tag' (or tracer) of fossil fuel carbon, you could, for instance, make the assumed value of the \(CO_{2}\) more negative, e.g. \(-60\)\permille would be the signature of methane (natural gas). You could also push the value even more negative and consider it an idealized numerical tracer of fossil fuel carbon (note that the lowest value you are allowed to set is \(-999\)\permille).
+To create a more pronounced 'tag' (or tracer) of fossil fuel carbon, you could, for instance, make the assumed value of the \(CO_{2}\) more negative, e.g. \(-60\)\permille would be the signature of methane (natural gas). You could also push the value even more negative and consider it an idealized numerical tracer of fossil fuel carbon (note that the lowest value you are allowed to set is \(-999\)\permille) -- in this case, you need only emit very little carbon (<< $1PgC$) and hence hardly perturb the steady-state aqueous carbonate system or climate, and still be able to trace the update of fossil fuel carbon.
 
 %------------------------------------------------
 \vspace{1mm} \noindent\rule{4cm}{0.1mm} \vspace{2mm}
@@ -619,10 +642,10 @@ To create a more pronounced 'tag' (or tracer) of fossil fuel carbon, you could, 
 \subsubsection{Relevant CO2 and carbonate chemistry time-series data}
 
 \begin{table}[ht!]
-\begin{tabular}{p{0.2\linewidth} p{0.317\linewidth} p{0.4\linewidth}}
+\begin{tabular}{p{0.275\linewidth} p{0.30\linewidth} p{0.35\linewidth}}
 \toprule
-\textbf{Filename} & \textbf{Data} & \textbf{Application}\\
-\textsf{\footnotesize biogem\_series\_*.res} & &\\
+\textbf{Filename} & \textbf{Description} & \textbf{Application}\\
+\textsf{\footnotesize timeseries\_*.txt} & &\\
 \midrule
 
 \textsf{\footnotesize atm\_p\(CO_{2}\)} & \small{Global inventory (\(mol\)), mean concentration (\(atm\)) of atmospheric \(CO_{2}\). } & \small{Drivers of and feedbacks with climate. Diagnostic of response to carbon emissions (and removal).}\\
@@ -630,28 +653,20 @@ To create a more pronounced 'tag' (or tracer) of fossil fuel carbon, you could, 
 
 \midrule
 
-\textsf{\footnotesize carb\_sur\_conc\_*} & \small{Carbonate chemistry components (mean surface) (\(molkg^{-1}\)).} & \small{Not generally useful. }\\
-\textsf{\footnotesize carb\_sur\_H} & \small{Surface ocean mean \([H^{+}]\) (\(molkg^{-1}\)).} & \small{More useful is pH -- reported under \textsf{\footnotesize misc} (see below). }\\
-\textsf{\footnotesize carb\_sur\_ohm\_arg} & \small{Mean surface aragonite saturation.} & \small{Ocean acidification impacts of \(CO_{2}\) release. Weathering impacts. Relates to carbonate production by (modern) corals, pteropods.}\\
-\textsf{\footnotesize carb\_sur\_ohm\_arg} & \small{Mean surface calcite saturation.} & \small{Ocean acidification impacts of \(CO_{2}\) release. Weathering impacts. Carbonate production by foraminifera and coccolithophorids.}\\
+\textsf{\footnotesize carbchem\_seasur\_conc\_*} & \small{Carbonate chemistry components (mean surface) (\(molkg^{-1}\)).} & \small{Not generally useful. }\\
+\textsf{\footnotesize carbchem\_seasur\_pHsws} & \small{Surface ocean mean pH} & Ocean acidification.\\
+\textsf{\footnotesize carbchem\_seasur\_ohm\_arg} & \small{Mean surface aragonite saturation.} & \small{Ocean acidification impacts of \(CO_{2}\) release. Weathering impacts. Relates to carbonate production by (modern) corals, pteropods.}\\
+\textsf{\footnotesize carbchem\_seasur\_ohm\_cal} & \small{Mean surface calcite saturation.} & \small{Ocean acidification impacts of \(CO_{2}\) release. Weathering impacts. Carbonate production by foraminifera and coccolithophorids.}\\
 
 \midrule
 
-\textsf{\footnotesize diag\_misc\_} \hspace{1cm} \textsf{\footnotesize specified\_forcing\_*}  & \small{Applied flux \textit{forcings} (\(molyr^{-1}\)).} & \small{Whenever a \textit{restoring}, or \textit{flux} \textit{forcing} is specified, the actual flux employed, is saved here. Useful for diagnosing the flux associated with a restoring forcing (e.g. allowing  emissions flux associated with RCP (\textit{restoring forcing}) scenario to be diagnosed.)}\\
-
-\midrule
-
-\textsf{\footnotesize misc\_surpH} & \small{Mean surface \(pH\).} & \small{Ocean acidification.}\\
-
-\midrule
-
-\textsf{\footnotesize ocn\_DIC} & \small{Global inventory (\(mol\)), mean global,  surface,  benthic concentrations (\(molkg^{-1}\)) of \(DIC\).} & \small{Carbon release and removal.}\\
-\textsf{\footnotesize ocn\_DIC\_13C} & \small{Global inventory (\(mol\)), mean global,  surface, and  benthic \(\delta^{13}C\).} & \small{Carbon release and removal.}\\
-\textsf{\footnotesize ocn\_ALK} & \small{Global inventory (\(mol\)), mean global,  surface,  benthic concentrations (\(molkg^{-1}\)) of \(ALK\).} & \small{'Ocean Alkalinity Enhancement' CDR.}\\
+\textsf{\footnotesize ocn\_DIC} & \small{Global inventory (\(mol\)), mean global,  surface, benthic concentrations (\(molkg^{-1}\)) of \(DIC\).} & \small{Carbon release and removal.}\\
+\textsf{\footnotesize ocn\_DIC\_13C} & \small{Global inventory (\(mol\)), mean global,  surface, and benthic \(\delta^{13}C\).} & \small{Carbon release and removal.}\\
+\textsf{\footnotesize ocn\_ALK} & \small{Global inventory (\(mol\)), mean global,  surface, benthic concentrations (\(molkg^{-1}\)) of \(ALK\).} & \small{'Ocean Alkalinity Enhancement' CDR.}\\
 
 \bottomrule
 \end{tabular}
-\caption{Summary of the main (useful, plus notes on a few less used) \textit{time-series} output for (bio)geochemistry (non ecological) investigations.}
+\caption{Summary of the main/useful \textit{time-series} output for (bio)geochemistry (non ecological) investigations.}
 \end{table}
 
 %------------------------------------------------
@@ -665,36 +680,44 @@ To create a more pronounced 'tag' (or tracer) of fossil fuel carbon, you could, 
 \subsubsection{Relevant CO2 and carbonate chemistry time-slice data}
 
 \begin{table}[ht!]
-\begin{tabular}{p{0.15\linewidth} p{0.20\linewidth} p{0.225\linewidth} p{0.325\linewidth}}
+\begin{tabular}{p{0.30\linewidth} p{0.30\linewidth} p{0.325\linewidth}}
 \toprule
-\textbf{variable} & \textbf{variable} & \textbf{Description} & \textbf{Application}\\
- & (long name) & &\\
+\textbf{Variable} & \textbf{Description} & \textbf{Application}\\
 \midrule
 
-\textsf{\footnotesize carb\_ben\_ohm\_arg} \textsf{\footnotesize carb\_sur\_ohm\_cal} & \textsf{\footnotesize } & \small{Benthic aragonite and calcite saturation.} & Impacts of ocean acidification of distribution of benthic organisms. Indicator of sediment preservation.\\
-\textsf{\footnotesize carb\_sur\_ohm\_arg} \textsf{\footnotesize carb\_sur\_ohm\_cal} & \textsf{\footnotesize } & \small{Ocean surface aragonite and calcite saturation.} & Impacts of ocean acidification of distribution of planktic organisms.\\
-
-\midrule
-
-\textsf{\footnotesize fseaair\_p\(CO_{2}\)} & \textsf{\footnotesize p\(CO_{2}\): net sea->air gas exchange flux density} & \small{Air-sea \(CO_{2}\) gas exchange.} & \small{Indicator of air-sea gas disequilibrium, regions of out-gassing/in-gassing.}\\
+\textsf{\footnotesize carbchem\_seasur\_ohm\_arg} \textsf{\footnotesize carbchem\_seasur\_ohm\_cal} & \small{Ocean surface aragonite and calcite saturation.} & \small{Impacts of ocean acidification of distribution of planktic organisms.}\\
 
 \midrule
 
-\textsf{\footnotesize misc\_pH} & \textsf{\footnotesize ocean pH} & \small{Ocean surface pH.} & \small{Ocean acidification.}\\
+\textsf{\footnotesize CO2\_Dairsea} & \small{Air-sea \(CO_{2}\) difference.} & \small{Indicator of air-sea gas disequilibrium, regions of out-gassing/in-gassing.}\\
 
 \midrule
 
-\textsf{\footnotesize ocn\_int\_DIC} & \textsf{\footnotesize DIC water-column integrated tracer inventory} & \small{Pattern of water column integrated ocean \(DIC\) (i.e. dissolved carbon storage) (\(molm^{-2}\)).} & \small{Indicator of \(CO_{2}\) emissions storage and transport when used in difference/anomaly maps and calculations.}\\
+\textsf{\footnotesize carbchem\_seasur\_pHsws} & \small{Ocean surface pH.} & \small{Ocean acidification.}\\
+
+\midrule
+
+\textsf{\footnotesize CO2\_wcint\_DIC} & \small{Pattern of water column integrated ocean \(DIC\) (i.e. dissolved carbon storage) (\(molm^{-2}\)).} & \small{Indicator of \(CO_{2}\) emissions storage and transport when used in difference/anomaly maps and calculations.}\\
 
 \bottomrule
 \end{tabular}
 \caption{Summary of the main (mostly useful) 2D time-slice output for (bio)geochemistry.}
 \end{table}
 
-%------------------------------------------------
-\vspace{1mm} \noindent\rule{4cm}{0.1mm} \vspace{2mm}
-%------------------------------------------------
+\begin{table}[ht!]
+\begin{tabular}{p{0.30\linewidth} p{0.30\linewidth} p{0.325\linewidth}}
+\toprule
+\textbf{Variable} & \textbf{Description} & \textbf{Application}\\
+\midrule
 
+\textsf{\footnotesize ocn\_DIC} & \small{Distribution of ocean \(DIC\) concentrations (\(molkg^{-1}\)).} & \small{Indicator of ocean carbon transport and the 'solubility pump'.}\\
+
+\textsf{\footnotesize ocn\_DIC\_13C} & \small{Distribution of the \(\delta^{13}C\) of \(DIC\).} & \small{Indicator of ocean carbon transport and the 'solubility pump'.}\\
+
+\bottomrule
+\end{tabular}
+\caption{Summary of the main (mostly useful) 3D time-slice output for (bio)geochemistry.}
+\end{table}
 
 %----------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------
