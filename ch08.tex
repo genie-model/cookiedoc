@@ -35,9 +35,9 @@ You’ll then need to change directory back to \textsf{\footnotesize genie-main 
 \newpage
 %------------------------------------------------
 
-\section{The long tail of CO$_{2}$ (and other tales from the sediments)}
+\section*{The long tail of CO$_{2}$ (and other tales from the sediments)}
 
-This chapter introduces the marine sediment model component in muffin -- \textbf{SEDGEM} (SEDiment GEochemistry Model) plus \textbf{ROKGEM}, the terrestrial weathering module. In terms of the fate of fossil fuel \(CO_{2}\), the model configuration and experiments in this chapter include: a representation of deep-sea sediments and the interaction between the preservation and burial of \(CaCO_{3}\) and ocean chemistry plus, plus the balance (or imbalance) between weathering on land and sedimentary burial (of \(CaCO_{3}\)) (all in addition to the interaction between atmosphere and ocean and redistribution of carbon within the ocean as previously). For an over-view of the sediment model and what time-scales and nature of carbon cycle interaction between ocean and sediment you can expect, read: \textit{Ridgwell and Zeebe} [2005] and \textit{Ridgwell and Hargreaves} [2007]. \textbf{ROKGEM} is described in \textit{Colbourn et al.} [2013].
+This chapter introduces the marine sediment and terrestrial weathering modules in \textbf{cookie}. In terms of the fate of fossil fuel \(CO_{2}\), the model configuration and experiments in this chapter include: a representation of deep-sea sediments and the interaction between the preservation and burial of \(CaCO_{3}\) and ocean chemistry plus, plus the balance (or imbalance) between weathering on land and sedimentary burial (of \(CaCO_{3}\)) (all in addition to the interaction between atmosphere and ocean and redistribution of carbon within the ocean as previously). For an over-view of the sediment model and what time-scales and nature of carbon cycle interaction between ocean and sediment you can expect, read: \textit{Ridgwell and Zeebe} [2005] and \textit{Ridgwell and Hargreaves} [2007]. \textbf{ROKGEM} is described in \textit{Colbourn et al.} [2013].
 
 Beyond the basic 'inorganic' geological carbon cycle\footnote{As per described in the references above.}, other geological cycles, ocean-sediment and atmosphere-rock interactions\footnote{All these processes and feedbacks can be 'fixed' (made invariant) or disabled to test their importance (or not) in the long-term regulation of atmospheric \(pCO_{2}\) and climate dynamics and in comparison with published analyses based only on the 'inorganic' carbon cycle (and silicate weathering as the only long-term feedback on atmospheric \(pCO_{2}\)).}  that can be accounted for in the model and explored in this Chapter are:
 
@@ -66,15 +66,62 @@ Beyond the basic 'inorganic' geological carbon cycle\footnote{As per described i
 
 \section{Sediment model output}
 
-There is a whole new set of additional outputs from this configuration of \textbf{cookie}, particularly sediment-specific output (saved along with all the other results files in \textsf{\footnotesize results} sub-directory of the main experiments results directory). Data saving from the sediment module (\textbf{SEDGEM}) differs from the ocean biogeochemsitry module (\textbf{BIOGEM}) in that the composition of the sediments (and other diagnostics such as rain and dissolution fluxes) is saved only \uline{at the very end} of a model experiment\footnote{(Unlike \textbf{BIOGEM}, which by default saves a series of \textit{time-slices} throughout the course of a model experiment.}. So if you kill a run before the very end (or it crashes), \uline{you will get no} (or little) \textbf{SEDGEM} output.
+There is a whole new set of additional outputs from this configuration of \textbf{cookie}, particularly sediment-specific output, which is saved along with all the other results files in \textsf{\footnotesize results} sub-directory of the main experiments results directory. However, sediment model output differs from before in that the saving of spatial, \textbf{netCDF} output, only occurs \uline{at the very end} of a model experiment. So if you kill a run before the very end (or it crashes), \uline{you will get no} (or little) sediment output ...
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
 %------------------------------------------------
 
-\noindent 2D (e.g. surface sediment properties, fluxes, etc.) results can be found in  the \textsf{\footnotesize sedgem} sub-directory of your experiment directory  in a \textbf{netCDF} file called \textsf{\footnotesize fields\_sedgem\_2d.nc}. For example, the 2D distribution of \(wt\% CaCO_{3}\) –- which is the weight fraction of calcium carbonate (\(CaCO_{3}\)) in the surface sediments of the deep ocean (i.e., how much plankton carbonate shell material is there compared to other stuff in the mud at the bottom of the ocean), is saved in this \textbf{netCDF} file under a variable called: \textsf{\footnotesize sed\_CaCO3}. Note that there is some duplication of results saving, because a series of \textit{time-slices} of sediment composition are also saved in the 2D \textbf{BIOGEM} netCDF file \textsf{\footnotesize fields\_biogem\_2d.nc}. 
+\noindent To learn about the basic geological carbon cycle output saved by cookie, run a short experiment starting from the \textit{restart} you downloaded -- \textsf{\footnotesize cookie.CBSR.p\_worbe2.BASES.RidgwellHargreaves.SPIN2} -- as follows:
 
-\noindent \textbf{netCDF} file \textsf{\footnotesize sedcore.nc } variables include:
+\vspace{-1mm}\small\begin{verbatim}
+./runcookie.sh cookie.CBSR.p_worbe2.BASES LABS LAB.8.1 100 
+   cookie.CBSR.p_worbe2.BASES.RidgwellHargreaves.SPIN2
+\end{verbatim}\normalsize\vspace{-2mm}
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
+%------------------------------------------------
+
+\noindent 2D (e.g. surface sediment properties, fluxes, etc.) output can be found in the \textsf{\footnotesize results} sub-directory of your experiment directory in a \textbf{netCDF} file called \textsf{\footnotesize fields\_sediments\_2d.nc}\footnote{Note that there is some duplication of results saving, because a series of \textit{time-slices} of sediment composition are also saved in the 2D \textbf{netCDF} file \textsf{\footnotesize fields\_ocean\_2d.nc}.}. For example, the 2D distribution of \(wt\% CaCO_{3}\) –- which is the weight fraction of calcium carbonate (\(CaCO_{3}\)) in the surface sediments of the deep ocean (i.e., how much plankton carbonate shell material is there compared to other stuff in the mud at the bottom of the ocean) -- is saved here\footnote{In a variable called: \textsf{\footnotesize sed\_CaCO3}}. 
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
+%------------------------------------------------
+
+\noindent Additional output is available in the form of \textit{time-series} of sediment properties: \\\textsf{\footnotesize timeseries\_sed\_seafloor\_*.txt}. For example, the \textit{time-series} file: \textsf{\footnotesize timeseries\_sed\_seafloor\_CaCO3.txt} contains information about how the mean \(CaCO_{3}\) content of surface sediments (uppermost sediment layer) evolves with time. There are also \textit{time-series} file output that record the evolution of burial (and dissolution) fluxes as well as weathering -- all of which will be important for fully understanding system behavior. (But note that in the default output, only key sources and sinks are saved -- \textsf{\footnotesize timeseries\_geo\_*.txt}.)
+
+As per with the ocean (-atmosphere) data saving, a summary file of sediment fluxes and composition is also saved -- \textsf{\footnotesize INFO\_sediment\_summary\_AT\_END.txt} (but only at the experiment end, rather than associated with each \textit{time-slice}) as well as a parameter value summary for use in configuring weathering (discussed later) -- \textsf{\footnotesize INFO\_weathering\_parameters\_AT\_END.txt}
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
+%------------------------------------------------
+
+\subsubsection*{Sediments of the modern Earth}
+
+Plot the surface ('core-top') sediment composition ($wt\%CaCO_{3}$). Compare with the plotted observed distribution of core-top sediment composition in \textit{Ridgwell and Hargreaves} [2007].
+
+\textbf{Q.} Does the model get the broad patterns right (is it more right than wrong, or more wrong than right)? Do you think the model-data misfits might be important? How so?
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
+%------------------------------------------------
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\subsection*{Simulating sediment records ('\textit{sedcores}')}
+
+\noindent The model also generates artificial sediment ‘cores’ (e.g. see: \textit{Ridgwell} [2007]) and hence what one might expect to see of your applied perturbations as recorded in a sediment core sand then recovered from the ocean floor(!) The locations of these cores are stored in a a file containing a little ASCII ‘map’ of the ocean. The filename is given by the parameter: \texttt{sg\_par\_sedcore\_save\_mask\_name}
+\\Simply be editing (using the ASCII text editor) a '0.0' to a '1.0', you can get the model to generate and save a sediment ‘core’ at that particular (\textit{i,j}) location.
+
+Sediment \textit{cores} reflect not only the material which has accumulated (or not, if it has dissolved …) during the course of your experiment, but also the material that accumulated during the spin-up. PLUS, whatever material the sediment core was initialized with to start with. For example, the large interval of initially 100\% detrital material at the base of the sediment core simply reflects the initialization of the sediment array in the model. Also note the ash ‘peak’ near the bottom of the stack (filled) sediment layers – this is a tracer to ‘tag’ the start of the model spin-up. If you look at the spin-up results (not your recent perturbation experiment) – the ash peak lies in a sediment layer with age equal to the total length of of the spin-up carried out. But why is there any ash deeper than the age corresponding to the start of the spin-up? How can it get there (i.e. what processes could move solid material deeper within the sediment column)?
+
+In the \textbf{SEDGEM} results sub-directory, there is a \textbf{netCDF} file which contains all the locations selected (if any) –- \textsf{\footnotesize sedcore.nc}. These are not really aligned with latitude as the \textbf{Panoply} display might suggest – the locations are in fact distributed from all over the ocean (\textbf{Panoply} is being fooled in order to display them together). In the \textbf{SEDGEM} 2D \textbf{netCDF} file, these locations are marked in the \textbf{netCDF} variable \textsf{\footnotesize grid\_mask\_sedcore}.
+
+
+If you request that sediment properties are saved as a function of depth at specific locations as sediment cores ('\textit{sedcores}'), there will be an additional sediment model \textbf{netCDF} output: \textsf{\footnotesize sedcore.nc}. Saved include:
 
 \vspace{1mm}
 \begin{itemize}[noitemsep]
@@ -95,38 +142,9 @@ There is a whole new set of additional outputs from this configuration of \textb
 \vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
 %------------------------------------------------
 
-\noindent \textbf{BIOGEM} also saves a selection of \textit{time-series }of sediment properties -- \textsf{\footnotesize .res} files starting \textsf{\footnotesize biogem\_series\_sed}. For example, the \textit{time-series} file: \textsf{\footnotesize biogem\_series\_sed\_CaCO3.res} contains information about how the mean \(CaCO_{3}\) content of surface sediments (uppermost sediment layer) evolves with time. There are also \textit{time-series} file output that record the evolution of burial (and dissolution) fluxes as well as weathering -- all of which will be important for fully understanding system behavior.
-
-As per with \textbf{BIOGEM} data saving, \textbf{SEDGEM} also saves a summary file of sediment fluxes and composition -- \textsf{\footnotesize seddiag\_misc\_DATA\_GLOBAL.res} as well as a parameter valiue summary for use in configuring \textbf{ROKGEM} (discussed later) -- \textsf{\footnotesize seddiag\_misc\_ROKGEM\_parameters.res}
-
-%------------------------------------------------
-\vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
-%------------------------------------------------
-
 %------------------------------------------------
 \newpage
 %------------------------------------------------
-
-\subsection*{Sediments of the modern Earth}
-
-You have been provided with model output which corresponds to the $36 \times 36$ sediment grid resolution configuration described in \textit{Ridgwell and Hargreaves} [2007]:\\\textsf{\footnotesize cookie.CBSR.p\_worbe2.BASES.RidgwellHargreaves.SPIN2} -- the \textit{restart} that you downloaded earlier\footnote{This is actually the 2nd stage of a 2-stage spin-up processes -- see \textit{Ridgwell and Hargreaves} [2007].}. Plot the surface ('core-top') sediment composition ($wt\%CaCO_{3}$). Compare with the plotted observed distribution of core-top sediment composition in the paper. Does the model get the broad patterns right (is it more right than wrong, or more wrong than right)? Do you think the model-data misfits might be important? How so?
-
-%------------------------------------------------
-\vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
-%------------------------------------------------
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-\subsection*{Modeling sediment records ('cores')}
-
-\noindent The model also generates artificial sediment ‘cores’ (e.g. see: \textit{Ridgwell} [2007]) and hence what one might expect to see of your applied perturbations as recorded in a sediment core sand then recovered from the ocean floor(!) The locations of these cores are stored in a a file containing a little ASCII ‘map’ of the ocean. The filename is given by the parameter: \texttt{sg\_par\_sedcore\_save\_mask\_name}
-\\Simply be editing (using the ASCII text editor) a '0.0' to a '1.0', you can get the model to generate and save a sediment ‘core’ at that particular (\textit{i,j}) location.
-
-Sediment \textit{cores} reflect not only the material which has accumulated (or not, if it has dissolved …) during the course of your experiment, but also the material that accumulated during the spin-up. PLUS, whatever material the sediment core was initialized with to start with. For example, the large interval of initially 100\% detrital material at the base of the sediment core simply reflects the initialization of the sediment array in the model. Also note the ash ‘peak’ near the bottom of the stack (filled) sediment layers – this is a tracer to ‘tag’ the start of the model spin-up. If you look at the spin-up results (not your recent perturbation experiment) – the ash peak lies in a sediment layer with age equal to the total length of of the spin-up carried out. But why is there any ash deeper than the age corresponding to the start of the spin-up? How can it get there (i.e. what processes could move solid material deeper within the sediment column)?
-
-In the \textbf{SEDGEM} results sub-directory, there is a \textbf{netCDF} file which contains all the locations selected (if any) –- \textsf{\footnotesize sedcore.nc}. These are not really aligned with latitude as the \textbf{Panoply} display might suggest – the locations are in fact distributed from all over the ocean (\textbf{Panoply} is being fooled in order to display them together). In the \textbf{SEDGEM} 2D \textbf{netCDF} file, these locations are marked in the \textbf{netCDF} variable \textsf{\footnotesize grid\_mask\_sedcore}.
 
 \noindent Published examples\footnote{Think about how you might make use of the \textit{sedcore} output in light of these paper} of simulated marine sediment core output include (in order of publication date):
 \vspace{0mm}
@@ -148,36 +166,40 @@ In the \textbf{SEDGEM} results sub-directory, there is a \textbf{netCDF} file wh
 In this Section you are going to perturb the global carbon cycle, which now includes the weathering and burial of $CaCO_{3}$.\footnote{But not yet silicate weathering, nor organic carbon weathering or burial.} 
 
 \vspace{1mm}
-\noindent You have been provided with an example \textit{user-config} -- \textsf{\footnotesize LAB.8.3.emissions} -- exactly the same as used to generate the (2nd stage) spin-up from \textit{Ridgwell and Hargreaves} [2007], except it also specifies the emission of $CO_{2}$ to the atmosphere -- exactly as per in Chapter 5. By default, although the scaling parameter converting emissions as $mol yr^{-1}$ to $PgC yr^{-1}$ has been set:
+\noindent You have been provided with an example \textit{user-config} -- \textsf{\footnotesize LAB.8.2} -- exactly the same as used to generate the (2nd stage) spin-up from \textit{Ridgwell and Hargreaves} [2007], except it also specifies the emission of $CO_{2}$ to the atmosphere -- \textsf{\footnotesize worbe2.FpCO2\_Fp13CO2\_PgC.detplusopalSED} -- exactly as done earlier, with the one exception that in addition to a generic (idealized) $CO_{2}$ forcing flux, a spatial pattern of detrial input to marine sediments is prescribed as part of the \textit{forcing}.
+
+As before, the scaling parameter:
 \vspace{-1mm}\small\begin{verbatim}
-bg_par_atm_force_scale_val_3=8.3333e+013
+bg_par_atm_force_scale_val_3=0.0
 \end{verbatim}\normalsize\vspace{-1mm}
-the emissions time-series in the forcing in:
-\\\textsf{\footnotesize worbe2.FpCO2\_Fp13CO2.detplusopalSED/worbe2.FpCO2\_Fp13CO2.detplusopalSED}
-\\is set to a value of \texttt{1.0} ($PgC yr^{-1}$) over just a single year. As per in Chapter 5, either edit the \textit{forcing} to have a larger emissions flux and/or over a longer duration (ideally you would copy-and-rename the \textit{forcing} folder to retain a copy of the original), or (simpler) increase the scaling value in the user-config -- e.g., \texttt{8.3333e+016} would give you $1000 PgC$ emitted over the first year of the experiment. You can also adjust the time-scaling parameter:
+sets the rate of carbon release, in $PgCyr^{-1}$, and the parameter:
 \vspace{-1mm}\small\begin{verbatim}
 bg_par_atm_force_scale_time_3=1.0
 \end{verbatim}\normalsize\vspace{-1mm}
-in order to extend the emissiosn duration.
+scales the duration over which the emissions occur.
 
-\vspace{1mm}
-Using the provided \textit{user-config}, an e.g., 100 year duration experiment would be run:
+The default settings in \textsf{\footnotesize LAB.8.2} are for $0PgC$ total over $1yr$, so you will want to: (a) copy-rename \textsf{\footnotesize LAB.8.2} and (b) set a higher rate and/or longer duration, and then (c) run for e.g., $100$ years and see if you can see anything happening:
 
 \vspace{-1mm}\small\begin{verbatim}
-./runcookie.sh cookie.CBSR.p_worbe2.BASES LABS LAB.8.3.emissions 100 
+./runcookie.sh cookie.CBSR.p_worbe2.BASES LABS LAB.8.2 100 
    cookie.CBSR.p_worbe2.BASES.RidgwellHargreaves.SPIN2
 \end{verbatim}\normalsize\vspace{-1mm}
 Note that you are using a new \textit{base-config} -- \textsf{\footnotesize cookie.CBSR.p\_worbe2.BASES}, where the '\textsf{\footnotesize S}' indicates that the configuration includes the (\textbf{\textbf{SEDGEM}}) sediment module, and the '\textsf{\footnotesize R}' the (\textbf{ROKGEM}) terrestrial weathering module.
 
-Also note that 100 years is long enough to see much 'happens' re. ocean-sediment interactions -- why? -- read \textit{Lord et al.} [2015] and \textit{Ridgwell and Hargreaves} [2007] for an analysis and discussion of global carbon cycle response time-scales.
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
+%------------------------------------------------
+
+\noindent What to look for? For a start, the $CaCO_{3} wt\%$ composition of surface sediments -- this can be viewed spatially in the \textbf{SEDGEM} \textbf{netCDF}, or as a global mean in the \textbf{BIOGEM} \textit{time-series} output.
+
+\textbf{Q.} Did you see much happens re. ocean-sediment interactions in $100$ years? If not, why?
+\\Read \textit{Lord et al.} [2015] and \textit{Ridgwell and Hargreaves} [2007] for an analysis and discussion of global carbon cycle response time-scales.
 
 \vspace{1mm}
-Don't forget to run a control experiment -- identical to your emissions experiment, but with $CO_{2}$ flxu scaling zero to zero:
+Don't forget to run a control experiment -- identical to your emissions experiment, but with $CO_{2}$ flux scaling zero to zero\footnote{You need not change the time scaling because it does not matter how long zero emissions occur over :o)}:
 \vspace{-1mm}\small\begin{verbatim}
 bg_par_atm_force_scale_val_3=0.0
 \end{verbatim}\normalsize\vspace{-1mm}
-
-\noindent What to look for? For a start, the $CaCO_{3} wt\%$ composition of surface sediments -- this can be viewed spatially in the \textbf{SEDGEM} \textbf{netCDF}, or as a global mean in the \textbf{BIOGEM} \textit{time-series} output.
 
 However, to progress much further you are likely to want to run the 2 experiments for at least 1000 years or more ... ideally, as long as 10,000 (refer to the publications). Remember you can take advantage of the cluster queue and submit these as jobs rather than running interactively at the command line.
 
@@ -191,34 +213,32 @@ You could then use saved sediment cores and plot e.g. \(CaCO_{3}\) (or its \(\de
 \newpage
 %------------------------------------------------
 
-\noindent If you want a more geologically-relevant emissions scenario.
+\noindent If you want a more geologically-relevant emissions scenario, e.g.:
 
 \vspace{1mm}
 \begin{itemize}[noitemsep]
 
 \vspace{1mm}
 \item Specifying:
-\vspace{-2mm}\small\begin{verbatim}
-bg_par_forcing_name='worbe2.FpCO2_Fp13CO2.detplusopalSED'
-bg_par_atm_force_scale_val_3=8.3333e+012
+\vspace{-1mm}\small\begin{verbatim}
+bg_par_forcing_name='worbe2.FpCO2_Fp13CO2_PgC.detplusopalSED'
+bg_par_atm_force_scale_val_3=0.1
 bg_par_atm_force_scale_val_4=-15.0
-\end{verbatim}\normalsize\vspace{-2mm}
-creates a release of \(CO_{2}\) to the atmosphere at a rate of \(0.1 PgC yr^{-1}\) with an isotopic composition of \(-15\)\permille -- appropriate for a volcanic-related geological source. The lines:
-\vspace{-2mm}\small\begin{verbatim}
+\end{verbatim}\normalsize\vspace{-1mm}
+creates a release of \(CO_{2}\) to the atmosphere at a rate of \(0.1 PgC yr^{-1}\) with an isotopic composition of \(-15\)\permille -- appropriate for a volcanic-related geological source. The line:
+\vspace{-1mm}\small\begin{verbatim}
 bg_par_atm_force_scale_time_3=10000.0
-bg_par_atm_force_scale_time_4=10000.0
-\end{verbatim}\normalsize\vspace{-2mm}
-then specify that this input (and isotopic composition) continues over 10,000 years.
+\end{verbatim}\normalsize\vspace{-1mm}
+then specifies that this input (and isotopic composition) continues over 10,000 years.
 
 \vspace{1mm}
 \item You could also consider shorter emissions intervals with a more isotopically depleted composition (e.g., \(-27\)\permille) -- appropriate for a fossil fuel carbon source. Methane derived carbon (e.g., from hydrates)  would be more like \(-60\)\permille. e.g.:
-\vspace{-2mm}\small\begin{verbatim}
-bg_par_forcing_name='worbe2.FpCO2_Fp13CO2.detplusopalSED'
-bg_par_atm_force_scale_val_3=4.16665e+15
+\vspace{-1mm}\small\begin{verbatim}
+bg_par_forcing_name='worbe2.FpCO2_Fp13CO2_PgC.detplusopalSED'
+bg_par_atm_force_scale_val_3=50.0
 bg_par_atm_force_scale_val_4=-60.0
 bg_par_atm_force_scale_time_3=100.0
-bg_par_atm_force_scale_time_4=100.0
-\end{verbatim}\normalsize\vspace{-2mm}
+\end{verbatim}\normalsize\vspace{-1mm}
 would be like a slightly super-charged anthropogenic experiment\footnote{50 PgC per year for 100 years, as opposed to the current ca. 10 PgC per year.} with more a more pronounced isotopic fingerprint.
 
 \end{itemize}
@@ -232,7 +252,7 @@ would be like a slightly super-charged anthropogenic experiment\footnote{50 PgC 
 # set a CLOSED system
 bg_ctrl_force_sed_closedsystem=.TRUE.
 \end{verbatim}\normalsize\vspace{-1mm}
-will have the effect of removing the ability of deep-sea sediments and terrestrial weathering to modify ocean chemistry.\footnote{The setting ensures that weathering always balances burial, leaving e.g., ocean $ALK$ invariant.} This is in effect the primary difference between the 1st and 2nd stage spin-ups described in \textit{Ridgwell and Hargreaves} [2007]. The 'closed system' configuration should also respond identically to the 8-level ocean biogeochemsitry configuration form Chapter 6 (\textsf{\footnotesize LAB.6.1.EXAMPLE}).
+will have the effect of removing the ability of deep-sea sediments and terrestrial weathering to modify ocean chemistry.\footnote{The setting ensures that weathering always balances burial, leaving e.g., ocean $ALK$ invariant.} This is in effect the primary difference between the 1st and 2nd stage spin-ups described in \textit{Ridgwell and Hargreaves} [2007]. The 'closed system' configuration should also respond identically to the 8-level ocean biogeochemsitry configuration form Chapter 6.
 
 Having run this second pair of experiments, you can directly contrast the impact of carbon emissions including global carbonate cycle feedbacks, with an ocean-atmosphere only system.
 
@@ -248,14 +268,6 @@ Having run this second pair of experiments, you can directly contrast the impact
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
 %------------------------------------------------
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-\noindent Finally, RAIN RATIO
-
-
 
 %------------------------------------------------
 \newpage
