@@ -54,7 +54,7 @@ You will need to download new \textit{re-start} files prior to embarking on the 
 $ wget --no-check-certificate http://www.seao2.info/cgenie_output/
    cookie.C.p_worjh2.r.SPIN.tar.gz
 \end{verbatim}\normalsize\vspace{-2mm}
-(single line ... no space between line fragments ...) This downloads  archived/compressed copies of the 10,000 year \textit{spin-up} experiments \textsf{\footnotesize  cookie.C.p\_worjh2.r.SPIN}. Extract the contents by typing:
+(single line ... no space between line fragments ...) This downloads  archived/compressed copies of the 10,000 year \textit{spin-up} experiments \textsf{\footnotesize cookie.C.p\_worjh2.r.SPIN}. Extract the contents by typing:
 
 \vspace{-2mm}\small\begin{verbatim}
 $ tar xfzv cookie.C.p_worjh2.r.SPIN.tar.gz
@@ -82,21 +82,11 @@ You will then need to change directory back to \textsf{\footnotesize genie-main}
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
-\noindent To start off -- run a \textit{control} experiment using the \textit{re-start} experiment that you have just downloaded as the initial state of your experiment. A \textit{control} experiment is basically one in which you do not change any parameter settings and is used top quantify any residual drift (that you might otherwise interpret as the result of a parameter change in your actual experiment). The template \textit{user-config} file you are provided for, for this, is: \textsf{\footnotesize LABS.2.1}
-
-\vspace{1mm}
-Run the model for … whatever, 10 years will do for now:
-
-\vspace{-2mm}\small\begin{verbatim}
-$ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.1 10 cookie.C.p_worjh2.r.SPIN
-\end{verbatim}\normalsize\vspace{-2mm}
-where \textsf{\footnotesize cookie.C.p\_worjh2.r.SPIN} is the \textit{re-start} experiment name.
-
 %------------------------------------------------
-\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+\newpage
 %------------------------------------------------
 
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=0.8\textwidth]{ch3-ijgrid.png}\centering
 \vspace{2mm}
 \caption{
@@ -107,7 +97,7 @@ Numbers > 90 (i.e., 91, 92, 93, 94) and shaded grey are land (the numbers specif
 \label{fig:ch3-ijgrid}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=0.4\textwidth]{ch3-kgrid.png}\centering
 \vspace{-0mm}
 \caption{\textbf{The \textbf{cookie} ocean vertical level definitions for a modern 16-level ocean grid.}}
@@ -120,7 +110,7 @@ Numbers > 90 (i.e., 91, 92, 93, 94) and shaded grey are land (the numbers specif
 
 \section{Visualizing ocean circulation}
 
-Visualizing the 3D flow (/transport) of the ocean, much less the rate at which this occurs, is no trivial matter. Even with the aid of a model. (Or rather, the problem then becomes: how to visualize ocean circulation in a model.) We'll consider three different ways of analyzing model fields.
+Visualizing the 3D flow (/transport) of the ocean, much less the rate at which this occurs, is no trivial matter. Even with the aid of a model. (Or rather, the problem then becomes: how to visualize ocean circulation in a model.) We'll consider three different ways of analyzing model fields -- read this description \uline{first}, and then run an experiment to try the visualization techniques on.
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
@@ -128,13 +118,11 @@ Visualizing the 3D flow (/transport) of the ocean, much less the rate at which t
 
 \noindent You can deduce something about ocean circulation from the 3D patterns of salinty (variable: \textsf{\footnotesize ocn\_sal}), temperature (variable: \textsf{\footnotesize ocn\_temp}), and/or density (variable: \textsf{\footnotesize climate\_rho}). For example, from \textsf{\footnotesize fields\_ocean\_3d.nc} -- plotting a latitude-depth section through the Atlantic along latitude -25$^{\circ}$E (remember that \textbf{Panoply} plots a global zonal mean by default). If you plot both salinity and temperature you can try and identify the dominant regimes of NADW (warm, salty) vs. AABW (cold, fresh).
 
-You can identify Mediterranean outflow in a carefully-chosen section -- pick a latitude-depth section close to the N. Africa margin in the model grid (e.g.,-15$^{\circ}$E or -5$^{\circ}$E), in a sub-surface horizontal (longitude-latitude) section (e.g., between around 500 and 1000 m depth), or best, in a longitude-depth section cutting across the Atlantic an through the Mediterranean Sea (e.g., latitude of around 35$^{\circ}$N).
-
 You can also contrast the model with observations. Download the following 2 \textbf{netCDF} files -- they are of climatological ocean temperature and salinity (World Ocean Atlas), re-gridded to the \textbf{cookie} ocean grid and can be visualized in the exact same way as \textbf{cookie} output.
 
 \vspace{-2mm}\small\begin{verbatim}
-$ wget --no-check-certificate http://www.seao2.info/data/worjh2.temperature.260123.nc
-$ wget --no-check-certificate http://www.seao2.info/data/worjh2.salinity.260123.nc
+$ http://www.seao2.info/data/worjh2.temperature.260123.nc
+$ http://www.seao2.info/data/worjh2.salinity.260123.nc
 \end{verbatim}\normalsize\vspace{-2mm}
 
 Because model and observations share the same grid, you can make direct comparisons between plotted fields, including creating difference maps of model minus observations.
@@ -152,29 +140,46 @@ Because model and observations share the same grid, you can make direct comparis
 \vspace{1mm}
 \item Rather than a difference map, which is what you get by default, i.e., ‘Array 1 – Array 2’ – from the drop-down menu (next to the ‘Interpolate’ button) select ‘Vector Magnitude’.
 \vspace{1mm}
-\item You should have a color contoured (or not if you prefer plotting without contouring on) map of ocean current speed, with velocity vectors (direction and magnitude) overlain. You’ll need to re-scale the velocity vectors to properly see them – from the ‘Contours and Vectors’ tab – change the ‘Scale Length’ to e.g., 0.1. (On a \textbf{Mac}, look under the ‘Vectors’ tab for a ‘Reference Value’ to something like 0.1.)  When fresh-water hosing – look out for impacts on the N. Atlantic current system associated with the AMOC.
+\item You should have a color contoured (or not if you prefer plotting without contouring on) map of ocean current speed, with velocity vectors (direction and magnitude) overlain. You’ll need to re-scale the velocity vectors to properly see them – from the \textsf{\footnotesize Contours and Vectors} tab – change the \textsf{\footnotesize Scale Length} to e.g., $0.15$ (for typical surface velocities). You can also increase the density of vectors by decreasing \textsf{\footnotesize Spacing} to $50\%$.
+\\When fresh-water hosing – look out for impacts on the N. Atlantic current system associated with the AMOC.
 \vspace{1mm}
-\item You can repeat this for deeper depth levels in the ocean – e.g., between about 1500 and 2000 m is a good place to go looking for the Western boundary current (and AMOC return) in the model (such as it exists at this low resolution) but you’ll need to re-scale the velocity vectors again (e.g., to 0.01 to less).
+\item You can repeat this for deeper depth levels in the ocean – e.g., $2000-3000 m$ is a good place to go looking for the Deep Western Boundary Current (and AMOC return) in the model (such as it exists at this low resolution), but you’ll need to re-scale the velocity vectors again (e.g., to $0.1$ to less).
 \end{enumerate}
 \vspace{1mm}
 
-\noindent An example plot (using \textbf{Panoply} for visualizing surface ocean current fields) is given in Figure \ref{fig:ch3-currents1}.
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
 
-\begin{figure}
-\includegraphics[width=0.6\textwidth]{ch3-currents1.png}\centering
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\noindent An example plot (using \textbf{Panoply} for visualizing surface ocean current fields) is given in Figure \ref{fig:ch2-currents_0050m} and for $2750 m$ in Figure \ref{fig:ch2-currents_2750m}.
+
+\begin{figure}[H]
+\includegraphics[width=0.6\textwidth]{ch2-currents_0050m.png}\centering
 \vspace{-0mm}
-\caption{Example plot of (normal/default modern) ocean current fields (3D netCDF file). Again scaling has been set manually to create an easy-to-interpret axis scale. On the left is the surface field, and on the right an intermediate depth (illustrating what approximates the Deep Western Boundary current in the model in the Atlantic).}
-\label{fig:ch3-currents1}
+\caption{Example plot of (normal/default modern) ocean surface ($40 m$) current fields.}
+\label{fig:ch2-currents_0050m}
+\end{figure}
+
+\begin{figure}[H]
+\includegraphics[width=0.6\textwidth]{ch2-currents_2750m.png}\centering
+\vspace{-0mm}
+\caption{Example plot of (normal/default modern) deep ($2750 m$) ocean current fields.}
+\label{fig:ch2-currents_2750m}
 \end{figure}
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
-\noindent The third approach is to visualize the large-scale ocean transport in terms of the meridional overturning circulation ('stream-function') (e.g. see background literature).
+%------------------------------------------------
+\newpage
+%------------------------------------------------
 
-\vspace{1mm}
-\noindent Two example plots (using \textbf{Panoply}) are shown in Figure \ref{fig:ch3-amoc1} for the Atlantic basin, and Figure \ref{fig:ch3-amoc2} for the Pacific. In the In the 2D \textbf{netCDF} file, relevant fields (\textbf{netCDF} variables)\footnote{Note that these fields are only meaningful for the modern arrangement of the continents and a continuous separation of the Atlantic from the Pacific from high northern latitudes down to the tip of South America. Different (e.g. paleo) arrangements of the continents may not have recognisable (or definable) Atlantic and/or Pacific basins and it may only be possible to define and visualize the global meridional overturning circulation -- variable: \textsf{\footnotesize phys\_opsi}.} are:
+\noindent The third approach is to visualize the large-scale ocean transport in terms of the meridional overturning circulation ('stream-function') (e.g. see background literature). Two example plots (using \textbf{Panoply}) are shown in Figure \ref{fig:ch3-amoc1} for the Atlantic basin, and Figure \ref{fig:ch3-amoc2} for the Pacific. In the In the 2D \textbf{netCDF} file, relevant fields (\textbf{netCDF} variables)\footnote{Note that these fields are only meaningful for the modern arrangement of the continents and a continuous separation of the Atlantic from the Pacific from high northern latitudes down to the tip of South America. Different (e.g. paleo) arrangements of the continents may not have recognizable (or definable) Atlantic and/or Pacific basins and it may only be possible to define and visualize the global meridional overturning circulation -- variable: \textsf{\footnotesize phys\_opsi}.} are:
 
 \vspace{1mm}
 \begin{itemize}[noitemsep]
@@ -184,19 +189,33 @@ Because model and observations share the same grid, you can make direct comparis
 \item [] \textsf{\footnotesize climate\_opsip} == overturning in the Pacific
 \end{itemize}
 
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=0.6\textwidth]{ch3-amoc1.png}\centering
-\vspace{-0mm}
-\caption{Example plot of (normal/default modern) overturning stream-function (2D \textbf{netCDF} file). (e.g., for Atlantic: \textbf{netCDF} parameter name: \texttt{phys\_opsia}, long-name: Atlantic stream-function). Note that auto-scaling has been turned off and the min and max plotting limits set manually. By convention, stream-functions are plotted with their scale symmetrical around zero, giving red and ‘warm’ colors for positive value and clockwise overturning, and blues and ‘cold’ colors for negative values and anti-clockwise overturning. (The plot has been tart-ed up by overlaying solid contours plus contour labels.) It may be necessary in \textbf{Panoply} to re-orient (invert) the vertical grid.}
+\vspace{-2mm}
+\caption{Example plot of (normal/default modern) overturning stream-function (2D \textbf{netCDF} file). (e.g., for Atlantic: \textbf{netCDF} parameter name: \texttt{phys\_opsia}, long-name: Atlantic stream-function). Note that auto-scaling has been turned off and the min and max plotting limits set manually. By convention, stream-functions are plotted with their scale symmetrical around zero, giving red and ‘warm’ colors for positive value and clockwise overturning, and blues and ‘cold’ colors for negative values and anti-clockwise overturning.}
 \label{fig:ch3-amoc1}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
 \includegraphics[width=0.6\textwidth]{ch3-amoc2.png}\centering
-\vspace{-0mm}
+\vspace{-2mm}
 \caption{Pacific meridional overturning circulation (PMOC).}
 \label{fig:ch3-amoc2}
 \end{figure}
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\noindent To start off -- run a \textit{control} experiment using the \textit{re-start} experiment that you have just downloaded as the initial state of your experiment. A \textit{control} experiment is basically one in which you do not change any parameter settings and is used top quantify any residual drift (that you might otherwise interpret as the result of a parameter change in your actual experiment). The template \textit{user-config} file you are provided for, for this, is: \textsf{\footnotesize LABS.2.1}
+
+\vspace{1mm}
+Run the model for … whatever, 50 years will do for now:
+
+\vspace{-2mm}\small\begin{verbatim}
+$ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.1 50 cookie.C.p_worjh2.r.SPIN
+\end{verbatim}\normalsize\vspace{-2mm}
+where \textsf{\footnotesize cookie.C.p\_worjh2.r.SPIN} is the \textit{re-start} experiment name.
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
@@ -217,7 +236,8 @@ Another way to quantify global ocean circulation is through considering the conn
 In the 3D netCDF output file -- \textsf{\footnotesize climate\_age} is the output variable that is the calculated ventilation age.
 
 In the time-series -- the mean deep ocean (>2000 m) water-mass age is file:
-\\\textsf{\footnotesize timeseries\_climate\_ventilation\_age.txt}).
+\vspace{1mm}
+\\\textsf{\footnotesize timeseries\_climate\_ventilation\_age.txt}.
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
@@ -374,64 +394,91 @@ You will need to submit multiple experiment jobs to the cluster queue, with each
 \newpage
 %------------------------------------------------
 
-\section{Further ideas}
+\section{Mediterranean-Atlantic circulation}
 
 %------------------------------------------------
 
-\subsection{Forcing stronger deep-water formation (‘anti-hosing’ investigations)}
+In this section we will explore some of the controls, and ways to further visualize, seawater exchange between the Atlantic Ocean and Mediterranean Sea.
 
-There are questions concerning past changes in the AMOC as to whether it is ‘pushed’ or ‘pulled’. i.e., if the AMOC shoals in depth and/or weakens, is it because its production has weakened, or as Antarctic Bottom water (AABW) strengthened and ‘pushed’ it out of the way (to shallower depths)?
+\subsection{Poking the Mediterranean}
 
-What you might try then is to inject salt in the Southern Ocean as opposed to fresh water in the North Atlantic. For this, you can change the name in the \textit{user-config} of the \textit{forcing} used, to:
+In the first of a series of Mediterranean-focused exercises, you will visualize the simulated circulation between the Mediterranean Sea and Atlantic, and explore the impact of changing the water balance in the Mediterranean Sea (by means of an applied salinity forcing), not only on Mediterranean salinity, but on the AMOC (and even global climate). 
 
-\vspace{-2mm}\small\begin{verbatim}
-bg_par_forcing_name="p_worxx2.Fsal_SUR_SO"
-\end{verbatim}\normalsize\vspace{-2mm}
-
-and use the same flux forcing scaling parameter as before:
-
-\vspace{-2mm}\small\begin{verbatim}
-bg_par_ocn_force_scale_val_2=0.0
-\end{verbatim}\normalsize\vspace{-2mm}
-
-Remember:
-\\negative == salt addition (and nominally stronger deep-water formation)
-\\positive == freshwater addition (and nominally weaker deep-water formation)
-
-\vspace{1mm}
-\noindent \textbf{Is the AMOC (for the same magnitude of forcing) more sensitive to being ‘pushed’ or ‘pulled’?} (Obviously the answer will  depend on where the perturbations are being applied.)
-
-%------------------------------------------------
-\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
-%------------------------------------------------
-
-%------------------------------------------------
-
-\subsection{Regional hosing -- Poking the Mediterranean}
-
-The provided experiment configuration (\textit{user-config}) -- \textsf{\footnotesize LAB.2.6.2} -- is almost identical to all the other ones in this Chapter, except that it prescribes a net salt transport into the Eastern Mediterranean (5 cells on the model grid) with a balancing freshwater flux distributed across the remainder of the global ocean surface. This is implemented by the forcing:
+The experiment configuration (\textit{user-config}) -- \textsf{\footnotesize LAB.2.6.1} -- in the \textsf{\footnotesize genie-userconfigs/LABS} directory is almost identical to all the other ones in this Chapter, except that it prescribes a net salt transport into the Eastern Mediterranean (the South-Eastern-most 5 Mediterranean cells in the model grid -- see Figure 2.1) with a balancing freshwater flux distributed across the remainder of the global ocean surface (so that globally, salinity is neither lost not gained, just re-distributed). This is implemented by the \textit{forcing}:
 
 \vspace{-2mm}\small\begin{verbatim}
 bg_par_forcing_name="p_worxx2.Fsal_SUR_EMed"
 \end{verbatim}\normalsize\vspace{-2mm}
 
-\noindent This is paired with a scaling parameter for changing the magnitude of the flux forcing:
+\noindent This setting is paired with a scaling parameter for changing the magnitude of the flux forcing:
 
 \vspace{-2mm}\small\begin{verbatim}
 bg_par_ocn_force_scale_val_2=0.0
 \end{verbatim}\normalsize\vspace{-2mm}
 
-\noindent which by default is zero (i.e., no flux forcing). Setting the value of this parameter to: \\\texttt{\small bg\_par\_ocn\_force\_scale\_val\_2=1.0} would create a net freshwater removal from the Eastern Mediterranean of 1Sv (probably the largest you want to try). Note that you need to apply a value that is \uline{positive} so that we get a salt addition rather than freshwater addition in the Eastern Mediterranean.
+\noindent which by default is zero (i.e., no flux forcing). Setting the value of this parameter, for example, to: \\\texttt{\small bg\_par\_ocn\_force\_scale\_val\_2=1.0} would create a net freshwater removal from the Eastern Mediterranean of $1Sv$ (probably the largest you want to try). Note that you need to apply a value that is \uline{positive} so that we get a salt addition rather than freshwater addition in the Eastern Mediterranean.
 
-\vspace{1mm}
-\noindent Try running this for e.g., 50 years to start with. i.e.,
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent To start with -- run a \uline{control} experiment with no salinity forcing (\texttt{\small bg\_par\_ocn\_force\_scale\_val\_2=0.0}) so that you create a record of the background (un-adjusted) state of ocean circulation. Copy-rename \textit{user-config} file \textsf{\footnotesize LAB.2.6.1}, ideally choosing a filename that helps you remember what the experiment was (e.g., \textsf{\footnotesize LAB.2.6.1.control}, and try running this for e.g., 50 years to start with, following on from the \textit{restart} experiment you downloaded (\textsf{\footnotesize cookie.C.p\_worjh2.r.SPIN}), i.e.,
 
 \vspace{-2mm}\small\begin{verbatim}
-$ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.6.2 50 cookie.C.p_worjh2.r.SPIN
+$ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.6.1.control 50
+    cookie.C.p_worjh2.r.SPIN
 \end{verbatim}\normalsize\vspace{-2mm}
+(all one line)
 
 \vspace{1mm}
-You should find a rich response to adding salt to the Eastern Med. Initially, the AMOC weakens because you are taking salt away from everywhere including the N. Atlantic to feed into the Med. After year ca. 15, something interesting happens ... I am not going too spoil the surprise -- you need to run the experiment and then work out 'why' the model does what it does (by repeating out some of all of the analyses you have carried out previously).
+\noindent \textbf{What to look for?} Start by viewing time-series of the maximum positive strength of Atlantic Meridional Overturning Circulation (AMOC), global mean annual surface sea and/or air temperature (and perhaps \% sea-ice cover). These are the files\footnote{In your experiment \textsf{\footnotesize results} directory.}, respectively:
+
+\vspace{1mm}
+\begin{itemize}[noitemsep]
+\setlength{\itemindent}{.0in}
+\item [] \textsf{\footnotesize timeseries\_climate\_opsi.txt}
+\item [] \textsf{\footnotesize timeseries\_climate\_SST.txt}
+\item [] \textsf{\footnotesize timeseries\_climate\_SAT.txt}
+\item [] \textsf{\footnotesize timeseries\_climate\_seaice.txt}
+\end{itemize}
+
+\vspace{1mm}
+Confirm that as the experiment runs, none of the displayed global climate state variables 'drift' significantly. (If they do, it might indicate that either you are using the wrong \textit{restart} experiment, or you have a parameter change in the experiment that you were not intending to use.)
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\noindent Next create the following plots:
+
+\begin{enumerate}[noitemsep]
+\setlength{\itemindent}{.0in}
+\vspace{1mm}
+\item The ocean surface current velocity field -- refer to Figure along with the associated text.
+\vspace{1mm}
+\item The stream-function of the AMOC -- refer to Figure \ref{fig:ch3-amoc1} along with the associated text.
+\vspace{1mm}
+\item The distribution of ocean surface SST - a lon-lat plot of the ocean surface layer in the model from: \textsf{\footnotesize fields\_ocean\_3d.nc} (or from: \textsf{\footnotesize fields\_ocean\_2d.nc}).
+\vspace{1mm}
+\item The vertical distribution of salinity through the Mediterranean and Atlantic.\footnote{Note that you can identify Mediterranean outflow in a carefully-chosen section -- pick a latitude-depth section close to the N. Africa margin in the model grid (e.g.,-15$^{\circ}$E or -5$^{\circ}$E), in a sub-surface horizontal (longitude-latitude) section (e.g., between around 500 and 1000 m depth), or best, in a longitude-depth section cutting across the Atlantic an through the Mediterranean Sea (e.g., latitude of around 35$^{\circ}$N).} 
+\\For this, you want field: \textsf{\footnotesize climate\_sal} in \textsf{\footnotesize fields\_ocean\_3d.nc}. Choose a \textsf{\footnotesize longitude-vertical} plot in the opening \textbf{Panoply} dialogue box. Then navigate to the \textsf{\footnotesize Latitude of the t grid} item at the bottom of the \textsf{\footnotesize Plot Controls} dialogue box, and choose \textsf{\footnotesize 35.86} degrees North. Change \textsf{\footnotesize Plot Controls} from \textsf{\footnotesize Array} to \textsf{\footnotesize Scale} and hit \textsf{\footnotesize Fit to Data}. You should see something like Figure \ref{fig:ch2-Med_salinity_section}. (You might want to adjust how the salinity scale labels are printed, pick simple min and max scale values, and set a sensible number of graduations.)
+\end{enumerate}
+
+\vspace{1mm}
+Save these images to file (and label as 'control') as you will need to evaluate the results of perturbation experiments against them shortly. (You can also create difference maps of experiment vs. control for everything except the current velocity field.)
+
+\begin{figure}
+\includegraphics[width=0.6\textwidth]{ch2-Med_salinity_section.png}\centering
+\vspace{-0mm}
+\caption{Example plot of (normal/default modern) salinity section through the Mediterranean and Atlantic}
+\label{fig:ch2-Med_salinity_section}
+\end{figure}
+
+\vspace{1mm}
+\noindent \textbf{Q.} What can you tell from this section about seawater exchange between Mediterranean and Atlantic? Does the Mediterranean influence the seawater (and hence presumably density) properties of the Atlantic in any way? If so, what implications might there be for large-scale/global ocean circulation patterns and climate?
+
+\vspace{1mm}
+You might also plot a velocity field for a depth level just a little shallower than the sill depth, such as $500 m$ (see: Figure \ref{fig:ch2-currents_0500m}), to better try and visualize Mediterranean outflow.
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
@@ -441,7 +488,230 @@ You should find a rich response to adding salt to the Eastern Med. Initially, th
 \newpage
 %------------------------------------------------
 
-\subsection{Dye-tracing ocean circulation}
+\noindent Finally, for evaluating the model simulation of modern ocean circulation and salinity distributions, be sure to contrast the model with observations. You can obtain a \textbf{netCDF} files or climatological ocean salinity (World Ocean Atlas), re-gridded to the \textbf{cookie} ocean grid, here:
+\vspace{-2mm}\small\begin{verbatim}
+$ http://www.seao2.info/data/worjh2.salinity.260123.nc
+\end{verbatim}\normalsize\vspace{-2mm}
+
+\vspace{1mm}
+\noindent \textbf{Q.} What does the model do 'OK', and what does it not do so well at (in terms of reproducing observations). Do you think model-data misfits will 'matter' (and hence potentially bias your model results)? Which model biases might be more important/relevant?
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent Now you are ready to perturb the system in a new experiment, and hence, copy-paste-rename the \textit{user-config} once more (here, for example: \textsf{\footnotesize LAB.2.6.1.1p0Sv} so as to indicate that the flux in the experiment will be $1.0$). Again, try and pick a filename that will help you later on to remember which experiment was what and not to mix up experiments and come to weird incorrect conclusions :o) For example, to prescribe a $1.0 Sv$ salinity anomaly in the Eastern Mediterranean:
+
+\vspace{-2mm}\small\begin{verbatim}
+# scale the salinity forcing in units of Sv
+# NOTE: to represent freshwater (rather than salinity) addition
+bg_par_ocn_force_scale_val_2=1.0
+\end{verbatim}\normalsize\vspace{-2mm}
+and make sure that the duration (time scaling) is at least as long as your experiment:
+\vspace{-2mm}\small\begin{verbatim}
+# scale the duration of the forcing (years)
+bg_par_ocn_force_scale_time_2=50.0
+\end{verbatim}\normalsize\vspace{-2mm}
+
+Then running it:
+
+\vspace{-2mm}\small\begin{verbatim}
+$ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.6.1.1p0Sv 50
+    cookie.C.p_worjh2.r.SPIN
+\end{verbatim}\normalsize\vspace{-2mm}
+(all one line)
+
+You should see a rich (complicated!) response of the model with time as it adjusts to adding salt to the Eastern Mediterranean (although we could equally apply it in a different pattern). Initially, the AMOC weakens because you are taking salt away from everywhere including the N. Atlantic and redistributing it to the Mediterranean. But by year ca. 15, something 'interesting' starts to happen ... 
+
+\vspace{1mm}
+\noindent \textbf{Q.} Why does the model do what it does? You will need to repeat some or all of the plotting analyses you have carried out previously (and view the key \textit{time-series} output as well).
+\\\noindent \textbf{Q.} Do you see evidence for an impact on global climate ... \textbf{why}??? How can this possibly happen just from redistributing salinity?
+
+\vspace{1mm}
+\noindent Lastly -- try running the model for longer, e.g., for $100$ years, but leaving the parameter setting \texttt{\small bg\_par\_ocn\_force\_scale\_time\_2=50.0}, so that you have salinity forcing applied for $50$ years, and then no forcing for a further $50$.
+
+\vspace{1mm}
+\noindent \textbf{Q.} What happens (in terms of e.g., AMOC) when the salinity forcing is removed? (A more difficult question is why?)
+
+(Ideally, you would then run a new control experiment of the same length, as well as creating a new \textit{user-config} file and hence experiment name.)
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\begin{figure}[H]
+\includegraphics[width=0.6\textwidth]{ch2-currents_0500m.png}\centering
+\vspace{-0mm}
+\caption{Example plot of (normal/default modern) intermediate depth ($500 m$) ocean current fields.}
+\label{fig:ch2-currents_0500m}
+\end{figure}
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\subsection{Estuarine  vs. anti-estuarine  circulation}
+
+Exchange of seawater between Atlantic and Mediterranean consists of flow at the surface from Atlantic to Mediterranean, together with outflow from Mediterranean to Atlantic at depth (and over the sill) -- an 'anti-estuarine' mode of circulation. In your experiments involving additional salt transfer into the Mediterranean, this flow becomes stronger.
+
+In theory, seawater could flow out of the Mediterranean at the surface, and in from the Atlantic at depth -- an 'estuarine' mode of circulation. However, deep Mediterranean seawater would presumably have to be fresher (and/or warmer) than the adjacent Atlantic seawater for an Easterly flow at depth (and Westerly at the surface).
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent You can make the Mediterranean fresher by making the salinity scaling negative. For example, to prescribe a $1.0 Sv$ \uline{freshwater} anomaly in the Eastern Mediterranean:
+
+\vspace{-2mm}\small\begin{verbatim}
+# scale the salinity forcing in units of Sv
+# NOTE: to represent freshwater (rather than salinity) addition
+bg_par_ocn_force_scale_val_2=-1.0
+\end{verbatim}\normalsize\vspace{-2mm}
+(And again make sure that the duration (time scaling) value of parameter \\\texttt{\small bg\_par\_ocn\_force\_scale\_time\_2} is at least as long as your experiment duration.)
+
+\vspace{1mm}
+\noindent \textbf{TO-DO:} By running multiple experiments (you can base these on \textsf{\footnotesize LAB.2.6.1}) all differing in the value of the freshwater flux forcing (and \textit{user-config} filename!), identify the point at which circulation switches from anti-estuarine to estuarine circulation. How much fresher would the Mediterranean have to be to support an estuarine mode of circulation? What is the flux forcing (in $Sv$) that corresponds to this? Is this a something that could have plausibly occurred in the past??
+
+\vspace{1mm}
+\noindent Remember: \uline{multiple experiments can be run simultaneously by submitting to the cluster queue}.
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\subsection{Exploring the role of Gibraltar Strait sill depth}
+
+In the standard modern configuration of \textbf{cookie} -- See Figure \ref{fig:ch3-ijgrid} -- the Strait of Gibraltar is a single model grid point wide (and even then, wider than it should be at the present-day), and has a depth of $558 m$. The distribution of land vs. ocean, and the depth of the ocean floor, is available as the output variable \textsf{\footnotesize 2Dgrid\_topo} (in both 2D and 3D \textbf{netCDF} files). In terms of the model grid definition, the relevant section of the Northern Hemisphere looks like:
+
+\vspace{-2mm}\footnotesize\begin{verbatim}
+  91   9   5   5   8  10  11  11
+  12   9   6   7  12  94  94  94
+   6   9  12  93  93  94  94  94
+   4   6  93  93  93  94  94  94
+   3   3  11  93  93  94  94  94
+   3   2   9  93  93  94  94  94
+   4   2  93  10  10  94  94  94
+   3   2  12  10   8   8  11  94
+   1   3  93  93  12  11  94  94
+   1   5  93  93  94  94  94  94
+   1   9  93  93  94  94  94  91
+   1  12  93  93  94  94  94  91
+   2  12  93  93  94  94  94  91
+   2  10  93  93  94  94  94  91
+   1   7  93  93  94  94  94  91
+   2   5  93  93  93  93  91  91
+   2   3   5   8  93  93  91  11
+   2   2   2   4  93  93  91   7
+\end{verbatim}\normalsize\vspace{-2mm}
+with the Mediterranean just above the middle of this section of model grid. Zooming in, the Mediterranean region (plus 2 columns of Atlantic on the left, and a single column of 'land' (the $94$s) on the right) looks like:
+
+\vspace{-2mm}\small\begin{verbatim}
+   4   2  93  10  10  94  94  94
+   3   2  12  10   8   8  11  94
+   1   3  93  93  12  11  94  94
+\end{verbatim}\normalsize\vspace{-2mm}
+a total of 9(!) grid points including the gateway.
+
+Here, the depth of the ocean at any location is indicated by its ‘k’ value – a number between $1$ and $16$, with $16$ being the surface layer of the ocean, and $1$ the maximum possible depth anywhere. How the ‘k’ values translate into ocean depth is given in Figure \ref{fig:ch3-kgrid}.
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent \textbf{Q.} How important is sill depth separating the Mediterranean from the Atlantic?
+
+\vspace{1mm}
+In the default configuration of \textbf{cookie}, the sill is defined as being at level $12$ in the ocean circulation model, which corresponds to $558 m$ water depth (Figure \ref{fig:ch3-kgrid}). This is simple to adjust and explore the consequences of it being deep or more shallow. (In contrast, changing the land-sea mask and e.g., widening the gateway is much more involved, although still possible.)
+
+\vspace{1mm}
+\textit{User-config} \textsf{\footnotesize LAB.2.6.3} includes a new parameter setting:
+\vspace{-2mm}\small\begin{verbatim}
+# specify the 'topography' file for the ocean circulation model
+# this is file: 'saltages.k1' in directory genie-paleo/p_worjh2
+# NOTE: values 1-16 are levels in the ocean circulation model
+#       1  == deepest (5000 m)
+#       16 == shallowest/surface (80 m)
+go_topo='saltages'
+\end{verbatim}\normalsize\vspace{-2mm}
+
+The parameter: \texttt{\small go\_topo} points to a file in directory \textsf{\footnotesize genie-paleo/p\_worjh2} called \textsf{\footnotesize saltages.k1} (the parameter value string omits the \texttt{\small .k1} bit). If you go find this and open it up in a text editor, you will find an array of integers looking like Figure \ref{fig:ch3-ijgrid}. You can change the sill depth number ... save the file (\uline{do not} rename it in this case), and then run the experiment! Because the grid point immediately to the East of the gateway ($12$) has a value of $10$, it make no sense to try values lower than $10$. The largest value you can use is $16$. So, \uline{pick an integer value between $10$ and $16$ inclusive} (remembering that $12$ is the default (== unchanged)).
+
+In this example, there is no \textit{re-start} to start your experiment from, so you will need to run it for much longer -- $2000$ years is probably the minimum useful integration time. Your experiment run command will then look like:
+
+\vspace{-2mm}\small\begin{verbatim}
+$ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.6.3 2000
+\end{verbatim}\normalsize\vspace{-2mm}
+
+\vspace{1mm}
+\noindent \uline{Run long experiments by submitting them to the cluster queue}.
+
+\vspace{1mm}
+\noindent Lastly, you will need a control experiment because you are 'only' running for $2,000$ years and hence your end state will not be exactly like provided re-start experiments which have been run for $10,000$ years. To create one: copy-rename-edit \textsf{\footnotesize LAB.2.6.3} to e.g., \textsf{\footnotesize LAB.2.6.3.control} and then comment out the line that specifies a different '.k1' file:
+
+\vspace{-2mm}\small\begin{verbatim}
+#go_topo='saltages'
+\end{verbatim}\normalsize\vspace{-2mm}
+(and run for $2,000$ years also).
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent \textbf{Q.} How does seawater exchange between the Mediterranean from the Atlantic depend on the sill depth? What are the consequences of changes in this exchange for the salinity properties of the Mediterranean?
+
+Because the Mediterranean Sea in the model is 3-dimensional (rather than e.g., a single box), in order to answer this, you should look for representative properties that you can read off from the model output (or derive/calculate) that can be contrasted (or graphed) in a quick and easy way against 'k' value (or sill depth in $m$). For instance:
+
+\begin{enumerate}[noitemsep]
+\setlength{\itemindent}{.0in}
+\vspace{1mm}
+\item Mean surface salinity in the Mediterranean (i.e., average the salinity values in the ocean surface layer in the model just for grid points comprising the Mediterranean.
+\\Note: with a little programming, you can calculate the mean salinity throughout the Mediterranean, or the total salt content.
+\vspace{1mm}
+\item The surface seawater velocity into the Mediterranean through the gateway.
+\\Better would be to calculate the maximum integrated volumetric flow in units of $Sv$, as in the over-turning stream-function and AMOC 'maximum' (but this is a little more involved).
+\vspace{1mm}
+\item If we were simulating proxies such as strontium (or carbon, calcium) isotopes, changes in the mean isotopic composition of the Mediterranean would reflect changing connectivity with the Atlantic(?)
+\vspace{1mm}
+\item If we were simulating the carbon cycle, then carbonate saturation or pH might be useful indicators of Mediterranean Sea changes.
+\end{enumerate}
+(Try and think of some other measures that you could use to quantify the impact of changing sill depth and gateway connectivity.)
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\noindent If you wanted, you can combine an altered gateway sill depth with a salinity (or freshwater) forcing, by adding (copy-paste) the \textit{forcing} parameter setting block from \textsf{\footnotesize LAB.2.6.1}:
+
+\vspace{-2mm}\footnotesize\begin{verbatim}
+#
+# *** FORCINGS *********************************************************
+#
+# apply salinity anomoly to the Eastern Mediterranean surface
+bg_par_forcing_name="p_worxx2.Fsal_SUR_EMed"
+# scale the salinity forcing in units of Sv
+# NOTE: to represent freshwater (rather than salinity) addition, make the value NEGATIVE
+bg_par_ocn_force_scale_val_2=0.0
+# scale the duration of the forcing (years)
+bg_par_ocn_force_scale_time_2=0.0
+\end{verbatim}\normalsize\vspace{-2mm}
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\subsection{Dye-tracing Mediterranean outflow}
 
 The ocean biogeochemistry module (\textbf{BIOGEM}) in \textbf{cookie} provides a framework for applying time- and spatially-variable ‘forcings’ of the Earth system\footnote{Refer to the '\textit{force the system}' \textsf{HOW-TO} in the cookie manual for further details on \textit{forcings}.} – fluxes or 'restored-to' boundary conditions that can be prescribed for any gas, dissolved substance (including temperature and salinity), or particulate matter. Examples include freshwater input (== a negative salinity flux forcing) of the North Atlantic to alter ocean circulation, fossil fuel \(CO_{2}\) emissions to the atmosphere (== a \(CO_{2}\) gas flux forcing), or aeolian iron supply to the surface ocean (a 2-D dust flux forcing).
 
@@ -527,6 +797,41 @@ To do this -- simply specify a dye injection somewhere in the Mediterranean (be 
 \item Try viewing the plume via a lat-depth slice. Refer to the figure to determine the ‘i’ value up the Atlantic that will just graze the edge of what passes for Spain at this low model resolution. Which direction does it head after exiting the Mediterranean? Is this ‘realistic’?
 \end{enumerate}
 \vspace{1mm}
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\section{Further ideas}
+
+%------------------------------------------------
+
+\subsection{Forcing stronger deep-water formation (‘anti-hosing’)}
+
+There are questions concerning past changes in the AMOC as to whether it is ‘pushed’ or ‘pulled’. i.e., if the AMOC shoals in depth and/or weakens, is it because its production has weakened, or as Antarctic Bottom water (AABW) strengthened and ‘pushed’ it out of the way (to shallower depths)?
+
+What you might try then is to inject salt in the Southern Ocean as opposed to fresh water in the North Atlantic. For this, you can change the name in the \textit{user-config} of the \textit{forcing} used, to:
+
+\vspace{-2mm}\small\begin{verbatim}
+bg_par_forcing_name="p_worxx2.Fsal_SUR_SO"
+\end{verbatim}\normalsize\vspace{-2mm}
+
+and use the same flux forcing scaling parameter as before:
+
+\vspace{-2mm}\small\begin{verbatim}
+bg_par_ocn_force_scale_val_2=0.0
+\end{verbatim}\normalsize\vspace{-2mm}
+
+Remember:
+\\negative == salt addition (and nominally stronger deep-water formation)
+\\positive == freshwater addition (and nominally weaker deep-water formation)
+
+\vspace{1mm}
+\noindent \textbf{Is the AMOC (for the same magnitude of forcing) more sensitive to being ‘pushed’ or ‘pulled’?} (Obviously the answer will  depend on where the perturbations are being applied.)
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
 
 %----------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------
