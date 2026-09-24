@@ -21,8 +21,8 @@
 
 \begin{itemize}
 \item \textbf{(cGENIE.)cookie} is a \uline{model}. Models ARE NOT the ‘real World’. (Don’t get confused!)
-\item The  low resolution (for a 3-D ocean circulation model) of the \textbf{cookie} model limits its applicability for very short time-scale problems.\ In configurations not incorporating the \textbf{PLASIM} atmospheric GCM component, there are no atmospheric dynamics or inter-annual variability in the coupled ocean-atmosphere system.
-\item \textbf{cookie} is best thought of as a ‘discovery and exploring’ tool for learning how the Earth system has functioned in the past rather than a detailed ‘simulation’ tool for the future.
+\item The  low resolution (for a 3-D ocean circulation model) of the \textbf{cookie} model limits its applicability for very short time-scale problems.\ In configurations not incorporating the \textbf{PLASIM} atmospheric GCM component, there are no atmospheric dynamics or inter-annual variability in the coupled ocean-atmosphere system (and indeed, the ocean and atmosphere are not dynamically coupled without \textbf{PLASIM}).
+\item \textbf{cookie} is best thought of as a ‘discovery and exploring’ tool for learning how the Earth system has functioned in the past rather than a detailed ‘simulation’ tool for the future (although it may be the only viable or most appropriate simulation tool for geological questions and events).
 \item It is possible to have fun.
 \end{itemize}
 
@@ -75,7 +75,7 @@ NOTE: BE VERY CAREFUL that spaces are not missed out when typing out example lin
 
 \subsection*{Required computer hardware/software}
 
-For running \textbf{cupcake}, your options are:
+For running \textbf{cookie}, your options are:
 
 \begin{enumerate}[noitemsep]
 
@@ -130,7 +130,7 @@ To edit files and visualize results, you will need some specific software. The e
 You will need to edit text-based configuration files, possibly in installing and configuring \textbf{cookie}, but definitely in configuring model experiments. So now might be a good time to check that you can use the/an editor! (You will also be using the same editor to view some of the model output.)
 
 You have two alternative options for editing and viewing text files, depending on whether you are a \textbf{unix} nerd with no life, or prefer anything to do with computers to be wrapped in cotton wool and covered with dollops of treacle.
-EITHER: Use the linux \textbf{vi} (/\textbf{vim}) application (or similar e.g. \textbf{emacs}) if you are familiar with it. I think that this pretty much sucks as a text editor and life is far too short and brutal if you don't like this sort of thing … OR ... use a suitable linux-friendly text editor (NOT \textbf{Micro\$oft} \textbf{Notepad}) in conjunction with the \textbf{Secure File Transfer Client}. For example: \textbf{SciTE} (http://www.scintilla.org/SciTE.html) is suitable, or \textbf{Notepad++}.
+EITHER: Use the linux \textbf{vi} (/\textbf{vim}) application (or similar e.g. \textbf{emacs}) if you are familiar with it. I think that this pretty much sucks as a text editor and life is far too short and brutal if you don't like this sort of thing … OR ... use a suitable linux-friendly text editor (NOT \textbf{Micro\$oft} \textbf{Notepad}) in conjunction with the \textbf{Secure File Transfer Client}. For example: \textbf{SciTE} (http://www.scintilla.org/SciTE.html) is suitable, or better: \textbf{Notepad++}.
 
 If you fiddle about with the settings under Options/Preferences in the \textbf{WinSCP} program and apply a little common sense, it should be possible to configure things so that you can simply double-click on a file in the remote (right-hand) window panel and it will open like magic (almost)! Saving the file after editing) should then result in the file being saved back to the cluster. Or you can select Edit With (and then \textbf{SciTE}) from right-mouse-button-clicking on the filename. Or ... a crude but workable approach is to use an sftp client to drag the file to your local machine (assuming \textbf{cookie} is installed remotely), edit it there, and then drag it back again.\footnote{Note that care still has to be taken to avoid certain \textbf{Microsoft} text editing programs under \textbf{Windoz}.)}
 
@@ -146,7 +146,7 @@ In places, instructions may be given for specific programs and computer platform
 
 TLDR: The instructions may not be entirely bug-free -– use your judgment.
 
-lastly -- if you find yourself terminally bored typing in long long instructions lines, you may be tempted to simply copy-paste from the cookie manual PDF to the command line, This can work, but firstly be aware that trying to copy-paste multiple lines at once is doomed to failure -- copy-paste the first line and then following that add the second (or subsequent) line. Note that the inverted comma symbol in the PDF is not the same inverted comma symbol that linux is expecting ... You should also make liberal use of the up arrow key that bring back the previously entered command (keep pressing the key for progressively older commands). For instance, a mistake in a command line can be corrected by bringing back the offending line and using the left/right arrows to navigate through the characters and correct any mistake.
+Lastly -- if you find yourself terminally bored typing in long long instructions lines, you may be tempted to simply copy-paste from the cookie manual PDF to the command line, This can work, but firstly be aware that trying to copy-paste multiple lines at once is doomed to failure -- copy-paste the first line and then following that add the second (or subsequent) line. Note that the inverted comma symbol in the PDF is not the same inverted comma symbol that linux is expecting ... You should also make liberal use of the up arrow key that bring back the previously entered command (keep pressing the key for progressively older commands). For instance, a mistake in a command line can be corrected by bringing back the offending line and using the left/right arrows to navigate through the characters and correct any mistake.
 
 %------------------------------------------------
 
@@ -192,9 +192,9 @@ where \texttt{clustername}, the cluster (or remote server) name(!) might, for ex
 \end{itemize}
 
 \vspace{1mm}
-Note that the cluster you access may not use the standard 'port' number of \textsf{\footnotesize 22}. If your computer uses a different port number -- in the login window of your \textbf{sftp} client, simply change the number in the \textsf{\footnotesize Port} box.
+Note that the cluster you access may not use the standard 'port' number of \textsf{\footnotesize 22}. If your cluster uses a different port number -- in the login window of your \textbf{sftp} client, simply change the number in the \textsf{\footnotesize Port} box.
 
-Ir if you are using the command line, to specify a different port number you will need to type:
+If you are using the command line -- to specify a different port number you will need to type:
 \vspace{-1mm}\begin{verbatim}
 $ ssh -p xxxxx username@clustername
 \end{verbatim}\vspace{-1mm}
@@ -244,7 +244,9 @@ By doing this, you have created your own code repository (and an identical copy 
 \newpage
 %------------------------------------------------
 
-\noindent Having downloaded the code, you may ... or may not, need to configure some local environment settings so that all the libraries etc. that are needed to compile \textbf{cookie} can be found. To a very limited extent, \textbf{cookie} will try and identify your computer and make the required setting automatically. The changes, if any, that you need to make will depend on the platform where you will be running \textbf{cookie} -- the currently recognized platforms and required actions are as follows:
+\noindent Having downloaded the code, you may ... or may not, need to configure some local environment settings so that all the libraries etc. that are needed to compile \textbf{cookie} can be found.
+
+To a limited extent, \textbf{cookie} will try and identify your computer and make the required settings automatically. The changes, if any, that you need to make will depend on the platform where you will be running \textbf{cookie} -- the currently recognized platforms and required actions are as follows:
 
 \begin{itemize}
 
@@ -294,11 +296,7 @@ $ ./installcookie.sh
 
 \noindent (This will unpack the opal lookup table to \textsf{\footnotesize genie-sedgem/data/input} as well as unpacking a copy of the calcium carbonate lookup table\footnote{For now, the \(CaCO_{3}\) lookup table also included in the git repository in its unpacked form.}.
 
-%------------------------------------------------
-\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
-%------------------------------------------------
-
-\noindent If your computer is configured to use python v.2 by default and/or does not have python v.3, then you will need to make a few minor changes (see HOW-TO). For a limited number of computer clusters, this can also be resolved by running \texttt{\small \$ ./installcookie.sh} from \texttt{\small genie-main}.
+\texttt{./installcookie.sh} will also attempt to identify if your computer is using python v.2 by default and/or does not have python v.3 install and will copy over a set of python2-friendly files to \texttt{\small genie-main}.
 
 %------------------------------------------------
 \newpage
@@ -385,7 +383,7 @@ At the command-line (\texttt{\$}) and \uline{in the \textsf{\footnotesize genie-
 $ ./runcookie.sh #1 #2 #3 #4 (#5)
 \end{verbatim}\vspace{-1mm}
 
-\noindent(\uline{don't type it yet}!) It requires that you must list at least 4 parameters after \texttt{./runcookie.sh}, separated by S P A C E S and on a single continuous line (even if it ‘wraps’ around across 2 lines of the screen).
+\noindent It requires that you must list at least 4 parameters after \texttt{./runcookie.sh}, separated by S P A C E S and on a single continuous line (even if it ‘wraps’ around across 2 lines of the screen).
 These parameters are:
 
 \vspace{2mm}
@@ -418,7 +416,7 @@ These parameters are:
 \noindent The full command for your first example experiment, which you are going to issue from the \textsf{\footnotesize cgenie.cookie/genie-main} directory, then looks like:
 
 \vspace{-1mm}\begin{verbatim}
-$ ./runcookie.sh cookie.C.p_worbe2.r LABS LAB.0.3 10
+$ ./runcookie.sh cookie.C.p_worbe2.r EXAMPLES cookie.C.p_worbe2.r.SPIN 10
 \end{verbatim}\vspace{-1mm}
 
 \noindent(\uline{you can try it now}!)
@@ -532,7 +530,7 @@ So, in the model experiment configuration you have been given -- there is 'time-
 
 \section{Creating new experiments!}
 
-The key to creating new experiments is to \textbf{remember that the name of the \textit{user-config} file, that contains the parameter settings that define that specific experiment, becomes the name of the experiment and hence name of the model results sub-directory in \textsf{\footnotesize cgenie\_output}}. Changing the name of the \textit{user-config} file, hence leads to a new experiment name and a new model results sub-directory. (Conversely, not changing the name of the  \textit{user-config} file and re-running it results in the results of any previous experiment run using that \textit{user-config} file, being over-written.)
+The key to creating new experiments is to remember that \textbf{the name of the \textit{user-config} file, that contains the parameter settings that define that specific experiment, becomes the name of the experiment} and hence name of the model results sub-directory in \textsf{\footnotesize cgenie\_output}. Changing the name of the \textit{user-config} file hence leads to a new experiment name and a new model results sub-directory. (Conversely, not changing the name of the  \textit{user-config} file and re-running the model results in the results of any previous experiment run using that \textit{user-config} file being over-written.)
 
 \vspace{1mm}
 There are two obvious ways to create a new \textit{user-config} file and hence new experiment:
@@ -540,10 +538,11 @@ There are two obvious ways to create a new \textit{user-config} file and hence n
 \begin{enumerate}[noitemsep]
 
 \vspace{1mm}
-\item Create a blank text file \footnote{\texttt{\$ touch file.txt} will achieve this at the linux command line.} and populate the contents with the parameter value assignments you need for your new experiment. But ... inevitably, it is difficult to remember all the names and even values you want to specify, meaning that you'll end up looking at existing \textit{user-config} files and copying and pasting lines (or even the entire contents) from the old file(s) into your new \textit{user-config} file. So then you may was well ...
+\item Create a blank text file \footnote{\texttt{\$ touch file.txt} will achieve this at the linux command line.} and populate the contents with the parameter value assignments you need for your new experiment.
+\\But ... inevitably, it is difficult to remember all the names and even values you want to specify, meaning that you'll end up looking at existing \textit{user-config} files and copying and pasting lines (or even the entire contents) from the old file(s) into your new \textit{user-config} file. So then you may was well ...
 
 \vspace{1mm}
-\item {\uline Copy-rename, and edit an existing file}!
+\item \uline{Copy-rename, and then edit an existing file}!
 \\This is the most practical approach -- pick an existing \textit{user-config} file that is closest to the specific experiment that you want to run -- copy and rename it, then edit the contents and save. You can do this by:
 \begin{itemize}[noitemsep]
 \vspace{1mm}
@@ -563,13 +562,13 @@ There are also ways of configuring \textbf{sftp} clients so that you can double-
 
 \end{enumerate}
 
-\noindent Remember that the new \textit{user-config} file needs to be saved in (or copied to) the \textsf{\footnotesize genie-userconfigs/LABS} sub-directory (or sub-directory of \textsf{\footnotesize LABS}) ... as long as you specify the correct path to the directory where you save the new file to when you run the experiment.\footnote{See previous Section and the use of the 2nd parameter passed to \texttt{runcookie.sh}}
+\noindent Remember that the new \textit{user-config} file needs to be saved in (or copied to) \textsf{\footnotesize genie-userconfigs} or better, a sub-directory of this, e.g., \textsf{\footnotesize LABS} (or a sub-directory of the sub-directory ...) and then specify the name of the sub-directory when you run the experiment (or if no sub-directory, pass '\textsf{\footnotesize /}').\footnote{See previous Section and the use of the 2nd parameter passed to \texttt{runcookie.sh}}
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
-\noindent For the purpose of trying this out, you can literally pick on any existing file in the \textsf{\footnotesize LABS } subdirectory (of \textsf{\footnotesize genie-userconfigs}). Note that you are not actually creating a \textit{different} (i.e., with altered parameter value(s)) experiment quite yet, just one with a new name.
+\noindent For the purpose of trying this out, you can literally pick on any existing file in the \textsf{\footnotesize LABS} or \textsf{\footnotesize EXAMPLES} sub-directory (of \textsf{\footnotesize genie-userconfigs}).
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
@@ -581,7 +580,7 @@ There are also ways of configuring \textbf{sftp} clients so that you can double-
 
 \section{Model output}
 
-Experiment results are saved in a single sub-directory of the experiment results directory (along with a sub-directory for \textit{restart} files, and one for copies of your parameter choices). The directories continaing the results of all your different experiment live in:
+Experiment results are saved in a single sub-directory of the experiment results directory (along with a sub-directory for \textit{restart} files, and one for copies of your parameter choices). The directories containing the results of all your different experiment live in:
 
 \vspace{-1mm}\small\begin{verbatim}
 ~/cgenie_output
@@ -589,7 +588,7 @@ Experiment results are saved in a single sub-directory of the experiment results
 and will be assigned a directory name something like:
 
 \vspace{-1mm}\small\begin{verbatim}
-LAB.0.3.EXAMPLE
+LAB.0.3
 \end{verbatim}\normalsize\vspace{-1mm}
 (this being the results directory name for an experiment called \textsf{\footnotesize LAB.0.3}) and the actual results results live in a sub-directory of this -- \textsf{\footnotesize results}, hence:
 
@@ -636,7 +635,7 @@ and which would get save points at:
 
 \subsection{Time-series output}
 
-The second data format for model output is much more closely spaced in time. Model characteristics must then be reducible to a single meaningful variable for this to be practical (i.e., saving the time-varying nature of 3-D ocean tracer distributions is not). Suitable reduced indicators would be the total inventories in the ocean and/or atmosphere of various tracers (or equivalently, the mean global concentrations / partial pressures, respectively). Like the time-slices, the data values saved in the time-series files represent averages over a specified integration interval (the default is set to 1.0 years (annual average) but the results are reported with respect to the mid-point of the average which is where the ‘.5’ bits come in again).
+The second data format for model output is much more closely spaced in time. Model characteristics must then be reducible to a single meaningful variable for this to be practical (i.e., saving the time-varying nature of 3-D ocean tracer distributions is not). Suitable reduced indicators would be the total inventories in the ocean and/or atmosphere of various tracers (or equivalently, the mean global concentrations / partial pressures, respectively). Like the \textit{time-slices}, the data values saved in the \textit{time-series} files represent averages over a specified integration interval (the default is set to 1.0 years (annual average) but the results are reported with respect to the mid-point of the average which is where the ‘.5’ bits come in again).
 
 The much smaller and simpler (text) file format now allow you to save much more frequently. For example, for experiments up to a few 100 years, you could save every single year, which you would set by:
 
@@ -796,17 +795,17 @@ Running jobs interactively is all very well, but there are three important limit
 For example -- to run the same experiment as before (\textsf{\footnotesize LAB.0.3}) for maybe 100 years (or even longer if you wish – I am just pulling factors of 10 out of thin air here) but now submit the experiment as a job to the cluster queue, type (again: SINGLE, CONTINUOUS LINE):
 \vspace{-1mm}
 \small\begin{verbatim}
-$ qsub -q QUEUE -j y -o cgenie_log -V -S /bin/bash 
-  runcookie.sh cookie.C.p_worbe2.r LABS LAB.0.3 100
+$ ./subcookie.sh cookie.C.p_worbe2.r LABS LAB.0.3 100
 \end{verbatim}\normalsize
 \vspace{-1mm}
 
-Here, the queue name for this\ particular cluster is \textsf{\footnotesize QUEUE}. \uline{The cluster you are actually using will have a different queue name} (e.g. refer to any cluster-specific information that you might have).
+Literally, you are just changing \textsf{\footnotesize ./runcookie.sh} to \textsf{\footnotesize ./subcookie.sh} (which is much simpler than was the case for the \textbf{muffin} release of \textbf{cGENIE}). A listing of your running experiments on the cluster will then be automatically displayed after a whort pause.
 
-\vspace{1mm}
-It is important that you omit the ‘\texttt{./}’ bit before \texttt{runcookie.sh}.\footnote{If you are interested (I know that you are not): the options following \texttt{qsub} and before \texttt{runcookie.sh} do things like re-directing screen output and error messaging to a file and specify which linux ‘shell’ to assume.} 
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
+%------------------------------------------------
 
-The status of the cluster queue and how you experiment job is getting on (e.g., “Is it finished yet?”) can be checked by typing:
+\noindent You can request the status of the cluster queue and how you experiment job is getting on (e.g., “Is it finished yet?”) at any time by typing:
 \vspace{-1mm}\small\begin{verbatim}
 $ qstat -f
 \end{verbatim}\normalsize\vspace{-1mm}
@@ -815,13 +814,7 @@ $ qstat -f
 \vspace{1mm}
 After submitting an experiment, you receive a job number. This number appears in the first column in the queue status information when you issue a qstat –f command. You should see your job appear on one of a number of compute nodes, perhaps numbered 0-0 through 0-5), although it might briefly reside as a ‘\textsf{\footnotesize PENDING JOB}’. For each node, there are multiple processing cores (depending on the specific cluster and queue), meaning that multiple instances of \textbf{cookie} can run simultaneously on each node. For an 8-level ocean based configuration of \textbf{cookie}, being run for 100 years, the job should remain there in the queue for a few minutes before ‘disappearing’ (your clue that it has finished, or died\footnote{If your experiment appears on the queue but vanishes after a few seconds, it has most likely died :(} …). If you periodically re-issue a \texttt{qstat –f} command you can follow your job’s progress.
 
-A rough rule of thumb is that 8-level ocean \textbf{cookie} @ a horizontal grid resolution of 36x36 will simulate about 1000 years per CPU hour. The 16-level version (which you will use later), runs at about 300-400 years per CPU hour.
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-\noindent \textbf{NOTE}: It may be that the \textbf{FORTRAN} compiler is not accessible by the computer nodes. The implication of this is that \textit{the \textbf{cookie} executable must be already compiled BEFORE a job is submitted to the queue}. In other words; if you have just changed the model resolution or continental configuration, or number of tracers (i.e. changed the \textit{base-config}) or issued a \texttt{make cleanall} command you MUST briefly run your desired experiment (or equivalent) interactively (i.e., in the shell window) to ensure that everything is correctly compiled. For instance, either run the experiment for a couple of years or start the experiment for the desired full duration, but 'kill it' (\textsf{\small Ctrl-C}) once the experiment is running successfully.
+For assessing how long you might run submitted jobs for -- a rough rule of thumb is that 8-level ocean \textbf{cookie} @ a horizontal grid resolution of 36x36 will simulate about 1000 years per CPU hour. The 16-level version (which you will use later), runs at about 300-400 years per CPU hour.
 
 %------------------------------------------------
 \newpage
