@@ -590,19 +590,19 @@ and will be assigned a directory name something like:
 \vspace{-1mm}\small\begin{verbatim}
 LAB.0.3
 \end{verbatim}\normalsize\vspace{-1mm}
-(this being the results directory name for an experiment called \textsf{\footnotesize LAB.0.3}) and the actual results results live in a sub-directory of this -- \textsf{\footnotesize results}, hence:
+and the actual results results live in a sub-directory of this -- \textsf{\footnotesize results}, hence:
 
 \vspace{-1mm}\small\begin{verbatim}
 ~/cgenie_output/LAB.0.3/results
 \end{verbatim}\normalsize\vspace{-1mm}
 
-\noindent NOTE: If in an \textbf{sftp} client window you find that you cannot 'see' the \textsf{\footnotesize cgenie\_output} directory ... or cannot find any of the results sub-directories you are expecting, \uline{you will need to refresh the directory listing} (e.g. for \textbf{WinSCP}, there is a double green-arrow \textsf{\footnotesize Refresh} icon button near the top right of the window that you can click on). \textbf{sftp} client programs generally do not automatically refresh directory listing on the remote computer.
+\noindent NOTE: If in an \textbf{sftp} client window you find that you cannot 'see' the \textsf{\footnotesize cgenie\_output} directory ... or cannot find any of the results sub-directories you are expecting, \uline{you will need to refresh the directory listing} (e.g. for \textbf{WinSCP}, there is a double green-arrow \textsf{\footnotesize Refresh} icon button near the top right of the window that you can click on).
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
-\noindent \textbf{cGENIE.cookie} has a flexible and powerful facility of saving results by means of spatially explicit ‘time-slices’, and as a semi-continuous ‘time-series’ of a single global (or otherwise representative mean) variable, described as follows.
+\noindent \textbf{cGENIE.cookie} has a flexible and efficient facility of saving results by means of spatially explicit ‘\textit{time-slices}’, and as a semi-continuous ‘\textit{time-series}’ of single global (or mean) values.
 
 %------------------------------------------------
 
@@ -629,6 +629,9 @@ and which would get save points at:
 
 \noindent Otherwise, you can specify the name of a file containing times to save at, or simply only save just once at the very end of the experiment (see later).
 
+\vspace{1mm}
+Note that there is a limit to how frequently you can save \textit{time-slice} data (a limit on the maximum number of save points during the course of the experiment) and if you exceed this. You will also be notified in a message at the start of the experiment that this has occurred (and also directed how to increase the maximum number of save points if necessary).
+
 %------------------------------------------------
 \newpage
 %------------------------------------------------
@@ -644,6 +647,9 @@ bg_par_data_save_sig_timeinterval=1.0
 \end{verbatim}\normalsize\vspace{-1mm}
 
 \noindent Otherwise, you can specify the name of a file containing times to save at. (see later)
+
+\vspace{1mm}
+Note that there is a limit to how frequently you can save \textit{time-series} data (a limit on the maximum number of save points during the course of the experiment) and if you exceed this. You will also be notified in a message at the start of the experiment that this has occurred (and also directed how to increase the maximum number of save points if necessary).
 
 %------------------------------------------------
 
@@ -776,14 +782,14 @@ All the defaults can be changed via the ‘\textsf{\footnotesize Edit}’ drop-d
 
 \section{Submitting experiment ‘jobs’}
 
-Running jobs interactively is all very well, but there are three important limitations:
+There are three important limitations to running jobs in a shall window:
 \begin{enumerate}[noitemsep]
 \vspace{1mm}
-\item The connection between your terminal and the server computer running the model must remain unbroken. Anything more than a fleeting loss of internet connectively may result in the experiment terminating.
+\item The connection between your terminal and the server computer running the model must remain unbroken. Anything more than a fleeting loss of internet connectivity may result in the experiment terminating.
 \vspace{1mm}
 \item You can only run one experiment at a time … unless you want to have thousands of separate terminals open …? I thought not …
 \vspace{1mm}
-\item Any cluster that you have access to with be designed for submitting jobs, and not trying to run everything interactively.
+\item Any cluster that you have access to will very likely be designed for submitting jobs, and not running dozens of jobs in shall windows.
 \end{enumerate}
 
 %------------------------------------------------
@@ -792,14 +798,15 @@ Running jobs interactively is all very well, but there are three important limit
 
 \noindent The alternative is to submit your experiment as a ‘job’ to a queuing system which then manages what compute resources are used to run the model. Once you have submitted the experiment, that is it – you can go straight to the bar :)
 
-For example -- to run the same experiment as before (\textsf{\footnotesize LAB.0.3}) for maybe 100 years (or even longer if you wish – I am just pulling factors of 10 out of thin air here) but now submit the experiment as a job to the cluster queue, type (again: SINGLE, CONTINUOUS LINE):
+\vspace{1mm}
+For example -- to run the same experiment as before (\textsf{\footnotesize LAB.0.3}) for maybe 100 years (or even longer if you wish – I am just pulling factors of 10 out of thin air here) but now submit the experiment as a job to the cluster queue, type:
 \vspace{-1mm}
 \small\begin{verbatim}
 $ ./subcookie.sh cookie.C.p_worbe2.r LABS LAB.0.3 100
 \end{verbatim}\normalsize
 \vspace{-1mm}
 
-Literally, you are just changing \textsf{\footnotesize ./runcookie.sh} to \textsf{\footnotesize ./subcookie.sh} (which is much simpler than was the case for the \textbf{muffin} release of \textbf{cGENIE}). A listing of your running experiments on the cluster will then be automatically displayed after a whort pause.
+Literally, you are just changing \textsf{\footnotesize ./runcookie.sh} to \textsf{\footnotesize ./subcookie.sh} (which is much simpler than was the case for the \textbf{muffin} release of \textbf{cGENIE}). A listing of your running experiments on the cluster will then be automatically displayed after a short pause.
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
@@ -842,7 +849,7 @@ $ wget --no-check-certificate http://www.seao2.info/cgenie_output/
 \end{verbatim}\normalsize
 \vspace{-2mm}
 
-This downloads an archived/compressed copy of the \textit{re-start} from a location on the interweb. Extract the contents of this archive by typing:
+This downloads an archived/compressed copy of the \textit{re-start} from a location on the interweb. Extract the contents of this archive by typing (still in \textsf{\footnotesize cgenie\_output}):
 
 \vspace{-2mm}\small\begin{verbatim}
 $ tar xfzv cookie.C.p_worbe2.r.SPIN.tar.gz
@@ -858,7 +865,7 @@ Finally, change directory back to \textsf{\footnotesize cgenie.cookie} and then 
 \newpage
 %------------------------------------------------
 
-\noindent A \textit{re-start} can be requested for running on a new experiment from the end of a previous one, by providing a 5th (optional) parameter when entering in the \texttt{runcookie.sh} command. A spin-up of the modern World climate state is provided for you as a \textit{restart} -- 
+\noindent A \textit{re-start} can be requested for running on a new experiment from the end of a previous one, by providing a 5th (optional) parameter when entering in the \texttt{runcookie.sh} (or \texttt{subcookie.sh}) command. A spin-up of the modern World climate state is provided for you as a \textit{restart} -- 
 \textsf{\footnotesize cookie.C.p\_worbe2.r.SPIN} -- which you have just unpacked to the \textsf{\footnotesize cgenie\_output} results output directory.
 
 To test out the use this \textit{restart} -- create a new (\textit{user-config}) experiment configuration file in the directory: 
