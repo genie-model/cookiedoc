@@ -13,11 +13,11 @@
 \noindent Stuff to keep in mind:
 
 \begin{itemize}
-\item Nothing at all – keep your mind completely empty and let the wonderful truths of \textbf{muffin} permeate your entire being.
+\item Nothing at all – keep your mind completely empty and let the wonderful truths of \textbf{cookie} permeate your entire being.
 \end{itemize}
 
 \vspace{2mm}
-\noindent Background reading (Atlantic circulation and stability in \textbf{muffin}):
+\noindent Background reading (Atlantic circulation and stability in \textbf{cookie}):
 
 \vspace{2mm}
 \begin{itemize}
@@ -25,8 +25,6 @@
 \\\(\rightarrow\)Simple assessment of the likelihood of AMOC collapse.
 \item Marsh et al. [2004] (Climate Dynamics, 23 2004, Pages 761 – 777)
 \\\(\rightarrow\)Characterization of thresholds of AMOC collapse.
-\item Singaraye et al. [2008] (GRL 35, doi:10.1029/2008GL034074)
-\\\(\rightarrow\)Role of changing ocean circulation in atmospheric radiocarbon variability during the Younger Dryas.
 \end{itemize}
 
 \vspace{2mm}
@@ -82,6 +80,35 @@ You will then need to change directory back to \textsf{\footnotesize genie-main}
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
+\noindent To start off -- run a \textit{control} experiment using the \textit{re-start} experiment that you have just downloaded as the initial state of your experiment. A \textit{control} experiment is basically one in which you do not change any parameter settings and is used top quantify any residual drift (that you might otherwise interpret as the result of a parameter change in your actual experiment). The template \textit{user-config} file you are provided for, for this, is: \textsf{\footnotesize LABS.2.1} (and you could copy-rename this to e.g., \textsf{\footnotesize LABS.2.1.CTRL}).
+
+\vspace{1mm}
+Run the model for … whatever, 50 years will do for now:
+
+\vspace{-2mm}\small\begin{verbatim}
+$ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.1.CTRL 50 cookie.C.p_worjh2.r.SPIN
+\end{verbatim}\normalsize\vspace{-2mm}
+where \textsf{\footnotesize cookie.C.p\_worjh2.r.SPIN} is the \textit{re-start} experiment name that you just downloaded ... hopefully ...
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent Before moving on to visualizing ocean circulation, orientate yourself in this new World. Refer to Figure \ref{fig:ch3-ijgrid}) and (Figure \ref{fig:ch3-kgrid}). Also, in \textsf{\footnotesize fields\_ocean\_2d.nc } (the 2-D \textbf{netCDF} output), the following variables provide basic information about the model grid:
+
+\begin{itemize}[noitemsep]
+\vspace{1mm}
+\item \textsf{\footnotesize 2Dgrid\_A } -- the area of each model grid location.
+\\Note that the values are the same everywhere because the \textsf{\footnotesize p\_worjh2 } configuration employs an equal-area grid. This array is mostly just a convenience in calculating inventories and total fluxes from densities (and \textit{vice versa}).
+\vspace{1mm}
+\item \textsf{\footnotesize 2Dgrid\_level } -- the model grid definition, as per Figure \ref{fig:ch3-ijgrid}).
+\vspace{1mm}
+\item \textsf{\footnotesize 2Dgrid\_mask\_landsea } -- the land-sea mask, where ocean cells are assigned a value of \textsf{\footnotesize 1.0}. Land is \textsf{\footnotesize NaN}.
+\\This can be useful in masking ocean-only values in processing output fields.
+\vspace{1mm}
+\item \textsf{\footnotesize 2Dgrid\_topo} -- the seafloor depth (m) at every location (land is \textsf{\footnotesize NaN}).
+\end{itemize}
+
 %------------------------------------------------
 \newpage
 %------------------------------------------------
@@ -116,7 +143,7 @@ Visualizing the 3D flow (/transport) of the ocean, much less the rate at which t
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
-\noindent You can deduce something about ocean circulation from the 3D patterns of salinty (variable: \textsf{\footnotesize ocn\_sal}), temperature (variable: \textsf{\footnotesize ocn\_temp}), and/or density (variable: \textsf{\footnotesize climate\_rho}). For example, from \textsf{\footnotesize fields\_ocean\_3d.nc} -- plotting a latitude-depth section through the Atlantic along latitude -25$^{\circ}$E (remember that \textbf{Panoply} plots a global zonal mean by default). If you plot both salinity and temperature you can try and identify the dominant regimes of NADW (warm, salty) vs. AABW (cold, fresh).
+\noindent Firstly, you can deduce something about ocean circulation from the 3D patterns of salinity (variable: \textsf{\footnotesize ocn\_sal}), temperature (variable: \textsf{\footnotesize ocn\_temp}), and/or density (variable: \textsf{\footnotesize climate\_rho}). For example, opening \textsf{\footnotesize fields\_ocean\_3d.nc} -- you can plot a latitude-depth section through the Atlantic along latitude -25$^{\circ}$E (remember that \textbf{Panoply} plots a global zonal mean by default). If you plot both salinity and temperature you can try and identify the dominant regimes of NADW (warm, salty) vs. AABW (cold, fresh).
 
 You can also contrast the model with observations. Download the following 2 \textbf{netCDF} files -- they are of climatological ocean temperature and salinity (World Ocean Atlas), re-gridded to the \textbf{cookie} ocean grid and can be visualized in the exact same way as \textbf{cookie} output.
 
@@ -131,21 +158,22 @@ Because model and observations share the same grid, you can make direct comparis
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
-\noindent The second approach is to simply visualize the raw velocity fields, but plotted as ocean currents.\vspace{1mm}
+\noindent The second approach is to simply visualize the raw velocity fields, but plotted as ocean currents. In the 3D \textbf{netCDF} file, the three components of ocean velocity are represented by the variables \textsf{\footnotesize climate\_* }: ocean velocity – \textit{u} (Eastwards), ocean velocity – \textit{v} (Northwards), and ocean velocity – \textit{w} (upwards).
+
+\vspace{1mm}
 \begin{enumerate}[noitemsep]
 \vspace{1mm}
-\item  In the 3D \textbf{netCDF} file, the three components of ocean velocity are represented by the variables: ocean velocity – u (Eastwards), ocean velocity – v (Northwards), and ocean velocity – w (upwards). 2. Open up velocity – u. Chose ‘lon-lat’.
+\item  Open up velocity – \textit{u}. Chose ‘lon-lat’.
 \vspace{1mm}
-\item Select/highlight velocity – v. and click on the ‘Combine Plot’ icon (as per before).
+\item Select/highlight velocity – \textit{v}. and click on the \textsf{\footnotesize ‘Combine Plot’ } icon (as per before).
 \vspace{1mm}
-\item Rather than a difference map, which is what you get by default, i.e., ‘Array 1 – Array 2’ – from the drop-down menu (next to the ‘Interpolate’ button) select ‘Vector Magnitude’.
+\item Rather than a difference map, which is what you get by default, i.e., \textsf{\footnotesize ‘Array 1 – Array 2’} – from the drop-down menu (next to the \textsf{\footnotesize ‘Interpolate’ } button) select \textsf{\footnotesize ‘Vector Magnitude’}.
 \vspace{1mm}
 \item You should have a color contoured (or not if you prefer plotting without contouring on) map of ocean current speed, with velocity vectors (direction and magnitude) overlain. You’ll need to re-scale the velocity vectors to properly see them – from the \textsf{\footnotesize Contours and Vectors} tab – change the \textsf{\footnotesize Scale Length} to e.g., $0.15$ (for typical surface velocities). You can also increase the density of vectors by decreasing \textsf{\footnotesize Spacing} to $50\%$.
-\\When fresh-water hosing – look out for impacts on the N. Atlantic current system associated with the AMOC.
+\\When you conduct the fresh-water hosing experiments later -– look out for impacts on the N. Atlantic current system associated with the AMOC.
 \vspace{1mm}
 \item You can repeat this for deeper depth levels in the ocean – e.g., $2000-3000 m$ is a good place to go looking for the Deep Western Boundary Current (and AMOC return) in the model (such as it exists at this low resolution), but you’ll need to re-scale the velocity vectors again (e.g., to $0.1$ to less).
 \end{enumerate}
-\vspace{1mm}
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
@@ -179,7 +207,7 @@ Because model and observations share the same grid, you can make direct comparis
 \newpage
 %------------------------------------------------
 
-\noindent The third approach is to visualize the large-scale ocean transport in terms of the meridional overturning circulation ('stream-function') (e.g. see background literature). Two example plots (using \textbf{Panoply}) are shown in Figure \ref{fig:ch3-amoc1} for the Atlantic basin, and Figure \ref{fig:ch3-amoc2} for the Pacific. In the In the 2D \textbf{netCDF} file, relevant fields (\textbf{netCDF} variables)\footnote{Note that these fields are only meaningful for the modern arrangement of the continents and a continuous separation of the Atlantic from the Pacific from high northern latitudes down to the tip of South America. Different (e.g. paleo) arrangements of the continents may not have recognizable (or definable) Atlantic and/or Pacific basins and it may only be possible to define and visualize the global meridional overturning circulation -- variable: \textsf{\footnotesize phys\_opsi}.} are:
+\noindent The third approach is to visualize the large-scale ocean transport in terms of the meridional overturning circulation ('stream-function') (e.g. see background literature). Two example plots (using \textbf{Panoply}) are shown in Figure \ref{fig:ch2-amoc} for the Atlantic basin, and Figure \ref{fig:ch2-pmoc} for the Pacific. In the In the 2D \textbf{netCDF} file, relevant fields (\textbf{netCDF} variables)\footnote{Note that these fields are only meaningful for the modern arrangement of the continents and a continuous separation of the Atlantic from the Pacific from high northern latitudes down to the tip of South America. Different (e.g. paleo) arrangements of the continents may not have recognizable (or definable) Atlantic and/or Pacific basins and it may only be possible to define and visualize the global meridional overturning circulation -- variable: \textsf{\footnotesize phys\_opsi}.} are:
 
 \vspace{1mm}
 \begin{itemize}[noitemsep]
@@ -190,36 +218,18 @@ Because model and observations share the same grid, you can make direct comparis
 \end{itemize}
 
 \begin{figure}[H]
-\includegraphics[width=0.6\textwidth]{ch3-amoc1.png}\centering
+\includegraphics[width=0.6\textwidth]{ch2-amoc.png}\centering
 \vspace{-2mm}
 \caption{Example plot of (normal/default modern) overturning stream-function (2D \textbf{netCDF} file). (e.g., for Atlantic: \textbf{netCDF} parameter name: \texttt{phys\_opsia}, long-name: Atlantic stream-function). Note that auto-scaling has been turned off and the min and max plotting limits set manually. By convention, stream-functions are plotted with their scale symmetrical around zero, giving red and ‘warm’ colors for positive value and clockwise overturning, and blues and ‘cold’ colors for negative values and anti-clockwise overturning.}
-\label{fig:ch3-amoc1}
+\label{fig:ch2-amoc}
 \end{figure}
 
 \begin{figure}[H]
-\includegraphics[width=0.6\textwidth]{ch3-amoc2.png}\centering
+\includegraphics[width=0.6\textwidth]{ch2-pmoc.png}\centering
 \vspace{-2mm}
 \caption{Pacific meridional overturning circulation (PMOC).}
-\label{fig:ch3-amoc2}
+\label{fig:ch2-pmoc}
 \end{figure}
-
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-\noindent To start off -- run a \textit{control} experiment using the \textit{re-start} experiment that you have just downloaded as the initial state of your experiment. A \textit{control} experiment is basically one in which you do not change any parameter settings and is used top quantify any residual drift (that you might otherwise interpret as the result of a parameter change in your actual experiment). The template \textit{user-config} file you are provided for, for this, is: \textsf{\footnotesize LABS.2.1}
-
-\vspace{1mm}
-Run the model for … whatever, 50 years will do for now:
-
-\vspace{-2mm}\small\begin{verbatim}
-$ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.1 50 cookie.C.p_worjh2.r.SPIN
-\end{verbatim}\normalsize\vspace{-2mm}
-where \textsf{\footnotesize cookie.C.p\_worjh2.r.SPIN} is the \textit{re-start} experiment name.
-
-%------------------------------------------------
-\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
-%------------------------------------------------
 
 %------------------------------------------------
 \newpage
@@ -232,18 +242,25 @@ Another way to quantify global ocean circulation is through considering the conn
 \textbf{cookie} has the capability to employ/simulate a ventilation age tracer\footnote{Under the '\textit{screw with and/or diagnose the climate system}' HOW-DO -- see '\textit{Add a water mass age tracer}' (and the 'easy'/automatic method described towards the end of that section).} -- a numerical tracer carried in the ocean circulation model that tracks the time since a parcel of water last 'saw' the surface. The older the 'age' of the parcel of water, the longer the time since it last saw the surface. (Basically, we let the model automatically restore the tracer value at the surface to zero and everywhere else (in the ocean interior) increase the age each time-step (by the duration of the time-step) such that a parcel of water away from the surface ages by 1 year, each year.)
 
 \vspace{1mm}
-
-In the 3D netCDF output file -- \textsf{\footnotesize climate\_age} is the output variable that is the calculated ventilation age.
-
-In the time-series -- the mean deep ocean (>2000 m) water-mass age is file:
-\vspace{1mm}
+In the 3-D \textbf{netCDF} output file (\textsf{\footnotesize fields\_ocean\_2d.nc}) -- \textsf{\footnotesize climate\_age} is the output variable that is the calculated ventilation age, e.g., as in Figure \ref{fig:ch2-age_2750m}. In the time-series -- the mean deep ocean (>2000 m) water-mass age is file:
 \\\textsf{\footnotesize timeseries\_climate\_ventilation\_age.txt}.
+
+\vspace{1mm}
+As an alternative to slicing in the ocean in horizontal (e.g., Figure \ref{fig:ch2-age_2750m}) or vertical (as you did for T and S in the Atlantic) sections, also provided is the benthic distribution of age in \textsf{\footnotesize fields\_ocean\_2d.nc} -- this is the ventilation age of the water overlying the seafloor everywhere (which you can think of a draped surface of seawater properties above the seafloor).
+
+\begin{figure}[H]
+\includegraphics[width=0.6\textwidth]{ch2-age_2750m.png}\centering
+\vspace{-0mm}
+\caption{Example plot of deep ($2750 m$) ocean ventilation age.}
+\label{fig:ch2-age_2750m}
+\end{figure}
+\vspace{-2mm}
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
-\noindent Explore the distribution of water mass age and think about the physical ocean circulations reasons for this. Are all the modeled distributions reasonable? Are there indicators of facets of the simulated circulation that are not particularly realistic? Try plotting both lon-lat and lat-depth slices through the ocean. How does the distribution of water mass age relate to the overturning stream-function for Atlantic or Pacific basins?
+\noindent Explore the distribution of water mass age and think about the physical ocean circulations reasons for this. Are all the modeled distributions reasonable? Are there indicators of facets of the simulated circulation that are not particularly realistic? Try plotting both lon-lat and lat-depth slices through the ocean (+ benthic surface). How does the distribution of water mass age relate to the overturning stream-function for Atlantic or Pacific basins?
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
@@ -273,7 +290,7 @@ bg_par_ocn_force_scale_val_2=0.0
 \noindent which by default is zero (i.e., no flux forcing).
 
 \vspace{1mm}
-To orientate you in freshwater forcing space: \texttt{\small bg\_par\_ocn\_force\_scale\_val\_2=-1.0} ($1Sv$ = $10^{6} m^{3} s^{-1}$) should be sufficient to make ‘stuff happen’ and quickly. BUT, this is a pretty extreme flux (contrast with the average Amazon freshwater transport to the Atlantic of $0.22-0.25Sv$). Much more than this and the model may crash or at the very least, you might be left with a large freshwater pond in the North Atlantic. Don't forget the minus sign if you want a net freshwater flux to the N Atlantic rather than a salinity one ...
+To orientate you in freshwater forcing space and what sort of value to try out: \\\texttt{\small bg\_par\_ocn\_force\_scale\_val\_2=-1.0} ($1Sv$ = $10^{6} m^{3} s^{-1}$) should be sufficient to make ‘stuff happen’ and quickly. BUT, this is a pretty extreme flux (contrast with the average Amazon freshwater transport to the Atlantic of $0.22-0.25Sv$). Much more than this and the model may crash or at the very least, you might be left with a large freshwater pond in the North Atlantic. Don't forget that if you want a net freshwater flux to the N Atlantic (and weaken the AMOC) rather than a net salinity increase (and a stronger AMOC?), you need to add a minus sign.
 
 \vspace{1mm}
 To run the model for 50 years using the same \textit{re-start} as previously:
@@ -282,17 +299,18 @@ To run the model for 50 years using the same \textit{re-start} as previously:
 $ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.4 50 cookie.C.p_worjh2.r.SPIN
 \end{verbatim}\normalsize\vspace{-2mm}
 
-\noindent 50 years should be more than long enough to see a collapse to occur, but running for longer than this will allow you to have a smaller, less extreme (and maybe more realistic) freshwater input flux and still see an impact occur.
+\noindent 50 years should be more than long enough to see a collapse to occur, but running for longer will allow you to have a smaller, less extreme (more realistic?) freshwater input flux and still see an impact.
 
-Make sure that you run a \uline{control} experiment -- an experiment of the same duration of your hosing experiments, but with a zero freshwater flux. The impact of freshwater input, is the difference, at the same model year, between the perturbation experiment and the control. (You only ever need need to run one control, regardless of how many different freshwater flux perturbation experiments  you run.) Remember that you can make use of cluster queuing possibilities and run multiple experiments at once in the background.
+Make sure that you run a \uline{control} experiment -- an experiment of the same duration of your hosing experiments, but with a zero freshwater flux. The impact of freshwater input, is the difference, at the same model year, between the perturbation experiment and the control. (You only ever need need to run one control, regardless of how many different freshwater flux perturbation experiments  you run.) And remember that you can make use of cluster queuing possibilities and run multiple experiments at once in the background.
 
-Note that as provided, \textsf{\footnotesize LAB.2.4} is set up to save \textbf{netCDF} \textit{time-slices} every 10 years -- the parameter setting:
+\vspace{1mm}
+\noindent \textbf{Note} that as provided, \textsf{\footnotesize LAB.2.4} is set up to save \textbf{netCDF} \textit{time-slices} every 10 years -- the setting:
 
 \vspace{-2mm}\small\begin{verbatim}
 bg_par_data_save_slice_timeinterval=10.0
 \end{verbatim}\normalsize\vspace{-2mm}
 
-Change this to have fewer or more \textit{time-slices} saved (setting to zero will result in a \textit{time-slice} saved only in the very last year of the experiment, regardless of how long it is run)
+You can change this to have fewer or more \textit{time-slices} saved (setting to zero will result in a \textit{time-slice} saved only in the very last year of the experiment, regardless of how long it is run)
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
@@ -312,25 +330,25 @@ You might plot current velocity fields and visualize how these change in respons
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
-\noindent To more easily assess some of these impacts (and for other sorts of analysis) it is possible to create an \uline{anomaly (difference) map} in \textbf{Panoply}:
+\noindent \uline{Anomaly Plotting}. To more easily assess some of these impacts (and for other sorts of analysis) it is possible to create an anomaly (difference) map in \textbf{Panoply}:
 
 \vspace{1mm}
 \begin{enumerate}[noitemsep]
 \vspace{1mm}
 \item  First open a dataset, e.g., \textsf{\footnotesize climate\_SAT} (surface air temperature) in the 2D \textbf{netCDF} file. Double-click the variable name, or, with the variable name highlighted, click the ‘Create Plot’ icon.
 \vspace{-3mm}
-\item Now, with the \textsf{\footnotesize climate\_SAT} still selected (and the first plot window still open), click on the ‘Combine Plot’ icon. A dialogue box will appear and ask you to select a plot to combine the new one with. Make sure the name of your first plot window is selected/highlighted. Click ‘Combine’. OR, simply drag a second dataset into the plot window of the first dataset.
+\item Now, with the \textsf{\footnotesize climate\_SAT} still selected (and the first plot window still open), click on the \textsf{\footnotesize ‘Combine Plot’} icon. A dialogue box will appear and ask you to select a plot to combine the new one with. Make sure the name of your first plot window is selected/highlighted. Click \textsf{\footnotesize ‘Combine’}. OR, simply drag a second data-set into the plot window of the first data-set.
 \vspace{1mm}
 \item You now have a plot window that by default it is showing you the difference between two identical (in time) slices. The two slices are labeled Array 1 (LH side) and Array 2 (RH side).
 \end{enumerate}
 \vspace{1mm}
 
-Keep one array (Array 1) fixed to the initial (year 10 (centered on 9.5)) and vary the year in the second array (Array 2). Note that you can select in Panoply whether Array 1 – Array 2 is plotted, or Array 2 – Array 1, or various proportional or relative differences.
+Keep one array (Array 1) fixed to the initial (year 10 (centered on 9.5)) and vary the year in the second array (Array 2). Note that you can select in \textbf{Panoply} whether \textsf{\footnotesize Array 1 – Array 2} is plotted, or \textsf{\footnotesize Array 2 – Array 1}, or various proportional or relative differences.
 
 Note that you can switch off the auto-scaling feature (Always fit to data) and center the scale so that no change is white, with positive deviations = red and negative = blue by clicking on Center on 0 (an often used convention in climate field plotting).
 
 \vspace{1mm}
-This is a pretty crude way of visualizing changes in an experiment because in your case, year 10 already encapsulates a significant climate perturbation from the freshwater hosing. \textbf{Best practice is to open your experiment netCDF \uline{and} your control experiment, and difference the same year of experiment minus control.}
+This is a pretty crude way of visualizing changes in an experiment because in your case, year 10 already encapsulates a significant climate perturbation from the freshwater hosing. \uline{Best practice is to open your experiment \textbf{netCDF} AND your control experiment, and difference the same year of experiment minus control.}
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
@@ -350,10 +368,12 @@ You will need to submit multiple experiment jobs to the cluster queue, with each
 
 \section{Poking the climate beast (2)}
 
-A current concern regarding anthropogenic climate change is the ocean circulation (and marine ecological and biogeochemical) response to a strong warming of the surface, as rapid surface warming is assumed (and demonstrated in models) to result in surface stratification of the ocean, likely restricting the nutrient supply to phytoplankton and reducing ventilation of the ocean interior with dissolved oxygen.
+A current concern regarding anthropogenic climate change is the ocean circulation (and marine ecological and biogeochemical) response to a strong warming of the surface which will likely drive stratification of the upper ocean, restricting the nutrient supply to phytoplankton and reducing ventilation of the ocean interior with dissolved oxygen.
 
+\vspace{1mm}
 You can explore the transient response of ocean circulation to warming by simply adjusting the radiative forcing parameter as per used in the snowball Earth experiments: \texttt{ea\_radfor\_scl\_co2}. By default in the modern continental configuration, this has a value of 1.0, corresponding to 278 ppm atmospheric \(CO_{2}\). A value of 2.0 would reflect warming equivalent to 556 ppm \(CO_{2}\). And 3.0 would be more like an end-of-the-century warming. Note that you are applying the warming instantaneously by manipulating the climate system in this way and hence the changes will be more extreme than those occurring over the time-scale of this century. Also note that a cooling (a radiative scaling smaller than $1.0$) could be applied instead.
 
+\vspace{1mm}
 The same parameter as before appears at the start of the \textit{user-config} provided for this Section (\textsf{\footnotesize LAB.2.5}) for you to make this radiative forcing adjustment:
 
 \vspace{-2mm}\footnotesize\begin{verbatim}
@@ -374,10 +394,6 @@ You are running your new experiment from the same \textit{re-start} state as bef
 $ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.5 50 cookie.C.p_worjh2.r.SPIN
 \end{verbatim}\normalsize\vspace{-2mm}
 
-Potentially interesting properties of the Earth system to look at include sea-ice extent and AMOC strength (in the ASCII \textit{time-series} file), and the overturning stream-function (2D with \textbf{netCDF} variable \textsf{\footnotesize climate\_opsia}) and sea-ice extent in the 2-D \textbf{netCDF} output. With the age tracer included you can also make projections of how patterns of ventilation age change with transient warming.
-
-Finally -- is the spatial pattern of warming even? You will need to create a difference map of surface temperature -- variable \textsf{\footnotesize climate\_SAT} in \textsf{\footnotesize fields\_ocean\_2d.nc} -- to be able to see this well.
-
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
@@ -385,6 +401,11 @@ Finally -- is the spatial pattern of warming even? You will need to create a dif
 \noindent Try and answer the question: \textbf{How much radiative forcing is required to collapse the AMOC?} (and how much atmospheric \(CO_{2}\) does this approximately correspond to?) How non-linear is the response of overturning to fresh water flux?
 
 You will need to submit multiple experiment jobs to the cluster queue, with each experiment differing in the assumed radiative forcing parameter value. Plot the strength of the AMOC that is reached at the end of each experiment (from the time-series file: \textsf{\footnotesize timeseries\_climate\_opsi.txt}) vs. radiative forcing.
+
+\vspace{1mm}
+Potentially interesting properties of the Earth system to look at include sea-ice extent and AMOC strength (in the ASCII \textit{time-series} file), and the overturning stream-function (2D with \textbf{netCDF} variable \textsf{\footnotesize climate\_opsia}) and sea-ice extent in the 2-D \textbf{netCDF} output. With the age tracer included you can also make projections of how patterns of ventilation age change with transient warming.
+
+Finally -- is the spatial pattern of warming even? You will need to create a difference map of surface temperature -- variable \textsf{\footnotesize climate\_SAT} in \textsf{\footnotesize fields\_ocean\_2d.nc} -- to be able to see this well.
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
@@ -404,7 +425,8 @@ In this section we will explore some of the controls, and ways to further visual
 
 In the first of a series of Mediterranean-focused exercises, you will visualize the simulated circulation between the Mediterranean Sea and Atlantic, and explore the impact of changing the water balance in the Mediterranean Sea (by means of an applied salinity forcing), not only on Mediterranean salinity, but on the AMOC (and even global climate). 
 
-The experiment configuration (\textit{user-config}) -- \textsf{\footnotesize LAB.2.6.1} -- in the \textsf{\footnotesize genie-userconfigs/LABS} directory is almost identical to all the other ones in this Chapter, except that it prescribes a net salt transport into the Eastern Mediterranean (the South-Eastern-most 5 Mediterranean cells in the model grid -- see Figure 2.1) with a balancing freshwater flux distributed across the remainder of the global ocean surface (so that globally, salinity is neither lost not gained, just re-distributed). This is implemented by the \textit{forcing}:
+\vspace{1mm}
+The experiment configuration (\textit{user-config}) -- \textsf{\footnotesize LAB.2.6.1} -- in the \textsf{\footnotesize genie-userconfigs/LABS} directory is almost identical to all the other ones in this Chapter, except that it prescribes a net salt transport into the Eastern Mediterranean (the South-Eastern-most 5 Mediterranean cells in the model grid -- see Figure 2.1) with a balancing freshwater flux distributed across the remainder of the global ocean surface (so that globally, salinity is neither lost not gained, just re-distributed across the ocean surface). This is implemented by the \textit{forcing}:
 
 \vspace{-2mm}\small\begin{verbatim}
 bg_par_forcing_name="p_worxx2.Fsal_SUR_EMed"
@@ -422,16 +444,13 @@ bg_par_ocn_force_scale_val_2=0.0
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
-\noindent To start with -- run a \uline{control} experiment with no salinity forcing (\texttt{\small bg\_par\_ocn\_force\_scale\_val\_2=0.0}) so that you create a record of the background (un-adjusted) state of ocean circulation. Copy-rename \textit{user-config} file \textsf{\footnotesize LAB.2.6.1}, ideally choosing a filename that helps you remember what the experiment was (e.g., \textsf{\footnotesize LAB.2.6.1.control}, and try running this for e.g., 50 years to start with, following on from the \textit{restart} experiment you downloaded (\textsf{\footnotesize cookie.C.p\_worjh2.r.SPIN}), i.e.,
+\noindent To start -- run a \uline{control} experiment with no salinity forcing (\texttt{\small bg\_par\_ocn\_force\_scale\_val\_2=0.0}) so that you create a record of the background (un-adjusted) state of ocean circulation. Copy-rename \textit{user-config} file \textsf{\footnotesize LAB.2.6.1}, ideally choosing a filename that helps you remember what the experiment was (e.g., \textsf{\footnotesize LAB.2.6.1.CTRL}, and try running this for e.g., 50 years to start with, following on from the \textit{restart} experiment you downloaded (\textsf{\footnotesize cookie.C.p\_worjh2.r.SPIN}), i.e.,
 
 \vspace{-2mm}\small\begin{verbatim}
-$ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.6.1.control 50
-    cookie.C.p_worjh2.r.SPIN
+$ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.6.1.CTRL 50 cookie.C.p_worjh2.r.SPIN
 \end{verbatim}\normalsize\vspace{-2mm}
-(all one line)
 
-\vspace{1mm}
-\noindent \textbf{What to look for?} Start by viewing time-series of the maximum positive strength of Atlantic Meridional Overturning Circulation (AMOC), global mean annual surface sea and/or air temperature (and perhaps \% sea-ice cover). These are the files\footnote{In your experiment \textsf{\footnotesize results} directory.}, respectively:
+\noindent \textbf{What to look for?} Start by viewing \textit{time-series} of the maximum positive strength of Atlantic Meridional Overturning Circulation (AMOC), global mean annual surface sea and/or air temperature (and perhaps \% sea-ice cover). These are the files\footnote{In your experiment \textsf{\footnotesize results} directory.}, respectively:
 
 \vspace{1mm}
 \begin{itemize}[noitemsep]
@@ -454,9 +473,9 @@ Confirm that as the experiment runs, none of the displayed global climate state 
 \begin{enumerate}[noitemsep]
 \setlength{\itemindent}{.0in}
 \vspace{1mm}
-\item The ocean surface current velocity field -- refer to Figure along with the associated text.
+\item The ocean surface current velocity field -- refer to Figure \ref{fig:ch2-currents_0050m} along with the associated text.
 \vspace{1mm}
-\item The stream-function of the AMOC -- refer to Figure \ref{fig:ch3-amoc1} along with the associated text.
+\item The stream-function of the AMOC -- refer to Figure \ref{fig:ch2-amoc} along with the associated text.
 \vspace{1mm}
 \item The distribution of ocean surface SST - a lon-lat plot of the ocean surface layer in the model from: \textsf{\footnotesize fields\_ocean\_3d.nc} (or from: \textsf{\footnotesize fields\_ocean\_2d.nc}).
 \vspace{1mm}
