@@ -421,9 +421,11 @@ Finally -- is the spatial pattern of warming even? You will need to create a dif
 
 In this section we will explore some of the controls, and ways to further visualize, seawater exchange between the Atlantic Ocean and Mediterranean Sea.
 
-\subsection{Poking the Mediterranean}
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
 
-In the first of a series of Mediterranean-focused exercises, you will visualize the simulated circulation between the Mediterranean Sea and Atlantic, and explore the impact of changing the water balance in the Mediterranean Sea (by means of an applied salinity forcing), not only on Mediterranean salinity, but on the AMOC (and even global climate). 
+\noindent  In the first of a series of Mediterranean-focused exercises, you will visualize the simulated circulation between the Mediterranean Sea and Atlantic, and explore the impact of changing the water balance in the Mediterranean Sea (by means of an applied salinity forcing), not only on Mediterranean salinity, but on the AMOC (and even global climate). 
 
 \vspace{1mm}
 The experiment configuration (\textit{user-config}) -- \textsf{\footnotesize LAB.2.6.1} -- in the \textsf{\footnotesize genie-userconfigs/LABS} directory is almost identical to all the other ones in this Chapter, except that it prescribes a net salt transport into the Eastern Mediterranean (the South-Eastern-most 5 Mediterranean cells in the model grid -- see Figure 2.1) with a balancing freshwater flux distributed across the remainder of the global ocean surface (so that globally, salinity is neither lost not gained, just re-distributed across the ocean surface). This is implemented by the \textit{forcing}:
@@ -519,7 +521,9 @@ $ http://www.seao2.info/data/worjh2.salinity.260123.nc
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
-\noindent Now you are ready to perturb the system in a new experiment, and hence, copy-paste-rename the \textit{user-config} once more (here, for example: \textsf{\footnotesize LAB.2.6.1.1p0Sv} so as to indicate that the flux in the experiment will be $1.0$). Again, try and pick a filename that will help you later on to remember which experiment was what and not to mix up experiments and come to weird incorrect conclusions :o) For example, to prescribe a $1.0 Sv$ salinity anomaly in the Eastern Mediterranean:
+\subsection{Poking the Mediterranean}
+
+Now you are ready to perturb the system in a new experiment, and hence, copy-paste-rename the \textit{user-config} once more (here, for example: \textsf{\footnotesize LAB.2.6.1.1p0Sv} so as to indicate that the flux in the experiment will be $1.0$). Again, try and pick a filename that will help you later on to remember which experiment was what and not to mix up experiments and come to weird incorrect conclusions :o) For example, to prescribe a $1.0 Sv$ salinity anomaly in the Eastern Mediterranean:
 
 \vspace{-2mm}\small\begin{verbatim}
 # scale the salinity forcing in units of Sv
@@ -531,8 +535,7 @@ and make sure that the duration (time scaling) is at least as long as your exper
 # scale the duration of the forcing (years)
 bg_par_ocn_force_scale_time_2=50.0
 \end{verbatim}\normalsize\vspace{-2mm}
-
-Then running it:
+and then to run it:
 
 \vspace{-2mm}\small\begin{verbatim}
 $ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.6.1.1p0Sv 50
@@ -540,11 +543,14 @@ $ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.6.1.1p0Sv 50
 \end{verbatim}\normalsize\vspace{-2mm}
 (all one line)
 
+\vspace{1mm}
 You should see a rich (complicated!) response of the model with time as it adjusts to adding salt to the Eastern Mediterranean (although we could equally apply it in a different pattern). Initially, the AMOC weakens because you are taking salt away from everywhere including the N. Atlantic and redistributing it to the Mediterranean. But by year ca. 15, something 'interesting' starts to happen ... 
 
 \vspace{1mm}
 \noindent \textbf{Q.} Why does the model do what it does? You will need to repeat some or all of the plotting analyses you have carried out previously (and view the key \textit{time-series} output as well).
-\\\noindent \textbf{Q.} Do you see evidence for an impact on global climate ... \textbf{why}??? How can this possibly happen just from redistributing salinity?
+
+\vspace{1mm}
+\noindent \textbf{Q.} Do you see evidence for an impact on global climate ... \textbf{why}??? How can this possibly happen just from redistributing salinity?
 
 \vspace{1mm}
 \noindent Lastly -- try running the model for longer, e.g., for $100$ years, but leaving the parameter setting \texttt{\small bg\_par\_ocn\_force\_scale\_time\_2=50.0}, so that you have salinity forcing applied for $50$ years, and then no forcing for a further $50$.
@@ -633,9 +639,7 @@ with the Mediterranean just above the middle of this section of model grid. Zoom
    3   2  12  10   8   8  11  94
    1   3  93  93  12  11  94  94
 \end{verbatim}\normalsize\vspace{-2mm}
-a total of 9(!) grid points including the gateway.
-
-Here, the depth of the ocean at any location is indicated by its ‘k’ value – a number between $1$ and $16$, with $16$ being the surface layer of the ocean, and $1$ the maximum possible depth anywhere. How the ‘k’ values translate into ocean depth is given in Figure \ref{fig:ch3-kgrid}.
+a total of 9(!) grid points including the gateway (the $12$ sandwiched above and below by a $93$.\footnote{The depth of the ocean at any location is indicated by its ‘k’ value – a number between $1$ and $16$, with $16$ being the surface layer of the ocean, and $1$ the maximum possible depth anywhere. How the ‘k’ values translate into ocean depth is given in Figure \ref{fig:ch3-kgrid}.} 
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
@@ -657,9 +661,13 @@ In the default configuration of \textbf{cookie}, the sill is defined as being at
 go_topo='saltages'
 \end{verbatim}\normalsize\vspace{-2mm}
 
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
 The parameter: \texttt{\small go\_topo} points to a file in directory \textsf{\footnotesize genie-paleo/p\_worjh2} called \textsf{\footnotesize saltages.k1} (the parameter value string omits the \texttt{\small .k1} bit). If you go find this and open it up in a text editor, you will find an array of integers looking like Figure \ref{fig:ch3-ijgrid}. You can change the sill depth number ... save the file (\uline{do not} rename it in this case), and then run the experiment! Because the grid point immediately to the East of the gateway ($12$) has a value of $10$, it make no sense to try values lower than $10$. The largest value you can use is $16$. So, \uline{pick an integer value between $10$ and $16$ inclusive} (remembering that $12$ is the default (== unchanged)).
 
-In this example, there is no \textit{re-start} to start your experiment from, so you will need to run it for much longer -- $2000$ years is probably the minimum useful integration time. Your experiment run command will then look like:
+In this example, there is no \textit{re-start} to start your experiment from, so you will need to run it for much longer -- $2,000$ years is probably the minimum useful integration time. Your experiment run command will then look like:
 
 \vspace{-2mm}\small\begin{verbatim}
 $ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.6.3 2000
@@ -669,7 +677,7 @@ $ ./runcookie.sh cookie.C.p_worjh2.r LABS LAB.2.6.3 2000
 \noindent \uline{Run long experiments by submitting them to the cluster queue}.
 
 \vspace{1mm}
-\noindent Lastly, you will need a control experiment because you are 'only' running for $2,000$ years and hence your end state will not be exactly like provided re-start experiments which have been run for $10,000$ years. To create one: copy-rename-edit \textsf{\footnotesize LAB.2.6.3} to e.g., \textsf{\footnotesize LAB.2.6.3.control} and then comment out the line that specifies a different '.k1' file:
+\noindent Lastly, you will need a control experiment because you are 'only' running for $2,000$ years and hence your end state will not be exactly like provided \textit{re-start} experiments which have been run for $10,000$ years. To create one: copy-rename-edit \textsf{\footnotesize LAB.2.6.3} to e.g., \textsf{\footnotesize LAB.2.6.3.control} and then comment out the line that specifies a different '.k1' file:
 
 \vspace{-2mm}\small\begin{verbatim}
 #go_topo='saltages'
@@ -697,6 +705,7 @@ Because the Mediterranean Sea in the model is 3-dimensional (rather than e.g., a
 \vspace{1mm}
 \item If we were simulating the carbon cycle, then carbonate saturation or pH might be useful indicators of Mediterranean Sea changes.
 \end{enumerate}
+
 (Try and think of some other measures that you could use to quantify the impact of changing sill depth and gateway connectivity.)
 
 %------------------------------------------------
@@ -726,82 +735,86 @@ bg_par_ocn_force_scale_time_2=0.0
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
 \subsection{Dye-tracing Mediterranean outflow}
 
 The ocean biogeochemistry module (\textbf{BIOGEM}) in \textbf{cookie} provides a framework for applying time- and spatially-variable ‘forcings’ of the Earth system\footnote{Refer to the '\textit{force the system}' \textsf{HOW-TO} in the cookie manual for further details on \textit{forcings}.} – fluxes or 'restored-to' boundary conditions that can be prescribed for any gas, dissolved substance (including temperature and salinity), or particulate matter. Examples include freshwater input (== a negative salinity flux forcing) of the North Atlantic to alter ocean circulation, fossil fuel \(CO_{2}\) emissions to the atmosphere (== a \(CO_{2}\) gas flux forcing), or aeolian iron supply to the surface ocean (a 2-D dust flux forcing).
 
 \vspace{1mm}
-For example: view the \textit{user-config} file: \textsf{\footnotesize LAB.2.6.3} –- you will see the following lines (under the heading: ‘\texttt{\# --- FORCINGS ---}’)
+For example: view the \textit{user-config} file: \textsf{\footnotesize LAB.2.6.4} –- you will see the following lines (under the heading: ‘\texttt{\# --- FORCINGS ---}’)
 
 \vspace{-2mm}\small
 \begin{verbatim}
 bg_par_forcing_name="pyyyyz.Fblue"
-bg_par_force_point_i=22
-bg_par_force_point_j=33
-bg_par_force_point_k=8
+bg_par_force_point_i=29
+bg_par_force_point_j=29
+bg_par_force_point_k=08
 bg_par_ocn_force_scale_val_49=1.0E12
 \end{verbatim}
 \normalsize\vspace{-2mm}
 
 The first line points \textbf{cookie} to a directory located in \textsf{\footnotesize cgenie.cookie/genie-forcings} that contains a set of files that define what geochemical property is going to be altered plus information about how the magnitude of the forcing changes with time.
 
-There are then three lines (\texttt{bg\_par\_force\_point\_i=20}, ...) that specify the location in the ocean of the geochemical forcing that is going to be applied. The point sources are specified in (i,j,k) coordinates, which in this case is (22,33,08). For the ocean model resolution we are using, the grid is 36x36x16, and in which: longitude (i) is counted from left-to-right (1 to 36); latitude (j) is counted from bottom-to-top (1 to 36); level depth (k) is counted from downwards top-to-bottom (16 down to 1). Thus, (22,33,08) is a release of tracer in the North Atlantic, a little south of Greenland, and intermediate depth (level = 8 out of 16). Refer to the Figures for how the horizontal (Figure \ref{fig:ch3-ijgrid}) and vertical (Figure \ref{fig:ch3-kgrid}) grid is specified.
+There are then three lines (\texttt{\small bg\_par\_force\_point\_i=20}, ...) that specify the location in the ocean of the geochemical forcing that is going to be applied. The point sources are specified in (i,j,k) coordinates, which in this case is ($22,33,08$). For the ocean model resolution we are using, the grid is 36x36x16, and in which: longitude (i) is counted from left-to-right (1 to 36); latitude (j) is counted from bottom-to-top (1 to 36); level depth (k) is counted from downwards top-to-bottom (16 down to 1). Thus, ($22,33,08$) is a release of tracer in the North Atlantic, a little south of Greenland, and intermediate depth (level = 8 out of 16). Refer to the Figures for how the horizontal (Figure \ref{fig:ch3-ijgrid}) and vertical (Figure \ref{fig:ch3-kgrid}) grid is specified.
 
-Finally, there is a scaling parameter (\texttt{bg\_par\_ocn\_force\_scale\_val\_49}) which modifies the magnitude of the flux to be applied\footnote{Flux \textit{forcings} in \textbf{cookie} are in units of \(mol yr^{-1}\) per model grid point.} -- the default value in the forcing definition itself is zero \(0.0 mol yr^{-1}\) (so you will need to set something here!).
+Finally, there is a scaling parameter (\texttt{\small bg\_par\_ocn\_force\_scale\_val\_49}) which modifies the magnitude of the flux to be applied\footnote{Flux \textit{forcings} in \textbf{cookie} are in units of \(mol yr^{-1}\) per model grid point.} -- the default value in the forcing definition itself is zero \(0.0 mol yr^{-1}\) (so you will need to set something here!).
 
-\noindent You are going to run a brief experiment in which you will be injecting a conservative ‘dye’ tracer into the ocean. The \textbf{BIOGEM} module has two tracers that can be defined for this purpose – ‘blue’ and ‘red’ -- you will be using the \uline{blue} one here. You can control the flux of blue dye by editing the flux scaling parameter:
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\noindent You are going to run a brief experiment in which you will be injecting a conservative ‘dye’ tracer into the ocean. The \textbf{BIOGEM} module has two tracers that can be defined for this purpose – ‘blue’ and ‘red’ -- you will be using the \uline{blue} one here (the 'red' one is being used as an age tracer). You can control the flux of blue dye by editing the flux scaling parameter:
 
 \vspace{-2mm}\small\begin{verbatim}
 bg_par_ocn_force_scale_val_49=1.0E12
 \end{verbatim}\normalsize\vspace{-2mm}
 
-\vspace{1mm}
-Note that the \textit{base-config} you will be using (\textsf{\footnotesize cookie.C.p\_worjh2.rb}) is different from previously.
-
-%------------------------------------------------
-\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
-%------------------------------------------------
-
-\noindent Run the model for … whatever, 50 years will do. Use the \textit{re-start} experiment that you have just downloaded to start from:
+Run the model for … whatever, 50 years will do:
 
 \vspace{-2mm}\small\begin{verbatim}
-$ ./runcookie.sh cookie.C.p_worjh2.rb LABS LAB.2.6.3 50 cookie.C.p_worjh2.r.SPIN
+$ ./runcookie.sh cookie.C.p_worjh2.rb LABS LAB.2.6.4 50 cookie.C.p_worjh2.r.SPIN
 \end{verbatim}\normalsize\vspace{-2mm}
 
-View the results – for instance how the blue tracer distribution evolves with time – in the \textit{time-slice} files (full ocean/atmosphere) properties saved in the \textbf{netCDF} format (\texttt{.nc}) files). You can follow the progress of the dye (and hence diagnose the properties of ocean circulation in the model) by plotting vertical and/or horizontal slices that go through (or near) the cell location in which you inject the dye tracer in the 3D \textbf{netCDF} file. Note that \textbf{Panoply} appears to ‘count’ the ocean layers in the opposite direction to the way in which the ocean model is actually counting them – the correct definition is with ‘1’ being very deepest level possible (and as displayed in the figure) and '16' is the surface.
+\vspace{1mm}
+View the results – for instance how the blue tracer distribution evolves with time – in the \textit{time-slice} files (full ocean/atmosphere) properties saved in the \textbf{netCDF} format (\texttt{.nc}) files). You can follow the progress of the dye (and hence diagnose the properties of ocean circulation in the model) by plotting vertical and/or horizontal slices that go through (or near) the cell location in which you inject the dye tracer in the 3D \textbf{netCDF} file. Note that \textbf{Panoply} appears to ‘count’ the ocean layers in the opposite direction to the way in which the ocean model is actually counting them – the correct definition is with ‘1’ being very deepest level possible and '16' is the surface.
 
-You can also view the tracer distributions in terms of a water-column integrated tracer inventory (\textbf{netCDF} variable name: \textsf{\footnotesize ocn\_int\_colb}; long name: \textsf{\footnotesize colb water-column integrated tracer inventory}) in the 2D \textbf{netCDF} output. (See: \textit{Sabine et al.} [2004] for the use of water column integrals in the context of the distribution of anthropogenic \(CO_{2}\) uptake and storage.) Changes in tracer inventory with time can be tracked in the time-series file: \textsf{\footnotesize biogem\_series\_ocn\_colb.res}
+\vspace{1mm}
+You can also view the tracer distributions in terms of a water-column integrated tracer inventory (\textbf{netCDF} variable name: \textsf{\footnotesize ocn\_wcint\_colb}; long name: \textsf{\footnotesize colb water-column integrated tracer inventory}) in the 2D \textbf{netCDF} output. This (new) output is activated in the \textit{user-config} by:
+\vspace{-2mm}\small\begin{verbatim}
+bg_ctrl_save_advanced_reservoirs=.TRUE.
+\end{verbatim}\normalsize\vspace{-2mm}
+Changes in tracer inventory with time can be tracked in the time-series file: \textsf{\footnotesize biogem\_series\_ocn\_colb.res}
 
-Spend a little while altering the flux (\texttt{\small bg\_par\_ocn\_force\_scale\_val\_49}) and/or location
-\\(\texttt{\small bg\_par\_force\_point\_i}, \texttt{\small bg\_par\_force\_point\_j, bg\_par\_force\_point\_k}) of tracer input. Overall -- note how you can use numerical ‘tracers’ to help diagnose (and better understand) the circulation of the ocean.
+Spend a little while altering the flux (\textsf{\footnotesize bg\_par\_ocn\_force\_scale\_val\_49}) and/or location
+\\(\textsf{\footnotesize bg\_par\_force\_point\_i, bg\_par\_force\_point\_j, bg\_par\_force\_point\_k}) of tracer input.
 
-\large\uline{Ignore the 'red' tracer for now ... we'll look at that shortly.}\normalsize
+\noindent \textbf{Note}: if it helps being out tracer distributions (slices and/or water-column integrals) -- plotting as log10 (the \textbf{Panoply} \textsf{\footnotesize Scale} tab) may help.
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
-\noindent When you add the numerical dye, particularly early on in the experiment, you may see a 'front' of \uline{negative} tracer concentrations leading the (positive) tracer as it spreads. DON'T PANIC!
+\noindent When you add the numerical dye, particularly early on in the experiment, you may see a 'front' of \uline{negative} tracer concentrations leading the (positive) tracer as it spreads. DON'T PANIC! The model is ... a model (of the numerical flavor) and not an exact analytic solution. Moreover, by default the ocean circulation model employs an isopycnal/diapycnal mixing scheme. This can lead to unwanted negative tracer values when sharp horizontal (or vertical) transitions in concentration occur. (In this example, e.g. by injection dye at a point location into a surrounding ocean of initially zero concentration.)
 
-The model is ... a model (of the numerical flavor) and not an exact analytical solution. So errors in how it solves ocean transport are to be expected.
-
-Moreover, by default the ocean circulation model employs an isopycnal/diapycnal mixing scheme. This can lead to unwanted negative tracer values when sharp horizontal (or vertical) transitions in concentration occur. (In this example, e.g. by injection dye at a point location into a surrounding ocean of initially zero concentration.)
-
-You can change to a simpler horizontal/vertical (.false.) mixing scheme by adding to the \textit{user-config} file:
+You can change to a simpler horizontal/vertical mixing scheme by adding:
 
 \vspace{-2mm}\small\begin{verbatim}
 # turn OFF (=.false.) isopycnal/diapycnal mixing
 go_diso=.false.
 \end{verbatim}\normalsize\vspace{-2mm}
 
+\vspace{1mm}
 If you try this, you should (hopefully) find much less (or no) negative tracer concentrations occur. However, also note that by changing the physics of ocean mixing, you also slightly alter the large-scale circulation of the ocean (and e.g. the AMOC might change slightly in strength).\footnote{You might contrast the overturning stream-functions for experiments run both with and without horizontal/vertical mixing.} 
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+%------------------------------------------------
+\newpage
 %------------------------------------------------
 
 \noindent Lastly, an interesting (honest!) and illustrative exercise is to use the dye tracer to pick out the path taken by Mediterranean Intermediate Water. Despite the low resolution of the \textbf{cookie} ocean circulation model component and the highly restricted representation of the Mediterranean, the model does project a salty Mediterranean as a consequence of  P-E across this basin (and its catchments) being negative and this higher density water makes its way out in the subsurface into the Atlantic.
@@ -814,8 +827,9 @@ To do this -- simply specify a dye injection somewhere in the Mediterranean (be 
 \item View the dye-tagged plume of Mediterranean Intermediate Water by plotting a lat-lon slice (from the 3D \textbf{netCDF} file). This will give you the depth of the plume. How does this compare with salinity observations (salinity observations and appropriate global data-sets can be found on the web with a little patience)? You can also view the water-column integrated distribution (2D \textbf{netCDF}).
 \vspace{1mm}
 \item Try viewing the plume via a lat-depth slice. Refer to the figure to determine the ‘i’ value up the Atlantic that will just graze the edge of what passes for Spain at this low model resolution. Which direction does it head after exiting the Mediterranean? Is this ‘realistic’?
-\end{enumerate}
 \vspace{1mm}
+\item Compare and contrast the utility (or not) of the dye tracer to salinity (in both model and observations) in tracing  Mediterranean Intermediate Water.
+\end{enumerate}
 
 %------------------------------------------------
 \newpage
@@ -841,7 +855,7 @@ and use the same flux forcing scaling parameter as before:
 bg_par_ocn_force_scale_val_2=0.0
 \end{verbatim}\normalsize\vspace{-2mm}
 
-Remember:
+\noindent Remember:
 \\negative == salt addition (and nominally stronger deep-water formation)
 \\positive == freshwater addition (and nominally weaker deep-water formation)
 
