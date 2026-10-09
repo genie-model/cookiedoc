@@ -821,7 +821,40 @@ $ qstat -f
 \vspace{1mm}
 After submitting an experiment, you receive a job number. This number appears in the first column in the queue status information when you issue a qstat –f command. You should see your job appear on one of a number of compute nodes, perhaps numbered 0-0 through 0-5), although it might briefly reside as a ‘\textsf{\footnotesize PENDING JOB}’. For each node, there are multiple processing cores (depending on the specific cluster and queue), meaning that multiple instances of \textbf{cookie} can run simultaneously on each node. For an 8-level ocean based configuration of \textbf{cookie}, being run for 100 years, the job should remain there in the queue for a few minutes before ‘disappearing’ (your clue that it has finished, or died\footnote{If your experiment appears on the queue but vanishes after a few seconds, it has most likely died :(} …). If you periodically re-issue a \texttt{qstat –f} command you can follow your job’s progress.
 
-For assessing how long you might run submitted jobs for -- a rough rule of thumb is that 8-level ocean \textbf{cookie} @ a horizontal grid resolution of 36x36 will simulate about 1000 years per CPU hour. The 16-level version (which you will use later), runs at about 300-400 years per CPU hour.
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
+%------------------------------------------------
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\noindent A useful methodology is to create a series of \textit{user-config} files, each with e.g., a different parameter value, submit them all one-after-another, and come back later to digest the outputs. To subit a series of jobs to the queue you can:
+
+\begin{enumerate}[noitemsep]
+\vspace{1mm}
+\item Submit the first experiment (\textsf{\footnotesize ./subcookie.sh} ...). Once it is running on the cluster, use the up arrow to get that command back, edit the user-config to the next experiment name, and re-submit. 
+\\Repeat for however many experiments you have
+\vspace{1mm}
+\item Create a text file and type/copy-paste the first \textsf{\footnotesize ./subcookie.sh} command on the 1st line.
+\\Copy-paste this multiple times down the file, and edit in the correct \textit{user-config} names.
+\\For example, for 9 different experiments (but you will want more meaningful \textit{user-config} file-names than these!):
+
+\vspace{-0mm}\footnotesize\begin{verbatim}
+./subcookie.sh cookie.C.p_worbe2.r LABS experiment.1 100
+./subcookie.sh cookie.C.p_worbe2.r LABS experiment.2 100
+./subcookie.sh cookie.C.p_worbe2.r LABS experiment.3 100
+./subcookie.sh cookie.C.p_worbe2.r LABS experiment.4 100
+./subcookie.sh cookie.C.p_worbe2.r LABS experiment.5 100
+./subcookie.sh cookie.C.p_worbe2.r LABS experiment.6 100
+./subcookie.sh cookie.C.p_worbe2.r LABS experiment.7 100
+./subcookie.sh cookie.C.p_worbe2.r LABS experiment.8 100
+./subcookie.sh cookie.C.p_worbe2.r LABS experiment.9 100
+
+\end{verbatim}\normalsize\vspace{-2mm}
+Now, copy the entire block (and include a blank line at the end so that you are also copying a return at the end of the last line) and paste at the command line. They all should merrily submit one-by-one.
+\\\textbf{Note}: This is a good way of keeping track of experiments created and run. You could also include in the file, descriptions of the experiments etc. (but don't copy-paste any additional text to the command line).
+\end{enumerate}
 
 %------------------------------------------------
 \newpage

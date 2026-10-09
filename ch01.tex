@@ -275,34 +275,22 @@ The position of the continents is an area of modeling uncertainty and might be i
 \vspace{1mm}
 \begin{enumerate}[noitemsep]
 \setlength{\itemindent}{.2in}
-\item
-\begin{verbatim}
-cookie.C.p_worpl1.r
-\end{verbatim}
- – a single polar super-continent. (Note potential ‘l’ and 1’1 confusion in ‘\textsf{\footnotesize p\_worpl1}’.)
-\item
-\begin{verbatim}
-cookie.C.p_worpl2.r
-\end{verbatim}
-  – one continent at each pole.
-\item
-\begin{verbatim}
-cookie.C.p_woreq1.r
-\end{verbatim}
-  – a single Equatorially-centred super-continent. [this is the current configuration]
-\item
-\begin{verbatim}
-cookie.C.p_woreq2.r
-\end{verbatim}
- – two continents straddling the Equator.
+\item \textsf{\footnotesize cookie.C.p\_worpl1.r}
+\\ – a single polar super-continent. (Note potential ‘l’ and 1’1 confusion in ‘\textsf{\footnotesize p\_worpl1}’.)
+\item \textsf{\footnotesize cookie.C.p\_worpl2.r}
+\\ – one continent at each pole.
+\item \textsf{\footnotesize cookie.C.p\_woreq1.r}
+\\ – a single Equatorially-centred super-continent. [this is the current configuration]
+\item \textsf{\footnotesize  cookie.C.p\_woreq2.r}
+\\ – two continents straddling the Equator.
 \end{enumerate}
 \vspace{1mm}
 
 You can use the given \textit{user-config} file (\textsf{\footnotesize LAB.1.1}) again as an experiment template file, and any of the alternative configurations can be run very similarly to as per before, i.e.:
 
-\vspace{-2mm}\begin{verbatim}
+\vspace{-2mm}\small\begin{verbatim}
 $ ./runcookie.sh cookie.C.p_xxxxxx.r LABS LAB.1.1 100
-\end{verbatim}\vspace{-2mm}
+\end{verbatim}\normalsize\vspace{-2mm}
 Note that you are using a different \textit{base-config} file name: \textsf{\footnotesize cookie.C.p\_xxxxxx.NONE}
 \\where \textsf{\footnotesize xxxxx} is one of: \textsf{\footnotesize worpl1}, \textsf{\footnotesize worpl2}, \textsf{\footnotesize woreq1}, or \textsf{\footnotesize woreq2}.
 
@@ -313,12 +301,7 @@ Note that you are using a different \textit{base-config} file name: \textsf{\foo
 
 \subsection{Continental configuration (2)}
 
-Although much useful can be learned from conceptual configurations and Worlds regarding climate dynamics, it is invariably aesthetically more 'pleasing' to also test ideas in a more paleogeographically realistic configuration. Provided is a set of \textit{base-config} and \textit{user-config} files (plus associated boundary conditions) for the position of the continents and climate 635 millions years ago (635 Ma).
-
-For this, the\textit{base-config} is named: \textsf{\footnotesize cookie.C.fm0635cb.r}
-
-\vspace{1mm}
-The \textit{user-config} is: \textsf{\footnotesize cookie.C.fm0635cb.r.SPIN}
+Although much useful can be learned from conceptual configurations and Worlds regarding climate dynamics, it is invariably aesthetically more 'pleasing' to also test ideas in a more paleogeographically realistic configuration. Provided is a \textit{base-config} (plus associated boundary conditions) for the position of the continents and climate 635 millions years ago (635 Ma): \textsf{\footnotesize cookie.C.fm0635cb.r}.
 
 \vspace{1mm}
 A \textit{re-start }experiment is provided called \textsf{\footnotesize cookie.CB.fm0635cb.r.SPIN} and which can be downloaded as per before:
@@ -327,13 +310,13 @@ A \textit{re-start }experiment is provided called \textsf{\footnotesize cookie.C
 $ wget --no-check-certificate 
   http://www.seao2.info/cgenie_output/cookie.C.fm0635cb.r.SPIN.tar.gz
 \end{verbatim}\normalsize\vspace{-2mm}
-and unpack by:
+and unpacked via:
 
 \vspace{-2mm}\small\begin{verbatim}
 $ tar xfzv cookie.C.fm0635cb.r.SPIN.tar.gz
 \end{verbatim}\normalsize\vspace{-2mm}
 
-To run (e.g. for 100 years), following on from its \textit{re-start}, and copying (/renaming) the same \textit{user-config} as before:
+To run (e.g. for 100 years), following on from its \textit{re-start}, and copying \& renaming the same \textit{user-config} as before (here from \textsf{\footnotesize LAB.1.1} to \textsf{\footnotesize LAB.1.1.635Ma}):
 
 \vspace{-2mm}\small\begin{verbatim}
 $ ./runcookie.sh cookie.C.fm0635cb.r LABS LAB.1.1.635Ma 100
