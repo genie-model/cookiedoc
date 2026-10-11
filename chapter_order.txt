@@ -11,18 +11,16 @@ CLIMATE DYNAMICS
 
 CARBON AND OTHER BIOGEOCHEMICAL CYCLES & FEEDBACKS
 
-5	Fossil Fuel CO2 and ‘Ocean Acidification’		[complete]
-6	Ocean Biogeochemical Cycles						[complete]
-7	Marine Ecosystems and Dynamics					[PARTIALLY complete]
-8	The Geological Cycle of Carbon					[PARTIALLY complete]
+6	Carbonate chemsitry and ‘Ocean Acidification’	carbchem				[complete]
+7	Ocean Biogeochemical Cycles						[complete]
+8	Marine Ecosystems and Dynamics					marine-ecosystems		[PARTIALLY complete]
 9	Land Surface and Carbon Feedbacks				[TO BE WRITTEN]
-
-10	Climates of Past Worlds							[TO BE UPDATED]	*****************
+10	The Geological Cycle of Carbon					geological-carbon		[PARTIALLY complete]
 
 SYNTHESIS
 
-11	Proxies and reconstructing past Earth states	[TO BE UPDATED]
-12	Synthesis: Carbon cycling, past and future		[TO BE UPDATED]
+11	Proxies and reconstructing paleoenvironments	[TO BE UPDATED]
+12	Carbon cycling, past and future					[TO BE UPDATED]
 
 MODEL OUTPUT AND ANALYSIS
 
@@ -31,8 +29,8 @@ MODEL OUTPUT AND ANALYSIS
 
 SUPPORTING SOFTWARE
 
-15	muffinplot										[TO BE UPDATED]
-16	muffindata										[TO BE UPDATED]
+15	cookieplot										[TO BE UPDATED]
+16	cookiedata										[TO BE UPDATED]
 17	cookiegen										[PARTIALLY complete]
 
 HELP!
