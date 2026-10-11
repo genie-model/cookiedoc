@@ -6,7 +6,8 @@ CLIMATE DYNAMICS
 1	Basic Climate Feedbacks & Experimental Design	[complete]
 2	Ocean Circulation								[complete]
 3	Atmospheric Dynamics							[TO BE WRITTEN]
-4	Climates of Alternative Worlds					[TO BE UPDATED]
+4	Climates of Past Worlds							[TO BE UPDATED]
+5	Alternative Worlds								[TO BE UPDATED]
 
 CARBON AND OTHER BIOGEOCHEMICAL CYCLES & FEEDBACKS
 
@@ -16,13 +17,11 @@ CARBON AND OTHER BIOGEOCHEMICAL CYCLES & FEEDBACKS
 8	The Geological Cycle of Carbon					[PARTIALLY complete]
 9	Land Surface and Carbon Feedbacks				[TO BE WRITTEN]
 
-PALEO
+10	Climates of Past Worlds							[TO BE UPDATED]	*****************
 
-10	Climates of Past Worlds							[TO BE UPDATED]
+SYNTHESIS
+
 11	Proxies and reconstructing past Earth states	[TO BE UPDATED]
-
-MISC
-
 12	Synthesis: Carbon cycling, past and future		[TO BE UPDATED]
 
 MODEL OUTPUT AND ANALYSIS
