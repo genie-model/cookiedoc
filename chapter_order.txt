@@ -5,8 +5,8 @@ CLIMATE DYNAMICS
 
 1	Basic Climate Feedbacks & Experimental Design	[complete]
 2	Ocean Circulation								[complete]
-3	Alternative Worlds and Ocean Dynamics			[TO BE UPDATED]
-4	Atmospheric Dynamics							[TO BE WRITTEN]
+3	Atmospheric Dynamics							[TO BE WRITTEN]
+4	Climates of Alternative Worlds					[TO BE UPDATED]
 
 CARBON AND OTHER BIOGEOCHEMICAL CYCLES & FEEDBACKS
 
