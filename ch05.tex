@@ -10,9 +10,10 @@
 
 \hfill \break
 
-\noindent 'Fake' (idealized) Worlds are a useful tool for developing a general understanding of the primary controls on global climate and  biogeochemical cycles -- and here, ocean circulation. Different model resolutions and continental configurations can be generate and run to test specific hypotheses about the role of different boundary condition to emergent patterns of ocean circulation. This can be done both by modifying the boundary conditions of existing and know circulation states (e.g., modern). Idealized Worlds can also be utilized to create a more generalize understanding of system dynamics as well as serving in a fishing expedition for new and unexpected phenomena and system behaviors.
+\noindent Idealized continental configurations ('Worlds') are powerful tool for developing a general understanding of the primary controls on global climate (and biogeochemical cycles) and here in particular, large-scale ocean circulation. Different model resolutions and continental configurations can be generate and run to test specific hypotheses about the role of different boundary condition in determining emergent patterns of ocean circulation. This can be done both by modifying the boundary conditions of existing Worlds with known circulation states (e.g., modern). Idealized Worlds can also be utilized to create a more generalize understanding of system dynamics as well as serving in a fishing expedition for new and unexpected phenomena and system behaviors.
 
-This Chapter will take you through the generation and exploration (analysis) of idealized Worlds.
+\vspace{1mm}
+This Chapter will take you through the generation and exploration (analysis) of idealized Worlds, and how to create and modify different past continental configurations.
 
 %------------------------------------------------
 \newpage
@@ -20,31 +21,108 @@ This Chapter will take you through the generation and exploration (analysis) of 
 
 \section*{READ.ME}
 
-You are going to need \textbf{MATLAB}, and then clone some (\textbf{MATLAB}) code ... but onto your local computer (\uline{not} the GENIE computing cluster). Or instead of cloning, downloading and unpacking the code archive will work just fine.
+You are going to need \textbf{MATLAB}, and then clone some (\textbf{MATLAB}) code ... but onto your local computer (\uline{not} a remote computing cluster). Or instead of cloning, downloading and unpacking the code archive will work just fine. You can find the \textbf{cookiegen} code here:
 
-
+\vspace{1mm}
+\noindent \textsf{\footnotesize \href{https://github.com/genie-model/cgenie.cookie.git}{\color{blue} https://github.com/genie-model/cgenie.cookie}}
 
 %------------------------------------------------
 \newpage
 %------------------------------------------------
 
-\section{Modeling methodology}
+\section{Creating alternative Worlds}
+
+For full details on how to generate your own idealized Worlds, derive configurations from GCM output, or adjust existing configurations -- refer to the Chapter on '\textbf{cookiegen}'. Proved below is a 'Quick Start Guide' to \textbf{cookiegen}.
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent There are 5 steps in using \textbf{cookiegen} to create a new model configuration. The basic steps and quick start methodology is outlined below.
+
+\begin{enumerate}
 
 \vspace{2mm}
+\item Select an existing \textbf{cookiegen} configuration -- these live in the \textsf{\footnotesize CONFIGS} folder. The most common options are:
 
+\begin{itemize}[noitemsep]
 
-%------------------------------------------------
-\subsection{cookiegen overview}
+\vspace{1mm}
+\item \textsf{\footnotesize EXAMPLE\_BLANK} -- Generates a continental configuration starting from an all-ocean (no land) ('water-world') grid. Requires the user to edit in the location of any land (and optionally also modify seafloor topography as appropriate).
 
-For full details on how to generate your own idealized Worlds, derive configurations from GCM output, or adjust existing configurations -- refer to the Chapter on '\textbf{cookiegen}'.
+\vspace{1mm}
+\item \textsf{\footnotesize EXAMPLE\_MASK\_INPUT} -- Generates a continental configuration from a simple text file containing a grid of '1's (ocean) and '0's (land). By default, this file lives in \textsf{\footnotesize INPUT}.\footnote{The file example provided is: \textsf{\footnotesize wordrake.txt} which is for an ocean with a land varied from the North Pole all the way down to ca. $55$ degrees S, with open ocean from there down to the pole.} 
+
+\vspace{1mm}
+\item \textsf{\footnotesize EXAMPLE\_GCMHadCM3L\_modern} -- Generates a continental configuration derived from the model output of a coupled GCM experiment for the present-day. 
+
+\vspace{1mm}
+\item \textsf{\footnotesize EXAMPLE\_GCMHadCM3L\_paleo} -- Generates a continental configuration derived from the model output of a coupled GCM experiment for the late Permian. (Identical in operation to \textsf{\footnotesize EXAMPLE\_GCMHadCM3L\_modern}.)
+
+\end{itemize}
+
+\vspace{1mm}
+Pick (and then copy and rename) the configuration file closest to what you are after. Make sure that at the minimum, you \uline{specify a new 'name' for the continental configuration ('World')} you are about to generate -- in the configuration file, the parameter name for this is: \texttt{\small par\_wor\_name} -- This \uline{must be an 8-character long string}.\footnote{You can use under-scores, but not spaces and not '-'. \uline{Do not} use fewer than or more than 8 characters ...}
+
+\vspace{2mm}
+\item Run the \textbf{cookiegen} function from the main \textbf{cookiegen} installation directory, passing the name of a file containing the parameters defining the creation of your new configuration, i.e.,
+\vspace{0mm}\small\begin{verbatim}
+>> makecookie('FILENAME')
+\end{verbatim}\normalsize\vspace{0mm}
+where \texttt{\small FILENAME} is the name of your configuration file.
+
+\vspace{2mm}
+Depending on whether \texttt{\small opt\_user} is set to \texttt{\small true}, an editor window will open (firstly for changes to the land-sea mask to be made, then later for the ocean bathymetry to be edited) and which requires manual intervention (mouse clicks from you) until \textbf{cookiegen} can continue and complete. Refer to the instructions that appear on the \textbf{MATLAB} command line.
+
+\end{enumerate}
 
 %------------------------------------------------
 \newpage
 %------------------------------------------------
 
-\subsection{Analysis strategies}
+\noindent With the default settings, all the files you need will appear in the \textsf{\footnotesize OUTPUT} folder and you will be able to run an experiment after just 3 more short steps:
 
-How do you 'judge' the strength and characteristics of deep-water formation, global overturning, and circulation patterns and strength, in general, or their climate (or biogeochemical) impacts? This is not a trivial question. Often, additional ocean tracers are employed in models to generate a quantitative measure of the age of a parcel of water (mean time since it last saw the surface), of some measure of the efficiency of ventilation, or large-scale transport at the surface or at depth.\footnote{We'll see such tracers employed later in the course.} Or rather involved analysis of ocean physics and transport might be employed.
+\begin{enumerate}
+\setcounter{enumi}{2}
+
+\vspace{2mm}
+\item A sub-folder will appear in the \textsf{\footnotesize OUTPUT} folder with the name of your configuration.
+\\(The name of your configuration is an 8-character string which is defined in the \textbf{cookiegen} configuration file [parameter name: \texttt{\small par\_wor\_name}].)
+\\\uline{Copy the entire sub-folder to the \textsf{\footnotesize genie-paleo} folder of your \textbf{cookie} installation.}
+
+\vspace{2mm}
+\item In the example \textbf{cookiegen} configuration files, a generic \textit{base-config} file (which lives in \textsf{\footnotesize DATA}), suitable for a 16-level (36x36) ocean, has been specified [parameter name: \texttt{\small  par\_cfgid}]. The file has the necessary configuration parameter values appended to it and is saved to \textsf{\footnotesize OUTPUT} with a file-named incorporating the 8-character 'World' name you specified.
+\\\uline{Copy this new \textsf{\footnotesize .config} file to the \textsf{\footnotesize genie-baseconfigs} folder of your \textbf{cookie} installation}.
+
+\vspace{2mm}
+\item In the example \textbf{cookiegen} configuration files, a generic \textit{user-config} suitable for running a basic climate-only (no carbon cycle) experiment has been specified [parameter name: \texttt{\small  par\_usrid}]. This file is copied (without alteration) to \textsf{\footnotesize OUTPUT} (from \textsf{\footnotesize DATA}) and renamed incorporating the 8-character 'World' name you specified.
+\\\uline{Copy the new  \textsf{\footnotesize .SPIN} file to the \textsf{\footnotesize genie-userconfigs} folder (or sub-folder such as \textsf{\footnotesize LABS}) of your \textbf{cookie} installation}.
+
+\end{enumerate}
+
+\vspace{2mm}
+\noindent In the file-naming (above), a unique identifier of the template \textit{base-config} name you used is created -- the last 4 hex digits of a hash of the temperature file-name) -- and inserted after your World name. If you named your 'World' name string e.g., \textsf{\footnotesize MY\_WORLD}, the \textit{base-config} file-name would look like \textsf{\footnotesize cookie.MY\_WORLD.abcd.config} while your corresponding \textit{user-config} name would be \textsf{\footnotesize cookie.MY\_WORLD.abcd.SPIN}. Obviously, you need not use either file and if you do, you should rename them.
+
+A generic default (climate + age tracer) experiment run for 10 years would be:
+
+\vspace{-2mm}\small\begin{verbatim}
+./runcookie.sh cookie.MY_WORLD.abcd LABS cookie.MY_WORLD.abcd.SPIN 10
+\end{verbatim}\normalsize\vspace{-2mm}
+
+\vspace{1mm}
+\noindent Instructions on how to add additional tracers (or remove the age tracer) to your configuration can be found in the \textbf{cookiegen} Chapter.
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\section{Analyzing the climate state}
+
+/noindent How do you 'judge' the strength and characteristics of deep-water formation, global overturning, and circulation patterns and strength, in general, or their climate (or biogeochemical) impacts? This is not a trivial question. Often, additional ocean tracers are employed in models to generate a quantitative measure of the age of a parcel of water (mean time since it last saw the surface), of some measure of the efficiency of ventilation, or large-scale transport at the surface or at depth.\footnote{We'll see such tracers employed later in the course.} Or rather involved analysis of ocean physics and transport might be employed.
 
 One starting point is to read some of the literature where the climate properties of various hypothetical worlds have been investigated. Such as:
 \vspace{1mm}
@@ -57,7 +135,7 @@ One starting point is to read some of the literature where the climate propertie
 \end{itemize}
 
 \vspace{1mm}
-In addition, the sub-sub-sections that follow outline some simple diagnostics and ways of going about some quantitative analysis.
+In addition, simple diagnostics and analysis methodologies might include the following (partly a re-cap of the (modern) ocean circulation Chapter):
 
 %------------------------------------------------
 
@@ -68,9 +146,10 @@ In addition, the sub-sub-sections that follow outline some simple diagnostics an
 \vspace{1mm}
 \item In the \textsf{\footnotesize results} output folder, there is a \textit{time-series} file named: \\\textsf{\footnotesize timeseries\_climate\_opsi.txt} \\This contains a summary of the evolution with time, of the minimum and maximum (anywhere) global overturning stream-function values.
 \vspace{1mm}
-\item If you have the ventilation age tracer included, there will also be a \textit{time-series} output:  \\\textsf{\footnotesize timeseries\_climate\_ventilation\_age.txt} with a field for: \\\texttt{\small benthic [> 2000 m] ventilation age (yr)}\footnote{If you add the parameter setting: \texttt{\small Adding ctrl\_save\_hidden\_extra=.true.} to your \textit{user-config} will result in additional data columns saved.} which is the mean age of water bathing the seafloor deeper than 2000 m (a depth cutoff which can be adjusted).
+\item If you have the ventilation age tracer included, there will also be a \textit{time-series} output:  \\\textsf{\footnotesize timeseries\_climate\_ventilation\_age.txt} with a field for: 
+\\\textsf{\footnotesize benthic [> 2000 m] ventilation age (yr)}\footnote{If you add the parameter setting: \texttt{\small Adding ctrl\_save\_hidden\_extra=.true.} to your \textit{user-config} will result in additional data columns saved.} which is the mean age of water bathing the seafloor deeper than 2000 m (a depth cutoff which can be adjusted via the (depth) value of the parameter: \textsf{\footnotesize bg\_par\_data\_save\_ben\_Dmin}).
 \vspace{1mm}
-\item Another simple property of the climate system that you might consider in terms of possible explanations for observed large-scale ocean circulation states, is the pole-to-equator temperature gradient, both in terms of atmospheric temperature, and ocean surface temperature\footnote{\textbf{Panoply} has an option for plotting the zonal mean, from which you could read off pole-to-equator temperature gradients.} (although they should presumably be closely coupled).
+\item Another simple property of the climate system that you might consider in terms of possible explanations for observed large-scale ocean circulation states, is the pole-to-equator temperature gradient, both in terms of atmospheric temperature, and ocean surface temperature\footnote{\textbf{Panoply} has an option for plotting the zonal mean, from which you could read off pole-to-equator temperature gradients.}.
 \\Why? Because the large scale (overturning) circulation of the ocean should be transporting heat from the high latitude surface to the deep ocean. This presumably would act to reduce latitudinal temperature gradients. In contrast, a strong zonal slow might prevent latitudinal transport of heat.
 \\The presence/absence of sea-ice is also important and related to latitudinal temperature gradients and to the location and efficiency of deep-water formation (why?). 
 \end{itemize}
@@ -79,7 +158,7 @@ In addition, the sub-sub-sections that follow outline some simple diagnostics an
 
 \subsubsection{Spatial netCDF fields}
 
-In a physics-only (T + S tracer) configuration of \textbf{cookie} you are  somewhat limited in what you can look at. A good staring point is the previous tutorial on ocean circulation and AMOC stability (in the context of the modern world, climate and continental configuration). For instance, you know already how to plot and visualize the MOC using \textbf{Panoply}. The Atlantic basin and hence the existence of an AMOC, is pretty specific and unique to the modern world, so likely you'll need to focus on the global MOC. (A good starting point is to familiarize yourself with the pattern and intensity of the modern.)
+In a physics-only (T + S tracer) configuration of \textbf{cookie} you are  somewhat limited in what you can look at. A good staring point is the previous tutorial on ocean circulation and AMOC stability (in the context of the modern world, climate and continental configuration). For instance, you know already how to plot and visualize the MOC using \textbf{Panoply}. The Atlantic basin and hence the existence of an AMOC, is pretty specific and unique to the modern world, so likely you'll need to focus on the global MOC. 
 
 For example -- the \textsf{\footnotesize drakeworld } configuration gives rise to a global MOC pattern as shown in Figure \ref{fig:paleo_drakeworld.opsi}. This is stored as the variable \textsf{\footnotesize climate\_opsi} in the netCDF file \textsf{\footnotesize fields\_ocean\_2d.nc}. Remember that the first time-slice plotted in \textbf{Panoply} is the first time-slice saved by default.
 
@@ -90,7 +169,7 @@ For example -- the \textsf{\footnotesize drakeworld } configuration gives rise t
 \label{fig:paleo_drakeworld.opsi}
 \end{figure}
 
-You can also plot the barotropic circulation using \textbf{Panoply} -- the variable is called \textsf{\footnotesize climate\_psi} -- this is shown in Figure \ref{fig:paleo_drakeworld.psi}.
+You can also plot the barotropic circulation using \textbf{Panoply} -- the variable is called \textsf{\footnotesize climate\_psi} -- this is shown in Figure \ref{fig:paleo_drakeworld.psi} and potentially the current field (surface or otherwise), as per Figure \ref{fig:paleo_drakeworld.v}.
 
 \begin{figure}[H]
 \includegraphics[width=0.5\textwidth]{paleo_drakeworld_psi.pdf}\centering
@@ -103,8 +182,6 @@ You can also plot the barotropic circulation using \textbf{Panoply} -- the varia
 \newpage
 %------------------------------------------------
 
-Finally in \textbf{Panoply}, you might plot the current field (surface or otherwise), as per Figure \ref{fig:paleo_drakeworld.v}.
-
 \begin{figure}
 \includegraphics[width=0.5\textwidth]{paleo_drakeworld_v.pdf}\centering
 \vspace{-0mm}
@@ -112,41 +189,33 @@ Finally in \textbf{Panoply}, you might plot the current field (surface or otherw
 \label{fig:paleo_drakeworld.v}
 \end{figure}
 
-%------------------------------------------------
-\subsubsection{'Age tracing' of ocean circulation}
-
-Refer to the previous chapter, or the 'HOW-TO' chapter (under: 'Add a water mass age tracer') in the \textbf{cookie} manual.
-
-%------------------------------------------------
-
-\subsubsection{'Color tracing' of ocean circulation}
-
-If you have both 'red' and 'blue' color tracers selected (and a total of 4 ocean tracers compiled into the model), you can use 'red' for ventilation age and 'blue' for color-tracing -- refer to the previous chapter for \textit{user-config} parameter settings, a suitable \textit{forcing}, and further information.
+If you have the age tracer selected in your \textit{base-config} and enabled in the \textit{user-config}, also explore the ventilation age of the deep ocean.
 
 %------------------------------------------------
 \newpage
 %------------------------------------------------
 %
-\section{Exploring the controls on ocean circulation}
+\section{General Controls on Ocean Circulation \& Climate}
 
 %------------------------------------------------
 
 \subsection{Model investigation over-view}
 
-In not exploring beyond the modern continental configuration and associated state of large-scale ocean circulation and climate in \textbf{cookie}, you may not come to any particularly general or fundamental insights into ocean circulation controls. In any case, the modern and future (and recent glacial past) ocean circulation states and dynamics have been picked over by 1000s of researchers, writing 100,000s of  publications (although we still do not necessarily fully understand modern/future ocean circulation, let along that at the time of the last glacial).
-
-A broader (or more fun) approach is to generalize the problem and consider fundamentally different configurations of ocean basins and climate. This is what you will be doing. But first, some potted advice:
+Restricting the consideration of the state of large-scale ocean circulation and climate to the modern continental configuration risks missing more general or fundamental insights into the controls on ocean circulation. A broader (and more fun) approach is to generalize the problem and consider fundamentally different configurations of ocean basins and climate. This is what you will be doing. But first, some words of advice:
 
 \vspace{2mm}
 \begin{itemize}[noitemsep]
 \vspace{1mm}
-\item Try and define a hypothesis, or hypotheses, to pursue and test. These need only be very rough at the outset -- you'll likely find that you get new ideas and can either refine your original hypotheses, or come up with new ones, as you start to play with the model and see what is feasible and not feasible in terms of analysis.
+\item Try and define a hypothesis, or hypotheses, to pursue and test. These need only be very rough at the outset -- you'll likely find that you get new ideas and can either refine your original hypotheses, or come up with new ones, as you start to play with the model and see what is feasible and not feasible in terms of creating Worlds and analysis.
 \vspace{1mm}
 \item Create a plan of study -- what sort of experiments, now many, how are they going to be analyzed, how do they all fit together in addressing the overarching hypotheses? Again -- it is very likely that your plan will evolve as you go along, but try and start out with something to guide you rather than wandering randomly in model world ...
 \vspace{1mm}
-\item For creating and an using different worlds -- write down a list or make a table of the configurations to be explored, why you have chosen them, and then summarize what you are finding. It might be helpful to draw out on paper first the outline of the continental configurations you want, and then create these and run them. (Again, the details of this will very likely evolve.)
+\item For creating and deploying different Worlds -- write down a list or make a table of the configurations to be explored, why you have chosen them, and then summarize what you are finding. It might be helpful to draw out on paper first the outline of the continental configurations you want, and then create these and run them. (Again, the details of this will very likely evolve.)
 \vspace{1mm}
-\item Once you have some sort of idea what are are going to do -- plan the experiments. This is important because to run the model to steady state is not trivial. Perhaps plan on having to run the model for 5,000 years\footnote{Even so, you should try running the model much longer to be confident that 5,000 years is OK (and sufficiently close to final equilibrium).} in order to achieve a fully spun up ocean circulation state. You might get away with shorter runs, but know in advance what sort of error this would induce and whether the error might be 'important' (impact your analysis and conclusions)? Once you have a list and know how long each model experiment might take, you can plan out when they will be run on the cluster (presumably on the queue) and when the results will be analysed. Note that it is a virtual certainty that once you have analyzed the results of the first set of experiments, you will want something different (and will then need to revise the plan and list of experiments and analysis etc.).
+\item Once you have some sort of idea what are are going to do -- plan the experiments. This is important because to run the model to steady state is not trivial. Perhaps plan on having to run the model for at least $5,000$ years\footnote{Even so, you should try running the model much longer to be confident that $5,000$ years is OK (and sufficiently close to final equilibrium).} in order to achieve a fully spun up ocean circulation state. You might get away with shorter runs, but know in advance what sort of error this would induce and whether the error might be 'important' (impact your analysis and conclusions)? Particularly sensitive might been abyssal ventilation age.
+Once you have a list and know how long each model experiment might take, you can plan out when they will be submitted as jobs (ideally) to the cluster and when the results will be available. With the 16-level ocean configuration, $10,000$ simulated years with only an age tracer (in addition to $T$ and $S$) might take ca. $12$ hours, but perhaps only $6$ for an 8-level ocean configuration.
+
+\textbf{Note} that it is a virtual certainty that once you have analyzed the results of the first set of experiments, you will want something different (and will then need to revise the plan and list of experiments and analysis etc.).
 \end{itemize}
 \vspace{2mm}
 
@@ -156,91 +225,96 @@ A broader (or more fun) approach is to generalize the problem and consider funda
 \newpage
 %------------------------------------------------
 
-Finally -- \uline{remember} that in swapping between different continental configurations (and \textit{base-configs}), \textbf{cookie} currently requires the model executable to be  re-compiled.\footnote{Note that if the \textit{base-config} is the same as the previous experiment, but you have changed a parameter value (in the \textit{user-config}), you do not need to re-compile.} This ... cannot happen on the compute nodes of the cluster if you submit an experiment using a different \textit{base-config}. When changing to a new \textit{base-config}: \uline{first}, run the model briefly interactively (i.e. at the command line). Once it has compiled (and started running), the experiment can be killed (\textsf{\footnotesize ctrl-c}) and now it is good to submit to the queue as a job. In any case, in utilizing a new configuration that you may never have used before, it is good practice to test it first (e.g. watch it run for a short period).
-
-%------------------------------------------------
-
 \subsection{Deep-water formation (\& baroclinic circulation)}
 
-The first investigation is to explore the controls on the strength and large-scale structure of ocean circulation, particularly in terms of the global meridional overturning circulation (MOC), and associated with this -- where the primary sites of deep-water formation are.
+The first investigation is to explore the controls on the strength and large-scale structure of ocean circulation, particularly in terms of the global meridional overturning circulation (MOC), and associated with this -- where the primary sites of deep-water formation are. There are 2 key controls:
 
-There are  2 key controls to this:
-
-\vspace{2mm}
+\vspace{1mm}
 \begin{enumerate}
+\vspace{1mm}
 \item \textbf{Temperature.}
+\\Presumably mostly a function of latitude (i.e. the further North or South, the more suitable the site will tend to be for deep-water formation) and to some extent season. There will also be an influence of the prescribed planetary albedo as well as of sea-ice (if it is present).
 \vspace{1mm}
-\\This is presumably mostly a function of latitude (i.e. the further North or South, the more suitable the site will tend to be for deep-water formation) and to some extent season. There will also be an influence of the prescribed planetary albedo (which includes the effect of clouds) as well as of sea-ice (if it is present).
-\vspace{2mm}
 \item \textbf{Salinity.}
-\vspace{1mm}
-\\This will generally be controlled by P-minus-E -- the balance between precipitation to the ocean surface as well as fresh-water run-off form the continents, vs. evaporation from the ocean surface. Sea-ice may also be a key factor, in e.g. leading to the (seasonal) rejection of dense salty brine (and removal of freshwater to the forming ice).
+\\Generally be controlled by P-minus-E -- the balance between precipitation to the ocean surface as well as fresh-water run-off form the continents, vs. evaporation from the ocean surface. Sea-ice may also be a key factor, in e.g. leading to the (seasonal) rejection of dense salty brine (and removal of freshwater to the forming ice).
 \end{enumerate}
 \vspace{2mm}
 
-In turn, this suggests two sets of 'knobs' in the model that can be modified and that may influence the patterns and magnitude of temperature and salinity across the ocean surface:
+In turn, surface temperature and salinity will be modulated by:
 
 \vspace{1mm}
 \begin{enumerate}
 \vspace{1mm}
 \item \textbf{Continental Configuration.}
-\vspace{1mm}
 \\The configuration of the continents and ocean basins will dictate the shape and location of the highest latitude ocean regions -- presumably the locations where on average, deep-water formation will occur (and hence forming the downwards/sinking limb of the MOC).
-\\The relevant model 'knob' is hence how the position and orientation of continental blocks is configured on the surface of the Earth. This (creating or changing the continental configuration used by \textbf{cookie}) can all done using the \textbf{MATLAB} \textbf{cookiegen} program.
+\\The relevant model 'knob' is hence how the position and orientation of continental blocks is configured on the surface of the Earth (which can be prescribed via \textbf{cookiegen}).
 \vspace{1mm}
 \item \textbf{Global Climate.}
-\vspace{1mm}
-\\The mean and climate as well as the zonal temperature gradients, together with whether or not sea-ice forms (and how much), will modulate both temperature and salinity patterns at the ocean surface.
+\\Mean climate state and zonal temperature gradient, together with whether or not sea-ice forms (and how much), will modulate temperature and salinity patterns at the ocean surface. (And note that density becomes more sensitive to seasonal cooling at higher mean temperatures.) The model 'knobs' to control these are: 
 
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-In turn, the model knobs here are primarily:
-\vspace{1mm}
 \begin{enumerate}
+
 \vspace{1mm}
-\item Atmospheric \(pCO_{2}\), or in the absence of an explicit carbon cycle, a prescribed radiative forcing:
+\item A prescribed radiative forcing (or explicit atmospheric \(pCO_{2}\)) that changes the default:
 \vspace{-1mm}\small\begin{verbatim}
 ea_radfor_scl_co2=1.0
 \end{verbatim}\normalsize\vspace{-1mm}
-which here, specifies \(\times1\) \(CO_{2}\) equivalent radiative forcing.
+
 \vspace{1mm}
-\item One could also adjust the value of the solar constant (here, given with its modern/present-day default value):
+\item A different value for the solar constant \textit{vs.} its modern/present-day default value:
 \vspace{-1mm}\small\begin{verbatim}
 ma_genie_solar_constant=1368.0
 \end{verbatim}\normalsize\vspace{-1mm}
-which has a subtly different effect form changing \(CO_{2}\) radiative forcing, as radiative forcing has a relatively spatially uniform impact, whereas changing the solar constant has a disproportionate impact towards the Equator (where the incident solar shortwave radiation is the greatest). So changing the solar constant is likely to impact the pole-to-Equator temperature gradient. e.g. see: Lunt, D. J., A. Ridgwell, P. J. Valdes, and A. Seale, Sunshade World.: a fully coupled GCM evaluation of the climatic impacts of geoengineering, GRL 35, L12710, doi:10.1029/2008GL033674 (2008).
+
+This should have a subtly different effect form changing radiative forcing, as radiative forcing has a relatively spatially uniform impact, whereas changing the solar constant has a disproportionate impact towards the Equator (where the incident solar shortwave radiation is the greatest). See: Lunt \textit{et al.}, Sunshade World.: a fully coupled GCM evaluation of the climatic impacts of geoengineering, doi:10.1029/2008GL033674 (2008).
+
 \vspace{1mm}
 \item One could also adjust the planetary albedo, particularly in respect of looking to modify the pole-to-Equator temperature. In the \textbf{cookiegen} created configurations, there is an explicit 1D file specifying the zonal (with latitude) planetary albedo profile:
 \vspace{-1mm}\small\begin{verbatim}
 xxxxxxxx.albd.dat
 \end{verbatim}\normalsize\vspace{-1mm}
 where \texttt{xxxxxxxx} is the 8-character name of the \textbf{cookiegen} created World. It would be a simple matter of editing the values in the file (between the range of $0.0$ and $1.0$, for  perfectly absorbing, and perfectly reflective, respectively).\footnote{Best to make a copy of the original file before you modify it.} \uline{Note that the file data order is North-to-South (going from top to bottom in the file)}.
-\end{enumerate}
+
 \end{enumerate}
 
+\end{enumerate}
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent \textbf{Questions}:
+
+\begin{itemize}
+\vspace{1mm}
+\item If you 'cancel' out (maintain the same global mean SST or SAT) the effect of enhanced radiative forcing with a reduced solar constant (or \textit{vice versa}) (see: \textit{Lunt et al.} [2008]), is the global circulation more, or less vigorous (however you like to define that)? Why?
+\vspace{1mm}
+\item By changing the mean climate state -- is the deep ocean more, or less, ventilated under a warmer climate (\textit{vs.} cold)? \uline{Why}?
+\\For the same change in mean climate state, does it 'matter' (to global circulation) if you achieve this via radiative forcing vs. solar constant changes?
+\vspace{1mm}
+\item How does directly changing (via albedo) the Equator-to-Pole temperature gradient impact global ocean circulation? For the same change in Equator-to-Pole temperature gradient, does it matter if high latitude SST is invarient \textit{vs.} at low latitudes? (Note that simply decreasing albedo in the tropics will also warm the poles, so some trial-and-error adjustment of the albedo profile may be needed.)
+
+\end{itemize}
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
 %------------------------------------------------
 
 \subsection{Gateways and barotropic flow}
 
-The overarching question in the context of ocean gateways and barotropic flow, is a little harder to define succinctly; it has to do with the details of the degree of alignment (or not) of the prevailing wind (stress)
+The overarching question in the context of ocean gateways and barotropic flow, is a little harder to define succinctly -- it has to do with the details of the degree of alignment (or not) of the prevailing wind (stress)
 with  gateways, and the degree to which this give rise to strong zonal ocean flow. A good and obvious modern example is the existence of the Drake Passage, between the northern tip of the Antarctic Peninsular, and the southern tip of Souther America, how this aligns with the prevailing Westerlies in the Southern Hemisphere, and hence the nature and strength of the ACC (Antarctic Circumpolar Current).
 
 So the question naturally arises: how misaligned does a gateway have to be relative to the prevailing wind stress maximum, before the circumpolar (or circum-equatorial) flow ceases. What about having multiple gateways and their relative alignment, including what happens if one gateway is aligned with Westerly wind stress, and a second with Easterly wind stress -- who 'wins')? Also -- what about sill depths? For the Drake Passage, the ocean floor, while tectonically messy, is generally relatively deep. What happens to ocean circulation with a progressively shallow sill depth?
 
-%------------------------------------------------
-\newpage
-%------------------------------------------------
-
-The 3 key controls in this exercise are then:
+\noindent The 3 key controls in this exercise are then:
 \vspace{1mm}
 
 \begin{enumerate}
 \vspace{1mm}
 \item \textbf{Gateway alignment.}
 \vspace{1mm}
-\\The  alignment (or latitudinal correspondence) of a gateway with the maximum of the zonal wind stress.
+\\The alignment (or latitudinal correspondence) of a gateway with the maximum of the zonal wind stress.
 \vspace{1mm}
 \item \textbf{Gateway width.}
 \vspace{1mm}
@@ -252,21 +326,23 @@ The 3 key controls in this exercise are then:
 \end{enumerate}
 \vspace{2mm}
 
-There are a number of changes that can be made in the model to explore the importance (or not) of the 3 controls listed above:
+%------------------------------------------------
+\newpage
+%------------------------------------------------
+
+\noindent There are a number of changes that can be made in the model to explore the importance (or not) of the 3 controls listed above:
 \vspace{1mm}
 
 \begin{enumerate}
 \vspace{1mm}
 \item \textbf{Land-sea mask.}
 \vspace{1mm}
-\\The model knob is hence how the width and location of gateways has been defined in the land-sea mask. There is also the question of how many gateways (and their respective position).
-\\As before, this (creating or changing the continental configuration used by \textbf{cookie}) is all done using the \textbf{MATLAB} \textbf{cookiegen} program. Any of the given example \textbf{cookiegen} configurations: \textsf{\footnotesize drakeworld}, \textsf{\footnotesize eqpasworld}, \textsf{\footnotesize ridgeworld}, or \textsf{\footnotesize waterworld}, could be taken as starting points -- copying and renaming the configuration \textsf{\footnotesize .m} file, as well as the \textsf{\footnotesize .dat} file in the \textsf{\footnotesize INPUT} directory.
-Or start from scratch and a the 'blank' (initially all ocean) example configuration.\vspace{1mm}
-\\Note that a gap between 2 land masses must be \uline{2 or more cells wide}, to count as a gateway and allow barotropic flow in \textbf{cookiegen}).
+\\The model knob is hence how the width and location of gateways has been defined in the land-sea mask. There is also the question of how many gateways (and their respective position). Creating or changing the continental configuration is all done with \textbf{cookiegen}.
+\\You could start from scratch (\textsf{\footnotesize EXAMPLE\_BLANK}) and an initially all ocean pallet, or modify 'Drake World' \textsf{\footnotesize EXAMPLE\_MASK\_INPUT} and input mask file \textsf{\footnotesize wordrake.txt}).
 \vspace{1mm}
 \item \textbf{Ocean bathymetry.}
 \vspace{1mm}
-\\The bathymetry (ocean floor depth) can be changed to alter the sill depth. The easiest way to do this is probably within the \textbf{cookiegen} editor, ensuring the following input parameter setting is set:
+\\The bathymetry (ocean floor depth) can be changed to alter the sill depth. The easiest way to do this is via \textbf{cookiegen}, ensuring the following input parameter setting is set:
 \vspace{-1mm}\small\begin{verbatim}
 opt_user=true; % [false/true] enable user input to grid
 \end{verbatim}\normalsize\vspace{-1mm}
@@ -283,6 +359,23 @@ Somewhat bizarrely ... it appears twice ... with different parameter names. Both
 \vspace{1mm}
 \\Note that although this is the simplest change to make, it may not have such a clear scientific question associated with it (other than the obvious and trivial).
 \end{enumerate}
+
+%------------------------------------------------
+\vspace{1mm}\noindent\rule{4cm}{0.5pt}\vspace{2mm}
+%------------------------------------------------
+
+\noindent \textbf{Questions}:
+
+\begin{itemize}
+\vspace{1mm}
+\item How does gateway width affect circulation (here: the equivalent of the ACC)?
+\vspace{1mm}
+\item How does sill depth affect circulation?
+\vspace{1mm}
+\item How does the alignment (mean latitude) of the gateway affect circulation? What about if the center of the gateway is near, or at the Equator?
+\\Ideally, keep the gateway constant in width, although note that the equal area grid means that the 'real' width changes with latitude (so maybe this could also be explored).
+
+\end{itemize}
 
 %----------------------------------------------------------------------------------------
 %----------------------------------------------------------------------------------------
