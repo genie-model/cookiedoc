@@ -265,7 +265,7 @@ where \textsf{\footnotesize MYFORCING} is whatever you called the \textit{forcin
 \vspace{1mm} \noindent\rule{4cm}{0.1mm} \vspace{2mm}
 %------------------------------------------------
 
-\noindent The importance of the control experiment which you have already run, is that ‘accidents can happen’ and the global environmental changes induced by the massive fossil fuel \(CO_{2}\) release can obscure mistakes made in the experiment configuration (parameter values) and/or the \textit{re-start} used. The template experiment provided that you sued as a control -- \textsf{\footnotesize\ LAB.6.1.EXAMPLE} is designed to be \uline{identical} to that of the actual experiment itself (\textsf{\footnotesize LAB.5.1.emissions}) \uline{with the exception of} the scaling of the \(CO_{2}\) emissions, which is set to zero.\footnote{For completeness, the isotopic value of emitted $CO_{2}$ is also scaled to zero, but because there are no emissions in the control experiment, this does not actually achieve anything in practice.}  i.e.:
+\noindent The importance of the control experiment which you have already run, is that ‘accidents can happen’ and the global environmental changes induced by the massive fossil fuel \(CO_{2}\) release can obscure mistakes made in the experiment configuration (parameter values) and/or the \textit{re-start} used. Best practice for creating a control experiment is to take the actual experiment (copy+rename) and set the emissions to zero, i.e.:
 \vspace{-0pt}\small\begin{verbatim}
 bg_par_atm_force_scale_val_3=0.0
 \end{verbatim}\normalsize\vspace{-2pt}
@@ -302,6 +302,10 @@ for a total of \(1000 PgC\) is released over a single year. Now you should see s
 
 %------------------------------------------------
 \vspace{1mm} \noindent\rule{4cm}{0.1mm} \vspace{2mm}
+%------------------------------------------------
+
+%------------------------------------------------
+\newpage
 %------------------------------------------------
 
 \noindent You can control the shape of the emissions profile as well as its magnitude. Between the start and end ‘tags’ in the text \textit{forcing} file, the data is arranged into 2 columns: the first contains a series of tie-points for defining the timing of changes in emissions, and the 2nd column contains flux information (units of \(PgC yr^{-1}\) when scaled by the parameter parameter \texttt{bg\_par\_atm\_force\_scale\_val\_3} in the \textit{user-config}). At each time-step of the model, the \(CO_{2}\) flux to be applied to the atmosphere is interpolated between these time points.
@@ -343,7 +347,7 @@ To ramp up (over 10 years), and then down again (over 10 years), you would speci
 999999.9  0.0
 \end{verbatim}\normalsize\vspace{-2pt}
 
-Try making up a few 'shapes' (and hence different experiments), maybe for the same integrated/total emissions, explore the effect of different rates of rise/fall in the release rate. And/or for the same release rate and/or duration, explore the impact of different total emissions of \(CO_{2}\). Try and think in terms of hypotheses and formulate questions to guide your experimental design/configuration. (An alternative approach is to create random scenarios and in the analysis, fish for interesting patters that could lead to knowledge and/or specific questions to be tested further.)
+Try making up a few 'shapes' (and hence different experiments), maybe for the same integrated/total emissions, explore the effect of different rates of rise/fall in the release rate. And/or for the same release rate and/or duration, explore the impact of different total emissions of \(CO_{2}\). Try and think in terms of hypotheses and formulate questions to guide your experimental design/configuration.
 
 Note that you can either edit and re-use the same \textit{forcing} directory and name, modifying the file \textsf{\footnotesize biogem\_force\_flux\_atm\_pCO2\_sig.dat} each time but then losing an explicit record of how you might have set the emissions profile previously, or you can copy and rename the entire \textit{forcing} directory (and then edit \textsf{\footnotesize biogem\_force\_flux\_atm\_pCO2\_sig.dat}). If you copy and rename the entire \textit{forcing} directory, in the \textit{user-config}, you then need to specify this new forcing (directory) name, e.g.:
 \vspace{-2pt}\small\begin{verbatim}
@@ -377,7 +381,7 @@ bg_par_infile_sig_name=’save_timeseries_historicalfuture.dat’
 \end{verbatim}\normalsize\vspace{-2pt}
 specifies a series of time points at which data is saved that aligns with historically relevant years.\footnote{  These files: \textsf{save\_timeslice\_historicalfuture.dat} and \textsf{save\_timeseries\_historicalfuture.dat}live in the directory: \textsf{genie-biogem/data/input}, and can be edited to add or remove different years to save data at, or copied and renamed, with the new file-names substituted in the two \textit{user-config} parameter settings.}
 
-Copy and rename \textsf{\footnotesize LAB.6.1.3} to something more meaningful, e.g., \textsf{\footnotesize LAB.5.1.3.HIST}.
+Copy and rename \textsf{\footnotesize LAB.6.1.3} to something more meaningful, e.g., \textsf{\footnotesize LAB.6.1.3.HIST}.
 
 %------------------------------------------------
 \vspace{1mm}\noindent\rule{4cm}{0.1mm}\vspace{2mm}
@@ -385,7 +389,7 @@ Copy and rename \textsf{\footnotesize LAB.6.1.3} to something more meaningful, e
 
 \noindent Running a transient historically-forced experiment looks like this (\uline{all one line}!):
 \vspace{-2pt}\small\begin{verbatim}
-$ ./runcookie.sh cookie.CB.p_worjh2.rCARB LABS LAB.5.1.3.HIST 245
+$ ./runcookie.sh cookie.CB.p_worjh2.rCARB LABS LAB.6.1.3.HIST 245
    cookie.CB.p_worjh2.rCARB.SPIN
 \end{verbatim}\normalsize\vspace{-2pt}
 The \texttt{245} parameter value for experiment duration (years) arises on the basis of the start year being \(1765\) (as specified by \texttt{\small bg\_par\_misc\_t\_start=1765.0}) and to give an experiment end at year \(2010\).
@@ -449,9 +453,9 @@ bg_par_atm_force_scale_val_3=8.3333e+013
 \end{verbatim}\normalsize\vspace{-1mm}
 If you take \textit{user-config} \textsf{\footnotesize LAB.6.1.2} as a starting point, this parameter has already been set.
 
-You will want to run your experiment starting from the end of the historical transient experiment you have just run rather than the original steady-state \textit{re-start}:\footnote{Note that the \textit{user-config} \textsf{\footnotesize LAB.5.1.4.future } is not provided for you – you will need to create this (or a file named whatever you like) by copying e.g., \textsf{\footnotesize LAB.6.1.4.EXPT} and making the parameter changes described above (forcing specification parameter, emissions scaling parameter, and start year parameter).}
+You will want to run your experiment starting from the end of the historical transient experiment you have just run rather than the original steady-state \textit{re-start}:\footnote{Note that the \textit{user-config} \textsf{\footnotesize LAB.6.1.4.EXPT } is not provided for you – you will need to create this (or a file named whatever you like) by copying e.g., \textsf{\footnotesize LAB.6.1.1} and making the parameter changes described above (forcing specification parameter, emissions scaling parameter, and start year parameter).}
 \vspace{-1mm}\small\begin{verbatim}
-$ ./runcookie.sh cookie.CB.p_worjh2.rCARB LABS LAB.6.1.4.EXPT 90 LAB.5.1.3.HIST
+$ ./runcookie.sh cookie.CB.p_worjh2.rCARB LABS LAB.6.1.4.EXPT 90 LAB.6.1.3.HIST
 \end{verbatim}\normalsize\vspace{-1mm}
 To run for 90 years from 2010 to 2100 -- set the start year to the year that the previous historical transient finished on (\(2010\)):
 \vspace{-1mm}\small\begin{verbatim}
